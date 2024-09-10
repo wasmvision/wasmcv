@@ -2,7 +2,7 @@
 
 package main
 
-import "github.com/hybridgroup/wasmcv/components/tinygo/cv/wasm/cv/mat"
+import "github.com/hybridgroup/wasmcv/components/tinygo/wasm/cv/mat"
 
 //go:wasmimport hosted complete
 func complete()

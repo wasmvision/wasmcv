@@ -1,5 +1,7 @@
 github.com/bytecodealliance/wasm-tools-go v0.2.0 h1:JdmiZew7ewHjf+ZGGRE4gZM85Ad/PGW/5I57hepEOjQ=
 github.com/bytecodealliance/wasm-tools-go v0.2.0/go.mod h1:2GnJCUlcDrslZ/L6+yYqoUnewDlBvqRS2N/0NW9ro6w=
+github.com/hybridgroup/wasmcv/components/tinygo v0.0.0-20240910184555-10677ad4a295 h1:sZ6KCe5plSbIKqE5fI8lcHS/ZZ7CdtBsJpHIN1r0pME=
+github.com/hybridgroup/wasmcv/components/tinygo v0.0.0-20240910184555-10677ad4a295/go.mod h1:0+X6qOR7jPk9MS9T4fNdDo68BVF9ax8iMPHDBEzp/BY=
 github.com/hybridgroup/wasmcv/components/tinygo/cv v0.0.0-20240910175714-61558014142d h1:7Vy1tc5n5b+LyfMMQ4Jt2nx5zHk1Ziom2023VspaULs=
 github.com/hybridgroup/wasmcv/components/tinygo/cv v0.0.0-20240910175714-61558014142d/go.mod h1:UsDMnpAxG5AO2Nvp5OFtziJhjNCp01tAu4uLM1x6A0Y=
 github.com/hybridgroup/wasmcv/components/tinygo/cv v0.0.0-20240910181735-89bf7902ddee h1:oDPlOI7rADURcHPRak4YhOIc+sYMO5CsSFv2f2j6LD4=
