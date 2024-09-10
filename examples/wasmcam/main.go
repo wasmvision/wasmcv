@@ -29,7 +29,12 @@ func main() {
 	println("Defining host function...")
 	modules := wypes.Modules{
 		"hosted": wypes.Module{
+			"showInfo": wypes.H2(showFrameInfoFunc),
 			"complete": wypes.H0(completeFunc),
+		},
+		"wasm:cv/mat": wypes.Module{
+			"[method]mat.cols": wypes.H1(matColsFunc),
+			"[method]mat.rows": wypes.H1(matRowsFunc),
 		},
 	}
 
@@ -55,17 +60,17 @@ func main() {
 	defer webcam.Close()
 
 	// streaming, capture from webcam
-	buf := gocv.NewMat()
-	defer buf.Close()
+	frame = gocv.NewMat()
+	defer frame.Close()
 
 	fmt.Printf("Start reading device: %v\n", deviceID)
 	i := 0
 	for {
-		if ok := webcam.Read(&buf); !ok {
+		if ok := webcam.Read(&frame); !ok {
 			fmt.Printf("frame error %v\n", deviceID)
 			continue
 		}
-		if buf.Empty() {
+		if frame.Empty() {
 			continue
 		}
 
@@ -80,5 +85,10 @@ func main() {
 
 func completeFunc() wypes.Void {
 	println("frame complete")
+	return wypes.Void{}
+}
+
+func showFrameInfoFunc(cols, rows wypes.UInt32) wypes.Void {
+	println("cols: ", cols.Unwrap(), "rows: ", rows.Unwrap())
 	return wypes.Void{}
 }
