@@ -1,0 +1,23 @@
+package wasm:cv;
+/// mat resource is a matrix of bytes, wrapper around the cv::Mat type.
+///
+interface mat {
+    enum mattype {
+        cv8u,
+        cv8s,
+        cv16u,
+        cv16s,
+        cv32s,
+        cv32f,
+        cv64f,
+    }
+
+    resource mat {
+        constructor(cols: u32, rows: u32, %type: mattype);
+        close: func();
+        cols: func() -> u32;
+        rows: func() -> u32;
+        %type: func() -> mattype;
+        size: func() -> u32;
+    }
+}

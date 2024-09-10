@@ -1,0 +1,8 @@
+package wasm:cv;
+/// WASMCV is a WebAssembly module interface for computer vision.
+///
+world cv {
+    import mat;
+    
+    export mat;
+}
