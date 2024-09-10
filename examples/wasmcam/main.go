@@ -20,20 +20,16 @@ import (
 var processFrameWasm []byte
 
 func main() {
-	// Parse positional arguments.
 	flag.Parse()
 
-	// Choose the context to use for function calls.
 	ctx := context.Background()
-
-	// Create a new WebAssembly Runtime.
 	r := wazero.NewRuntime(ctx)
-	defer r.Close(ctx) // This closes everything this Runtime created.
+	defer r.Close(ctx)
 
 	println("Defining host function...")
 	modules := wypes.Modules{
 		"hosted": wypes.Module{
-			"pong": wypes.H0(pongFunc),
+			"complete": wypes.H0(completeFunc),
 		},
 	}
 
@@ -43,13 +39,11 @@ func main() {
 		return
 	}
 
-	// Instantiate the guest Wasm into the same runtime. It exports the `add`
-	// function, implemented in WebAssembly.
 	mod, err := r.Instantiate(ctx, processFrameWasm)
 	if err != nil {
 		log.Panicf("failed to instantiate module: %v", err)
 	}
-	ping := mod.ExportedFunction("ping")
+	process := mod.ExportedFunction("process")
 
 	// Open the webcam.
 	deviceID := "/dev/video0"
@@ -77,14 +71,14 @@ func main() {
 
 		i++
 		fmt.Printf("Read frame %d\n", i+1)
-		_, err := ping.Call(ctx)
+		_, err := process.Call(ctx, 0)
 		if err != nil {
-			fmt.Printf("Error calling ping: %v\n", err)
+			fmt.Printf("Error calling process: %v\n", err)
 		}
 	}
 }
 
-func pongFunc() wypes.Void {
-	println("pong")
+func completeFunc() wypes.Void {
+	println("frame complete")
 	return wypes.Void{}
 }
