@@ -2,12 +2,15 @@
 
 package main
 
-//go:wasmimport hosted pong
-func pong()
+import "github.com/hybridgroup/wasmcv/components/tinygo/cv/wasm/cv/mat"
 
-//go:export ping
-func ping() {
-	pong()
+//go:wasmimport hosted complete
+func complete()
+
+//go:export process
+func process(image mat.Mat) mat.Mat {
+	complete()
+	return image
 }
 
 func main() {}
