@@ -236,6 +236,49 @@ pub mod wasm {
 
   }
 }
+#[allow(dead_code)]
+pub mod exports {
+  #[allow(dead_code)]
+  pub mod wasm {
+    #[allow(dead_code)]
+    pub mod cv {
+      #[allow(dead_code, clippy::all)]
+      pub mod request {
+        #[used]
+        #[doc(hidden)]
+        static __FORCE_SECTION_REF: fn() =
+        super::super::super::super::__link_custom_section_describing_imports;
+        
+        use super::super::super::super::_rt;
+        pub type Mat = super::super::super::super::wasm::cv::mat::Mat;
+        #[doc(hidden)]
+        #[allow(non_snake_case)]
+        pub unsafe fn _export_process_cabi<T: Guest>(arg0: i32,) -> i32 {#[cfg(target_arch="wasm32")]
+        _rt::run_ctors_once();let result0 = T::process(super::super::super::super::wasm::cv::mat::Mat::from_handle(arg0 as u32));
+        (result0).take_handle() as i32
+      }
+      pub trait Guest {
+        fn process(image: Mat,) -> Mat;
+      }
+      #[doc(hidden)]
+
+      macro_rules! __export_wasm_cv_request_cabi{
+        ($ty:ident with_types_in $($path_to_types:tt)*) => (const _: () = {
+
+          #[export_name = "wasm:cv/request#process"]
+          unsafe extern "C" fn export_process(arg0: i32,) -> i32 {
+            $($path_to_types)*::_export_process_cabi::<$ty>(arg0)
+          }
+        };);
+      }
+      #[doc(hidden)]
+      pub(crate) use __export_wasm_cv_request_cabi;
+
+    }
+
+  }
+}
+}
 mod _rt {
 
 
@@ -403,22 +446,57 @@ mod _rt {
       self as i32
     }
   }
+  
+  #[cfg(target_arch = "wasm32")]
+  pub fn run_ctors_once() {
+    wit_bindgen::rt::run_ctors_once();
+  }
 }
+
+/// Generates `#[no_mangle]` functions to export the specified type as the
+/// root implementation of all generated traits.
+///
+/// For more information see the documentation of `wit_bindgen::generate!`.
+///
+/// ```rust
+/// # macro_rules! export{ ($($t:tt)*) => (); }
+/// # trait Guest {}
+/// struct MyType;
+///
+/// impl Guest for MyType {
+///     // ...
+/// }
+///
+/// export!(MyType);
+/// ```
+#[allow(unused_macros)]
+#[doc(hidden)]
+
+macro_rules! __export_cv_impl {
+  ($ty:ident) => (self::export!($ty with_types_in self););
+  ($ty:ident with_types_in $($path_to_types_root:tt)*) => (
+  $($path_to_types_root)*::exports::wasm::cv::request::__export_wasm_cv_request_cabi!($ty with_types_in $($path_to_types_root)*::exports::wasm::cv::request);
+  )
+}
+#[doc(inline)]
+pub(crate) use __export_cv_impl as export;
 
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.31.0:wasm:cv:cv:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 414] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xa5\x02\x01A\x02\x01\
-A\x02\x01B\x0f\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05cv16s\x05cv32s\x05cv32f\x05c\
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 486] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xed\x02\x01A\x02\x01\
+A\x05\x01B\x0f\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05cv16s\x05cv32s\x05cv32f\x05c\
 v64f\x04\0\x07mattype\x03\0\0\x04\0\x03mat\x03\x01\x01i\x02\x01@\x03\x04colsy\x04\
 rowsy\x04type\x01\0\x03\x04\0\x10[constructor]mat\x01\x04\x01h\x02\x01@\x01\x04s\
 elf\x05\x01\0\x04\0\x11[method]mat.close\x01\x06\x01@\x01\x04self\x05\0y\x04\0\x10\
 [method]mat.cols\x01\x07\x04\0\x10[method]mat.rows\x01\x07\x01@\x01\x04self\x05\0\
 \x01\x04\0\x10[method]mat.type\x01\x08\x04\0\x10[method]mat.size\x01\x07\x03\x01\
-\x0bwasm:cv/mat\x05\0\x04\x01\x0awasm:cv/cv\x04\0\x0b\x08\x01\0\x02cv\x03\0\0\0G\
-\x09producers\x01\x0cprocessed-by\x02\x0dwit-component\x070.216.0\x10wit-bindgen\
--rust\x060.31.0";
+\x0bwasm:cv/mat\x05\0\x02\x03\0\0\x03mat\x01B\x05\x02\x03\x02\x01\x01\x04\0\x03m\
+at\x03\0\0\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\0\x07process\x01\x03\x04\x01\
+\x0fwasm:cv/request\x05\x02\x04\x01\x0awasm:cv/cv\x04\0\x0b\x08\x01\0\x02cv\x03\0\
+\0\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-component\x070.216.0\x10wit-bi\
+ndgen-rust\x060.31.0";
 
 #[inline(never)]
 #[doc(hidden)]

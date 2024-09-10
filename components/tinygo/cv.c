@@ -22,6 +22,9 @@ extern int32_t __wasm_import_wasm_cv_mat_method_mat_type(int32_t);
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.size")))
 extern int32_t __wasm_import_wasm_cv_mat_method_mat_size(int32_t);
 
+// Exported Functions from `wasm:cv/request`
+
+
 // Canonical ABI intrinsics
 
 __attribute__((__weak__, __export_name__("cabi_realloc")))
@@ -75,6 +78,12 @@ wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_type(wasm_cv_mat_borrow_mat_t self)
 uint32_t wasm_cv_mat_method_mat_size(wasm_cv_mat_borrow_mat_t self) {
   int32_t ret = __wasm_import_wasm_cv_mat_method_mat_size((self).__handle);
   return (uint32_t) (ret);
+}
+
+__attribute__((__export_name__("wasm:cv/request#process")))
+int32_t __wasm_export_exports_wasm_cv_request_process(int32_t arg) {
+  exports_wasm_cv_request_own_mat_t ret = exports_wasm_cv_request_process((exports_wasm_cv_request_own_mat_t) { arg });
+  return (ret).__handle;
 }
 
 // Ensure that the *_component_type.o object is linked in

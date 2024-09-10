@@ -27,6 +27,8 @@ typedef struct wasm_cv_mat_borrow_mat_t {
   int32_t __handle;
 } wasm_cv_mat_borrow_mat_t;
 
+typedef wasm_cv_mat_own_mat_t exports_wasm_cv_request_own_mat_t;
+
 // Imported Functions from `wasm:cv/mat`
 extern wasm_cv_mat_own_mat_t wasm_cv_mat_constructor_mat(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t type);
 extern void wasm_cv_mat_method_mat_close(wasm_cv_mat_borrow_mat_t self);
@@ -34,6 +36,9 @@ extern uint32_t wasm_cv_mat_method_mat_cols(wasm_cv_mat_borrow_mat_t self);
 extern uint32_t wasm_cv_mat_method_mat_rows(wasm_cv_mat_borrow_mat_t self);
 extern wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_type(wasm_cv_mat_borrow_mat_t self);
 extern uint32_t wasm_cv_mat_method_mat_size(wasm_cv_mat_borrow_mat_t self);
+
+// Exported Functions from `wasm:cv/request`
+exports_wasm_cv_request_own_mat_t exports_wasm_cv_request_process(exports_wasm_cv_request_own_mat_t image);
 
 // Helper Functions
 

@@ -157,3 +157,24 @@ func (self WasmCvMatMat) Size() uint32 {
   return lift_ret
 }
 
+// Export functions from wasm:cv/request
+type ExportsWasmCvRequestMat = WasmCvMatMat
+var exports_wasm_cv_request ExportsWasmCvRequest = nil
+// `SetExportsWasmCvRequest` sets the `ExportsWasmCvRequest` interface implementation.
+// This function will need to be called by the init() function from the guest application.
+// It is expected to pass a guest implementation of the `ExportsWasmCvRequest` interface.
+func SetExportsWasmCvRequest(i ExportsWasmCvRequest) {
+  exports_wasm_cv_request = i
+}
+type ExportsWasmCvRequest interface {
+  Process(image ExportsWasmCvRequestMat) ExportsWasmCvRequestMat 
+}
+//export exports_wasm_cv_request_process
+func exportsWasmCvRequestProcess(image C.exports_wasm_cv_request_own_mat_t) C.exports_wasm_cv_request_own_mat_t {
+  lift_image := WasmCvMatMat(image.__handle)
+  result := exports_wasm_cv_request.Process(lift_image)
+  var lower_result C.wasm_cv_mat_own_mat_t
+  lower_result.__handle = C.int32_t(result)
+  return lower_result
+
+}
