@@ -15,7 +15,7 @@ https://github.com/bytecodealliance/wasm-tools-go
 ### TinyGo
 
 ```shell
-wit-bindgen-go generate --out ./components/tinygo/cv ./wit/
+wit-bindgen-go generate --out ./components/tinygo ./wit/
 ```
 
 ### Rust
