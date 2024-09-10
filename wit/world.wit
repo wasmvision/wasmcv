@@ -3,6 +3,4 @@ package wasm:cv;
 ///
 world cv {
     import mat;
-    
-    export mat;
 }
