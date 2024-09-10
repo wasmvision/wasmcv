@@ -4,53 +4,54 @@ package cv
 // #include "cv.h"
 // #include <stdlib.h>
 import "C"
+
 // Import functions from wasm:cv/mat
 type WasmCvMatMattypeKind int
 
 const (
-WasmCvMatMattypeKindCv8u WasmCvMatMattypeKind = iota
-WasmCvMatMattypeKindCv8s
-WasmCvMatMattypeKindCv16u
-WasmCvMatMattypeKindCv16s
-WasmCvMatMattypeKindCv32s
-WasmCvMatMattypeKindCv32f
-WasmCvMatMattypeKindCv64f
+	WasmCvMatMattypeKindCv8u WasmCvMatMattypeKind = iota
+	WasmCvMatMattypeKindCv8s
+	WasmCvMatMattypeKindCv16u
+	WasmCvMatMattypeKindCv16s
+	WasmCvMatMattypeKindCv32s
+	WasmCvMatMattypeKindCv32f
+	WasmCvMatMattypeKindCv64f
 )
 
 type WasmCvMatMattype struct {
-  kind WasmCvMatMattypeKind
+	kind WasmCvMatMattypeKind
 }
 
 func (n WasmCvMatMattype) Kind() WasmCvMatMattypeKind {
-  return n.kind
+	return n.kind
 }
 
-func WasmCvMatMattypeCv8u() WasmCvMatMattype{
-  return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv8u}
+func WasmCvMatMattypeCv8u() WasmCvMatMattype {
+	return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv8u}
 }
 
-func WasmCvMatMattypeCv8s() WasmCvMatMattype{
-  return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv8s}
+func WasmCvMatMattypeCv8s() WasmCvMatMattype {
+	return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv8s}
 }
 
-func WasmCvMatMattypeCv16u() WasmCvMatMattype{
-  return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv16u}
+func WasmCvMatMattypeCv16u() WasmCvMatMattype {
+	return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv16u}
 }
 
-func WasmCvMatMattypeCv16s() WasmCvMatMattype{
-  return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv16s}
+func WasmCvMatMattypeCv16s() WasmCvMatMattype {
+	return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv16s}
 }
 
-func WasmCvMatMattypeCv32s() WasmCvMatMattype{
-  return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv32s}
+func WasmCvMatMattypeCv32s() WasmCvMatMattype {
+	return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv32s}
 }
 
-func WasmCvMatMattypeCv32f() WasmCvMatMattype{
-  return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv32f}
+func WasmCvMatMattypeCv32f() WasmCvMatMattype {
+	return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv32f}
 }
 
-func WasmCvMatMattypeCv64f() WasmCvMatMattype{
-  return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv64f}
+func WasmCvMatMattypeCv64f() WasmCvMatMattype {
+	return WasmCvMatMattype{kind: WasmCvMatMattypeKindCv64f}
 }
 
 // WasmCvMatMat is a handle to imported resource mat
@@ -60,121 +61,125 @@ type WasmCvMatMat int32
 func _WasmCvMatMat_drop(self WasmCvMatMat)
 
 func (self WasmCvMatMat) Drop() {
-  _WasmCvMatMat_drop(self)
+	_WasmCvMatMat_drop(self)
 }
 
 func NewMat(cols uint32, rows uint32, _type WasmCvMatMattype) WasmCvMatMat {
-  lower_cols := C.uint32_t(cols)
-  lower_rows := C.uint32_t(rows)
-  var lower__type C.wasm_cv_mat_mattype_t
-  if _type.Kind() == WasmCvMatMattypeKindCv8u {
-    lower__type = 0
-  }
-  if _type.Kind() == WasmCvMatMattypeKindCv8s {
-    lower__type = 1
-  }
-  if _type.Kind() == WasmCvMatMattypeKindCv16u {
-    lower__type = 2
-  }
-  if _type.Kind() == WasmCvMatMattypeKindCv16s {
-    lower__type = 3
-  }
-  if _type.Kind() == WasmCvMatMattypeKindCv32s {
-    lower__type = 4
-  }
-  if _type.Kind() == WasmCvMatMattypeKindCv32f {
-    lower__type = 5
-  }
-  if _type.Kind() == WasmCvMatMattypeKindCv64f {
-    lower__type = 6
-  }
-  ret := C.wasm_cv_mat_constructor_mat(lower_cols , lower_rows , lower__type )
-  var lift_ret WasmCvMatMat
-  lift_ret = WasmCvMatMat(ret.__handle)
+	lower_cols := C.uint32_t(cols)
+	lower_rows := C.uint32_t(rows)
+	var lower__type C.wasm_cv_mat_mattype_t
+	if _type.Kind() == WasmCvMatMattypeKindCv8u {
+		lower__type = 0
+	}
+	if _type.Kind() == WasmCvMatMattypeKindCv8s {
+		lower__type = 1
+	}
+	if _type.Kind() == WasmCvMatMattypeKindCv16u {
+		lower__type = 2
+	}
+	if _type.Kind() == WasmCvMatMattypeKindCv16s {
+		lower__type = 3
+	}
+	if _type.Kind() == WasmCvMatMattypeKindCv32s {
+		lower__type = 4
+	}
+	if _type.Kind() == WasmCvMatMattypeKindCv32f {
+		lower__type = 5
+	}
+	if _type.Kind() == WasmCvMatMattypeKindCv64f {
+		lower__type = 6
+	}
+	ret := C.wasm_cv_mat_constructor_mat(lower_cols, lower_rows, lower__type)
+	var lift_ret WasmCvMatMat
+	lift_ret = WasmCvMatMat(ret.__handle)
 
-  return lift_ret
+	return lift_ret
 }
 
 func (self WasmCvMatMat) Close() {
-  var lower_self C.wasm_cv_mat_borrow_mat_t
-  lower_self.__handle = C.int32_t(self)
-  C.wasm_cv_mat_method_mat_close(lower_self )
+	var lower_self C.wasm_cv_mat_borrow_mat_t
+	lower_self.__handle = C.int32_t(self)
+	C.wasm_cv_mat_method_mat_close(lower_self)
 }
 
 func (self WasmCvMatMat) Cols() uint32 {
-  var lower_self C.wasm_cv_mat_borrow_mat_t
-  lower_self.__handle = C.int32_t(self)
-  ret := C.wasm_cv_mat_method_mat_cols(lower_self )
-  var lift_ret uint32
-  lift_ret = uint32(ret)
-  return lift_ret
+	var lower_self C.wasm_cv_mat_borrow_mat_t
+	lower_self.__handle = C.int32_t(self)
+	ret := C.wasm_cv_mat_method_mat_cols(lower_self)
+	var lift_ret uint32
+	lift_ret = uint32(ret)
+	return lift_ret
 }
 
 func (self WasmCvMatMat) Rows() uint32 {
-  var lower_self C.wasm_cv_mat_borrow_mat_t
-  lower_self.__handle = C.int32_t(self)
-  ret := C.wasm_cv_mat_method_mat_rows(lower_self )
-  var lift_ret uint32
-  lift_ret = uint32(ret)
-  return lift_ret
+	var lower_self C.wasm_cv_mat_borrow_mat_t
+	lower_self.__handle = C.int32_t(self)
+	ret := C.wasm_cv_mat_method_mat_rows(lower_self)
+	var lift_ret uint32
+	lift_ret = uint32(ret)
+	return lift_ret
 }
 
 func (self WasmCvMatMat) Type() WasmCvMatMattype {
-  var lower_self C.wasm_cv_mat_borrow_mat_t
-  lower_self.__handle = C.int32_t(self)
-  ret := C.wasm_cv_mat_method_mat_type(lower_self )
-  var lift_ret WasmCvMatMattype
-  if ret == 0 {
-    lift_ret = WasmCvMatMattypeCv8u()
-  }
-  if ret == 1 {
-    lift_ret = WasmCvMatMattypeCv8s()
-  }
-  if ret == 2 {
-    lift_ret = WasmCvMatMattypeCv16u()
-  }
-  if ret == 3 {
-    lift_ret = WasmCvMatMattypeCv16s()
-  }
-  if ret == 4 {
-    lift_ret = WasmCvMatMattypeCv32s()
-  }
-  if ret == 5 {
-    lift_ret = WasmCvMatMattypeCv32f()
-  }
-  if ret == 6 {
-    lift_ret = WasmCvMatMattypeCv64f()
-  }
-  return lift_ret
+	var lower_self C.wasm_cv_mat_borrow_mat_t
+	lower_self.__handle = C.int32_t(self)
+	ret := C.wasm_cv_mat_method_mat_type(lower_self)
+	var lift_ret WasmCvMatMattype
+	if ret == 0 {
+		lift_ret = WasmCvMatMattypeCv8u()
+	}
+	if ret == 1 {
+		lift_ret = WasmCvMatMattypeCv8s()
+	}
+	if ret == 2 {
+		lift_ret = WasmCvMatMattypeCv16u()
+	}
+	if ret == 3 {
+		lift_ret = WasmCvMatMattypeCv16s()
+	}
+	if ret == 4 {
+		lift_ret = WasmCvMatMattypeCv32s()
+	}
+	if ret == 5 {
+		lift_ret = WasmCvMatMattypeCv32f()
+	}
+	if ret == 6 {
+		lift_ret = WasmCvMatMattypeCv64f()
+	}
+	return lift_ret
 }
 
 func (self WasmCvMatMat) Size() uint32 {
-  var lower_self C.wasm_cv_mat_borrow_mat_t
-  lower_self.__handle = C.int32_t(self)
-  ret := C.wasm_cv_mat_method_mat_size(lower_self )
-  var lift_ret uint32
-  lift_ret = uint32(ret)
-  return lift_ret
+	var lower_self C.wasm_cv_mat_borrow_mat_t
+	lower_self.__handle = C.int32_t(self)
+	ret := C.wasm_cv_mat_method_mat_size(lower_self)
+	var lift_ret uint32
+	lift_ret = uint32(ret)
+	return lift_ret
 }
 
 // Export functions from wasm:cv/request
 type ExportsWasmCvRequestMat = WasmCvMatMat
+
 var exports_wasm_cv_request ExportsWasmCvRequest = nil
+
 // `SetExportsWasmCvRequest` sets the `ExportsWasmCvRequest` interface implementation.
 // This function will need to be called by the init() function from the guest application.
 // It is expected to pass a guest implementation of the `ExportsWasmCvRequest` interface.
 func SetExportsWasmCvRequest(i ExportsWasmCvRequest) {
-  exports_wasm_cv_request = i
+	exports_wasm_cv_request = i
 }
+
 type ExportsWasmCvRequest interface {
-  Process(image ExportsWasmCvRequestMat) ExportsWasmCvRequestMat 
+	Process(image ExportsWasmCvRequestMat) ExportsWasmCvRequestMat
 }
+
 //export exports_wasm_cv_request_process
 func exportsWasmCvRequestProcess(image C.exports_wasm_cv_request_own_mat_t) C.exports_wasm_cv_request_own_mat_t {
-  lift_image := WasmCvMatMat(image.__handle)
-  result := exports_wasm_cv_request.Process(lift_image)
-  var lower_result C.wasm_cv_mat_own_mat_t
-  lower_result.__handle = C.int32_t(result)
-  return lower_result
+	lift_image := WasmCvMatMat(image.__handle)
+	result := exports_wasm_cv_request.Process(lift_image)
+	var lower_result C.wasm_cv_mat_own_mat_t
+	lower_result.__handle = C.int32_t(result)
+	return lower_result
 
 }
