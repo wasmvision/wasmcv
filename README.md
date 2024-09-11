@@ -48,6 +48,8 @@ Note that the `wasm-unknown` target can be used with wasmCV to produce very ligh
 -rwxrwxr-x 1 ron ron 31248 sep 11 11:00 processor.wasm
 ```
 
+See the [wasmcam example application here](./examples/wasmcam) to give it a try.
+
 ## WASM Component Generation
 
 WASM Guest bindings are generated using `wit-bindgen` v0.31 or above
