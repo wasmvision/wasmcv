@@ -2,7 +2,15 @@ package wasm:cv;
 /// WASMCV is a WebAssembly module interface for computer vision.
 ///
 world cv {
+    import types;
     import mat;
+
+    use mat.{mat};
+    use types.{border-type, size};
+
+    // GaussianBlur blurs an image using a Gaussian filter.
+    // See https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
+    import gaussian-blur: func(input: mat, size: size, sigma-x: f32, sigma-y: f32, border: border-type) -> mat;
 
     export request;
 }

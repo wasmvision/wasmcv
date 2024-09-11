@@ -1,0 +1,19 @@
+package wasm:cv;
+
+interface types {
+    record size {
+        x: s32,
+        y: s32,
+    }
+
+    enum border-type {
+        border-constant,
+        border-replicate,
+        border-reflect,
+        border-wrap,
+        border-reflect101,
+        border-transparent,
+        border-default,
+        border-isolated,
+    }
+}
