@@ -9,6 +9,22 @@ extern "C" {
 #include <stdbool.h>
 #include <stddef.h>
 
+typedef struct wasm_cv_types_size_t {
+  int32_t   x;
+  int32_t   y;
+} wasm_cv_types_size_t;
+
+typedef uint8_t wasm_cv_types_border_type_t;
+
+#define WASM_CV_TYPES_BORDER_TYPE_BORDER_CONSTANT 0
+#define WASM_CV_TYPES_BORDER_TYPE_BORDER_REPLICATE 1
+#define WASM_CV_TYPES_BORDER_TYPE_BORDER_REFLECT 2
+#define WASM_CV_TYPES_BORDER_TYPE_BORDER_WRAP 3
+#define WASM_CV_TYPES_BORDER_TYPE_BORDER_REFLECT101 4
+#define WASM_CV_TYPES_BORDER_TYPE_BORDER_TRANSPARENT 5
+#define WASM_CV_TYPES_BORDER_TYPE_BORDER_DEFAULT 6
+#define WASM_CV_TYPES_BORDER_TYPE_BORDER_ISOLATED 7
+
 typedef uint8_t wasm_cv_mat_mattype_t;
 
 #define WASM_CV_MAT_MATTYPE_CV8U 0
@@ -27,6 +43,12 @@ typedef struct wasm_cv_mat_borrow_mat_t {
   int32_t __handle;
 } wasm_cv_mat_borrow_mat_t;
 
+typedef wasm_cv_types_border_type_t cv_border_type_t;
+
+typedef wasm_cv_types_size_t cv_size_t;
+
+typedef wasm_cv_mat_own_mat_t cv_own_mat_t;
+
 typedef wasm_cv_mat_own_mat_t exports_wasm_cv_request_own_mat_t;
 
 // Imported Functions from `wasm:cv/mat`
@@ -36,6 +58,11 @@ extern uint32_t wasm_cv_mat_method_mat_cols(wasm_cv_mat_borrow_mat_t self);
 extern uint32_t wasm_cv_mat_method_mat_rows(wasm_cv_mat_borrow_mat_t self);
 extern wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_type(wasm_cv_mat_borrow_mat_t self);
 extern uint32_t wasm_cv_mat_method_mat_size(wasm_cv_mat_borrow_mat_t self);
+
+// Imported Functions from `cv`
+// GaussianBlur blurs an image using a Gaussian filter.
+// See https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
+extern cv_own_mat_t cv_gaussian_blur(cv_own_mat_t input, cv_size_t *size, float sigma_x, float sigma_y, cv_border_type_t border);
 
 // Exported Functions from `wasm:cv/request`
 exports_wasm_cv_request_own_mat_t exports_wasm_cv_request_process(exports_wasm_cv_request_own_mat_t image);

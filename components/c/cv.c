@@ -22,6 +22,11 @@ extern int32_t __wasm_import_wasm_cv_mat_method_mat_type(int32_t);
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.size")))
 extern int32_t __wasm_import_wasm_cv_mat_method_mat_size(int32_t);
 
+// Imported Functions from `cv`
+
+__attribute__((__import_module__("$root"), __import_name__("gaussian-blur")))
+extern int32_t __wasm_import_cv_gaussian_blur(int32_t, int32_t, int32_t, float, float, int32_t);
+
 // Exported Functions from `wasm:cv/request`
 
 
@@ -78,6 +83,11 @@ wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_type(wasm_cv_mat_borrow_mat_t self)
 uint32_t wasm_cv_mat_method_mat_size(wasm_cv_mat_borrow_mat_t self) {
   int32_t ret = __wasm_import_wasm_cv_mat_method_mat_size((self).__handle);
   return (uint32_t) (ret);
+}
+
+cv_own_mat_t cv_gaussian_blur(cv_own_mat_t input, cv_size_t *size, float sigma_x, float sigma_y, cv_border_type_t border) {
+  int32_t ret = __wasm_import_cv_gaussian_blur((input).__handle, (*size).x, (*size).y, sigma_x, sigma_y, (int32_t) border);
+  return (cv_own_mat_t) { ret };
 }
 
 __attribute__((__export_name__("wasm:cv/request#process")))
