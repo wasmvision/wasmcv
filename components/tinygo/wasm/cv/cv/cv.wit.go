@@ -2,7 +2,7 @@
 
 // Package cv represents the world "wasm:cv/cv".
 //
-// WASMCV is a WebAssembly module interface for computer vision.
+// wasmCV is a WebAssembly guest module interface for computer vision based on OpenCV.
 package cv
 
 import (
@@ -11,26 +11,120 @@ import (
 	"github.com/hybridgroup/wasmcv/components/tinygo/wasm/cv/types"
 )
 
+// AdaptiveThreshold represents the imported function "adaptive-threshold".
+//
+// AdaptiveThreshold applies a fixed-level threshold to each array element.
+// For further details, please see:
+// https://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1b1b397736707afcde3
+//
+//	adaptive-threshold: func(src: mat, max-value: f32, adaptive-type: adaptive-threshold-type,
+//	threshold-type: threshold-type, block-size: u32, c: f32) -> mat
+//
+//go:nosplit
+func AdaptiveThreshold(src mat.Mat, maxValue float32, adaptiveType types.AdaptiveThresholdType, thresholdType types.ThresholdType, blockSize uint32, c float32) (result mat.Mat) {
+	src0 := cm.Reinterpret[uint32](src)
+	maxValue0 := (float32)(maxValue)
+	adaptiveType0 := (uint32)(adaptiveType)
+	thresholdType0 := (uint32)(thresholdType)
+	blockSize0 := (uint32)(blockSize)
+	c0 := (float32)(c)
+	result0 := wasmimport_AdaptiveThreshold((uint32)(src0), (float32)(maxValue0), (uint32)(adaptiveType0), (uint32)(thresholdType0), (uint32)(blockSize0), (float32)(c0))
+	result = cm.Reinterpret[mat.Mat]((uint32)(result0))
+	return
+}
+
+//go:wasmimport wasm:cv/cv adaptive-threshold
+//go:noescape
+func wasmimport_AdaptiveThreshold(src0 uint32, maxValue0 float32, adaptiveType0 uint32, thresholdType0 uint32, blockSize0 uint32, c0 float32) (result0 uint32)
+
+// Blur represents the imported function "blur".
+//
+// Blur blurs an image Mat using a normalized box filter.
+// For further details, please see:
+// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga8c45db9afe636703801b0b2e440fce37
+//
+//	blur: func(src: mat, k-size: size) -> mat
+//
+//go:nosplit
+func Blur(src mat.Mat, kSize types.Size) (result mat.Mat) {
+	src0 := cm.Reinterpret[uint32](src)
+	kSize0, kSize1 := lower_Size(kSize)
+	result0 := wasmimport_Blur((uint32)(src0), (uint32)(kSize0), (uint32)(kSize1))
+	result = cm.Reinterpret[mat.Mat]((uint32)(result0))
+	return
+}
+
+//go:wasmimport wasm:cv/cv blur
+//go:noescape
+func wasmimport_Blur(src0 uint32, kSize0 uint32, kSize1 uint32) (result0 uint32)
+
+// BoxFilter represents the imported function "box-filter".
+//
+// BoxFilter blurs an image using the box filter.
+// For further details, please see:
+// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gad533230ebf2d42509547d514f7d3fbc3
+//
+//	box-filter: func(src: mat, depth: u32, k-size: size) -> mat
+//
+//go:nosplit
+func BoxFilter(src mat.Mat, depth uint32, kSize types.Size) (result mat.Mat) {
+	src0 := cm.Reinterpret[uint32](src)
+	depth0 := (uint32)(depth)
+	kSize0, kSize1 := lower_Size(kSize)
+	result0 := wasmimport_BoxFilter((uint32)(src0), (uint32)(depth0), (uint32)(kSize0), (uint32)(kSize1))
+	result = cm.Reinterpret[mat.Mat]((uint32)(result0))
+	return
+}
+
+//go:wasmimport wasm:cv/cv box-filter
+//go:noescape
+func wasmimport_BoxFilter(src0 uint32, depth0 uint32, kSize0 uint32, kSize1 uint32) (result0 uint32)
+
 // GaussianBlur represents the imported function "gaussian-blur".
 //
 // GaussianBlur blurs an image using a Gaussian filter.
-// See https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
+// For further details, please see:
+// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
 //
-//	gaussian-blur: func(input: mat, size: size, sigma-x: f32, sigma-y: f32, border:
-//	border-type) -> mat
+//	gaussian-blur: func(src: mat, size: size, sigma-x: f32, sigma-y: f32, border: border-type)
+//	-> mat
 //
 //go:nosplit
-func GaussianBlur(input mat.Mat, size types.Size, sigmaX float32, sigmaY float32, border types.BorderType) (result mat.Mat) {
-	input0 := cm.Reinterpret[uint32](input)
+func GaussianBlur(src mat.Mat, size types.Size, sigmaX float32, sigmaY float32, border types.BorderType) (result mat.Mat) {
+	src0 := cm.Reinterpret[uint32](src)
 	size0, size1 := lower_Size(size)
 	sigmaX0 := (float32)(sigmaX)
 	sigmaY0 := (float32)(sigmaY)
 	border0 := (uint32)(border)
-	result0 := wasmimport_GaussianBlur((uint32)(input0), (uint32)(size0), (uint32)(size1), (float32)(sigmaX0), (float32)(sigmaY0), (uint32)(border0))
+	result0 := wasmimport_GaussianBlur((uint32)(src0), (uint32)(size0), (uint32)(size1), (float32)(sigmaX0), (float32)(sigmaY0), (uint32)(border0))
 	result = cm.Reinterpret[mat.Mat]((uint32)(result0))
 	return
 }
 
 //go:wasmimport wasm:cv/cv gaussian-blur
 //go:noescape
-func wasmimport_GaussianBlur(input0 uint32, size0 uint32, size1 uint32, sigmaX0 float32, sigmaY0 float32, border0 uint32) (result0 uint32)
+func wasmimport_GaussianBlur(src0 uint32, size0 uint32, size1 uint32, sigmaX0 float32, sigmaY0 float32, border0 uint32) (result0 uint32)
+
+// Threshold represents the imported function "threshold".
+//
+// Threshold applies a fixed-level threshold to each array element.
+// For further details, please see:
+// https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57
+//
+//	threshold: func(src: mat, thresh: f32, max-value: f32, threshold-type: threshold-type)
+//	-> mat
+//
+//go:nosplit
+func Threshold(src mat.Mat, thresh float32, maxValue float32, thresholdType types.ThresholdType) (result mat.Mat) {
+	src0 := cm.Reinterpret[uint32](src)
+	thresh0 := (float32)(thresh)
+	maxValue0 := (float32)(maxValue)
+	thresholdType0 := (uint32)(thresholdType)
+	result0 := wasmimport_Threshold((uint32)(src0), (float32)(thresh0), (float32)(maxValue0), (uint32)(thresholdType0))
+	result = cm.Reinterpret[mat.Mat]((uint32)(result0))
+	return
+}
+
+//go:wasmimport wasm:cv/cv threshold
+//go:noescape
+func wasmimport_Threshold(src0 uint32, thresh0 float32, maxValue0 float32, thresholdType0 uint32) (result0 uint32)

@@ -24,8 +24,20 @@ extern int32_t __wasm_import_wasm_cv_mat_method_mat_size(int32_t);
 
 // Imported Functions from `cv`
 
+__attribute__((__import_module__("$root"), __import_name__("adaptive-threshold")))
+extern int32_t __wasm_import_cv_adaptive_threshold(int32_t, float, int32_t, int32_t, int32_t, float);
+
+__attribute__((__import_module__("$root"), __import_name__("blur")))
+extern int32_t __wasm_import_cv_blur(int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("$root"), __import_name__("box-filter")))
+extern int32_t __wasm_import_cv_box_filter(int32_t, int32_t, int32_t, int32_t);
+
 __attribute__((__import_module__("$root"), __import_name__("gaussian-blur")))
 extern int32_t __wasm_import_cv_gaussian_blur(int32_t, int32_t, int32_t, float, float, int32_t);
+
+__attribute__((__import_module__("$root"), __import_name__("threshold")))
+extern int32_t __wasm_import_cv_threshold(int32_t, float, float, int32_t);
 
 // Exported Functions from `wasm:cv/request`
 
@@ -85,8 +97,28 @@ uint32_t wasm_cv_mat_method_mat_size(wasm_cv_mat_borrow_mat_t self) {
   return (uint32_t) (ret);
 }
 
-cv_own_mat_t cv_gaussian_blur(cv_own_mat_t input, cv_size_t *size, float sigma_x, float sigma_y, cv_border_type_t border) {
-  int32_t ret = __wasm_import_cv_gaussian_blur((input).__handle, (*size).x, (*size).y, sigma_x, sigma_y, (int32_t) border);
+cv_own_mat_t cv_adaptive_threshold(cv_own_mat_t src, float max_value, cv_adaptive_threshold_type_t adaptive_type, cv_threshold_type_t threshold_type, uint32_t block_size, float c) {
+  int32_t ret = __wasm_import_cv_adaptive_threshold((src).__handle, max_value, (int32_t) adaptive_type, (int32_t) threshold_type, (int32_t) (block_size), c);
+  return (cv_own_mat_t) { ret };
+}
+
+cv_own_mat_t cv_blur(cv_own_mat_t src, cv_size_t *k_size) {
+  int32_t ret = __wasm_import_cv_blur((src).__handle, (*k_size).x, (*k_size).y);
+  return (cv_own_mat_t) { ret };
+}
+
+cv_own_mat_t cv_box_filter(cv_own_mat_t src, uint32_t depth, cv_size_t *k_size) {
+  int32_t ret = __wasm_import_cv_box_filter((src).__handle, (int32_t) (depth), (*k_size).x, (*k_size).y);
+  return (cv_own_mat_t) { ret };
+}
+
+cv_own_mat_t cv_gaussian_blur(cv_own_mat_t src, cv_size_t *size, float sigma_x, float sigma_y, cv_border_type_t border) {
+  int32_t ret = __wasm_import_cv_gaussian_blur((src).__handle, (*size).x, (*size).y, sigma_x, sigma_y, (int32_t) border);
+  return (cv_own_mat_t) { ret };
+}
+
+cv_own_mat_t cv_threshold(cv_own_mat_t src, float thresh, float max_value, cv_threshold_type_t threshold_type) {
+  int32_t ret = __wasm_import_cv_threshold((src).__handle, thresh, max_value, (int32_t) threshold_type);
   return (cv_own_mat_t) { ret };
 }
 

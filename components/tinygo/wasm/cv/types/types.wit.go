@@ -54,3 +54,67 @@ var stringsBorderType = [8]string{
 func (e BorderType) String() string {
 	return stringsBorderType[e]
 }
+
+// AdaptiveThresholdType represents the enum "wasm:cv/types#adaptive-threshold-type".
+//
+//	enum adaptive-threshold-type {
+//		adaptive-threshold-mean,
+//		adaptive-threshold-gaussian
+//	}
+type AdaptiveThresholdType uint8
+
+const (
+	AdaptiveThresholdTypeAdaptiveThresholdMean AdaptiveThresholdType = iota
+	AdaptiveThresholdTypeAdaptiveThresholdGaussian
+)
+
+var stringsAdaptiveThresholdType = [2]string{
+	"adaptive-threshold-mean",
+	"adaptive-threshold-gaussian",
+}
+
+// String implements [fmt.Stringer], returning the enum case name of e.
+func (e AdaptiveThresholdType) String() string {
+	return stringsAdaptiveThresholdType[e]
+}
+
+// ThresholdType represents the enum "wasm:cv/types#threshold-type".
+//
+//	enum threshold-type {
+//		threshold-binary,
+//		threshold-binary-inv,
+//		threshold-trunc,
+//		threshold-to-zero,
+//		threshold-to-zero-inv,
+//		threshold-mask,
+//		threshold-otsu,
+//		tthreshold-triangle
+//	}
+type ThresholdType uint8
+
+const (
+	ThresholdTypeThresholdBinary ThresholdType = iota
+	ThresholdTypeThresholdBinaryInv
+	ThresholdTypeThresholdTrunc
+	ThresholdTypeThresholdToZero
+	ThresholdTypeThresholdToZeroInv
+	ThresholdTypeThresholdMask
+	ThresholdTypeThresholdOtsu
+	ThresholdTypeTthresholdTriangle
+)
+
+var stringsThresholdType = [8]string{
+	"threshold-binary",
+	"threshold-binary-inv",
+	"threshold-trunc",
+	"threshold-to-zero",
+	"threshold-to-zero-inv",
+	"threshold-mask",
+	"threshold-otsu",
+	"tthreshold-triangle",
+}
+
+// String implements [fmt.Stringer], returning the enum case name of e.
+func (e ThresholdType) String() string {
+	return stringsThresholdType[e]
+}

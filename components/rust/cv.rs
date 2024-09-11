@@ -3,10 +3,75 @@
 pub type Mat = wasm::cv::mat::Mat;
 pub type BorderType = wasm::cv::types::BorderType;
 pub type Size = wasm::cv::types::Size;
+pub type AdaptiveThresholdType = wasm::cv::types::AdaptiveThresholdType;
+pub type ThresholdType = wasm::cv::types::ThresholdType;
+#[allow(unused_unsafe, clippy::all)]
+/// AdaptiveThreshold applies a fixed-level threshold to each array element.
+/// For further details, please see:
+/// https://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1b1b397736707afcde3
+pub fn adaptive_threshold(src: Mat,max_value: f32,adaptive_type: AdaptiveThresholdType,threshold_type: ThresholdType,block_size: u32,c: f32,) -> Mat{
+  unsafe {
+
+    #[cfg(target_arch = "wasm32")]
+    #[link(wasm_import_module = "$root")]
+    extern "C" {
+      #[link_name = "adaptive-threshold"]
+      fn wit_import(_: i32, _: f32, _: i32, _: i32, _: i32, _: f32, ) -> i32;
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    fn wit_import(_: i32, _: f32, _: i32, _: i32, _: i32, _: f32, ) -> i32{ unreachable!() }
+    let ret = wit_import((&src).take_handle() as i32, _rt::as_f32(&max_value), adaptive_type.clone() as i32, threshold_type.clone() as i32, _rt::as_i32(&block_size), _rt::as_f32(&c));
+    wasm::cv::mat::Mat::from_handle(ret as u32)
+  }
+}
+#[allow(unused_unsafe, clippy::all)]
+/// Blur blurs an image Mat using a normalized box filter.
+/// For further details, please see:
+/// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga8c45db9afe636703801b0b2e440fce37
+pub fn blur(src: Mat,k_size: Size,) -> Mat{
+  unsafe {
+    let wasm::cv::types::Size{ x:x0, y:y0, } = k_size;
+
+    #[cfg(target_arch = "wasm32")]
+    #[link(wasm_import_module = "$root")]
+    extern "C" {
+      #[link_name = "blur"]
+      fn wit_import(_: i32, _: i32, _: i32, ) -> i32;
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    fn wit_import(_: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+    let ret = wit_import((&src).take_handle() as i32, _rt::as_i32(x0), _rt::as_i32(y0));
+    wasm::cv::mat::Mat::from_handle(ret as u32)
+  }
+}
+#[allow(unused_unsafe, clippy::all)]
+/// BoxFilter blurs an image using the box filter.
+/// For further details, please see:
+/// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gad533230ebf2d42509547d514f7d3fbc3
+pub fn box_filter(src: Mat,depth: u32,k_size: Size,) -> Mat{
+  unsafe {
+    let wasm::cv::types::Size{ x:x0, y:y0, } = k_size;
+
+    #[cfg(target_arch = "wasm32")]
+    #[link(wasm_import_module = "$root")]
+    extern "C" {
+      #[link_name = "box-filter"]
+      fn wit_import(_: i32, _: i32, _: i32, _: i32, ) -> i32;
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    fn wit_import(_: i32, _: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+    let ret = wit_import((&src).take_handle() as i32, _rt::as_i32(&depth), _rt::as_i32(x0), _rt::as_i32(y0));
+    wasm::cv::mat::Mat::from_handle(ret as u32)
+  }
+}
 #[allow(unused_unsafe, clippy::all)]
 /// GaussianBlur blurs an image using a Gaussian filter.
-/// See https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
-pub fn gaussian_blur(input: Mat,size: Size,sigma_x: f32,sigma_y: f32,border: BorderType,) -> Mat{
+/// For further details, please see:
+/// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
+pub fn gaussian_blur(src: Mat,size: Size,sigma_x: f32,sigma_y: f32,border: BorderType,) -> Mat{
   unsafe {
     let wasm::cv::types::Size{ x:x0, y:y0, } = size;
 
@@ -19,7 +84,27 @@ pub fn gaussian_blur(input: Mat,size: Size,sigma_x: f32,sigma_y: f32,border: Bor
 
     #[cfg(not(target_arch = "wasm32"))]
     fn wit_import(_: i32, _: i32, _: i32, _: f32, _: f32, _: i32, ) -> i32{ unreachable!() }
-    let ret = wit_import((&input).take_handle() as i32, _rt::as_i32(x0), _rt::as_i32(y0), _rt::as_f32(&sigma_x), _rt::as_f32(&sigma_y), border.clone() as i32);
+    let ret = wit_import((&src).take_handle() as i32, _rt::as_i32(x0), _rt::as_i32(y0), _rt::as_f32(&sigma_x), _rt::as_f32(&sigma_y), border.clone() as i32);
+    wasm::cv::mat::Mat::from_handle(ret as u32)
+  }
+}
+#[allow(unused_unsafe, clippy::all)]
+/// Threshold applies a fixed-level threshold to each array element.
+/// For further details, please see:
+/// https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57
+pub fn threshold(src: Mat,thresh: f32,max_value: f32,threshold_type: ThresholdType,) -> Mat{
+  unsafe {
+
+    #[cfg(target_arch = "wasm32")]
+    #[link(wasm_import_module = "$root")]
+    extern "C" {
+      #[link_name = "threshold"]
+      fn wit_import(_: i32, _: f32, _: f32, _: i32, ) -> i32;
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    fn wit_import(_: i32, _: f32, _: f32, _: i32, ) -> i32{ unreachable!() }
+    let ret = wit_import((&src).take_handle() as i32, _rt::as_f32(&thresh), _rt::as_f32(&max_value), threshold_type.clone() as i32);
     wasm::cv::mat::Mat::from_handle(ret as u32)
   }
 }
@@ -104,6 +189,106 @@ pub mod wasm {
             5 => BorderType::BorderTransparent,
             6 => BorderType::BorderDefault,
             7 => BorderType::BorderIsolated,
+
+            _ => panic!("invalid enum discriminant"),
+          }
+        }
+      }
+
+      #[repr(u8)]
+      #[derive(Clone, Copy, Eq, Ord, PartialEq, PartialOrd)]
+      pub enum AdaptiveThresholdType {
+        AdaptiveThresholdMean,
+        AdaptiveThresholdGaussian,
+      }
+      impl ::core::fmt::Debug for AdaptiveThresholdType {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          match self {
+            AdaptiveThresholdType::AdaptiveThresholdMean => {
+              f.debug_tuple("AdaptiveThresholdType::AdaptiveThresholdMean").finish()
+            }
+            AdaptiveThresholdType::AdaptiveThresholdGaussian => {
+              f.debug_tuple("AdaptiveThresholdType::AdaptiveThresholdGaussian").finish()
+            }
+          }
+        }
+      }
+
+      impl AdaptiveThresholdType{
+        #[doc(hidden)]
+        pub unsafe fn _lift(val: u8) -> AdaptiveThresholdType{
+          if !cfg!(debug_assertions) {
+            return ::core::mem::transmute(val);
+          }
+
+          match val {
+            0 => AdaptiveThresholdType::AdaptiveThresholdMean,
+            1 => AdaptiveThresholdType::AdaptiveThresholdGaussian,
+
+            _ => panic!("invalid enum discriminant"),
+          }
+        }
+      }
+
+      #[repr(u8)]
+      #[derive(Clone, Copy, Eq, Ord, PartialEq, PartialOrd)]
+      pub enum ThresholdType {
+        ThresholdBinary,
+        ThresholdBinaryInv,
+        ThresholdTrunc,
+        ThresholdToZero,
+        ThresholdToZeroInv,
+        ThresholdMask,
+        ThresholdOtsu,
+        TthresholdTriangle,
+      }
+      impl ::core::fmt::Debug for ThresholdType {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          match self {
+            ThresholdType::ThresholdBinary => {
+              f.debug_tuple("ThresholdType::ThresholdBinary").finish()
+            }
+            ThresholdType::ThresholdBinaryInv => {
+              f.debug_tuple("ThresholdType::ThresholdBinaryInv").finish()
+            }
+            ThresholdType::ThresholdTrunc => {
+              f.debug_tuple("ThresholdType::ThresholdTrunc").finish()
+            }
+            ThresholdType::ThresholdToZero => {
+              f.debug_tuple("ThresholdType::ThresholdToZero").finish()
+            }
+            ThresholdType::ThresholdToZeroInv => {
+              f.debug_tuple("ThresholdType::ThresholdToZeroInv").finish()
+            }
+            ThresholdType::ThresholdMask => {
+              f.debug_tuple("ThresholdType::ThresholdMask").finish()
+            }
+            ThresholdType::ThresholdOtsu => {
+              f.debug_tuple("ThresholdType::ThresholdOtsu").finish()
+            }
+            ThresholdType::TthresholdTriangle => {
+              f.debug_tuple("ThresholdType::TthresholdTriangle").finish()
+            }
+          }
+        }
+      }
+
+      impl ThresholdType{
+        #[doc(hidden)]
+        pub unsafe fn _lift(val: u8) -> ThresholdType{
+          if !cfg!(debug_assertions) {
+            return ::core::mem::transmute(val);
+          }
+
+          match val {
+            0 => ThresholdType::ThresholdBinary,
+            1 => ThresholdType::ThresholdBinaryInv,
+            2 => ThresholdType::ThresholdTrunc,
+            3 => ThresholdType::ThresholdToZero,
+            4 => ThresholdType::ThresholdToZeroInv,
+            5 => ThresholdType::ThresholdMask,
+            6 => ThresholdType::ThresholdOtsu,
+            7 => ThresholdType::TthresholdTriangle,
 
             _ => panic!("invalid enum discriminant"),
           }
@@ -614,25 +799,36 @@ pub(crate) use __export_cv_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.31.0:wasm:cv:cv:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 800] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xa7\x05\x01A\x02\x01\
-A\x0f\x01B\x04\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x01m\x08\x0fborder-con\
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 1361] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xd8\x09\x01A\x02\x01\
+A\x1b\x01B\x08\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x01m\x08\x0fborder-con\
 stant\x10border-replicate\x0eborder-reflect\x0bborder-wrap\x11border-reflect101\x12\
 border-transparent\x0eborder-default\x0fborder-isolated\x04\0\x0bborder-type\x03\
-\0\x02\x03\x01\x0dwasm:cv/types\x05\0\x01B\x0f\x01m\x07\x04cv8u\x04cv8s\x05cv16u\
-\x05cv16s\x05cv32s\x05cv32f\x05cv64f\x04\0\x07mattype\x03\0\0\x04\0\x03mat\x03\x01\
-\x01i\x02\x01@\x03\x04colsy\x04rowsy\x04type\x01\0\x03\x04\0\x10[constructor]mat\
-\x01\x04\x01h\x02\x01@\x01\x04self\x05\x01\0\x04\0\x11[method]mat.close\x01\x06\x01\
-@\x01\x04self\x05\0y\x04\0\x10[method]mat.cols\x01\x07\x04\0\x10[method]mat.rows\
-\x01\x07\x01@\x01\x04self\x05\0\x01\x04\0\x10[method]mat.type\x01\x08\x04\0\x10[\
-method]mat.size\x01\x07\x03\x01\x0bwasm:cv/mat\x05\x01\x02\x03\0\x01\x03mat\x03\0\
-\x03mat\x03\0\x02\x02\x03\0\0\x0bborder-type\x03\0\x0bborder-type\x03\0\x04\x02\x03\
-\0\0\x04size\x03\0\x04size\x03\0\x06\x01i\x03\x01@\x05\x05input\x08\x04size\x07\x07\
-sigma-xv\x07sigma-yv\x06border\x05\0\x08\x03\0\x0dgaussian-blur\x01\x09\x01B\x05\
-\x02\x03\x02\x01\x02\x04\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\
-\0\x07process\x01\x03\x04\x01\x0fwasm:cv/request\x05\x0a\x04\x01\x0awasm:cv/cv\x04\
-\0\x0b\x08\x01\0\x02cv\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-co\
-mponent\x070.216.0\x10wit-bindgen-rust\x060.31.0";
+\0\x02\x01m\x02\x17adaptive-threshold-mean\x1badaptive-threshold-gaussian\x04\0\x17\
+adaptive-threshold-type\x03\0\x04\x01m\x08\x10threshold-binary\x14threshold-bina\
+ry-inv\x0fthreshold-trunc\x11threshold-to-zero\x15threshold-to-zero-inv\x0ethres\
+hold-mask\x0ethreshold-otsu\x13tthreshold-triangle\x04\0\x0ethreshold-type\x03\0\
+\x06\x03\x01\x0dwasm:cv/types\x05\0\x01B\x0f\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05\
+cv16s\x05cv32s\x05cv32f\x05cv64f\x04\0\x07mattype\x03\0\0\x04\0\x03mat\x03\x01\x01\
+i\x02\x01@\x03\x04colsy\x04rowsy\x04type\x01\0\x03\x04\0\x10[constructor]mat\x01\
+\x04\x01h\x02\x01@\x01\x04self\x05\x01\0\x04\0\x11[method]mat.close\x01\x06\x01@\
+\x01\x04self\x05\0y\x04\0\x10[method]mat.cols\x01\x07\x04\0\x10[method]mat.rows\x01\
+\x07\x01@\x01\x04self\x05\0\x01\x04\0\x10[method]mat.type\x01\x08\x04\0\x10[meth\
+od]mat.size\x01\x07\x03\x01\x0bwasm:cv/mat\x05\x01\x02\x03\0\x01\x03mat\x03\0\x03\
+mat\x03\0\x02\x02\x03\0\0\x0bborder-type\x03\0\x0bborder-type\x03\0\x04\x02\x03\0\
+\0\x04size\x03\0\x04size\x03\0\x06\x02\x03\0\0\x17adaptive-threshold-type\x03\0\x17\
+adaptive-threshold-type\x03\0\x08\x02\x03\0\0\x0ethreshold-type\x03\0\x0ethresho\
+ld-type\x03\0\x0a\x01i\x03\x01@\x06\x03src\x0c\x09max-valuev\x0dadaptive-type\x09\
+\x0ethreshold-type\x0b\x0ablock-sizey\x01cv\0\x0c\x03\0\x12adaptive-threshold\x01\
+\x0d\x01@\x02\x03src\x0c\x06k-size\x07\0\x0c\x03\0\x04blur\x01\x0e\x01@\x03\x03s\
+rc\x0c\x05depthy\x06k-size\x07\0\x0c\x03\0\x0abox-filter\x01\x0f\x01@\x05\x03src\
+\x0c\x04size\x07\x07sigma-xv\x07sigma-yv\x06border\x05\0\x0c\x03\0\x0dgaussian-b\
+lur\x01\x10\x01@\x04\x03src\x0c\x06threshv\x09max-valuev\x0ethreshold-type\x0b\0\
+\x0c\x03\0\x09threshold\x01\x11\x01B\x05\x02\x03\x02\x01\x02\x04\0\x03mat\x03\0\0\
+\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\0\x07process\x01\x03\x04\x01\x0fwasm:c\
+v/request\x05\x12\x04\x01\x0awasm:cv/cv\x04\0\x0b\x08\x01\0\x02cv\x03\0\0\0G\x09\
+producers\x01\x0cprocessed-by\x02\x0dwit-component\x070.216.0\x10wit-bindgen-rus\
+t\x060.31.0";
 
 #[inline(never)]
 #[doc(hidden)]
