@@ -2,11 +2,5 @@ github.com/bytecodealliance/wasm-tools-go v0.2.0 h1:JdmiZew7ewHjf+ZGGRE4gZM85Ad/
 github.com/bytecodealliance/wasm-tools-go v0.2.0/go.mod h1:2GnJCUlcDrslZ/L6+yYqoUnewDlBvqRS2N/0NW9ro6w=
 github.com/hybridgroup/mechanoid v0.2.0 h1:2Kg3c0cK9JK8ZeJkiN+l2o4B0QJYnNHkNEKraMFOugQ=
 github.com/hybridgroup/mechanoid v0.2.0/go.mod h1:7jQEJ0blXXbIcqmu2/d7vSxWL5Dxbt18zZirJ35OeXc=
-github.com/hybridgroup/wasmcv/components/tinygo v0.0.0-20240910184555-10677ad4a295 h1:sZ6KCe5plSbIKqE5fI8lcHS/ZZ7CdtBsJpHIN1r0pME=
-github.com/hybridgroup/wasmcv/components/tinygo v0.0.0-20240910184555-10677ad4a295/go.mod h1:0+X6qOR7jPk9MS9T4fNdDo68BVF9ax8iMPHDBEzp/BY=
-github.com/hybridgroup/wasmcv/components/tinygo v0.0.0-20240911164057-7a514878dc4a h1:k+Wm5+jfYJNajILnQAOvAOdQhBqfY1w922HapLf6BJY=
-github.com/hybridgroup/wasmcv/components/tinygo v0.0.0-20240911164057-7a514878dc4a/go.mod h1:0+X6qOR7jPk9MS9T4fNdDo68BVF9ax8iMPHDBEzp/BY=
-github.com/hybridgroup/wasmcv/components/tinygo/cv v0.0.0-20240910175714-61558014142d h1:7Vy1tc5n5b+LyfMMQ4Jt2nx5zHk1Ziom2023VspaULs=
-github.com/hybridgroup/wasmcv/components/tinygo/cv v0.0.0-20240910175714-61558014142d/go.mod h1:UsDMnpAxG5AO2Nvp5OFtziJhjNCp01tAu4uLM1x6A0Y=
-github.com/hybridgroup/wasmcv/components/tinygo/cv v0.0.0-20240910181735-89bf7902ddee h1:oDPlOI7rADURcHPRak4YhOIc+sYMO5CsSFv2f2j6LD4=
-github.com/hybridgroup/wasmcv/components/tinygo/cv v0.0.0-20240910181735-89bf7902ddee/go.mod h1:UsDMnpAxG5AO2Nvp5OFtziJhjNCp01tAu4uLM1x6A0Y=
+github.com/hybridgroup/wasmcv/components/tinygo v0.0.0-20240911181650-ed659837bdb2 h1:/IiW6I3gkFzzex1nMISPFQNWdRUNbgw+/+H21Y3WXyc=
+github.com/hybridgroup/wasmcv/components/tinygo v0.0.0-20240911181650-ed659837bdb2/go.mod h1:0+X6qOR7jPk9MS9T4fNdDo68BVF9ax8iMPHDBEzp/BY=
