@@ -16,4 +16,20 @@ interface types {
         border-default,
         border-isolated,
     }
+
+    enum adaptive-threshold-type {
+        adaptive-threshold-mean,
+        adaptive-threshold-gaussian,
+    }
+    
+    enum threshold-type {
+        threshold-binary,
+        threshold-binary-inv,
+        threshold-trunc,
+        threshold-to-zero,
+        threshold-to-zero-inv,
+        threshold-mask,
+        threshold-otsu,
+        tthreshold-triangle,
+    }
 }

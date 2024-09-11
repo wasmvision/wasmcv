@@ -1,16 +1,37 @@
 package wasm:cv;
-/// WASMCV is a WebAssembly module interface for computer vision.
+/// wasmCV is a WebAssembly guest module interface for computer vision based on OpenCV.
 ///
 world cv {
     import types;
     import mat;
 
     use mat.{mat};
-    use types.{border-type, size};
+    use types.{border-type, size, adaptive-threshold-type, threshold-type};
+
+    // AdaptiveThreshold applies a fixed-level threshold to each array element.
+    // For further details, please see: 
+    // https://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1b1b397736707afcde3
+    import adaptive-threshold: func(src: mat, max-value: f32, adaptive-type: adaptive-threshold-type, threshold-type: threshold-type, block-size: u32, c: f32) -> mat;
+
+    // Blur blurs an image Mat using a normalized box filter.
+    // For further details, please see:
+    // https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga8c45db9afe636703801b0b2e440fce37
+    import blur: func(src: mat, k-size: size) -> mat;
+
+    // BoxFilter blurs an image using the box filter.
+    // For further details, please see:
+    // https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gad533230ebf2d42509547d514f7d3fbc3
+    import box-filter: func(src: mat, depth: u32, k-size: size) -> mat;
 
     // GaussianBlur blurs an image using a Gaussian filter.
-    // See https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
-    import gaussian-blur: func(input: mat, size: size, sigma-x: f32, sigma-y: f32, border: border-type) -> mat;
+    // For further details, please see:
+    // https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
+    import gaussian-blur: func(src: mat, size: size, sigma-x: f32, sigma-y: f32, border: border-type) -> mat;
+
+    // Threshold applies a fixed-level threshold to each array element.
+    // For further details, please see:
+    // https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57
+    import threshold: func(src: mat, thresh: f32, max-value: f32, threshold-type: threshold-type) -> mat;
 
     export request;
 }
