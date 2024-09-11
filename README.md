@@ -63,18 +63,18 @@ https://github.com/bytecodealliance/wasm-tools-go
 ### TinyGo
 
 ```shell
-wit-bindgen-go generate --out ./components/tinygo ./wit/
+wit-bindgen-go generate --out ./components/tinygo -w cv ./wit/
 ```
 
 ### Rust
 
 ```shell
-wit-bindgen rust --out-dir ./components/rust/ ./wit/
+wit-bindgen rust --out-dir ./components/rust/ -w cv ./wit/
 ```
 
 ### C
 
 ```shell
-wit-bindgen c --out-dir ./components/c/ ./wit/
+wit-bindgen c --out-dir ./components/c/ -w cv ./wit/
 ```
 
