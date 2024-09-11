@@ -16,27 +16,13 @@ $ cd ..
 $ go run .
 Defining host function...
 Start reading device: /dev/video0
-Read frame 2
-Cols: 640 Rows: 480 Type: 16
-Frame complete
+```
 
-Read frame 3
-Cols: 640 Rows: 480 Type: 16
-Frame complete
+It will then capture each frame, display some stats, and them perform a gaussian blur on the source image.
 
-Read frame 4
+```shell
+Read frame 1
 Cols: 640 Rows: 480 Type: 16
-Frame complete
-
-Read frame 5
-Cols: 640 Rows: 480 Type: 16
-Frame complete
-
-Read frame 6
-Cols: 640 Rows: 480 Type: 16
-Frame complete
-
-Read frame 7
-Cols: 640 Rows: 480 Type: 16
+Performed GaussianBlur on image
 Frame complete
 ```

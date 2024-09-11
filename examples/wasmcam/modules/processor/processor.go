@@ -4,7 +4,9 @@ package main
 
 import (
 	"github.com/hybridgroup/mechanoid/convert"
+	"github.com/hybridgroup/wasmcv/components/tinygo/wasm/cv/cv"
 	"github.com/hybridgroup/wasmcv/components/tinygo/wasm/cv/mat"
+	"github.com/hybridgroup/wasmcv/components/tinygo/wasm/cv/types"
 )
 
 //go:wasmimport hosted complete
@@ -22,8 +24,11 @@ func process(image mat.Mat) mat.Mat {
 		" Type: " +
 		convert.IntToString(int(image.Type()))))
 
+	imageOut := cv.GaussianBlur(image, types.Size{5, 5}, 1.5, 1.5, types.BorderTypeBorderReflect101)
+	println(convert.StringToWasmPtr("Performed GaussianBlur on image"))
+
 	complete()
-	return image
+	return imageOut
 }
 
 func main() {}

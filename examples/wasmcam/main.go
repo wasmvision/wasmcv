@@ -37,6 +37,9 @@ func main() {
 			"[method]mat.rows": wypes.H1(matRowsFunc),
 			"[method]mat.type": wypes.H1(matTypeFunc),
 		},
+		"wasm:cv/cv": wypes.Module{
+			"gaussian-blur": wypes.H6(matGaussianBlurFunc),
+		},
 	}
 
 	err := modules.DefineWazero(r, nil)
@@ -64,6 +67,9 @@ func main() {
 	frame = gocv.NewMat()
 	defer frame.Close()
 
+	processed = gocv.NewMat()
+	defer processed.Close()
+
 	fmt.Printf("Start reading device: %v\n", deviceID)
 	i := 0
 	for {
@@ -74,6 +80,9 @@ func main() {
 		if frame.Empty() {
 			continue
 		}
+
+		// clear screen
+		fmt.Print("\033[H\033[2J")
 
 		i++
 		fmt.Printf("Read frame %d\n", i+1)
