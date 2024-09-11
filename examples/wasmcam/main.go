@@ -29,12 +29,13 @@ func main() {
 	println("Defining host function...")
 	modules := wypes.Modules{
 		"hosted": wypes.Module{
-			"showInfo": wypes.H2(showFrameInfoFunc),
+			"println":  wypes.H1(hostPrintln),
 			"complete": wypes.H0(completeFunc),
 		},
 		"wasm:cv/mat": wypes.Module{
 			"[method]mat.cols": wypes.H1(matColsFunc),
 			"[method]mat.rows": wypes.H1(matRowsFunc),
+			"[method]mat.type": wypes.H1(matTypeFunc),
 		},
 	}
 
@@ -84,11 +85,11 @@ func main() {
 }
 
 func completeFunc() wypes.Void {
-	println("frame complete")
+	println("Frame complete\n")
 	return wypes.Void{}
 }
 
-func showFrameInfoFunc(cols, rows wypes.UInt32) wypes.Void {
-	println("cols: ", cols.Unwrap(), "rows: ", rows.Unwrap())
+func hostPrintln(msg wypes.String) wypes.Void {
+	println(msg.Unwrap())
 	return wypes.Void{}
 }

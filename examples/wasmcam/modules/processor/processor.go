@@ -2,17 +2,25 @@
 
 package main
 
-import "github.com/hybridgroup/wasmcv/components/tinygo/wasm/cv/mat"
+import (
+	"github.com/hybridgroup/mechanoid/convert"
+	"github.com/hybridgroup/wasmcv/components/tinygo/wasm/cv/mat"
+)
 
 //go:wasmimport hosted complete
 func complete()
 
-//go:wasmimport hosted showInfo
-func showInfo(cols, rows uint32)
+//go:wasmimport hosted println
+func println(ptr, size uint32)
 
 //go:export process
 func process(image mat.Mat) mat.Mat {
-	showInfo(image.Cols(), image.Rows())
+	println(convert.StringToWasmPtr("Cols: " +
+		convert.IntToString(int(image.Cols())) +
+		" Rows: " +
+		convert.IntToString(int(image.Rows())) +
+		" Type: " +
+		convert.IntToString(int(image.Type()))))
 
 	complete()
 	return image

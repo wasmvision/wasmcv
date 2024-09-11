@@ -16,3 +16,7 @@ func matColsFunc(matref wypes.UInt32) wypes.UInt32 {
 func matRowsFunc(matref wypes.UInt32) wypes.UInt32 {
 	return wypes.UInt32(frame.Rows())
 }
+
+func matTypeFunc(matref wypes.UInt32) wypes.UInt32 {
+	return wypes.UInt32(frame.Type())
+}
