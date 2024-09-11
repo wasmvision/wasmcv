@@ -4,3 +4,33 @@
 //
 // WASMCV is a WebAssembly module interface for computer vision.
 package cv
+
+import (
+	"github.com/bytecodealliance/wasm-tools-go/cm"
+	"github.com/hybridgroup/wasmcv/components/tinygo/wasm/cv/mat"
+	"github.com/hybridgroup/wasmcv/components/tinygo/wasm/cv/types"
+)
+
+// GaussianBlur represents the imported function "gaussian-blur".
+//
+// GaussianBlur blurs an image using a Gaussian filter.
+// See https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
+//
+//	gaussian-blur: func(input: mat, size: size, sigma-x: f32, sigma-y: f32, border:
+//	border-type) -> mat
+//
+//go:nosplit
+func GaussianBlur(input mat.Mat, size types.Size, sigmaX float32, sigmaY float32, border types.BorderType) (result mat.Mat) {
+	input0 := cm.Reinterpret[uint32](input)
+	size0, size1 := lower_Size(size)
+	sigmaX0 := (float32)(sigmaX)
+	sigmaY0 := (float32)(sigmaY)
+	border0 := (uint32)(border)
+	result0 := wasmimport_GaussianBlur((uint32)(input0), (uint32)(size0), (uint32)(size1), (float32)(sigmaX0), (float32)(sigmaY0), (uint32)(border0))
+	result = cm.Reinterpret[mat.Mat]((uint32)(result0))
+	return
+}
+
+//go:wasmimport wasm:cv/cv gaussian-blur
+//go:noescape
+func wasmimport_GaussianBlur(input0 uint32, size0 uint32, size1 uint32, sigmaX0 float32, sigmaY0 float32, border0 uint32) (result0 uint32)
