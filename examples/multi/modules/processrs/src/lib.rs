@@ -4,23 +4,15 @@ extern crate core;
 extern crate wee_alloc;
 extern crate alloc;
 
-use alloc::{string::String};
+use alloc::string::String;
 use alloc::string::ToString;
-use alloc::format;
 
 #[path = "../../../../../components/rust/cv.rs"]
 mod cv;
 
 #[no_mangle]
 pub extern fn process(mat: cv::Mat) -> cv::Mat {
-    let cols: String = String::from("Cols:");
-    let rows: String = String::from("Rows:");
-
-    let col: String = mat.cols().to_string();
-    let row: String = mat.rows().to_string();
-
-    let msg = format!("{cols} {col} {rows} {row}");
-    println(&msg);
+    println(&["Cols: ", &mat.cols().to_string(), " Rows: ", &mat.rows().to_string()].concat());
 
     return mat;
 }
