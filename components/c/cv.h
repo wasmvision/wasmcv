@@ -9,6 +9,11 @@ extern "C" {
 #include <stdbool.h>
 #include <stddef.h>
 
+typedef struct cv_string_t {
+  uint8_t*ptr;
+  size_t len;
+} cv_string_t;
+
 typedef struct wasm_cv_types_size_t {
   int32_t   x;
   int32_t   y;
@@ -59,6 +64,51 @@ typedef struct wasm_cv_mat_borrow_mat_t {
   int32_t __handle;
 } wasm_cv_mat_borrow_mat_t;
 
+typedef uint8_t wasm_cv_net_net_backend_type_t;
+
+#define WASM_CV_NET_NET_BACKEND_TYPE_NET_BACKEND_DEFAULT 0
+#define WASM_CV_NET_NET_BACKEND_TYPE_NET_BACKEND_HALIDE 1
+#define WASM_CV_NET_NET_BACKEND_TYPE_NET_BACKEND_OPENVINO 2
+#define WASM_CV_NET_NET_BACKEND_TYPE_NET_BACKEND_OPENCV 3
+#define WASM_CV_NET_NET_BACKEND_TYPE_NET_BACKEND_VKCOM 4
+#define WASM_CV_NET_NET_BACKEND_TYPE_NET_BACKEND_CUDA 5
+
+typedef uint8_t wasm_cv_net_net_target_type_t;
+
+#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_CPU 0
+#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_FP32 1
+#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_FP16 2
+#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_VPU 3
+#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_VULKAN 4
+#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_FPGA 5
+#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_CUDA 6
+#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_CUDA_FP16 7
+
+typedef uint8_t wasm_cv_net_data_layout_type_t;
+
+#define WASM_CV_NET_DATA_LAYOUT_TYPE_DATA_LAYOUT_UNKNOWN 0
+#define WASM_CV_NET_DATA_LAYOUT_TYPE_DATA_LAYOUT_ND 1
+#define WASM_CV_NET_DATA_LAYOUT_TYPE_DATA_LAYOUT_NCHW 2
+#define WASM_CV_NET_DATA_LAYOUT_TYPE_DATA_LAYOUT_NHWC 3
+#define WASM_CV_NET_DATA_LAYOUT_TYPE_DATA_LAYOUT_NDHWC 4
+#define WASM_CV_NET_DATA_LAYOUT_TYPE_DATA_LAYOUT_PLANAR 5
+
+typedef uint8_t wasm_cv_net_padding_mode_type_t;
+
+#define WASM_CV_NET_PADDING_MODE_TYPE_PADDING_MODE_NULL 0
+#define WASM_CV_NET_PADDING_MODE_TYPE_PADDING_MODE_CROP_CENTER 1
+#define WASM_CV_NET_PADDING_MODE_TYPE_PADDING_MODE_LETTERBOX 2
+
+typedef struct wasm_cv_net_own_net_t {
+  int32_t __handle;
+} wasm_cv_net_own_net_t;
+
+typedef struct wasm_cv_net_borrow_net_t {
+  int32_t __handle;
+} wasm_cv_net_borrow_net_t;
+
+typedef wasm_cv_mat_own_mat_t wasm_cv_net_own_mat_t;
+
 typedef wasm_cv_types_border_type_t cv_border_type_t;
 
 typedef wasm_cv_types_size_t cv_size_t;
@@ -78,6 +128,27 @@ extern uint32_t wasm_cv_mat_method_mat_cols(wasm_cv_mat_borrow_mat_t self);
 extern uint32_t wasm_cv_mat_method_mat_rows(wasm_cv_mat_borrow_mat_t self);
 extern wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_type(wasm_cv_mat_borrow_mat_t self);
 extern uint32_t wasm_cv_mat_method_mat_size(wasm_cv_mat_borrow_mat_t self);
+extern bool wasm_cv_mat_method_mat_empty(wasm_cv_mat_borrow_mat_t self);
+
+// Imported Functions from `wasm:cv/net`
+extern wasm_cv_net_own_net_t wasm_cv_net_constructor_net(void);
+// close the network
+extern void wasm_cv_net_method_net_close(wasm_cv_net_borrow_net_t self);
+// Empty returns true if there are no layers in the network.
+// 
+// For further details, please see:
+// https://docs.opencv.org/master/db/d30/classcv_1_1dnn_1_1Net.html#a6a5778787d5b8770deab5eda6968e66c
+extern bool wasm_cv_net_method_net_empty(wasm_cv_net_borrow_net_t self);
+// SetInput sets the new input value for the network.
+// 
+// For further details, please see:
+// https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a672a08ae76444d75d05d7bfea3e4a328
+extern void wasm_cv_net_method_net_set_input(wasm_cv_net_borrow_net_t self, wasm_cv_net_own_mat_t input, cv_string_t *name);
+// Forward runs forward pass to compute output of layer with name outputName.
+// 
+// For further details, please see:
+// https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a98ed94cb6ef7063d3697259566da310b
+extern wasm_cv_net_own_mat_t wasm_cv_net_method_net_forward(wasm_cv_net_borrow_net_t self, cv_string_t *output_name);
 
 // Imported Functions from `cv`
 // AdaptiveThreshold applies a fixed-level threshold to each array element.
@@ -110,6 +181,20 @@ extern void wasm_cv_mat_mat_drop_own(wasm_cv_mat_own_mat_t handle);
 
 extern wasm_cv_mat_borrow_mat_t wasm_cv_mat_borrow_mat(wasm_cv_mat_own_mat_t handle);
 
+extern void wasm_cv_net_net_drop_own(wasm_cv_net_own_net_t handle);
+
+extern wasm_cv_net_borrow_net_t wasm_cv_net_borrow_net(wasm_cv_net_own_net_t handle);
+
+// Transfers ownership of `s` into the string `ret`
+void cv_string_set(cv_string_t *ret, const char*s);
+
+// Creates a copy of the input nul-terminate string `s` and
+// stores it into the component model string `ret`.
+void cv_string_dup(cv_string_t *ret, const char*s);
+
+// Deallocates the string pointed to by `ret`, deallocating
+// the memory behind the string.
+void cv_string_free(cv_string_t *ret);
 
 #ifdef __cplusplus
 }

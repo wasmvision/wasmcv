@@ -116,6 +116,22 @@ func (self Mat) Cols() (result uint32) {
 //go:noescape
 func wasmimport_MatCols(self0 uint32) (result0 uint32)
 
+// Empty represents the imported method "empty".
+//
+//	empty: func() -> bool
+//
+//go:nosplit
+func (self Mat) Empty() (result bool) {
+	self0 := cm.Reinterpret[uint32](self)
+	result0 := wasmimport_MatEmpty((uint32)(self0))
+	result = cm.U32ToBool((uint32)(result0))
+	return
+}
+
+//go:wasmimport wasm:cv/mat [method]mat.empty
+//go:noescape
+func wasmimport_MatEmpty(self0 uint32) (result0 uint32)
+
 // Rows represents the imported method "rows".
 //
 //	rows: func() -> u32
