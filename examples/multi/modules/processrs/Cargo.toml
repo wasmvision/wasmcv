@@ -1,0 +1,13 @@
+[package]
+name = "processrs"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+wee_alloc = "0.4.5"
+wit-bindgen = "0.32.0"
+
+[lib]
+crate-type = ["cdylib"]
