@@ -1,6 +1,8 @@
 # Multi
 
-Example that reads frames from a connected webcam, and processes them using a WASM guest module written using TinyGo, Rust, or C.
+The `multi` example that reads frames from a connected webcam, and processes them using a wasmCV guest module written using either [TinyGo](https://tinygo.org) or [Rust](https://www.rust-lang.org/).
+
+The host application is a Go application written using [GoCV Go language wrappers for OpenCV](https://github.com/hybridgroup/gocv) and the [Wazero WASM runtime](https://github.com/tetratelabs/wazero).
 
 ## Compile the TinyGo guest module
 

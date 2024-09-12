@@ -1,6 +1,8 @@
 # Basic
 
-Basic example that reads frames from a connected webcam, and processes them using a WASM guest module.
+Basic example that reads frames from a connected webcam, and processes them using a wasmCV guest module compiled using [TinyGo](https://tinygo.org).
+
+The host application is a Go application written using [GoCV Go language wrappers for OpenCV](https://github.com/hybridgroup/gocv) and the [Wazero WASM runtime](https://github.com/tetratelabs/wazero).
 
 ## Compile the guest module
 
