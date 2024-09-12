@@ -19,5 +19,6 @@ interface mat {
         rows: func() -> u32;
         %type: func() -> mattype;
         size: func() -> u32;
+        empty: func() -> bool;
     }
 }

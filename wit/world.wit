@@ -6,6 +6,7 @@ world cv {
     import mat;
 
     include imgproc;
+    include dnn;
 
     export request;
 }

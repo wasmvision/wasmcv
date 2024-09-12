@@ -4,8 +4,8 @@ world imgproc {
     import types;
     import mat;
 
-    use mat.{mat};
     use types.{border-type, size, adaptive-threshold-type, threshold-type};
+    use mat.{mat};
 
     // AdaptiveThreshold applies a fixed-level threshold to each array element.
     // For further details, please see: 

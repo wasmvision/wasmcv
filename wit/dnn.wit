@@ -1,0 +1,69 @@
+package wasm:cv; 
+
+interface net {
+    use mat.{mat};
+
+	enum net-backend-type {
+		net-backend-default,
+		net-backend-halide,
+		net-backend-openvino,
+		net-backend-opencv,
+		net-backend-vkcom,
+		net-backend-cuda,
+	}
+
+	enum net-target-type {
+		net-target-cpu,
+		net-target-fp32,
+		net-target-fp16,
+		net-target-vpu,
+		net-target-vulkan,
+		net-target-fpga,
+		net-target-cuda,
+		net-target-cuda-fp16,
+	}
+
+	enum data-layout-type {
+		data-layout-unknown,
+		data-layout-nd,
+		data-layout-nchw,
+		data-layout-nhwc,
+		data-layout-ndhwc,
+		data-layout-planar,	
+	}
+
+	enum padding-mode-type {
+		padding-mode-null,
+		padding-mode-crop-center,
+		padding-mode-letterbox,
+	}
+
+	resource net {
+		constructor();
+
+		// close the network
+        close: func();
+		
+		// Empty returns true if there are no layers in the network.
+		//
+		// For further details, please see:
+		// https://docs.opencv.org/master/db/d30/classcv_1_1dnn_1_1Net.html#a6a5778787d5b8770deab5eda6968e66c
+		empty: func() -> bool;
+
+		// SetInput sets the new input value for the network.
+		//
+		// For further details, please see:
+		// https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a672a08ae76444d75d05d7bfea3e4a328
+		set-input: func(input: mat, name: string);
+		
+		// Forward runs forward pass to compute output of layer with name outputName.
+		//
+		// For further details, please see:
+		// https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a98ed94cb6ef7063d3697259566da310b
+		forward: func(output-name: string) -> mat;
+    }
+}
+
+world dnn {
+	import net;
+}
