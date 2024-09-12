@@ -12,19 +12,36 @@ import (
 	"gocv.io/x/gocv"
 )
 
-//go:embed modules/processrs.wasm
-var processFrameWasm []byte
+//go:embed modules/processor.wasm
+var processorFrameWasm []byte
 
-var frame gocv.Mat
+//go:embed modules/processrs.wasm
+var processrsFrameWasm []byte
+
+var (
+	processor = flag.String("processor", "tinygo", "which wasmCV processor to use (tinygo or rust)")
+
+	frame gocv.Mat
+)
 
 func main() {
 	flag.Parse()
+
+	var module []byte
+	switch *processor {
+	case "tinygo":
+		module = processrsFrameWasm
+	case "rust":
+		module = processrsFrameWasm
+	default:
+		log.Panicf("unsupported processor: %s", *processor)
+	}
 
 	ctx := context.Background()
 	r := wazero.NewRuntime(ctx)
 	defer r.Close(ctx)
 
-	println("Defining host function...")
+	println("Defining host functions...")
 	modules := wypes.Modules{
 		"hosted": wypes.Module{
 			"println": wypes.H1(hostPrintln),
@@ -42,7 +59,8 @@ func main() {
 		return
 	}
 
-	mod, err := r.Instantiate(ctx, processFrameWasm)
+	fmt.Printf("Loading %s wasmCV guest module...\n", *processor)
+	mod, err := r.Instantiate(ctx, module)
 	if err != nil {
 		log.Panicf("failed to instantiate module: %v", err)
 	}
@@ -74,6 +92,8 @@ func main() {
 
 		// clear screen
 		fmt.Print("\033[H\033[2J")
+
+		fmt.Printf("Running %s wasmCV module\n", *processor)
 
 		i++
 		fmt.Printf("Read frame %d\n", i+1)
