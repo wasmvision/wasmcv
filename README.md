@@ -118,9 +118,56 @@ The `wasm32-unknown-unknown` target can be used with wasmCV to produce very ligh
 
 See the [multi example application here](./examples/multi) to try wasmCV with Rust.
 
-### Other language examples
+### C
 
-Coming soon...
+This C module does the same thing as the TinyGo and Rust wasm module examples. It exports a `process()` function to the WASM host application, which then passes in the wasmCV image `Mat` to be processed. The module then calls functions on that `Mat` which are handled by the host application by calling OpenCV to actually perform the operations.
+
+```c
+#include <string.h>
+#include "../../../../components/c/cv.h"
+
+extern int itoa(int value, char *sp, int radix);
+
+__attribute__((import_module("hosted"), import_name("println"))) void println(int32_t str, int32_t len);
+
+wasm_cv_mat_borrow_mat_t process(wasm_cv_mat_borrow_mat_t image) {
+    int32_t cols, rows;
+    cols = wasm_cv_mat_method_mat_cols(image);
+    rows = wasm_cv_mat_method_mat_rows(image);
+
+    char buf[20];
+    strcpy(buf, "Cols: ");
+    itoa(cols, buf+6, 10);
+    strcpy(buf+9, " Rows: ");
+    itoa(rows, buf+16, 10);
+
+    println((int32_t)buf, 20);
+
+    return image;
+}
+```
+
+You can then compile this module using the `clang` compiler.
+
+```shell
+/opt/wasi-sdk/bin/clang --target=wasm32-unknown-unknown -O3 \
+        --sysroot="/path/to/lib/wasi-libc/sysroot" \
+        -z stack-size=4096 -Wl,--initial-memory=65536 \
+        -o ../processc.wasm process.c itoa.c ../../../../components/c/cv.c ../../../../components/c/cv_component_type.o \
+        -Wl,--export=process \
+        -Wl,--export=__data_end -Wl,--export=__heap_base \
+        -Wl,--strip-all,--no-entry \
+        -Wl,--unresolved-symbols=ignore-all \
+        -nostdlib \
+```
+
+The `wasm32-unknown-unknown` target can be used with wasmCV to produce very lightweight guest modules. The example above compiles to just under 3k, including debug information.
+
+```shell
+-rwxrwxr-x 1 ron ron  2916 sep 13 20:03 processc.wasm
+```
+
+See the [multi example application here](./examples/multi) to try wasmCV with C.
 
 ## WASM Component Generation
 

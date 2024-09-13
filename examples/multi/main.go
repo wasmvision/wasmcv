@@ -18,8 +18,11 @@ var processorFrameWasm []byte
 //go:embed modules/processrs.wasm
 var processrsFrameWasm []byte
 
+//go:embed modules/processc.wasm
+var processcFrameWasm []byte
+
 var (
-	processor = flag.String("processor", "tinygo", "which wasmCV processor to use (tinygo or rust)")
+	processor = flag.String("processor", "tinygo", "which wasmCV processor to use (tinygo|rust|c)")
 
 	frame gocv.Mat
 )
@@ -33,6 +36,8 @@ func main() {
 		module = processrsFrameWasm
 	case "rust":
 		module = processrsFrameWasm
+	case "c":
+		module = processcFrameWasm
 	default:
 		log.Panicf("unsupported processor: %s", *processor)
 	}
@@ -97,7 +102,7 @@ func main() {
 
 		i++
 		fmt.Printf("Read frame %d\n", i+1)
-		_, err := process.Call(ctx, 0)
+		_, err := process.Call(ctx, 1)
 		if err != nil {
 			fmt.Printf("Error calling process: %v\n", err)
 		}
