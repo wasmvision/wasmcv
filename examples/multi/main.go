@@ -33,7 +33,7 @@ func main() {
 	var module []byte
 	switch *processor {
 	case "tinygo":
-		module = processrsFrameWasm
+		module = processorFrameWasm
 	case "rust":
 		module = processrsFrameWasm
 	case "c":
