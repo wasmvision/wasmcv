@@ -10,7 +10,7 @@ import (
 //go:wasmimport hosted println
 func println(ptr, size uint32)
 
-//go:export process
+//export process
 func process(image mat.Mat) mat.Mat {
 	println(convert.StringToWasmPtr("Cols: " +
 		convert.IntToString(int(image.Cols())) +
