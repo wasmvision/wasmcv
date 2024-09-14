@@ -1,6 +1,8 @@
 # WASMcam
 
-Example that reads frames from a connected webcam, and processes them using a WASM guest module.
+![../../images/wasmcam.png](../../images/wasmcam.png)
+
+Example that reads frames from a connected webcam, and processes them using a WASM guest module using a call to host via the wasmCV interface to perform a GaussianBlur, then displays the ascii version of the image on the terminal.
 
 ## Compile the guest module
 
