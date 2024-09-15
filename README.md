@@ -17,7 +17,7 @@ package main
 
 import (
 	"github.com/hybridgroup/mechanoid/convert"
-	"github.com/hybridgroup/wasmcv/components/tinygo/wasm/cv/mat"
+	"github.com/wasmvision/wasmcv/components/tinygo/wasm/cv/mat"
 )
 
 //go:wasmimport hosted println
