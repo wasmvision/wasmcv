@@ -62,12 +62,11 @@ This Rust module does the same thing as the TinyGo wasm module example. It expor
 extern crate core;
 extern crate wee_alloc;
 extern crate alloc;
+extern crate wasmcv;
 
 use alloc::string::String;
 use alloc::string::ToString;
-
-#[path = "../../../../../components/rust/cv.rs"]
-mod cv;
+use wasmcv::cv;
 
 #[no_mangle]
 pub extern fn process(mat: cv::Mat) -> cv::Mat {
@@ -97,11 +96,6 @@ unsafe fn string_to_ptr(s: &String) -> (u32, u32) {
 // Use `wee_alloc` as the global allocator...for now.
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
-
-#[panic_handler]
-fn handle_panic(_: &core::panic::PanicInfo) -> ! {
-    core::arch::wasm32::unreachable()
-}
 ```
 
 You can then compile this module using the Rust compiler.
@@ -188,7 +182,7 @@ wit-bindgen-go generate --out ./components/tinygo -w cv ./wit/
 ### Rust
 
 ```shell
-wit-bindgen rust --out-dir ./components/rust/ -w cv ./wit/
+wit-bindgen rust --out-dir ./components/rust/wasmcv/src -w cv ./wit/
 ```
 
 ### C
