@@ -64,6 +64,11 @@ typedef struct wasm_cv_mat_borrow_mat_t {
   int32_t __handle;
 } wasm_cv_mat_borrow_mat_t;
 
+typedef struct {
+  uint32_t *ptr;
+  size_t len;
+} cv_list_u32_t;
+
 typedef uint8_t wasm_cv_net_net_backend_type_t;
 
 #define WASM_CV_NET_NET_BACKEND_TYPE_NET_BACKEND_DEFAULT 0
@@ -99,6 +104,14 @@ typedef uint8_t wasm_cv_net_padding_mode_type_t;
 #define WASM_CV_NET_PADDING_MODE_TYPE_PADDING_MODE_CROP_CENTER 1
 #define WASM_CV_NET_PADDING_MODE_TYPE_PADDING_MODE_LETTERBOX 2
 
+typedef struct wasm_cv_net_own_layer_t {
+  int32_t __handle;
+} wasm_cv_net_own_layer_t;
+
+typedef struct wasm_cv_net_borrow_layer_t {
+  int32_t __handle;
+} wasm_cv_net_borrow_layer_t;
+
 typedef struct wasm_cv_net_own_net_t {
   int32_t __handle;
 } wasm_cv_net_own_net_t;
@@ -108,6 +121,11 @@ typedef struct wasm_cv_net_borrow_net_t {
 } wasm_cv_net_borrow_net_t;
 
 typedef wasm_cv_mat_own_mat_t wasm_cv_net_own_mat_t;
+
+typedef struct {
+  cv_string_t *ptr;
+  size_t len;
+} cv_list_string_t;
 
 typedef wasm_cv_types_border_type_t cv_border_type_t;
 
@@ -123,17 +141,36 @@ typedef wasm_cv_mat_own_mat_t exports_wasm_cv_request_own_mat_t;
 
 // Imported Functions from `wasm:cv/mat`
 extern wasm_cv_mat_own_mat_t wasm_cv_mat_constructor_mat(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t type);
+// close the Mat
 extern void wasm_cv_mat_method_mat_close(wasm_cv_mat_borrow_mat_t self);
+// Cols returns the number of columns for this Mat.
 extern uint32_t wasm_cv_mat_method_mat_cols(wasm_cv_mat_borrow_mat_t self);
+// Rows returns the number of rows for this Mat.
 extern uint32_t wasm_cv_mat_method_mat_rows(wasm_cv_mat_borrow_mat_t self);
+// type returns the type of the Mat.
 extern wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_type(wasm_cv_mat_borrow_mat_t self);
-extern uint32_t wasm_cv_mat_method_mat_size(wasm_cv_mat_borrow_mat_t self);
+// Size returns an array with one element for each dimension containing the size of that dimension for the Mat.
+extern void wasm_cv_mat_method_mat_size(wasm_cv_mat_borrow_mat_t self, cv_list_u32_t *ret);
+// empty returns true if the Mat is empty.
 extern bool wasm_cv_mat_method_mat_empty(wasm_cv_mat_borrow_mat_t self);
+// Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a4eb96e3251417fa88b78e2abd6cfd7d8
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_reshape(wasm_cv_mat_borrow_mat_t self, uint32_t channels, uint32_t rows);
 
 // Imported Functions from `wasm:cv/net`
+extern wasm_cv_net_own_layer_t wasm_cv_net_constructor_layer(void);
+// GetName returns the name of the layer.
+extern void wasm_cv_net_method_layer_get_name(wasm_cv_net_borrow_layer_t self, cv_string_t *ret);
 extern wasm_cv_net_own_net_t wasm_cv_net_constructor_net(void);
 // close the network
 extern void wasm_cv_net_method_net_close(wasm_cv_net_borrow_net_t self);
+// ReadNetFromONNX reads a network model stored in ONNX framework's format.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd359567
+extern wasm_cv_net_own_net_t wasm_cv_net_static_net_read_net_from_onnx(cv_string_t *model);
 // Empty returns true if there are no layers in the network.
 // 
 // For further details, please see:
@@ -149,6 +186,21 @@ extern void wasm_cv_net_method_net_set_input(wasm_cv_net_borrow_net_t self, wasm
 // For further details, please see:
 // https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a98ed94cb6ef7063d3697259566da310b
 extern wasm_cv_net_own_mat_t wasm_cv_net_method_net_forward(wasm_cv_net_borrow_net_t self, cv_string_t *output_name);
+// GetUnconnectedOutLayers returns indexes of layers with unconnected outputs.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ae26f0c29b3733d15d0482098ef9053e3
+extern void wasm_cv_net_method_net_get_unconnected_out_layers(wasm_cv_net_borrow_net_t self, cv_list_u32_t *ret);
+// GetLayerNames returns names of layers in the network.
+// 
+// For further details, please see:
+// hhttps://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#a38e67098ae4ae5906bf8d8ea72199c2e
+extern void wasm_cv_net_method_net_get_layer_names(wasm_cv_net_borrow_net_t self, cv_list_string_t *ret);
+// GetLayer returns layer with specified id.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ac944d7f2d3ead5ef9b1b2fa3885f3ff1
+extern wasm_cv_net_own_layer_t wasm_cv_net_method_net_get_layer(wasm_cv_net_borrow_net_t self, uint32_t id);
 
 // Imported Functions from `cv`
 // AdaptiveThreshold applies a fixed-level threshold to each array element.
@@ -181,9 +233,17 @@ extern void wasm_cv_mat_mat_drop_own(wasm_cv_mat_own_mat_t handle);
 
 extern wasm_cv_mat_borrow_mat_t wasm_cv_mat_borrow_mat(wasm_cv_mat_own_mat_t handle);
 
+void cv_list_u32_free(cv_list_u32_t *ptr);
+
+extern void wasm_cv_net_layer_drop_own(wasm_cv_net_own_layer_t handle);
+
+extern wasm_cv_net_borrow_layer_t wasm_cv_net_borrow_layer(wasm_cv_net_own_layer_t handle);
+
 extern void wasm_cv_net_net_drop_own(wasm_cv_net_own_net_t handle);
 
 extern wasm_cv_net_borrow_net_t wasm_cv_net_borrow_net(wasm_cv_net_own_net_t handle);
+
+void cv_list_string_free(cv_list_string_t *ptr);
 
 // Transfers ownership of `s` into the string `ret`
 void cv_string_set(cv_string_t *ret, const char*s);

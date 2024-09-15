@@ -1,3 +1,3 @@
-module github.com/hybridgroup/wasmcv/components/tinygo
+module github.com/wasmvision/wasmcv/components/tinygo
 
 go 1.22.0

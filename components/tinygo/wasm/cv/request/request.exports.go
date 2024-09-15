@@ -3,7 +3,7 @@
 package request
 
 import (
-	"github.com/hybridgroup/wasmcv/components/tinygo/wasm/cv/mat"
+	"github.com/wasmvision/wasmcv/components/tinygo/wasm/cv/mat"
 )
 
 // Exports represents the caller-defined exports from "wasm:cv/request".

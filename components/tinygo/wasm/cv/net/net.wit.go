@@ -5,7 +5,7 @@ package net
 
 import (
 	"github.com/bytecodealliance/wasm-tools-go/cm"
-	"github.com/hybridgroup/wasmcv/components/tinygo/wasm/cv/mat"
+	"github.com/wasmvision/wasmcv/components/tinygo/wasm/cv/mat"
 )
 
 // NetBackendType represents the enum "wasm:cv/net#net-backend-type".
@@ -145,6 +145,58 @@ func (e PaddingModeType) String() string {
 	return stringsPaddingModeType[e]
 }
 
+// Layer represents the imported resource "wasm:cv/net#layer".
+//
+//	resource layer
+type Layer cm.Resource
+
+// ResourceDrop represents the imported resource-drop for resource "layer".
+//
+// Drops a resource handle.
+//
+//go:nosplit
+func (self Layer) ResourceDrop() {
+	self0 := cm.Reinterpret[uint32](self)
+	wasmimport_LayerResourceDrop((uint32)(self0))
+	return
+}
+
+//go:wasmimport wasm:cv/net [resource-drop]layer
+//go:noescape
+func wasmimport_LayerResourceDrop(self0 uint32)
+
+// NewLayer represents the imported constructor for resource "layer".
+//
+//	constructor()
+//
+//go:nosplit
+func NewLayer() (result Layer) {
+	result0 := wasmimport_NewLayer()
+	result = cm.Reinterpret[Layer]((uint32)(result0))
+	return
+}
+
+//go:wasmimport wasm:cv/net [constructor]layer
+//go:noescape
+func wasmimport_NewLayer() (result0 uint32)
+
+// GetName represents the imported method "get-name".
+//
+// GetName returns the name of the layer.
+//
+//	get-name: func() -> string
+//
+//go:nosplit
+func (self Layer) GetName() (result string) {
+	self0 := cm.Reinterpret[uint32](self)
+	wasmimport_LayerGetName((uint32)(self0), &result)
+	return
+}
+
+//go:wasmimport wasm:cv/net [method]layer.get-name
+//go:noescape
+func wasmimport_LayerGetName(self0 uint32, result *string)
+
 // Net represents the imported resource "wasm:cv/net#net".
 //
 //	resource net
@@ -179,6 +231,27 @@ func NewNet() (result Net) {
 //go:wasmimport wasm:cv/net [constructor]net
 //go:noescape
 func wasmimport_NewNet() (result0 uint32)
+
+// NetReadNetFromOnnx represents the imported static function "read-net-from-onnx".
+//
+// ReadNetFromONNX reads a network model stored in ONNX framework's format.
+//
+// For further details, please see:
+// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd359567
+//
+//	read-net-from-onnx: static func(model: string) -> net
+//
+//go:nosplit
+func NetReadNetFromOnnx(model string) (result Net) {
+	model0, model1 := cm.LowerString(model)
+	result0 := wasmimport_NetReadNetFromOnnx((*uint8)(model0), (uint32)(model1))
+	result = cm.Reinterpret[Net]((uint32)(result0))
+	return
+}
+
+//go:wasmimport wasm:cv/net [static]net.read-net-from-onnx
+//go:noescape
+func wasmimport_NetReadNetFromOnnx(model0 *uint8, model1 uint32) (result0 uint32)
 
 // Close represents the imported method "close".
 //
@@ -239,6 +312,68 @@ func (self Net) Forward(outputName string) (result mat.Mat) {
 //go:wasmimport wasm:cv/net [method]net.forward
 //go:noescape
 func wasmimport_NetForward(self0 uint32, outputName0 *uint8, outputName1 uint32) (result0 uint32)
+
+// GetLayer represents the imported method "get-layer".
+//
+// GetLayer returns layer with specified id.
+//
+// For further details, please see:
+// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ac944d7f2d3ead5ef9b1b2fa3885f3ff1
+//
+//	get-layer: func(id: u32) -> layer
+//
+//go:nosplit
+func (self Net) GetLayer(id uint32) (result Layer) {
+	self0 := cm.Reinterpret[uint32](self)
+	id0 := (uint32)(id)
+	result0 := wasmimport_NetGetLayer((uint32)(self0), (uint32)(id0))
+	result = cm.Reinterpret[Layer]((uint32)(result0))
+	return
+}
+
+//go:wasmimport wasm:cv/net [method]net.get-layer
+//go:noescape
+func wasmimport_NetGetLayer(self0 uint32, id0 uint32) (result0 uint32)
+
+// GetLayerNames represents the imported method "get-layer-names".
+//
+// GetLayerNames returns names of layers in the network.
+//
+// For further details, please see:
+// hhttps://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#a38e67098ae4ae5906bf8d8ea72199c2e
+//
+//	get-layer-names: func() -> list<string>
+//
+//go:nosplit
+func (self Net) GetLayerNames() (result cm.List[string]) {
+	self0 := cm.Reinterpret[uint32](self)
+	wasmimport_NetGetLayerNames((uint32)(self0), &result)
+	return
+}
+
+//go:wasmimport wasm:cv/net [method]net.get-layer-names
+//go:noescape
+func wasmimport_NetGetLayerNames(self0 uint32, result *cm.List[string])
+
+// GetUnconnectedOutLayers represents the imported method "get-unconnected-out-layers".
+//
+// GetUnconnectedOutLayers returns indexes of layers with unconnected outputs.
+//
+// For further details, please see:
+// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ae26f0c29b3733d15d0482098ef9053e3
+//
+//	get-unconnected-out-layers: func() -> list<u32>
+//
+//go:nosplit
+func (self Net) GetUnconnectedOutLayers() (result cm.List[uint32]) {
+	self0 := cm.Reinterpret[uint32](self)
+	wasmimport_NetGetUnconnectedOutLayers((uint32)(self0), &result)
+	return
+}
+
+//go:wasmimport wasm:cv/net [method]net.get-unconnected-out-layers
+//go:noescape
+func wasmimport_NetGetUnconnectedOutLayers(self0 uint32, result *cm.List[uint32])
 
 // SetInput represents the imported method "set-input".
 //

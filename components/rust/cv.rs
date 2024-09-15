@@ -433,6 +433,7 @@ pub mod wasm {
       }
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
+        /// close the Mat
         pub fn close(&self,){
           unsafe {
 
@@ -451,6 +452,7 @@ pub mod wasm {
       }
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
+        /// Cols returns the number of columns for this Mat.
         pub fn cols(&self,) -> u32{
           unsafe {
 
@@ -470,6 +472,7 @@ pub mod wasm {
       }
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
+        /// Rows returns the number of rows for this Mat.
         pub fn rows(&self,) -> u32{
           unsafe {
 
@@ -489,6 +492,7 @@ pub mod wasm {
       }
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
+        /// type returns the type of the Mat.
         pub fn type_(&self,) -> Mattype{
           unsafe {
 
@@ -508,25 +512,33 @@ pub mod wasm {
       }
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
-        pub fn size(&self,) -> u32{
+        /// Size returns an array with one element for each dimension containing the size of that dimension for the Mat.
+        pub fn size(&self,) -> _rt::Vec::<u32>{
           unsafe {
-
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
             #[cfg(target_arch = "wasm32")]
             #[link(wasm_import_module = "wasm:cv/mat")]
             extern "C" {
               #[link_name = "[method]mat.size"]
-              fn wit_import(_: i32, ) -> i32;
+              fn wit_import(_: i32, _: *mut u8, );
             }
 
             #[cfg(not(target_arch = "wasm32"))]
-            fn wit_import(_: i32, ) -> i32{ unreachable!() }
-            let ret = wit_import((self).handle() as i32);
-            ret as u32
+            fn wit_import(_: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            _rt::Vec::from_raw_parts(l1.cast(), len3, len3)
           }
         }
       }
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
+        /// empty returns true if the Mat is empty.
         pub fn empty(&self,) -> bool{
           unsafe {
 
@@ -541,6 +553,29 @@ pub mod wasm {
             fn wit_import(_: i32, ) -> i32{ unreachable!() }
             let ret = wit_import((self).handle() as i32);
             _rt::bool_lift(ret as u8)
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a4eb96e3251417fa88b78e2abd6cfd7d8
+        pub fn reshape(&self,channels: u32,rows: u32,) -> Mat{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.reshape"]
+              fn wit_import(_: i32, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, _rt::as_i32(&channels), _rt::as_i32(&rows));
+            Mat::from_handle(ret as u32)
           }
         }
       }
@@ -774,6 +809,52 @@ pub mod wasm {
 
       #[derive(Debug)]
       #[repr(transparent)]
+      pub struct Layer{
+        handle: _rt::Resource<Layer>,
+      }
+
+      impl Layer{
+        #[doc(hidden)]
+        pub unsafe fn from_handle(handle: u32) -> Self {
+          Self {
+            handle: _rt::Resource::from_handle(handle),
+          }
+        }
+
+        #[doc(hidden)]
+        pub fn take_handle(&self) -> u32 {
+          _rt::Resource::take_handle(&self.handle)
+        }
+
+        #[doc(hidden)]
+        pub fn handle(&self) -> u32 {
+          _rt::Resource::handle(&self.handle)
+        }
+      }
+
+
+      unsafe impl _rt::WasmResource for Layer{
+        #[inline]
+        unsafe fn drop(_handle: u32) {
+          #[cfg(not(target_arch = "wasm32"))]
+          unreachable!();
+
+          #[cfg(target_arch = "wasm32")]
+          {
+            #[link(wasm_import_module = "wasm:cv/net")]
+            extern "C" {
+              #[link_name = "[resource-drop]layer"]
+              fn drop(_: u32);
+            }
+
+            drop(_handle);
+          }
+        }
+      }
+
+
+      #[derive(Debug)]
+      #[repr(transparent)]
       pub struct Net{
         handle: _rt::Resource<Net>,
       }
@@ -817,6 +898,52 @@ pub mod wasm {
         }
       }
 
+      impl Layer {
+        #[allow(unused_unsafe, clippy::all)]
+        pub fn new() -> Self{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/net")]
+            extern "C" {
+              #[link_name = "[constructor]layer"]
+              fn wit_import() -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import() -> i32{ unreachable!() }
+            let ret = wit_import();
+            Layer::from_handle(ret as u32)
+          }
+        }
+      }
+      impl Layer {
+        #[allow(unused_unsafe, clippy::all)]
+        /// GetName returns the name of the layer.
+        pub fn get_name(&self,) -> _rt::String{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/net")]
+            extern "C" {
+              #[link_name = "[method]layer.get-name"]
+              fn wit_import(_: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            let bytes3 = _rt::Vec::from_raw_parts(l1.cast(), len3, len3);
+            _rt::string_lift(bytes3)
+          }
+        }
+      }
       impl Net {
         #[allow(unused_unsafe, clippy::all)]
         pub fn new() -> Self{
@@ -852,6 +979,32 @@ pub mod wasm {
             #[cfg(not(target_arch = "wasm32"))]
             fn wit_import(_: i32, ){ unreachable!() }
             wit_import((self).handle() as i32);
+          }
+        }
+      }
+      impl Net {
+        #[allow(unused_unsafe, clippy::all)]
+        /// ReadNetFromONNX reads a network model stored in ONNX framework's format.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd359567
+        pub fn read_net_from_onnx(model: &str,) -> Net{
+          unsafe {
+            let vec0 = model;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/net")]
+            extern "C" {
+              #[link_name = "[static]net.read-net-from-onnx"]
+              fn wit_import(_: *mut u8, _: usize, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0);
+            Net::from_handle(ret as u32)
           }
         }
       }
@@ -926,6 +1079,102 @@ pub mod wasm {
             fn wit_import(_: i32, _: *mut u8, _: usize, ) -> i32{ unreachable!() }
             let ret = wit_import((self).handle() as i32, ptr0.cast_mut(), len0);
             super::super::super::wasm::cv::mat::Mat::from_handle(ret as u32)
+          }
+        }
+      }
+      impl Net {
+        #[allow(unused_unsafe, clippy::all)]
+        /// GetUnconnectedOutLayers returns indexes of layers with unconnected outputs.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ae26f0c29b3733d15d0482098ef9053e3
+        pub fn get_unconnected_out_layers(&self,) -> _rt::Vec::<u32>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/net")]
+            extern "C" {
+              #[link_name = "[method]net.get-unconnected-out-layers"]
+              fn wit_import(_: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            _rt::Vec::from_raw_parts(l1.cast(), len3, len3)
+          }
+        }
+      }
+      impl Net {
+        #[allow(unused_unsafe, clippy::all)]
+        /// GetLayerNames returns names of layers in the network.
+        ///
+        /// For further details, please see:
+        /// hhttps://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#a38e67098ae4ae5906bf8d8ea72199c2e
+        pub fn get_layer_names(&self,) -> _rt::Vec::<_rt::String>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/net")]
+            extern "C" {
+              #[link_name = "[method]net.get-layer-names"]
+              fn wit_import(_: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let base6 = l1;
+            let len6 = l2;
+            let mut result6 = _rt::Vec::with_capacity(len6);
+            for i in 0..len6 {
+              let base = base6.add(i * 8);
+              let e6 = {
+                let l3 = *base.add(0).cast::<*mut u8>();
+                let l4 = *base.add(4).cast::<usize>();
+                let len5 = l4;
+                let bytes5 = _rt::Vec::from_raw_parts(l3.cast(), len5, len5);
+
+                _rt::string_lift(bytes5)
+              };
+              result6.push(e6);
+            }
+            _rt::cabi_dealloc(base6, len6 * 8, 4);
+            result6
+          }
+        }
+      }
+      impl Net {
+        #[allow(unused_unsafe, clippy::all)]
+        /// GetLayer returns layer with specified id.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ac944d7f2d3ead5ef9b1b2fa3885f3ff1
+        pub fn get_layer(&self,id: u32,) -> Layer{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/net")]
+            extern "C" {
+              #[link_name = "[method]net.get-layer"]
+              fn wit_import(_: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, _rt::as_i32(&id));
+            Layer::from_handle(ret as u32)
           }
         }
       }
@@ -1144,6 +1393,7 @@ mod _rt {
       self as i32
     }
   }
+  pub use alloc_crate::vec::Vec;
   pub unsafe fn bool_lift(val: u8) -> bool {
     if cfg!(debug_assertions) {
       match val {
@@ -1154,6 +1404,21 @@ mod _rt {
     } else {
       val != 0
     }
+  }
+  pub use alloc_crate::string::String;
+  pub unsafe fn string_lift(bytes: Vec<u8>) -> String {
+    if cfg!(debug_assertions) {
+      String::from_utf8(bytes).unwrap()
+    } else {
+      String::from_utf8_unchecked(bytes)
+    }
+  }
+  pub unsafe fn cabi_dealloc(ptr: *mut u8, size: usize, align: usize) {
+    if size == 0 {
+      return;
+    }
+    let layout = alloc::Layout::from_size_align_unchecked(size, align);
+    alloc::dealloc(ptr, layout);
   }
   
   pub fn as_f32<T: AsF32>(t: T) -> f32 {
@@ -1181,6 +1446,8 @@ mod _rt {
   pub fn run_ctors_once() {
     wit_bindgen::rt::run_ctors_once();
   }
+  extern crate alloc as alloc_crate;
+  pub use alloc_crate::alloc;
 }
 
 /// Generates `#[no_mangle]` functions to export the specified type as the
@@ -1214,8 +1481,8 @@ pub(crate) use __export_cv_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.31.0:wasm:cv:cv:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 2153] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xf0\x0f\x01A\x02\x01\
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 2491] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xc2\x12\x01A\x02\x01\
 A\x1d\x01B\x08\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x01m\x08\x0fborder-con\
 stant\x10border-replicate\x0eborder-reflect\x0bborder-wrap\x11border-reflect101\x12\
 border-transparent\x0eborder-default\x0fborder-isolated\x04\0\x0bborder-type\x03\
@@ -1223,41 +1490,49 @@ border-transparent\x0eborder-default\x0fborder-isolated\x04\0\x0bborder-type\x03
 adaptive-threshold-type\x03\0\x04\x01m\x08\x10threshold-binary\x14threshold-bina\
 ry-inv\x0fthreshold-trunc\x11threshold-to-zero\x15threshold-to-zero-inv\x0ethres\
 hold-mask\x0ethreshold-otsu\x13tthreshold-triangle\x04\0\x0ethreshold-type\x03\0\
-\x06\x03\x01\x0dwasm:cv/types\x05\0\x01B\x11\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05\
+\x06\x03\x01\x0dwasm:cv/types\x05\0\x01B\x15\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05\
 cv16s\x05cv32s\x05cv32f\x05cv64f\x04\0\x07mattype\x03\0\0\x04\0\x03mat\x03\x01\x01\
 i\x02\x01@\x03\x04colsy\x04rowsy\x04type\x01\0\x03\x04\0\x10[constructor]mat\x01\
 \x04\x01h\x02\x01@\x01\x04self\x05\x01\0\x04\0\x11[method]mat.close\x01\x06\x01@\
 \x01\x04self\x05\0y\x04\0\x10[method]mat.cols\x01\x07\x04\0\x10[method]mat.rows\x01\
-\x07\x01@\x01\x04self\x05\0\x01\x04\0\x10[method]mat.type\x01\x08\x04\0\x10[meth\
-od]mat.size\x01\x07\x01@\x01\x04self\x05\0\x7f\x04\0\x11[method]mat.empty\x01\x09\
-\x03\x01\x0bwasm:cv/mat\x05\x01\x02\x03\0\0\x0bborder-type\x03\0\x0bborder-type\x03\
-\0\x02\x02\x03\0\0\x04size\x03\0\x04size\x03\0\x04\x02\x03\0\0\x17adaptive-thres\
-hold-type\x03\0\x17adaptive-threshold-type\x03\0\x06\x02\x03\0\0\x0ethreshold-ty\
-pe\x03\0\x0ethreshold-type\x03\0\x08\x02\x03\0\x01\x03mat\x03\0\x03mat\x03\0\x0a\
-\x01i\x0b\x01@\x06\x03src\x0c\x09max-valuev\x0dadaptive-type\x07\x0ethreshold-ty\
-pe\x09\x0ablock-sizey\x01cv\0\x0c\x03\0\x12adaptive-threshold\x01\x0d\x01@\x02\x03\
-src\x0c\x06k-size\x05\0\x0c\x03\0\x04blur\x01\x0e\x01@\x03\x03src\x0c\x05depthy\x06\
-k-size\x05\0\x0c\x03\0\x0abox-filter\x01\x0f\x01@\x05\x03src\x0c\x04size\x05\x07\
-sigma-xv\x07sigma-yv\x06border\x03\0\x0c\x03\0\x0dgaussian-blur\x01\x10\x01@\x04\
-\x03src\x0c\x06threshv\x09max-valuev\x0ethreshold-type\x09\0\x0c\x03\0\x09thresh\
-old\x01\x11\x01B\x18\x02\x03\x02\x01\x0a\x04\0\x03mat\x03\0\0\x01m\x06\x13net-ba\
-ckend-default\x12net-backend-halide\x14net-backend-openvino\x12net-backend-openc\
-v\x11net-backend-vkcom\x10net-backend-cuda\x04\0\x10net-backend-type\x03\0\x02\x01\
-m\x08\x0enet-target-cpu\x0fnet-target-fp32\x0fnet-target-fp16\x0enet-target-vpu\x11\
-net-target-vulkan\x0fnet-target-fpga\x0fnet-target-cuda\x14net-target-cuda-fp16\x04\
-\0\x0fnet-target-type\x03\0\x04\x01m\x06\x13data-layout-unknown\x0edata-layout-n\
-d\x10data-layout-nchw\x10data-layout-nhwc\x11data-layout-ndhwc\x12data-layout-pl\
-anar\x04\0\x10data-layout-type\x03\0\x06\x01m\x03\x11padding-mode-null\x18paddin\
-g-mode-crop-center\x16padding-mode-letterbox\x04\0\x11padding-mode-type\x03\0\x08\
-\x04\0\x03net\x03\x01\x01i\x0a\x01@\0\0\x0b\x04\0\x10[constructor]net\x01\x0c\x01\
-h\x0a\x01@\x01\x04self\x0d\x01\0\x04\0\x11[method]net.close\x01\x0e\x01@\x01\x04\
-self\x0d\0\x7f\x04\0\x11[method]net.empty\x01\x0f\x01i\x01\x01@\x03\x04self\x0d\x05\
-input\x10\x04names\x01\0\x04\0\x15[method]net.set-input\x01\x11\x01@\x02\x04self\
-\x0d\x0boutput-names\0\x10\x04\0\x13[method]net.forward\x01\x12\x03\x01\x0bwasm:\
-cv/net\x05\x12\x01B\x05\x02\x03\x02\x01\x0a\x04\0\x03mat\x03\0\0\x01i\x01\x01@\x01\
-\x05image\x02\0\x02\x04\0\x07process\x01\x03\x04\x01\x0fwasm:cv/request\x05\x13\x04\
-\x01\x0awasm:cv/cv\x04\0\x0b\x08\x01\0\x02cv\x03\0\0\0G\x09producers\x01\x0cproc\
-essed-by\x02\x0dwit-component\x070.216.0\x10wit-bindgen-rust\x060.31.0";
+\x07\x01@\x01\x04self\x05\0\x01\x04\0\x10[method]mat.type\x01\x08\x01py\x01@\x01\
+\x04self\x05\0\x09\x04\0\x10[method]mat.size\x01\x0a\x01@\x01\x04self\x05\0\x7f\x04\
+\0\x11[method]mat.empty\x01\x0b\x01@\x03\x04self\x05\x08channelsy\x04rowsy\0\x03\
+\x04\0\x13[method]mat.reshape\x01\x0c\x03\x01\x0bwasm:cv/mat\x05\x01\x02\x03\0\0\
+\x0bborder-type\x03\0\x0bborder-type\x03\0\x02\x02\x03\0\0\x04size\x03\0\x04size\
+\x03\0\x04\x02\x03\0\0\x17adaptive-threshold-type\x03\0\x17adaptive-threshold-ty\
+pe\x03\0\x06\x02\x03\0\0\x0ethreshold-type\x03\0\x0ethreshold-type\x03\0\x08\x02\
+\x03\0\x01\x03mat\x03\0\x03mat\x03\0\x0a\x01i\x0b\x01@\x06\x03src\x0c\x09max-val\
+uev\x0dadaptive-type\x07\x0ethreshold-type\x09\x0ablock-sizey\x01cv\0\x0c\x03\0\x12\
+adaptive-threshold\x01\x0d\x01@\x02\x03src\x0c\x06k-size\x05\0\x0c\x03\0\x04blur\
+\x01\x0e\x01@\x03\x03src\x0c\x05depthy\x06k-size\x05\0\x0c\x03\0\x0abox-filter\x01\
+\x0f\x01@\x05\x03src\x0c\x04size\x05\x07sigma-xv\x07sigma-yv\x06border\x03\0\x0c\
+\x03\0\x0dgaussian-blur\x01\x10\x01@\x04\x03src\x0c\x06threshv\x09max-valuev\x0e\
+threshold-type\x09\0\x0c\x03\0\x09threshold\x01\x11\x01B)\x02\x03\x02\x01\x0a\x04\
+\0\x03mat\x03\0\0\x01m\x06\x13net-backend-default\x12net-backend-halide\x14net-b\
+ackend-openvino\x12net-backend-opencv\x11net-backend-vkcom\x10net-backend-cuda\x04\
+\0\x10net-backend-type\x03\0\x02\x01m\x08\x0enet-target-cpu\x0fnet-target-fp32\x0f\
+net-target-fp16\x0enet-target-vpu\x11net-target-vulkan\x0fnet-target-fpga\x0fnet\
+-target-cuda\x14net-target-cuda-fp16\x04\0\x0fnet-target-type\x03\0\x04\x01m\x06\
+\x13data-layout-unknown\x0edata-layout-nd\x10data-layout-nchw\x10data-layout-nhw\
+c\x11data-layout-ndhwc\x12data-layout-planar\x04\0\x10data-layout-type\x03\0\x06\
+\x01m\x03\x11padding-mode-null\x18padding-mode-crop-center\x16padding-mode-lette\
+rbox\x04\0\x11padding-mode-type\x03\0\x08\x04\0\x05layer\x03\x01\x04\0\x03net\x03\
+\x01\x01i\x0a\x01@\0\0\x0c\x04\0\x12[constructor]layer\x01\x0d\x01h\x0a\x01@\x01\
+\x04self\x0e\0s\x04\0\x16[method]layer.get-name\x01\x0f\x01i\x0b\x01@\0\0\x10\x04\
+\0\x10[constructor]net\x01\x11\x01h\x0b\x01@\x01\x04self\x12\x01\0\x04\0\x11[met\
+hod]net.close\x01\x13\x01@\x01\x05models\0\x10\x04\0\x1e[static]net.read-net-fro\
+m-onnx\x01\x14\x01@\x01\x04self\x12\0\x7f\x04\0\x11[method]net.empty\x01\x15\x01\
+i\x01\x01@\x03\x04self\x12\x05input\x16\x04names\x01\0\x04\0\x15[method]net.set-\
+input\x01\x17\x01@\x02\x04self\x12\x0boutput-names\0\x16\x04\0\x13[method]net.fo\
+rward\x01\x18\x01py\x01@\x01\x04self\x12\0\x19\x04\0&[method]net.get-unconnected\
+-out-layers\x01\x1a\x01ps\x01@\x01\x04self\x12\0\x1b\x04\0\x1b[method]net.get-la\
+yer-names\x01\x1c\x01@\x02\x04self\x12\x02idy\0\x0c\x04\0\x15[method]net.get-lay\
+er\x01\x1d\x03\x01\x0bwasm:cv/net\x05\x12\x01B\x05\x02\x03\x02\x01\x0a\x04\0\x03\
+mat\x03\0\0\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\0\x07process\x01\x03\x04\x01\
+\x0fwasm:cv/request\x05\x13\x04\x01\x0awasm:cv/cv\x04\0\x0b\x08\x01\0\x02cv\x03\0\
+\0\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-component\x070.216.0\x10wit-bi\
+ndgen-rust\x060.31.0";
 
 #[inline(never)]
 #[doc(hidden)]
