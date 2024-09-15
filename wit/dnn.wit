@@ -49,7 +49,7 @@ interface net {
 		constructor();
 
 		// close the network
-        close: func();
+		close: func();
 		
 
 		// ReadNetFromONNX reads a network model stored in ONNX framework's format.
