@@ -141,6 +141,7 @@ dependencies = [
 name = "processrs"
 version = "0.1.0"
 dependencies = [
+ "wasmcv",
  "wee_alloc",
  "wit-bindgen",
 ]
@@ -266,6 +267,13 @@ dependencies = [
  "spdx",
  "wasm-encoder",
  "wasmparser",
+]
+
+[[package]]
+name = "wasmcv"
+version = "0.1.0"
+dependencies = [
+ "wit-bindgen",
 ]
 
 [[package]]
