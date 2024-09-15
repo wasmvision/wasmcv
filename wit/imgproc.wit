@@ -1,9 +1,6 @@
 package wasm:cv; 
 
 world imgproc {
-    import types;
-    import mat;
-
     use types.{border-type, size, adaptive-threshold-type, threshold-type};
     use mat.{mat};
 
