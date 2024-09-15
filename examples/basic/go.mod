@@ -1,4 +1,4 @@
-module github.com/hybridgroup/wasmcv/examples/basic
+module github.com/wasmvision/wasmcv/examples/basic
 
 go 1.23.0
 

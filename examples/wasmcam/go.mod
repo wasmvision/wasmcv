@@ -1,4 +1,4 @@
-module github.com/hybridgroup/wasmcv/examples/wasmcam
+module github.com/wasmvision/wasmcv/examples/wasmcam
 
 go 1.23.0
 
