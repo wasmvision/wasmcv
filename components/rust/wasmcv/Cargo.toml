@@ -1,0 +1,11 @@
+[package]
+name = "wasmcv"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+wit-bindgen = "0.32.0"
+
+[lib]
+path = "src/lib.rs"
+crate-type = ["lib"]
