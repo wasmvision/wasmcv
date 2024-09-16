@@ -17,7 +17,7 @@ package main
 
 import (
 	"github.com/hybridgroup/mechanoid/convert"
-	"github.com/wasmvision/wasmcv/components/tinygo/wasm/cv/mat"
+	"wasmcv.org/x/wasm/cv/mat"
 )
 
 //go:wasmimport hosted println
@@ -36,6 +36,12 @@ func process(image mat.Mat) mat.Mat {
 }
 
 func main() {}
+```
+
+Install the `wasmcv` package into your Go package:
+
+```shell
+go get wasmcv.org/x/wasm/cv
 ```
 
 You can then compile this module using the TinyGo compiler.
@@ -96,6 +102,12 @@ unsafe fn string_to_ptr(s: &String) -> (u32, u32) {
 // Use `wee_alloc` as the global allocator...for now.
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+```
+
+Install the `wasmcv` crate into your Rust project:
+
+```shell
+cargo add wasmcv
 ```
 
 You can then compile this module using the Rust compiler.
@@ -176,7 +188,7 @@ https://github.com/bytecodealliance/wasm-tools-go
 ### TinyGo
 
 ```shell
-wit-bindgen-go generate --out ./components/tinygo -w cv ./wit/
+wit-bindgen-go generate --out ./components/tinygo -w cv -p wasmcv.org/x ./wit/
 ```
 
 ### Rust
