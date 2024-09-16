@@ -1,10 +1,26 @@
 # wasmCV
 
-wasmCV provides WebAssembly interface bindings for computer vision applications based on [OpenCV](https://github.com/opencv/opencv).
+wasmCV provides WebAssembly guest interface bindings for computer vision applications based on [OpenCV](https://github.com/opencv/opencv).
 
-It includes [WIT](https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md) files defining the interface to be used between a WebAssembly host application and a WASM guest module intended to process  OpenCV `Mat` image frames.
+It includes [WIT](https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md) files defining the interface to be used between a WebAssembly host application and a WASM guest module intended to process OpenCV `Mat` image frames.
 
-These are then used to generate WASM bindings for TinyGo, Rust, and C. Those bindings can then be used in a WASM guest module to obtain information or perform operations on OpenCV image frames.
+These interface definitions are then used to generate WASM bindings for TinyGo, Rust, and C. Those bindings can then be used in a WASM guest module to call OpenCV functions implemented by the host to obtain information or perform operations on OpenCV image frames.
+
+```mermaid
+flowchart LR
+    subgraph host
+        OpenCV
+        Runtime[WASM Runtime]<-->OpenCV
+    end
+    subgraph guest
+        Runtime<--wasmCV-->processor-go.wasm
+        Runtime<--wasmCV-->processor-rust.wasm
+        Runtime<--wasmCV-->processor-c.wasm
+        processor-go.wasm
+        processor-rust.wasm
+        processor-c.wasm
+    end
+```
 
 ## Example wasmCV modules
 
