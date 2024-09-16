@@ -1,0 +1,3 @@
+[submodule "components/tinygo/wasm/cv"]
+	path = components/tinygo/wasm/cv
+	url = git@github.com:wasmvision/go-wasmcv.git
