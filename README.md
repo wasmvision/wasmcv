@@ -17,7 +17,7 @@ package main
 
 import (
 	"github.com/hybridgroup/mechanoid/convert"
-	"wasmcv.org/x/wasm/cv/mat"
+	"wasmcv.org/wasm/cv/mat"
 )
 
 //go:wasmimport hosted println
@@ -41,7 +41,7 @@ func main() {}
 Install the `wasmcv` package into your Go package:
 
 ```shell
-go get wasmcv.org/x/wasm/cv
+go get wasmcv.org/wasm/cv
 ```
 
 You can then compile this module using the TinyGo compiler.
@@ -188,8 +188,10 @@ https://github.com/bytecodealliance/wasm-tools-go
 ### TinyGo
 
 ```shell
-wit-bindgen-go generate --out ./components/tinygo -w cv -p wasmcv.org/x ./wit/
+wit-bindgen-go generate --out ./components/tinygo -w cv -p wasmcv.org ./wit/
 ```
+
+Note that the TinyGo bindings are a git submodule. When regenerating the submodule must be updated in order to update the separate Go package repo.
 
 ### Rust
 
