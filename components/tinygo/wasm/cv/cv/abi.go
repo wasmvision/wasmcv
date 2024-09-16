@@ -3,7 +3,7 @@
 package cv
 
 import (
-	"github.com/wasmvision/wasmcv/components/tinygo/wasm/cv/types"
+	"wasmcv.org/x/wasm/cv/types"
 )
 
 func lower_Size(v types.Size) (f0 uint32, f1 uint32) {
