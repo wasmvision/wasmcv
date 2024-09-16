@@ -4,7 +4,7 @@ package main
 
 import (
 	"github.com/hybridgroup/mechanoid/convert"
-	"wasmcv.org/x/wasm/cv/mat"
+	"wasmcv.org/wasm/cv/mat"
 )
 
 //go:wasmimport hosted println
