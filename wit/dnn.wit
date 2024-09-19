@@ -41,57 +41,60 @@ interface net {
 	resource layer {
 		constructor();
 
-		// GetName returns the name of the layer.
+		/// GetName returns the name of the layer.
 		get-name: func() -> string;
 	}
 
 	resource net {
-		constructor();
+		/// ReadNet read deep learning network represented in one of the supported formats.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga138439da76f26266fdefec9723f6c5cd
+		read-net: static func(model: string, config: string) -> net;
 
-		// close the network
-		close: func();
-		
-
-		// ReadNetFromONNX reads a network model stored in ONNX framework's format.
-		//
-		// For further details, please see:
-		// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd359567
+		/// ReadNetFromONNX reads a network model stored in ONNX framework's format.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd359567
 		read-net-from-onnx: static func(model: string) -> net;
 
-		// Empty returns true if there are no layers in the network.
-		//
-		// For further details, please see:
-		// https://docs.opencv.org/master/db/d30/classcv_1_1dnn_1_1Net.html#a6a5778787d5b8770deab5eda6968e66c
+		/// Close the network
+		close: func();
+		
+		/// Empty returns true if there are no layers in the network.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/master/db/d30/classcv_1_1dnn_1_1Net.html#a6a5778787d5b8770deab5eda6968e66c
 		empty: func() -> bool;
 
-		// SetInput sets the new input value for the network.
-		//
-		// For further details, please see:
-		// https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a672a08ae76444d75d05d7bfea3e4a328
+		/// SetInput sets the new input value for the network.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a672a08ae76444d75d05d7bfea3e4a328
 		set-input: func(input: mat, name: string);
 		
-		// Forward runs forward pass to compute output of layer with name outputName.
-		//
-		// For further details, please see:
-		// https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a98ed94cb6ef7063d3697259566da310b
+		/// Forward runs forward pass to compute output of layer with name outputName.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a98ed94cb6ef7063d3697259566da310b
 		forward: func(output-name: string) -> mat;
 
-		// GetUnconnectedOutLayers returns indexes of layers with unconnected outputs.
-		//
-		// For further details, please see:
-		// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ae26f0c29b3733d15d0482098ef9053e3
+		/// GetUnconnectedOutLayers returns indexes of layers with unconnected outputs.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ae26f0c29b3733d15d0482098ef9053e3
 		get-unconnected-out-layers: func() -> list<u32>;
 
-		// GetLayerNames returns names of layers in the network.
-		//
-		// For further details, please see:
-		// hhttps://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#a38e67098ae4ae5906bf8d8ea72199c2e
+		/// GetLayerNames returns names of layers in the network.
+		///
+		/// For further details, please see:
+		/// hhttps://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#a38e67098ae4ae5906bf8d8ea72199c2e
 		get-layer-names: func() -> list<string>;
 
-		// GetLayer returns layer with specified id.
-		//
-		// For further details, please see:
-		// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ac944d7f2d3ead5ef9b1b2fa3885f3ff1
+		/// GetLayer returns layer with specified id.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ac944d7f2d3ead5ef9b1b2fa3885f3ff1
 		get-layer: func(id: u32) -> layer;
     }
 }

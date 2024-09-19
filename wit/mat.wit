@@ -2,6 +2,8 @@ package wasm:cv;
 /// mat resource is a matrix of bytes, wrapper around the cv::Mat type.
 ///
 interface mat {
+    use types.{mix-max-loc-result};
+
     enum mattype {
         cv8u,
         cv8s,
@@ -13,30 +15,64 @@ interface mat {
     }
 
     resource mat {
-        constructor(cols: u32, rows: u32, %type: mattype);
+        /// Create a new Mat.
+        new-mat: static func() -> mat;
 
-        // close the Mat
+        /// Create a new Mat with the specified size and type.
+        new-mat-with-size: static func(cols: u32, rows: u32, mattype: mattype) -> mat;
+
+        /// Close the Mat
         close: func();
 
-        // Cols returns the number of columns for this Mat.
+        /// Cols returns the number of columns for this Mat.
         cols: func() -> u32;
 
-        // Rows returns the number of rows for this Mat.
+        /// Rows returns the number of rows for this Mat.
         rows: func() -> u32;
 
-        // type returns the type of the Mat.
-        %type: func() -> mattype;
+        /// MatType returns the type of the Mat.
+        mattype: func() -> mattype;
 
-        // Size returns an array with one element for each dimension containing the size of that dimension for the Mat.
+        /// Size returns an array with one element for each dimension containing the size of that dimension for the Mat.
         size: func() -> list<u32>;
 
-        // empty returns true if the Mat is empty.
+        /// Empty returns true if the Mat is empty.
         empty: func() -> bool;
 
-        // Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.
-        //
-        // For further details, please see:
-        // https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a4eb96e3251417fa88b78e2abd6cfd7d8
+        /// GetFloatAt returns the value at the specified row and column as a f32.
+        get-float-at: func(row: u32, col: u32) -> f32;
+
+        /// SetFloatAt sets the value at the specified row and column as a f32.
+        set-float-at: func(row: u32, col: u32, val: f32);
+
+        /// GetUCharAt returns the value at the specified row and column as a u8.
+        get-uchar-at: func(row: u32, col: u32) -> u8;
+
+        /// SetUCharAt sets the value at the specified row and column as a u8.
+        set-uchar-at: func(row: u32, col: u32, val: u8);
+
+        /// Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a4eb96e3251417fa88b78e2abd6cfd7d8
         reshape: func(channels: u32, rows: u32) -> mat;
+
+        /// RowRange creates a matrix header for the specified row span.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aa6542193430356ad631a9beabc624107
+        row-range: func(start: u32, end: u32) -> mat;
+
+        /// ColRange creates a matrix header for the specified column span.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aadc8f9210fe4dec50513746c246fa8d9
+        col-range: func(start: u32, end: u32) -> mat;
+
+        /// MinMaxLoc finds the global minimum and maximum in an array.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/trunk/d2/de8/group__core__array.html#gab473bf2eb6d14ff97e89b355dac20707
+        min-max-loc: func() -> mix-max-loc-result;
     }
 }

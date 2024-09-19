@@ -6,6 +6,25 @@ interface types {
         y: s32,
     }
 
+    record scalar {
+        val1: f32,
+        val2: f32,
+        val3: f32,
+        val4: f32,
+    }
+
+    record rect {
+        min: size,
+        max: size,
+    }
+
+    record rgba {
+        r: u8,
+        g: u8,
+        b: u8,
+        a: u8,
+    }
+
     enum border-type {
         border-constant,
         border-replicate,
@@ -31,5 +50,51 @@ interface types {
         threshold-mask,
         threshold-otsu,
         tthreshold-triangle,
+    }
+
+    enum data-layout-type {
+        data-layout-unknown,
+        data-layout-nd,
+        data-layout-nchw,
+        data-layout-ncdhw,
+        data-layout-nhwc,
+        data-layout-ndhwc,
+        data-layout-planar,
+    }
+
+    enum padding-mode-type {
+        padding-mode-null,
+        padding-mode-crop-center,
+        padding-mode-letterbox,
+    }
+
+    record blob-params {
+        scale-factor: f32,
+        size: size,
+        mean: scalar,
+        swap-rb: bool,
+        ddepth: u8,
+        data-layout: data-layout-type,
+        padding-mode: padding-mode-type,
+        border: scalar,
+    }
+
+    record mix-max-loc-result {
+        min-val: f32,
+        max-val: f32,
+        min-loc: size,
+        max-loc: size,
+    }
+
+    enum hershey-font-type {
+        hershey-font-simplex,
+        hershey-font-plain,
+        hershey-font-duplex,
+        hershey-font-complex,
+        hershey-font-triplex,
+        hershey-font-complex-small,
+        hershey-font-script-simplex,
+        hershey-font-script-complex,
+        hershey-font-italic,
     }
 }
