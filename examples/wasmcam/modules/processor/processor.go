@@ -22,7 +22,7 @@ func process(image mat.Mat) mat.Mat {
 		" Rows: " +
 		convert.IntToString(int(image.Rows())) +
 		" Type: " +
-		convert.IntToString(int(image.Type()))))
+		convert.IntToString(int(image.Mattype()))))
 
 	imageOut := cv.GaussianBlur(image, types.Size{5, 5}, 1.5, 1.5, types.BorderTypeBorderReflect101)
 	println(convert.StringToWasmPtr("Performed GaussianBlur on image"))

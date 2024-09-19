@@ -42,9 +42,9 @@ func main() {
 			"complete": wypes.H0(completeFunc),
 		},
 		"wasm:cv/mat": wypes.Module{
-			"[method]mat.cols": wypes.H1(matColsFunc),
-			"[method]mat.rows": wypes.H1(matRowsFunc),
-			"[method]mat.type": wypes.H1(matTypeFunc),
+			"[method]mat.cols":    wypes.H1(matColsFunc),
+			"[method]mat.rows":    wypes.H1(matRowsFunc),
+			"[method]mat.mattype": wypes.H1(matTypeFunc),
 		},
 		"wasm:cv/cv": wypes.Module{
 			"gaussian-blur": wypes.H6(matGaussianBlurFunc),

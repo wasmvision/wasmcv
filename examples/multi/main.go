@@ -52,9 +52,9 @@ func main() {
 			"println": wypes.H1(hostPrintln),
 		},
 		"wasm:cv/mat": wypes.Module{
-			"[method]mat.cols": wypes.H1(matColsFunc),
-			"[method]mat.rows": wypes.H1(matRowsFunc),
-			"[method]mat.type": wypes.H1(matTypeFunc),
+			"[method]mat.cols":    wypes.H1(matColsFunc),
+			"[method]mat.rows":    wypes.H1(matRowsFunc),
+			"[method]mat.mattype": wypes.H1(matTypeFunc),
 		},
 	}
 
