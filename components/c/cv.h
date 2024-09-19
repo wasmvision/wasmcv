@@ -19,6 +19,25 @@ typedef struct wasm_cv_types_size_t {
   int32_t   y;
 } wasm_cv_types_size_t;
 
+typedef struct wasm_cv_types_scalar_t {
+  float   val1;
+  float   val2;
+  float   val3;
+  float   val4;
+} wasm_cv_types_scalar_t;
+
+typedef struct wasm_cv_types_rect_t {
+  wasm_cv_types_size_t   min;
+  wasm_cv_types_size_t   max;
+} wasm_cv_types_rect_t;
+
+typedef struct wasm_cv_types_rgba_t {
+  uint8_t   r;
+  uint8_t   g;
+  uint8_t   b;
+  uint8_t   a;
+} wasm_cv_types_rgba_t;
+
 typedef uint8_t wasm_cv_types_border_type_t;
 
 #define WASM_CV_TYPES_BORDER_TYPE_BORDER_CONSTANT 0
@@ -45,6 +64,54 @@ typedef uint8_t wasm_cv_types_threshold_type_t;
 #define WASM_CV_TYPES_THRESHOLD_TYPE_THRESHOLD_MASK 5
 #define WASM_CV_TYPES_THRESHOLD_TYPE_THRESHOLD_OTSU 6
 #define WASM_CV_TYPES_THRESHOLD_TYPE_TTHRESHOLD_TRIANGLE 7
+
+typedef uint8_t wasm_cv_types_data_layout_type_t;
+
+#define WASM_CV_TYPES_DATA_LAYOUT_TYPE_DATA_LAYOUT_UNKNOWN 0
+#define WASM_CV_TYPES_DATA_LAYOUT_TYPE_DATA_LAYOUT_ND 1
+#define WASM_CV_TYPES_DATA_LAYOUT_TYPE_DATA_LAYOUT_NCHW 2
+#define WASM_CV_TYPES_DATA_LAYOUT_TYPE_DATA_LAYOUT_NCDHW 3
+#define WASM_CV_TYPES_DATA_LAYOUT_TYPE_DATA_LAYOUT_NHWC 4
+#define WASM_CV_TYPES_DATA_LAYOUT_TYPE_DATA_LAYOUT_NDHWC 5
+#define WASM_CV_TYPES_DATA_LAYOUT_TYPE_DATA_LAYOUT_PLANAR 6
+
+typedef uint8_t wasm_cv_types_padding_mode_type_t;
+
+#define WASM_CV_TYPES_PADDING_MODE_TYPE_PADDING_MODE_NULL 0
+#define WASM_CV_TYPES_PADDING_MODE_TYPE_PADDING_MODE_CROP_CENTER 1
+#define WASM_CV_TYPES_PADDING_MODE_TYPE_PADDING_MODE_LETTERBOX 2
+
+typedef struct wasm_cv_types_blob_params_t {
+  float   scale_factor;
+  wasm_cv_types_size_t   size;
+  wasm_cv_types_scalar_t   mean;
+  bool   swap_rb;
+  uint8_t   ddepth;
+  wasm_cv_types_data_layout_type_t   data_layout;
+  wasm_cv_types_padding_mode_type_t   padding_mode;
+  wasm_cv_types_scalar_t   border;
+} wasm_cv_types_blob_params_t;
+
+typedef struct wasm_cv_types_mix_max_loc_result_t {
+  float   min_val;
+  float   max_val;
+  wasm_cv_types_size_t   min_loc;
+  wasm_cv_types_size_t   max_loc;
+} wasm_cv_types_mix_max_loc_result_t;
+
+typedef uint8_t wasm_cv_types_hershey_font_type_t;
+
+#define WASM_CV_TYPES_HERSHEY_FONT_TYPE_HERSHEY_FONT_SIMPLEX 0
+#define WASM_CV_TYPES_HERSHEY_FONT_TYPE_HERSHEY_FONT_PLAIN 1
+#define WASM_CV_TYPES_HERSHEY_FONT_TYPE_HERSHEY_FONT_DUPLEX 2
+#define WASM_CV_TYPES_HERSHEY_FONT_TYPE_HERSHEY_FONT_COMPLEX 3
+#define WASM_CV_TYPES_HERSHEY_FONT_TYPE_HERSHEY_FONT_TRIPLEX 4
+#define WASM_CV_TYPES_HERSHEY_FONT_TYPE_HERSHEY_FONT_COMPLEX_SMALL 5
+#define WASM_CV_TYPES_HERSHEY_FONT_TYPE_HERSHEY_FONT_SCRIPT_SIMPLEX 6
+#define WASM_CV_TYPES_HERSHEY_FONT_TYPE_HERSHEY_FONT_SCRIPT_COMPLEX 7
+#define WASM_CV_TYPES_HERSHEY_FONT_TYPE_HERSHEY_FONT_ITALIC 8
+
+typedef wasm_cv_types_mix_max_loc_result_t wasm_cv_mat_mix_max_loc_result_t;
 
 typedef uint8_t wasm_cv_mat_mattype_t;
 
@@ -135,42 +202,99 @@ typedef wasm_cv_types_adaptive_threshold_type_t cv_adaptive_threshold_type_t;
 
 typedef wasm_cv_types_threshold_type_t cv_threshold_type_t;
 
+typedef wasm_cv_types_scalar_t cv_scalar_t;
+
+typedef wasm_cv_types_rect_t cv_rect_t;
+
+typedef wasm_cv_types_rgba_t cv_rgba_t;
+
+typedef wasm_cv_types_blob_params_t cv_blob_params_t;
+
+typedef wasm_cv_types_hershey_font_type_t cv_hershey_font_type_t;
+
+typedef wasm_cv_mat_mattype_t cv_mattype_t;
+
 typedef wasm_cv_mat_own_mat_t cv_own_mat_t;
+
+typedef struct {
+  int32_t *ptr;
+  size_t len;
+} cv_list_s32_t;
+
+typedef struct {
+  cv_rect_t *ptr;
+  size_t len;
+} cv_list_rect_t;
+
+typedef struct {
+  float *ptr;
+  size_t len;
+} cv_list_f32_t;
 
 typedef wasm_cv_mat_own_mat_t exports_wasm_cv_request_own_mat_t;
 
 // Imported Functions from `wasm:cv/mat`
-extern wasm_cv_mat_own_mat_t wasm_cv_mat_constructor_mat(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t type);
-// close the Mat
+// Create a new Mat.
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_new_mat(void);
+// Create a new Mat with the specified size and type.
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_new_mat_with_size(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t mattype);
+// Close the Mat
 extern void wasm_cv_mat_method_mat_close(wasm_cv_mat_borrow_mat_t self);
 // Cols returns the number of columns for this Mat.
 extern uint32_t wasm_cv_mat_method_mat_cols(wasm_cv_mat_borrow_mat_t self);
 // Rows returns the number of rows for this Mat.
 extern uint32_t wasm_cv_mat_method_mat_rows(wasm_cv_mat_borrow_mat_t self);
-// type returns the type of the Mat.
-extern wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_type(wasm_cv_mat_borrow_mat_t self);
+// MatType returns the type of the Mat.
+extern wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_mattype(wasm_cv_mat_borrow_mat_t self);
 // Size returns an array with one element for each dimension containing the size of that dimension for the Mat.
 extern void wasm_cv_mat_method_mat_size(wasm_cv_mat_borrow_mat_t self, cv_list_u32_t *ret);
-// empty returns true if the Mat is empty.
+// Empty returns true if the Mat is empty.
 extern bool wasm_cv_mat_method_mat_empty(wasm_cv_mat_borrow_mat_t self);
+// GetFloatAt returns the value at the specified row and column as a f32.
+extern float wasm_cv_mat_method_mat_get_float_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col);
+// SetFloatAt sets the value at the specified row and column as a f32.
+extern void wasm_cv_mat_method_mat_set_float_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col, float val);
+// GetUCharAt returns the value at the specified row and column as a u8.
+extern uint8_t wasm_cv_mat_method_mat_get_uchar_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col);
+// SetUCharAt sets the value at the specified row and column as a u8.
+extern void wasm_cv_mat_method_mat_set_uchar_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col, uint8_t val);
 // Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.
 // 
 // For further details, please see:
 // https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a4eb96e3251417fa88b78e2abd6cfd7d8
 extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_reshape(wasm_cv_mat_borrow_mat_t self, uint32_t channels, uint32_t rows);
+// RowRange creates a matrix header for the specified row span.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aa6542193430356ad631a9beabc624107
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_row_range(wasm_cv_mat_borrow_mat_t self, uint32_t start, uint32_t end);
+// ColRange creates a matrix header for the specified column span.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aadc8f9210fe4dec50513746c246fa8d9
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_col_range(wasm_cv_mat_borrow_mat_t self, uint32_t start, uint32_t end);
+// MinMaxLoc finds the global minimum and maximum in an array.
+// 
+// For further details, please see:
+// https://docs.opencv.org/trunk/d2/de8/group__core__array.html#gab473bf2eb6d14ff97e89b355dac20707
+extern void wasm_cv_mat_method_mat_min_max_loc(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_mix_max_loc_result_t *ret);
 
 // Imported Functions from `wasm:cv/net`
 extern wasm_cv_net_own_layer_t wasm_cv_net_constructor_layer(void);
 // GetName returns the name of the layer.
 extern void wasm_cv_net_method_layer_get_name(wasm_cv_net_borrow_layer_t self, cv_string_t *ret);
-extern wasm_cv_net_own_net_t wasm_cv_net_constructor_net(void);
-// close the network
-extern void wasm_cv_net_method_net_close(wasm_cv_net_borrow_net_t self);
+// ReadNet read deep learning network represented in one of the supported formats.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga138439da76f26266fdefec9723f6c5cd
+extern wasm_cv_net_own_net_t wasm_cv_net_static_net_read_net(cv_string_t *model, cv_string_t *config);
 // ReadNetFromONNX reads a network model stored in ONNX framework's format.
 // 
 // For further details, please see:
 // https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd359567
 extern wasm_cv_net_own_net_t wasm_cv_net_static_net_read_net_from_onnx(cv_string_t *model);
+// Close the network
+extern void wasm_cv_net_method_net_close(wasm_cv_net_borrow_net_t self);
 // Empty returns true if there are no layers in the network.
 // 
 // For further details, please see:
@@ -203,26 +327,74 @@ extern void wasm_cv_net_method_net_get_layer_names(wasm_cv_net_borrow_net_t self
 extern wasm_cv_net_own_layer_t wasm_cv_net_method_net_get_layer(wasm_cv_net_borrow_net_t self, uint32_t id);
 
 // Imported Functions from `cv`
+// drawing functions
+// Rectangle draws a simple, thick, or filled up-right rectangle.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8f3d1e1b7
+extern void cv_rectangle(cv_own_mat_t img, cv_rect_t *r, cv_rgba_t *c, uint8_t thickness);
+// PutText draws a text string.
+// It renders the specified text string into the img Mat at the location
+// passed in the "org" param, using the desired font face, font scale,
+// color, and line thinkness.
+// 
+// For further details, please see:
+// http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576
+extern void cv_put_text(cv_own_mat_t img, cv_string_t *text, cv_size_t *org, cv_hershey_font_type_t font_face, double font_scale, cv_rgba_t *c, int32_t thickness);
+// imgproc functions
 // AdaptiveThreshold applies a fixed-level threshold to each array element.
+// 
 // For further details, please see:
 // https://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1b1b397736707afcde3
 extern cv_own_mat_t cv_adaptive_threshold(cv_own_mat_t src, float max_value, cv_adaptive_threshold_type_t adaptive_type, cv_threshold_type_t threshold_type, uint32_t block_size, float c);
 // Blur blurs an image Mat using a normalized box filter.
+// 
 // For further details, please see:
 // https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga8c45db9afe636703801b0b2e440fce37
 extern cv_own_mat_t cv_blur(cv_own_mat_t src, cv_size_t *k_size);
 // BoxFilter blurs an image using the box filter.
+// 
 // For further details, please see:
 // https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gad533230ebf2d42509547d514f7d3fbc3
 extern cv_own_mat_t cv_box_filter(cv_own_mat_t src, uint32_t depth, cv_size_t *k_size);
 // GaussianBlur blurs an image using a Gaussian filter.
+// 
 // For further details, please see:
 // https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
 extern cv_own_mat_t cv_gaussian_blur(cv_own_mat_t src, cv_size_t *size, float sigma_x, float sigma_y, cv_border_type_t border);
 // Threshold applies a fixed-level threshold to each array element.
+// 
 // For further details, please see:
 // https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57
 extern cv_own_mat_t cv_threshold(cv_own_mat_t src, float thresh, float max_value, cv_threshold_type_t threshold_type);
+// Transpose for n-dimensional matrices.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
+extern cv_own_mat_t cv_transpose_nd(cv_own_mat_t src, cv_list_s32_t *order);
+// dnn functions
+// BlobFromImage creates 4-dimensional blob from image. Optionally resizes and crops image from center,
+// subtract mean values, scales values by scalefactor, swap Blue and Red channels.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581ac8d7
+extern cv_own_mat_t cv_blob_from_image(cv_own_mat_t image, float scale_factor, cv_size_t *size, cv_scalar_t *mean, bool swap_rb, bool crop);
+// BlobFromImageWithParams creates 4-dimensional blob from image. Optionally resizes and crops image from center,
+// subtract mean values, scales values by scalefactor, swap Blue and Red channels.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581ac8d7
+extern cv_own_mat_t cv_blob_from_image_with_params(cv_own_mat_t image, cv_blob_params_t *params);
+// BlobRectsToImageRects converts blob rects to image rects.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee
+extern void cv_blob_rects_to_image_rects(cv_blob_params_t *params, cv_list_rect_t *blob_rects, cv_size_t *image_size, cv_list_rect_t *ret);
+// NMSBoxes performs non maximum suppression given boxes and corresponding scores.
+// 
+// For futher details, please see:
+// https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee
+extern void cv_nms_boxes(cv_list_rect_t *bboxes, cv_list_f32_t *scores, float score_threshold, float nms_threshold, cv_list_s32_t *ret);
 
 // Exported Functions from `wasm:cv/request`
 exports_wasm_cv_request_own_mat_t exports_wasm_cv_request_process(exports_wasm_cv_request_own_mat_t image);
@@ -244,6 +416,12 @@ extern void wasm_cv_net_net_drop_own(wasm_cv_net_own_net_t handle);
 extern wasm_cv_net_borrow_net_t wasm_cv_net_borrow_net(wasm_cv_net_own_net_t handle);
 
 void cv_list_string_free(cv_list_string_t *ptr);
+
+void cv_list_s32_free(cv_list_s32_t *ptr);
+
+void cv_list_rect_free(cv_list_rect_t *ptr);
+
+void cv_list_f32_free(cv_list_f32_t *ptr);
 
 // Transfers ownership of `s` into the string `ret`
 void cv_string_set(cv_string_t *ret, const char*s);
