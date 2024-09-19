@@ -4,9 +4,69 @@ pub type BorderType = wasm::cv::types::BorderType;
 pub type Size = wasm::cv::types::Size;
 pub type AdaptiveThresholdType = wasm::cv::types::AdaptiveThresholdType;
 pub type ThresholdType = wasm::cv::types::ThresholdType;
+pub type Scalar = wasm::cv::types::Scalar;
+pub type Rect = wasm::cv::types::Rect;
+pub type Rgba = wasm::cv::types::Rgba;
+pub type BlobParams = wasm::cv::types::BlobParams;
+pub type HersheyFontType = wasm::cv::types::HersheyFontType;
 pub type Mat = wasm::cv::mat::Mat;
 #[allow(unused_unsafe, clippy::all)]
+/// drawing functions
+/// Rectangle draws a simple, thick, or filled up-right rectangle.
+///
+/// For further details, please see:
+/// https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8f3d1e1b7
+pub fn rectangle(img: Mat,r: Rect,c: Rgba,thickness: u8,){
+  unsafe {
+    let wasm::cv::types::Rect{ min:min0, max:max0, } = r;
+    let wasm::cv::types::Size{ x:x1, y:y1, } = min0;
+    let wasm::cv::types::Size{ x:x2, y:y2, } = max0;
+    let wasm::cv::types::Rgba{ r:r3, g:g3, b:b3, a:a3, } = c;
+
+    #[cfg(target_arch = "wasm32")]
+    #[link(wasm_import_module = "$root")]
+    extern "C" {
+      #[link_name = "rectangle"]
+      fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, );
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, ){ unreachable!() }
+    wit_import((&img).take_handle() as i32, _rt::as_i32(x1), _rt::as_i32(y1), _rt::as_i32(x2), _rt::as_i32(y2), _rt::as_i32(r3), _rt::as_i32(g3), _rt::as_i32(b3), _rt::as_i32(a3), _rt::as_i32(&thickness));
+  }
+}
+#[allow(unused_unsafe, clippy::all)]
+/// PutText draws a text string.
+/// It renders the specified text string into the img Mat at the location
+/// passed in the "org" param, using the desired font face, font scale,
+/// color, and line thinkness.
+///
+/// For further details, please see:
+/// http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576
+pub fn put_text(img: Mat,text: &str,org: Size,font_face: HersheyFontType,font_scale: f64,c: Rgba,thickness: i32,){
+  unsafe {
+    let vec0 = text;
+    let ptr0 = vec0.as_ptr().cast::<u8>();
+    let len0 = vec0.len();
+    let wasm::cv::types::Size{ x:x1, y:y1, } = org;
+    let wasm::cv::types::Rgba{ r:r2, g:g2, b:b2, a:a2, } = c;
+
+    #[cfg(target_arch = "wasm32")]
+    #[link(wasm_import_module = "$root")]
+    extern "C" {
+      #[link_name = "put-text"]
+      fn wit_import(_: i32, _: *mut u8, _: usize, _: i32, _: i32, _: i32, _: f64, _: i32, _: i32, _: i32, _: i32, _: i32, );
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    fn wit_import(_: i32, _: *mut u8, _: usize, _: i32, _: i32, _: i32, _: f64, _: i32, _: i32, _: i32, _: i32, _: i32, ){ unreachable!() }
+    wit_import((&img).take_handle() as i32, ptr0.cast_mut(), len0, _rt::as_i32(x1), _rt::as_i32(y1), font_face.clone() as i32, _rt::as_f64(&font_scale), _rt::as_i32(r2), _rt::as_i32(g2), _rt::as_i32(b2), _rt::as_i32(a2), _rt::as_i32(&thickness));
+  }
+}
+#[allow(unused_unsafe, clippy::all)]
+/// imgproc functions
 /// AdaptiveThreshold applies a fixed-level threshold to each array element.
+///
 /// For further details, please see:
 /// https://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1b1b397736707afcde3
 pub fn adaptive_threshold(src: Mat,max_value: f32,adaptive_type: AdaptiveThresholdType,threshold_type: ThresholdType,block_size: u32,c: f32,) -> Mat{
@@ -27,6 +87,7 @@ pub fn adaptive_threshold(src: Mat,max_value: f32,adaptive_type: AdaptiveThresho
 }
 #[allow(unused_unsafe, clippy::all)]
 /// Blur blurs an image Mat using a normalized box filter.
+///
 /// For further details, please see:
 /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga8c45db9afe636703801b0b2e440fce37
 pub fn blur(src: Mat,k_size: Size,) -> Mat{
@@ -48,6 +109,7 @@ pub fn blur(src: Mat,k_size: Size,) -> Mat{
 }
 #[allow(unused_unsafe, clippy::all)]
 /// BoxFilter blurs an image using the box filter.
+///
 /// For further details, please see:
 /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gad533230ebf2d42509547d514f7d3fbc3
 pub fn box_filter(src: Mat,depth: u32,k_size: Size,) -> Mat{
@@ -69,6 +131,7 @@ pub fn box_filter(src: Mat,depth: u32,k_size: Size,) -> Mat{
 }
 #[allow(unused_unsafe, clippy::all)]
 /// GaussianBlur blurs an image using a Gaussian filter.
+///
 /// For further details, please see:
 /// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
 pub fn gaussian_blur(src: Mat,size: Size,sigma_x: f32,sigma_y: f32,border: BorderType,) -> Mat{
@@ -90,6 +153,7 @@ pub fn gaussian_blur(src: Mat,size: Size,sigma_x: f32,sigma_y: f32,border: Borde
 }
 #[allow(unused_unsafe, clippy::all)]
 /// Threshold applies a fixed-level threshold to each array element.
+///
 /// For further details, please see:
 /// https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57
 pub fn threshold(src: Mat,thresh: f32,max_value: f32,threshold_type: ThresholdType,) -> Mat{
@@ -106,6 +170,168 @@ pub fn threshold(src: Mat,thresh: f32,max_value: f32,threshold_type: ThresholdTy
     fn wit_import(_: i32, _: f32, _: f32, _: i32, ) -> i32{ unreachable!() }
     let ret = wit_import((&src).take_handle() as i32, _rt::as_f32(&thresh), _rt::as_f32(&max_value), threshold_type.clone() as i32);
     wasm::cv::mat::Mat::from_handle(ret as u32)
+  }
+}
+#[allow(unused_unsafe, clippy::all)]
+/// Transpose for n-dimensional matrices.
+///
+/// For further details, please see:
+/// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
+pub fn transpose_nd(src: Mat,order: &[i32],) -> Mat{
+  unsafe {
+    let vec0 = order;
+    let ptr0 = vec0.as_ptr().cast::<u8>();
+    let len0 = vec0.len();
+
+    #[cfg(target_arch = "wasm32")]
+    #[link(wasm_import_module = "$root")]
+    extern "C" {
+      #[link_name = "transpose-nd"]
+      fn wit_import(_: i32, _: *mut u8, _: usize, ) -> i32;
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    fn wit_import(_: i32, _: *mut u8, _: usize, ) -> i32{ unreachable!() }
+    let ret = wit_import((&src).take_handle() as i32, ptr0.cast_mut(), len0);
+    wasm::cv::mat::Mat::from_handle(ret as u32)
+  }
+}
+#[allow(unused_unsafe, clippy::all)]
+/// dnn functions
+/// BlobFromImage creates 4-dimensional blob from image. Optionally resizes and crops image from center,
+/// subtract mean values, scales values by scalefactor, swap Blue and Red channels.
+///
+/// For further details, please see:
+/// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581ac8d7
+pub fn blob_from_image(image: Mat,scale_factor: f32,size: Size,mean: Scalar,swap_rb: bool,crop: bool,) -> Mat{
+  unsafe {
+    let wasm::cv::types::Size{ x:x0, y:y0, } = size;
+    let wasm::cv::types::Scalar{ val1:val11, val2:val21, val3:val31, val4:val41, } = mean;
+
+    #[cfg(target_arch = "wasm32")]
+    #[link(wasm_import_module = "$root")]
+    extern "C" {
+      #[link_name = "blob-from-image"]
+      fn wit_import(_: i32, _: f32, _: i32, _: i32, _: f32, _: f32, _: f32, _: f32, _: i32, _: i32, ) -> i32;
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    fn wit_import(_: i32, _: f32, _: i32, _: i32, _: f32, _: f32, _: f32, _: f32, _: i32, _: i32, ) -> i32{ unreachable!() }
+    let ret = wit_import((&image).take_handle() as i32, _rt::as_f32(&scale_factor), _rt::as_i32(x0), _rt::as_i32(y0), _rt::as_f32(val11), _rt::as_f32(val21), _rt::as_f32(val31), _rt::as_f32(val41), match &swap_rb { true => 1, false => 0 }, match &crop { true => 1, false => 0 });
+    wasm::cv::mat::Mat::from_handle(ret as u32)
+  }
+}
+#[allow(unused_unsafe, clippy::all)]
+/// BlobFromImageWithParams creates 4-dimensional blob from image. Optionally resizes and crops image from center,
+/// subtract mean values, scales values by scalefactor, swap Blue and Red channels.
+///
+/// For further details, please see:
+/// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581ac8d7
+pub fn blob_from_image_with_params(image: Mat,params: BlobParams,) -> Mat{
+  unsafe {
+    let wasm::cv::types::BlobParams{ scale_factor:scale_factor0, size:size0, mean:mean0, swap_rb:swap_rb0, ddepth:ddepth0, data_layout:data_layout0, padding_mode:padding_mode0, border:border0, } = params;
+    let wasm::cv::types::Size{ x:x1, y:y1, } = size0;
+    let wasm::cv::types::Scalar{ val1:val12, val2:val22, val3:val32, val4:val42, } = mean0;
+    let wasm::cv::types::Scalar{ val1:val13, val2:val23, val3:val33, val4:val43, } = border0;
+
+    #[cfg(target_arch = "wasm32")]
+    #[link(wasm_import_module = "$root")]
+    extern "C" {
+      #[link_name = "blob-from-image-with-params"]
+      fn wit_import(_: i32, _: f32, _: i32, _: i32, _: f32, _: f32, _: f32, _: f32, _: i32, _: i32, _: i32, _: i32, _: f32, _: f32, _: f32, _: f32, ) -> i32;
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    fn wit_import(_: i32, _: f32, _: i32, _: i32, _: f32, _: f32, _: f32, _: f32, _: i32, _: i32, _: i32, _: i32, _: f32, _: f32, _: f32, _: f32, ) -> i32{ unreachable!() }
+    let ret = wit_import((&image).take_handle() as i32, _rt::as_f32(scale_factor0), _rt::as_i32(x1), _rt::as_i32(y1), _rt::as_f32(val12), _rt::as_f32(val22), _rt::as_f32(val32), _rt::as_f32(val42), match swap_rb0 { true => 1, false => 0 }, _rt::as_i32(ddepth0), data_layout0.clone() as i32, padding_mode0.clone() as i32, _rt::as_f32(val13), _rt::as_f32(val23), _rt::as_f32(val33), _rt::as_f32(val43));
+    wasm::cv::mat::Mat::from_handle(ret as u32)
+  }
+}
+#[allow(unused_unsafe, clippy::all)]
+/// BlobRectsToImageRects converts blob rects to image rects.
+///
+/// For further details, please see:
+/// https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee
+pub fn blob_rects_to_image_rects(params: BlobParams,blob_rects: &[Rect],image_size: Size,) -> _rt::Vec::<Rect>{
+  unsafe {
+    #[repr(align(4))]
+    struct RetArea([::core::mem::MaybeUninit::<u8>; 64]);
+    let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 64]);
+    let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();let wasm::cv::types::BlobParams{ scale_factor:scale_factor1, size:size1, mean:mean1, swap_rb:swap_rb1, ddepth:ddepth1, data_layout:data_layout1, padding_mode:padding_mode1, border:border1, } = params;
+    *ptr0.add(0).cast::<f32>() = _rt::as_f32(scale_factor1);
+    let wasm::cv::types::Size{ x:x2, y:y2, } = size1;
+    *ptr0.add(4).cast::<i32>() = _rt::as_i32(x2);
+    *ptr0.add(8).cast::<i32>() = _rt::as_i32(y2);
+    let wasm::cv::types::Scalar{ val1:val13, val2:val23, val3:val33, val4:val43, } = mean1;
+    *ptr0.add(12).cast::<f32>() = _rt::as_f32(val13);
+    *ptr0.add(16).cast::<f32>() = _rt::as_f32(val23);
+    *ptr0.add(20).cast::<f32>() = _rt::as_f32(val33);
+    *ptr0.add(24).cast::<f32>() = _rt::as_f32(val43);
+    *ptr0.add(28).cast::<u8>() = (match swap_rb1 { true => 1, false => 0 }) as u8;
+    *ptr0.add(29).cast::<u8>() = (_rt::as_i32(ddepth1)) as u8;
+    *ptr0.add(30).cast::<u8>() = (data_layout1.clone() as i32) as u8;
+    *ptr0.add(31).cast::<u8>() = (padding_mode1.clone() as i32) as u8;
+    let wasm::cv::types::Scalar{ val1:val14, val2:val24, val3:val34, val4:val44, } = border1;
+    *ptr0.add(32).cast::<f32>() = _rt::as_f32(val14);
+    *ptr0.add(36).cast::<f32>() = _rt::as_f32(val24);
+    *ptr0.add(40).cast::<f32>() = _rt::as_f32(val34);
+    *ptr0.add(44).cast::<f32>() = _rt::as_f32(val44);
+    let vec5 = blob_rects;
+    let ptr5 = vec5.as_ptr().cast::<u8>();
+    let len5 = vec5.len();
+    *ptr0.add(52).cast::<usize>() = len5;
+    *ptr0.add(48).cast::<*mut u8>() = ptr5.cast_mut();
+    let wasm::cv::types::Size{ x:x6, y:y6, } = image_size;
+    *ptr0.add(56).cast::<i32>() = _rt::as_i32(x6);
+    *ptr0.add(60).cast::<i32>() = _rt::as_i32(y6);
+    let ptr7 = ret_area.0.as_mut_ptr().cast::<u8>();
+    #[cfg(target_arch = "wasm32")]
+    #[link(wasm_import_module = "$root")]
+    extern "C" {
+      #[link_name = "blob-rects-to-image-rects"]
+      fn wit_import(_: *mut u8, _: *mut u8, );
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    fn wit_import(_: *mut u8, _: *mut u8, ){ unreachable!() }
+    wit_import(ptr0, ptr7);
+    let l8 = *ptr7.add(0).cast::<*mut u8>();
+    let l9 = *ptr7.add(4).cast::<usize>();
+    let len10 = l9;
+    _rt::Vec::from_raw_parts(l8.cast(), len10, len10)
+  }
+}
+#[allow(unused_unsafe, clippy::all)]
+/// NMSBoxes performs non maximum suppression given boxes and corresponding scores.
+///
+/// For futher details, please see:
+/// https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee
+pub fn nms_boxes(bboxes: &[Rect],scores: &[f32],score_threshold: f32,nms_threshold: f32,) -> _rt::Vec::<i32>{
+  unsafe {
+    #[repr(align(4))]
+    struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+    let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+    let vec0 = bboxes;
+    let ptr0 = vec0.as_ptr().cast::<u8>();
+    let len0 = vec0.len();
+    let vec1 = scores;
+    let ptr1 = vec1.as_ptr().cast::<u8>();
+    let len1 = vec1.len();
+    let ptr2 = ret_area.0.as_mut_ptr().cast::<u8>();
+    #[cfg(target_arch = "wasm32")]
+    #[link(wasm_import_module = "$root")]
+    extern "C" {
+      #[link_name = "nms-boxes"]
+      fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, _: f32, _: f32, _: *mut u8, );
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
+    fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, _: f32, _: f32, _: *mut u8, ){ unreachable!() }
+    wit_import(ptr0.cast_mut(), len0, ptr1.cast_mut(), len1, _rt::as_f32(&score_threshold), _rt::as_f32(&nms_threshold), ptr2);
+    let l3 = *ptr2.add(0).cast::<*mut u8>();
+    let l4 = *ptr2.add(4).cast::<usize>();
+    let len5 = l4;
+    _rt::Vec::from_raw_parts(l3.cast(), len5, len5)
   }
 }
 #[allow(dead_code)]
@@ -128,6 +354,43 @@ pub mod wasm {
       impl ::core::fmt::Debug for Size {
         fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
           f.debug_struct("Size").field("x", &self.x).field("y", &self.y).finish()
+        }
+      }
+      #[repr(C)]
+      #[derive(Clone, Copy)]
+      pub struct Scalar {
+        pub val1: f32,
+        pub val2: f32,
+        pub val3: f32,
+        pub val4: f32,
+      }
+      impl ::core::fmt::Debug for Scalar {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          f.debug_struct("Scalar").field("val1", &self.val1).field("val2", &self.val2).field("val3", &self.val3).field("val4", &self.val4).finish()
+        }
+      }
+      #[repr(C)]
+      #[derive(Clone, Copy)]
+      pub struct Rect {
+        pub min: Size,
+        pub max: Size,
+      }
+      impl ::core::fmt::Debug for Rect {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          f.debug_struct("Rect").field("min", &self.min).field("max", &self.max).finish()
+        }
+      }
+      #[repr(C)]
+      #[derive(Clone, Copy)]
+      pub struct Rgba {
+        pub r: u8,
+        pub g: u8,
+        pub b: u8,
+        pub a: u8,
+      }
+      impl ::core::fmt::Debug for Rgba {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          f.debug_struct("Rgba").field("r", &self.r).field("g", &self.g).field("b", &self.b).field("a", &self.a).finish()
         }
       }
       #[repr(u8)]
@@ -295,6 +558,206 @@ pub mod wasm {
         }
       }
 
+      #[repr(u8)]
+      #[derive(Clone, Copy, Eq, Ord, PartialEq, PartialOrd)]
+      pub enum DataLayoutType {
+        DataLayoutUnknown,
+        DataLayoutNd,
+        DataLayoutNchw,
+        DataLayoutNcdhw,
+        DataLayoutNhwc,
+        DataLayoutNdhwc,
+        DataLayoutPlanar,
+      }
+      impl ::core::fmt::Debug for DataLayoutType {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          match self {
+            DataLayoutType::DataLayoutUnknown => {
+              f.debug_tuple("DataLayoutType::DataLayoutUnknown").finish()
+            }
+            DataLayoutType::DataLayoutNd => {
+              f.debug_tuple("DataLayoutType::DataLayoutNd").finish()
+            }
+            DataLayoutType::DataLayoutNchw => {
+              f.debug_tuple("DataLayoutType::DataLayoutNchw").finish()
+            }
+            DataLayoutType::DataLayoutNcdhw => {
+              f.debug_tuple("DataLayoutType::DataLayoutNcdhw").finish()
+            }
+            DataLayoutType::DataLayoutNhwc => {
+              f.debug_tuple("DataLayoutType::DataLayoutNhwc").finish()
+            }
+            DataLayoutType::DataLayoutNdhwc => {
+              f.debug_tuple("DataLayoutType::DataLayoutNdhwc").finish()
+            }
+            DataLayoutType::DataLayoutPlanar => {
+              f.debug_tuple("DataLayoutType::DataLayoutPlanar").finish()
+            }
+          }
+        }
+      }
+
+      impl DataLayoutType{
+        #[doc(hidden)]
+        pub unsafe fn _lift(val: u8) -> DataLayoutType{
+          if !cfg!(debug_assertions) {
+            return ::core::mem::transmute(val);
+          }
+
+          match val {
+            0 => DataLayoutType::DataLayoutUnknown,
+            1 => DataLayoutType::DataLayoutNd,
+            2 => DataLayoutType::DataLayoutNchw,
+            3 => DataLayoutType::DataLayoutNcdhw,
+            4 => DataLayoutType::DataLayoutNhwc,
+            5 => DataLayoutType::DataLayoutNdhwc,
+            6 => DataLayoutType::DataLayoutPlanar,
+
+            _ => panic!("invalid enum discriminant"),
+          }
+        }
+      }
+
+      #[repr(u8)]
+      #[derive(Clone, Copy, Eq, Ord, PartialEq, PartialOrd)]
+      pub enum PaddingModeType {
+        PaddingModeNull,
+        PaddingModeCropCenter,
+        PaddingModeLetterbox,
+      }
+      impl ::core::fmt::Debug for PaddingModeType {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          match self {
+            PaddingModeType::PaddingModeNull => {
+              f.debug_tuple("PaddingModeType::PaddingModeNull").finish()
+            }
+            PaddingModeType::PaddingModeCropCenter => {
+              f.debug_tuple("PaddingModeType::PaddingModeCropCenter").finish()
+            }
+            PaddingModeType::PaddingModeLetterbox => {
+              f.debug_tuple("PaddingModeType::PaddingModeLetterbox").finish()
+            }
+          }
+        }
+      }
+
+      impl PaddingModeType{
+        #[doc(hidden)]
+        pub unsafe fn _lift(val: u8) -> PaddingModeType{
+          if !cfg!(debug_assertions) {
+            return ::core::mem::transmute(val);
+          }
+
+          match val {
+            0 => PaddingModeType::PaddingModeNull,
+            1 => PaddingModeType::PaddingModeCropCenter,
+            2 => PaddingModeType::PaddingModeLetterbox,
+
+            _ => panic!("invalid enum discriminant"),
+          }
+        }
+      }
+
+      #[repr(C)]
+      #[derive(Clone, Copy)]
+      pub struct BlobParams {
+        pub scale_factor: f32,
+        pub size: Size,
+        pub mean: Scalar,
+        pub swap_rb: bool,
+        pub ddepth: u8,
+        pub data_layout: DataLayoutType,
+        pub padding_mode: PaddingModeType,
+        pub border: Scalar,
+      }
+      impl ::core::fmt::Debug for BlobParams {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          f.debug_struct("BlobParams").field("scale-factor", &self.scale_factor).field("size", &self.size).field("mean", &self.mean).field("swap-rb", &self.swap_rb).field("ddepth", &self.ddepth).field("data-layout", &self.data_layout).field("padding-mode", &self.padding_mode).field("border", &self.border).finish()
+        }
+      }
+      #[repr(C)]
+      #[derive(Clone, Copy)]
+      pub struct MixMaxLocResult {
+        pub min_val: f32,
+        pub max_val: f32,
+        pub min_loc: Size,
+        pub max_loc: Size,
+      }
+      impl ::core::fmt::Debug for MixMaxLocResult {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          f.debug_struct("MixMaxLocResult").field("min-val", &self.min_val).field("max-val", &self.max_val).field("min-loc", &self.min_loc).field("max-loc", &self.max_loc).finish()
+        }
+      }
+      #[repr(u8)]
+      #[derive(Clone, Copy, Eq, Ord, PartialEq, PartialOrd)]
+      pub enum HersheyFontType {
+        HersheyFontSimplex,
+        HersheyFontPlain,
+        HersheyFontDuplex,
+        HersheyFontComplex,
+        HersheyFontTriplex,
+        HersheyFontComplexSmall,
+        HersheyFontScriptSimplex,
+        HersheyFontScriptComplex,
+        HersheyFontItalic,
+      }
+      impl ::core::fmt::Debug for HersheyFontType {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          match self {
+            HersheyFontType::HersheyFontSimplex => {
+              f.debug_tuple("HersheyFontType::HersheyFontSimplex").finish()
+            }
+            HersheyFontType::HersheyFontPlain => {
+              f.debug_tuple("HersheyFontType::HersheyFontPlain").finish()
+            }
+            HersheyFontType::HersheyFontDuplex => {
+              f.debug_tuple("HersheyFontType::HersheyFontDuplex").finish()
+            }
+            HersheyFontType::HersheyFontComplex => {
+              f.debug_tuple("HersheyFontType::HersheyFontComplex").finish()
+            }
+            HersheyFontType::HersheyFontTriplex => {
+              f.debug_tuple("HersheyFontType::HersheyFontTriplex").finish()
+            }
+            HersheyFontType::HersheyFontComplexSmall => {
+              f.debug_tuple("HersheyFontType::HersheyFontComplexSmall").finish()
+            }
+            HersheyFontType::HersheyFontScriptSimplex => {
+              f.debug_tuple("HersheyFontType::HersheyFontScriptSimplex").finish()
+            }
+            HersheyFontType::HersheyFontScriptComplex => {
+              f.debug_tuple("HersheyFontType::HersheyFontScriptComplex").finish()
+            }
+            HersheyFontType::HersheyFontItalic => {
+              f.debug_tuple("HersheyFontType::HersheyFontItalic").finish()
+            }
+          }
+        }
+      }
+
+      impl HersheyFontType{
+        #[doc(hidden)]
+        pub unsafe fn _lift(val: u8) -> HersheyFontType{
+          if !cfg!(debug_assertions) {
+            return ::core::mem::transmute(val);
+          }
+
+          match val {
+            0 => HersheyFontType::HersheyFontSimplex,
+            1 => HersheyFontType::HersheyFontPlain,
+            2 => HersheyFontType::HersheyFontDuplex,
+            3 => HersheyFontType::HersheyFontComplex,
+            4 => HersheyFontType::HersheyFontTriplex,
+            5 => HersheyFontType::HersheyFontComplexSmall,
+            6 => HersheyFontType::HersheyFontScriptSimplex,
+            7 => HersheyFontType::HersheyFontScriptComplex,
+            8 => HersheyFontType::HersheyFontItalic,
+
+            _ => panic!("invalid enum discriminant"),
+          }
+        }
+      }
+
 
     }
 
@@ -306,6 +769,7 @@ pub mod wasm {
       super::super::super::__link_custom_section_describing_imports;
       
       use super::super::super::_rt;
+      pub type MixMaxLocResult = super::super::super::wasm::cv::types::MixMaxLocResult;
       #[repr(u8)]
       #[derive(Clone, Copy, Eq, Ord, PartialEq, PartialOrd)]
       pub enum Mattype {
@@ -414,26 +878,47 @@ pub mod wasm {
 
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
-        pub fn new(cols: u32,rows: u32,type_: Mattype,) -> Self{
+        /// Create a new Mat.
+        pub fn new_mat() -> Mat{
           unsafe {
 
             #[cfg(target_arch = "wasm32")]
             #[link(wasm_import_module = "wasm:cv/mat")]
             extern "C" {
-              #[link_name = "[constructor]mat"]
-              fn wit_import(_: i32, _: i32, _: i32, ) -> i32;
+              #[link_name = "[static]mat.new-mat"]
+              fn wit_import() -> i32;
             }
 
             #[cfg(not(target_arch = "wasm32"))]
-            fn wit_import(_: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
-            let ret = wit_import(_rt::as_i32(&cols), _rt::as_i32(&rows), type_.clone() as i32);
+            fn wit_import() -> i32{ unreachable!() }
+            let ret = wit_import();
             Mat::from_handle(ret as u32)
           }
         }
       }
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
-        /// close the Mat
+        /// Create a new Mat with the specified size and type.
+        pub fn new_mat_with_size(cols: u32,rows: u32,mattype: Mattype,) -> Mat{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[static]mat.new-mat-with-size"]
+              fn wit_import(_: i32, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import(_rt::as_i32(&cols), _rt::as_i32(&rows), mattype.clone() as i32);
+            Mat::from_handle(ret as u32)
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Close the Mat
         pub fn close(&self,){
           unsafe {
 
@@ -492,14 +977,14 @@ pub mod wasm {
       }
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
-        /// type returns the type of the Mat.
-        pub fn type_(&self,) -> Mattype{
+        /// MatType returns the type of the Mat.
+        pub fn mattype(&self,) -> Mattype{
           unsafe {
 
             #[cfg(target_arch = "wasm32")]
             #[link(wasm_import_module = "wasm:cv/mat")]
             extern "C" {
-              #[link_name = "[method]mat.type"]
+              #[link_name = "[method]mat.mattype"]
               fn wit_import(_: i32, ) -> i32;
             }
 
@@ -538,7 +1023,7 @@ pub mod wasm {
       }
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
-        /// empty returns true if the Mat is empty.
+        /// Empty returns true if the Mat is empty.
         pub fn empty(&self,) -> bool{
           unsafe {
 
@@ -553,6 +1038,84 @@ pub mod wasm {
             fn wit_import(_: i32, ) -> i32{ unreachable!() }
             let ret = wit_import((self).handle() as i32);
             _rt::bool_lift(ret as u8)
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// GetFloatAt returns the value at the specified row and column as a f32.
+        pub fn get_float_at(&self,row: u32,col: u32,) -> f32{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.get-float-at"]
+              fn wit_import(_: i32, _: i32, _: i32, ) -> f32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, ) -> f32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, _rt::as_i32(&row), _rt::as_i32(&col));
+            ret
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// SetFloatAt sets the value at the specified row and column as a f32.
+        pub fn set_float_at(&self,row: u32,col: u32,val: f32,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.set-float-at"]
+              fn wit_import(_: i32, _: i32, _: i32, _: f32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: f32, ){ unreachable!() }
+            wit_import((self).handle() as i32, _rt::as_i32(&row), _rt::as_i32(&col), _rt::as_f32(&val));
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// GetUCharAt returns the value at the specified row and column as a u8.
+        pub fn get_uchar_at(&self,row: u32,col: u32,) -> u8{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.get-uchar-at"]
+              fn wit_import(_: i32, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, _rt::as_i32(&row), _rt::as_i32(&col));
+            ret as u8
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// SetUCharAt sets the value at the specified row and column as a u8.
+        pub fn set_uchar_at(&self,row: u32,col: u32,val: u8,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.set-uchar-at"]
+              fn wit_import(_: i32, _: i32, _: i32, _: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32, _rt::as_i32(&row), _rt::as_i32(&col), _rt::as_i32(&val));
           }
         }
       }
@@ -576,6 +1139,95 @@ pub mod wasm {
             fn wit_import(_: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
             let ret = wit_import((self).handle() as i32, _rt::as_i32(&channels), _rt::as_i32(&rows));
             Mat::from_handle(ret as u32)
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// RowRange creates a matrix header for the specified row span.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aa6542193430356ad631a9beabc624107
+        pub fn row_range(&self,start: u32,end: u32,) -> Mat{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.row-range"]
+              fn wit_import(_: i32, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, _rt::as_i32(&start), _rt::as_i32(&end));
+            Mat::from_handle(ret as u32)
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// ColRange creates a matrix header for the specified column span.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aadc8f9210fe4dec50513746c246fa8d9
+        pub fn col_range(&self,start: u32,end: u32,) -> Mat{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.col-range"]
+              fn wit_import(_: i32, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, _rt::as_i32(&start), _rt::as_i32(&end));
+            Mat::from_handle(ret as u32)
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// MinMaxLoc finds the global minimum and maximum in an array.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/trunk/d2/de8/group__core__array.html#gab473bf2eb6d14ff97e89b355dac20707
+        pub fn min_max_loc(&self,) -> MixMaxLocResult{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 24]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 24]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.min-max-loc"]
+              fn wit_import(_: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<f32>();
+            let l2 = *ptr0.add(4).cast::<f32>();
+            let l3 = *ptr0.add(8).cast::<i32>();
+            let l4 = *ptr0.add(12).cast::<i32>();
+            let l5 = *ptr0.add(16).cast::<i32>();
+            let l6 = *ptr0.add(20).cast::<i32>();
+            super::super::super::wasm::cv::types::MixMaxLocResult{
+              min_val: l1,
+              max_val: l2,
+              min_loc: super::super::super::wasm::cv::types::Size{
+                x: l3,
+                y: l4,
+              },
+              max_loc: super::super::super::wasm::cv::types::Size{
+                x: l5,
+                y: l6,
+              },
+            }
           }
         }
       }
@@ -946,39 +1598,30 @@ pub mod wasm {
       }
       impl Net {
         #[allow(unused_unsafe, clippy::all)]
-        pub fn new() -> Self{
+        /// ReadNet read deep learning network represented in one of the supported formats.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga138439da76f26266fdefec9723f6c5cd
+        pub fn read_net(model: &str,config: &str,) -> Net{
           unsafe {
+            let vec0 = model;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+            let vec1 = config;
+            let ptr1 = vec1.as_ptr().cast::<u8>();
+            let len1 = vec1.len();
 
             #[cfg(target_arch = "wasm32")]
             #[link(wasm_import_module = "wasm:cv/net")]
             extern "C" {
-              #[link_name = "[constructor]net"]
-              fn wit_import() -> i32;
+              #[link_name = "[static]net.read-net"]
+              fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, ) -> i32;
             }
 
             #[cfg(not(target_arch = "wasm32"))]
-            fn wit_import() -> i32{ unreachable!() }
-            let ret = wit_import();
+            fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0, ptr1.cast_mut(), len1);
             Net::from_handle(ret as u32)
-          }
-        }
-      }
-      impl Net {
-        #[allow(unused_unsafe, clippy::all)]
-        /// close the network
-        pub fn close(&self,){
-          unsafe {
-
-            #[cfg(target_arch = "wasm32")]
-            #[link(wasm_import_module = "wasm:cv/net")]
-            extern "C" {
-              #[link_name = "[method]net.close"]
-              fn wit_import(_: i32, );
-            }
-
-            #[cfg(not(target_arch = "wasm32"))]
-            fn wit_import(_: i32, ){ unreachable!() }
-            wit_import((self).handle() as i32);
           }
         }
       }
@@ -1005,6 +1648,25 @@ pub mod wasm {
             fn wit_import(_: *mut u8, _: usize, ) -> i32{ unreachable!() }
             let ret = wit_import(ptr0.cast_mut(), len0);
             Net::from_handle(ret as u32)
+          }
+        }
+      }
+      impl Net {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Close the network
+        pub fn close(&self,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/net")]
+            extern "C" {
+              #[link_name = "[method]net.close"]
+              fn wit_import(_: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32);
           }
         }
       }
@@ -1405,21 +2067,6 @@ mod _rt {
       val != 0
     }
   }
-  pub use alloc_crate::string::String;
-  pub unsafe fn string_lift(bytes: Vec<u8>) -> String {
-    if cfg!(debug_assertions) {
-      String::from_utf8(bytes).unwrap()
-    } else {
-      String::from_utf8_unchecked(bytes)
-    }
-  }
-  pub unsafe fn cabi_dealloc(ptr: *mut u8, size: usize, align: usize) {
-    if size == 0 {
-      return;
-    }
-    let layout = alloc::Layout::from_size_align_unchecked(size, align);
-    alloc::dealloc(ptr, layout);
-  }
   
   pub fn as_f32<T: AsF32>(t: T) -> f32 {
     t.as_f32()
@@ -1439,6 +2086,42 @@ mod _rt {
     #[inline]
     fn as_f32(self) -> f32 {
       self as f32
+    }
+  }
+  pub use alloc_crate::string::String;
+  pub unsafe fn string_lift(bytes: Vec<u8>) -> String {
+    if cfg!(debug_assertions) {
+      String::from_utf8(bytes).unwrap()
+    } else {
+      String::from_utf8_unchecked(bytes)
+    }
+  }
+  pub unsafe fn cabi_dealloc(ptr: *mut u8, size: usize, align: usize) {
+    if size == 0 {
+      return;
+    }
+    let layout = alloc::Layout::from_size_align_unchecked(size, align);
+    alloc::dealloc(ptr, layout);
+  }
+  
+  pub fn as_f64<T: AsF64>(t: T) -> f64 {
+    t.as_f64()
+  }
+
+  pub trait AsF64 {
+    fn as_f64(self) -> f64;
+  }
+
+  impl<'a, T: Copy + AsF64> AsF64 for &'a T {
+    fn as_f64(self) -> f64 {
+      (*self).as_f64()
+    }
+  }
+  
+  impl AsF64 for f64 {
+    #[inline]
+    fn as_f64(self) -> f64 {
+      self as f64
     }
   }
   
@@ -1481,34 +2164,68 @@ pub(crate) use __export_cv_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.32.0:wasm:cv:cv:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 2491] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xc2\x12\x01A\x02\x01\
-A\x1d\x01B\x08\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x01m\x08\x0fborder-con\
-stant\x10border-replicate\x0eborder-reflect\x0bborder-wrap\x11border-reflect101\x12\
-border-transparent\x0eborder-default\x0fborder-isolated\x04\0\x0bborder-type\x03\
-\0\x02\x01m\x02\x17adaptive-threshold-mean\x1badaptive-threshold-gaussian\x04\0\x17\
-adaptive-threshold-type\x03\0\x04\x01m\x08\x10threshold-binary\x14threshold-bina\
-ry-inv\x0fthreshold-trunc\x11threshold-to-zero\x15threshold-to-zero-inv\x0ethres\
-hold-mask\x0ethreshold-otsu\x13tthreshold-triangle\x04\0\x0ethreshold-type\x03\0\
-\x06\x03\0\x0dwasm:cv/types\x05\0\x01B\x15\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05\
-cv16s\x05cv32s\x05cv32f\x05cv64f\x04\0\x07mattype\x03\0\0\x04\0\x03mat\x03\x01\x01\
-i\x02\x01@\x03\x04colsy\x04rowsy\x04type\x01\0\x03\x04\0\x10[constructor]mat\x01\
-\x04\x01h\x02\x01@\x01\x04self\x05\x01\0\x04\0\x11[method]mat.close\x01\x06\x01@\
-\x01\x04self\x05\0y\x04\0\x10[method]mat.cols\x01\x07\x04\0\x10[method]mat.rows\x01\
-\x07\x01@\x01\x04self\x05\0\x01\x04\0\x10[method]mat.type\x01\x08\x01py\x01@\x01\
-\x04self\x05\0\x09\x04\0\x10[method]mat.size\x01\x0a\x01@\x01\x04self\x05\0\x7f\x04\
-\0\x11[method]mat.empty\x01\x0b\x01@\x03\x04self\x05\x08channelsy\x04rowsy\0\x03\
-\x04\0\x13[method]mat.reshape\x01\x0c\x03\0\x0bwasm:cv/mat\x05\x01\x02\x03\0\0\x0b\
-border-type\x03\0\x0bborder-type\x03\0\x02\x02\x03\0\0\x04size\x03\0\x04size\x03\
-\0\x04\x02\x03\0\0\x17adaptive-threshold-type\x03\0\x17adaptive-threshold-type\x03\
-\0\x06\x02\x03\0\0\x0ethreshold-type\x03\0\x0ethreshold-type\x03\0\x08\x02\x03\0\
-\x01\x03mat\x03\0\x03mat\x03\0\x0a\x01i\x0b\x01@\x06\x03src\x0c\x09max-valuev\x0d\
-adaptive-type\x07\x0ethreshold-type\x09\x0ablock-sizey\x01cv\0\x0c\x03\0\x12adap\
-tive-threshold\x01\x0d\x01@\x02\x03src\x0c\x06k-size\x05\0\x0c\x03\0\x04blur\x01\
-\x0e\x01@\x03\x03src\x0c\x05depthy\x06k-size\x05\0\x0c\x03\0\x0abox-filter\x01\x0f\
-\x01@\x05\x03src\x0c\x04size\x05\x07sigma-xv\x07sigma-yv\x06border\x03\0\x0c\x03\
-\0\x0dgaussian-blur\x01\x10\x01@\x04\x03src\x0c\x06threshv\x09max-valuev\x0ethre\
-shold-type\x09\0\x0c\x03\0\x09threshold\x01\x11\x01B)\x02\x03\x02\x01\x0a\x04\0\x03\
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 4232] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\x8f\x20\x01A\x02\x01\
+A;\x01B\x18\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x01r\x04\x04val1v\x04val2\
+v\x04val3v\x04val4v\x04\0\x06scalar\x03\0\x02\x01r\x02\x03min\x01\x03max\x01\x04\
+\0\x04rect\x03\0\x04\x01r\x04\x01r}\x01g}\x01b}\x01a}\x04\0\x04rgba\x03\0\x06\x01\
+m\x08\x0fborder-constant\x10border-replicate\x0eborder-reflect\x0bborder-wrap\x11\
+border-reflect101\x12border-transparent\x0eborder-default\x0fborder-isolated\x04\
+\0\x0bborder-type\x03\0\x08\x01m\x02\x17adaptive-threshold-mean\x1badaptive-thre\
+shold-gaussian\x04\0\x17adaptive-threshold-type\x03\0\x0a\x01m\x08\x10threshold-\
+binary\x14threshold-binary-inv\x0fthreshold-trunc\x11threshold-to-zero\x15thresh\
+old-to-zero-inv\x0ethreshold-mask\x0ethreshold-otsu\x13tthreshold-triangle\x04\0\
+\x0ethreshold-type\x03\0\x0c\x01m\x07\x13data-layout-unknown\x0edata-layout-nd\x10\
+data-layout-nchw\x11data-layout-ncdhw\x10data-layout-nhwc\x11data-layout-ndhwc\x12\
+data-layout-planar\x04\0\x10data-layout-type\x03\0\x0e\x01m\x03\x11padding-mode-\
+null\x18padding-mode-crop-center\x16padding-mode-letterbox\x04\0\x11padding-mode\
+-type\x03\0\x10\x01r\x08\x0cscale-factorv\x04size\x01\x04mean\x03\x07swap-rb\x7f\
+\x06ddepth}\x0bdata-layout\x0f\x0cpadding-mode\x11\x06border\x03\x04\0\x0bblob-p\
+arams\x03\0\x12\x01r\x04\x07min-valv\x07max-valv\x07min-loc\x01\x07max-loc\x01\x04\
+\0\x12mix-max-loc-result\x03\0\x14\x01m\x09\x14hershey-font-simplex\x12hershey-f\
+ont-plain\x13hershey-font-duplex\x14hershey-font-complex\x14hershey-font-triplex\
+\x1ahershey-font-complex-small\x1bhershey-font-script-simplex\x1bhershey-font-sc\
+ript-complex\x13hershey-font-italic\x04\0\x11hershey-font-type\x03\0\x16\x03\0\x0d\
+wasm:cv/types\x05\0\x02\x03\0\0\x12mix-max-loc-result\x01B&\x02\x03\x02\x01\x01\x04\
+\0\x12mix-max-loc-result\x03\0\0\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05cv16s\x05c\
+v32s\x05cv32f\x05cv64f\x04\0\x07mattype\x03\0\x02\x04\0\x03mat\x03\x01\x01i\x04\x01\
+@\0\0\x05\x04\0\x13[static]mat.new-mat\x01\x06\x01@\x03\x04colsy\x04rowsy\x07mat\
+type\x03\0\x05\x04\0\x1d[static]mat.new-mat-with-size\x01\x07\x01h\x04\x01@\x01\x04\
+self\x08\x01\0\x04\0\x11[method]mat.close\x01\x09\x01@\x01\x04self\x08\0y\x04\0\x10\
+[method]mat.cols\x01\x0a\x04\0\x10[method]mat.rows\x01\x0a\x01@\x01\x04self\x08\0\
+\x03\x04\0\x13[method]mat.mattype\x01\x0b\x01py\x01@\x01\x04self\x08\0\x0c\x04\0\
+\x10[method]mat.size\x01\x0d\x01@\x01\x04self\x08\0\x7f\x04\0\x11[method]mat.emp\
+ty\x01\x0e\x01@\x03\x04self\x08\x03rowy\x03coly\0v\x04\0\x18[method]mat.get-floa\
+t-at\x01\x0f\x01@\x04\x04self\x08\x03rowy\x03coly\x03valv\x01\0\x04\0\x18[method\
+]mat.set-float-at\x01\x10\x01@\x03\x04self\x08\x03rowy\x03coly\0}\x04\0\x18[meth\
+od]mat.get-uchar-at\x01\x11\x01@\x04\x04self\x08\x03rowy\x03coly\x03val}\x01\0\x04\
+\0\x18[method]mat.set-uchar-at\x01\x12\x01@\x03\x04self\x08\x08channelsy\x04rows\
+y\0\x05\x04\0\x13[method]mat.reshape\x01\x13\x01@\x03\x04self\x08\x05starty\x03e\
+ndy\0\x05\x04\0\x15[method]mat.row-range\x01\x14\x04\0\x15[method]mat.col-range\x01\
+\x14\x01@\x01\x04self\x08\0\x01\x04\0\x17[method]mat.min-max-loc\x01\x15\x03\0\x0b\
+wasm:cv/mat\x05\x02\x02\x03\0\0\x0bborder-type\x03\0\x0bborder-type\x03\0\x03\x02\
+\x03\0\0\x04size\x03\0\x04size\x03\0\x05\x02\x03\0\0\x17adaptive-threshold-type\x03\
+\0\x17adaptive-threshold-type\x03\0\x07\x02\x03\0\0\x0ethreshold-type\x03\0\x0et\
+hreshold-type\x03\0\x09\x02\x03\0\0\x06scalar\x03\0\x06scalar\x03\0\x0b\x02\x03\0\
+\0\x04rect\x03\0\x04rect\x03\0\x0d\x02\x03\0\0\x04rgba\x03\0\x04rgba\x03\0\x0f\x02\
+\x03\0\0\x0bblob-params\x03\0\x0bblob-params\x03\0\x11\x02\x03\0\0\x11hershey-fo\
+nt-type\x03\0\x11hershey-font-type\x03\0\x13\x02\x03\0\x01\x03mat\x03\0\x03mat\x03\
+\0\x15\x02\x03\0\x01\x07mattype\x03\0\x07mattype\x03\0\x17\x01i\x16\x01@\x04\x03\
+img\x19\x01r\x0e\x01c\x10\x09thickness}\x01\0\x03\0\x09rectangle\x01\x1a\x01@\x07\
+\x03img\x19\x04texts\x03org\x06\x09font-face\x14\x0afont-scaleu\x01c\x10\x09thic\
+knessz\x01\0\x03\0\x08put-text\x01\x1b\x01@\x06\x03src\x19\x09max-valuev\x0dadap\
+tive-type\x08\x0ethreshold-type\x0a\x0ablock-sizey\x01cv\0\x19\x03\0\x12adaptive\
+-threshold\x01\x1c\x01@\x02\x03src\x19\x06k-size\x06\0\x19\x03\0\x04blur\x01\x1d\
+\x01@\x03\x03src\x19\x05depthy\x06k-size\x06\0\x19\x03\0\x0abox-filter\x01\x1e\x01\
+@\x05\x03src\x19\x04size\x06\x07sigma-xv\x07sigma-yv\x06border\x04\0\x19\x03\0\x0d\
+gaussian-blur\x01\x1f\x01@\x04\x03src\x19\x06threshv\x09max-valuev\x0ethreshold-\
+type\x0a\0\x19\x03\0\x09threshold\x01\x20\x01pz\x01@\x02\x03src\x19\x05order!\0\x19\
+\x03\0\x0ctranspose-nd\x01\"\x01@\x06\x05image\x19\x0cscale-factorv\x04size\x06\x04\
+mean\x0c\x07swap-rb\x7f\x04crop\x7f\0\x19\x03\0\x0fblob-from-image\x01#\x01@\x02\
+\x05image\x19\x06params\x12\0\x19\x03\0\x1bblob-from-image-with-params\x01$\x01p\
+\x0e\x01@\x03\x06params\x12\x0ablob-rects%\x0aimage-size\x06\0%\x03\0\x19blob-re\
+cts-to-image-rects\x01&\x01pv\x01@\x04\x06bboxes%\x06scores'\x0fscore-thresholdv\
+\x0dnms-thresholdv\0!\x03\0\x09nms-boxes\x01(\x01B)\x02\x03\x02\x01\x15\x04\0\x03\
 mat\x03\0\0\x01m\x06\x13net-backend-default\x12net-backend-halide\x14net-backend\
 -openvino\x12net-backend-opencv\x11net-backend-vkcom\x10net-backend-cuda\x04\0\x10\
 net-backend-type\x03\0\x02\x01m\x08\x0enet-target-cpu\x0fnet-target-fp32\x0fnet-\
@@ -1519,19 +2236,20 @@ data-layout-ndhwc\x12data-layout-planar\x04\0\x10data-layout-type\x03\0\x06\x01m
 \x03\x11padding-mode-null\x18padding-mode-crop-center\x16padding-mode-letterbox\x04\
 \0\x11padding-mode-type\x03\0\x08\x04\0\x05layer\x03\x01\x04\0\x03net\x03\x01\x01\
 i\x0a\x01@\0\0\x0c\x04\0\x12[constructor]layer\x01\x0d\x01h\x0a\x01@\x01\x04self\
-\x0e\0s\x04\0\x16[method]layer.get-name\x01\x0f\x01i\x0b\x01@\0\0\x10\x04\0\x10[\
-constructor]net\x01\x11\x01h\x0b\x01@\x01\x04self\x12\x01\0\x04\0\x11[method]net\
-.close\x01\x13\x01@\x01\x05models\0\x10\x04\0\x1e[static]net.read-net-from-onnx\x01\
-\x14\x01@\x01\x04self\x12\0\x7f\x04\0\x11[method]net.empty\x01\x15\x01i\x01\x01@\
-\x03\x04self\x12\x05input\x16\x04names\x01\0\x04\0\x15[method]net.set-input\x01\x17\
-\x01@\x02\x04self\x12\x0boutput-names\0\x16\x04\0\x13[method]net.forward\x01\x18\
-\x01py\x01@\x01\x04self\x12\0\x19\x04\0&[method]net.get-unconnected-out-layers\x01\
-\x1a\x01ps\x01@\x01\x04self\x12\0\x1b\x04\0\x1b[method]net.get-layer-names\x01\x1c\
-\x01@\x02\x04self\x12\x02idy\0\x0c\x04\0\x15[method]net.get-layer\x01\x1d\x03\0\x0b\
-wasm:cv/net\x05\x12\x01B\x05\x02\x03\x02\x01\x0a\x04\0\x03mat\x03\0\0\x01i\x01\x01\
-@\x01\x05image\x02\0\x02\x04\0\x07process\x01\x03\x04\0\x0fwasm:cv/request\x05\x13\
-\x04\0\x0awasm:cv/cv\x04\0\x0b\x08\x01\0\x02cv\x03\0\0\0G\x09producers\x01\x0cpr\
-ocessed-by\x02\x0dwit-component\x070.217.0\x10wit-bindgen-rust\x060.32.0";
+\x0e\0s\x04\0\x16[method]layer.get-name\x01\x0f\x01i\x0b\x01@\x02\x05models\x06c\
+onfigs\0\x10\x04\0\x14[static]net.read-net\x01\x11\x01@\x01\x05models\0\x10\x04\0\
+\x1e[static]net.read-net-from-onnx\x01\x12\x01h\x0b\x01@\x01\x04self\x13\x01\0\x04\
+\0\x11[method]net.close\x01\x14\x01@\x01\x04self\x13\0\x7f\x04\0\x11[method]net.\
+empty\x01\x15\x01i\x01\x01@\x03\x04self\x13\x05input\x16\x04names\x01\0\x04\0\x15\
+[method]net.set-input\x01\x17\x01@\x02\x04self\x13\x0boutput-names\0\x16\x04\0\x13\
+[method]net.forward\x01\x18\x01py\x01@\x01\x04self\x13\0\x19\x04\0&[method]net.g\
+et-unconnected-out-layers\x01\x1a\x01ps\x01@\x01\x04self\x13\0\x1b\x04\0\x1b[met\
+hod]net.get-layer-names\x01\x1c\x01@\x02\x04self\x13\x02idy\0\x0c\x04\0\x15[meth\
+od]net.get-layer\x01\x1d\x03\0\x0bwasm:cv/net\x05)\x01B\x05\x02\x03\x02\x01\x15\x04\
+\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\0\x07process\x01\x03\x04\
+\0\x0fwasm:cv/request\x05*\x04\0\x0awasm:cv/cv\x04\0\x0b\x08\x01\0\x02cv\x03\0\0\
+\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-component\x070.217.0\x10wit-bind\
+gen-rust\x060.32.0";
 
 #[inline(never)]
 #[doc(hidden)]
