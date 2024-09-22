@@ -1,4 +1,4 @@
-module github.com/wasmvision/wasmcv/examples/basic
+module github.com/wasmvision/wasmcv/examples/multi
 
 go 1.23.0
 

@@ -9,12 +9,12 @@ The host application is a Go application written using [GoCV Go language wrapper
 ```shell
 $ cd modules/processor
 $ tinygo build -o ../processor.wasm -target=wasm-unknown .
-$ cd ..
+$ cd ../..
 ```
 
 ## Run the host application
 
-```shell                           
+```shell
 $ go run .
 Defining host function...
 Start reading device: /dev/video0
