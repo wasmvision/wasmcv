@@ -72,7 +72,7 @@ func main() {
 	process := mod.ExportedFunction("process")
 
 	// Open the webcam.
-	deviceID := "/dev/video0"
+	deviceID := "0"
 	webcam, err := gocv.OpenVideoCapture(deviceID)
 	if err != nil {
 		fmt.Printf("Error opening video capture device: %v\n", deviceID)
@@ -84,7 +84,7 @@ func main() {
 	frame = gocv.NewMat()
 	defer frame.Close()
 
-	fmt.Printf("Start reading device: %v\n", deviceID)
+	fmt.Printf("Start reading device id: %v\n", deviceID)
 	i := 0
 	for {
 		if ok := webcam.Read(&frame); !ok {

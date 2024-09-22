@@ -22,7 +22,7 @@ import (
 var processFrameWasm []byte
 
 var (
-	device = flag.String("device", "/dev/video0", "video capture device")
+	device = flag.String("device", "0", "video capture device")
 	ascii  = flag.Bool("ascii", true, "show video output converted to ASCII art")
 	width  = flag.Int("width", 80, "width of the ASCII art")
 	height = flag.Int("height", 40, "height of the ASCII art")
@@ -81,7 +81,7 @@ func main() {
 	asciiConverter := convert.NewImageConverter()
 	opts := &convert.Options{FixedWidth: *width, FixedHeight: *height, Colored: true}
 
-	fmt.Printf("Start reading device: %v\n", *device)
+	fmt.Printf("Start reading device id: %v\n", *device)
 	i := 0
 	for {
 		if ok := webcam.Read(&frame); !ok {

@@ -9,15 +9,15 @@ Example that reads frames from a connected webcam, and processes them using a WA
 ```shell
 $ cd modules/processor
 $ tinygo build -o ../processor.wasm -target=wasm-unknown .
-$ cd ..
+$ cd ../..
 ```
 
 ## Run the host application
 
-```shell                           
+```shell
 $ go run .
 Defining host function...
-Start reading device: /dev/video0
+Start reading device id : 0
 ```
 
 It will then capture each frame, display some stats, and them perform a gaussian blur on the source image.
