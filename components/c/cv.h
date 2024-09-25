@@ -113,6 +113,8 @@ typedef uint8_t wasm_cv_types_hershey_font_type_t;
 
 typedef wasm_cv_types_mix_max_loc_result_t wasm_cv_mat_mix_max_loc_result_t;
 
+typedef wasm_cv_types_rect_t wasm_cv_mat_rect_t;
+
 typedef uint8_t wasm_cv_mat_mattype_t;
 
 #define WASM_CV_MAT_MATTYPE_CV8U 0
@@ -238,12 +240,20 @@ typedef wasm_cv_mat_own_mat_t exports_wasm_cv_request_own_mat_t;
 extern wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_new_mat(void);
 // Create a new Mat with the specified size and type.
 extern wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_new_mat_with_size(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t mattype);
+// Clone returns a cloned full copy of the Mat.
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_clone(wasm_cv_mat_borrow_mat_t self);
 // Close the Mat
 extern void wasm_cv_mat_method_mat_close(wasm_cv_mat_borrow_mat_t self);
 // Cols returns the number of columns for this Mat.
 extern uint32_t wasm_cv_mat_method_mat_cols(wasm_cv_mat_borrow_mat_t self);
 // Rows returns the number of rows for this Mat.
 extern uint32_t wasm_cv_mat_method_mat_rows(wasm_cv_mat_borrow_mat_t self);
+// Region returns a new Mat that points to a region of this Mat. Changes made to the
+// region Mat will affect the original Mat, since they are pointers to the underlying
+// OpenCV Mat object.
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_region(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_rect_t *rect);
+// CopyTo copies Mat into destination Mat.
+extern void wasm_cv_mat_method_mat_copy_to(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_own_mat_t dst);
 // MatType returns the type of the Mat.
 extern wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_mattype(wasm_cv_mat_borrow_mat_t self);
 // Size returns an array with one element for each dimension containing the size of that dimension for the Mat.
