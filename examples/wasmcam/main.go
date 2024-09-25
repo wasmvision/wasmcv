@@ -46,7 +46,7 @@ func main() {
 			"[method]mat.rows":    wypes.H1(matRowsFunc),
 			"[method]mat.mattype": wypes.H1(matTypeFunc),
 		},
-		"wasm:cv/cv": wypes.Module{
+		"$root": wypes.Module{
 			"gaussian-blur": wypes.H6(matGaussianBlurFunc),
 		},
 	}

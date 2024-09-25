@@ -9,4 +9,4 @@ require (
 	wasmcv.org/wasm/cv v0.0.0-20240916150538-4ca2e2943887
 )
 
-require github.com/bytecodealliance/wasm-tools-go v0.2.0 // indirect
+require github.com/bytecodealliance/wasm-tools-go v0.2.1-0.20240924053836-c75257476a37 // indirect
