@@ -770,6 +770,7 @@ pub mod wasm {
       
       use super::super::super::_rt;
       pub type MixMaxLocResult = super::super::super::wasm::cv::types::MixMaxLocResult;
+      pub type Rect = super::super::super::wasm::cv::types::Rect;
       #[repr(u8)]
       #[derive(Clone, Copy, Eq, Ord, PartialEq, PartialOrd)]
       pub enum Mattype {
@@ -918,6 +919,26 @@ pub mod wasm {
       }
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
+        /// Clone returns a cloned full copy of the Mat.
+        pub fn clone(&self,) -> Mat{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.clone"]
+              fn wit_import(_: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32);
+            Mat::from_handle(ret as u32)
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
         /// Close the Mat
         pub fn close(&self,){
           unsafe {
@@ -972,6 +993,50 @@ pub mod wasm {
             fn wit_import(_: i32, ) -> i32{ unreachable!() }
             let ret = wit_import((self).handle() as i32);
             ret as u32
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Region returns a new Mat that points to a region of this Mat. Changes made to the
+        /// region Mat will affect the original Mat, since they are pointers to the underlying
+        /// OpenCV Mat object.
+        pub fn region(&self,rect: Rect,) -> Mat{
+          unsafe {
+            let super::super::super::wasm::cv::types::Rect{ min:min0, max:max0, } = rect;
+            let super::super::super::wasm::cv::types::Size{ x:x1, y:y1, } = min0;
+            let super::super::super::wasm::cv::types::Size{ x:x2, y:y2, } = max0;
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.region"]
+              fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, _rt::as_i32(x1), _rt::as_i32(y1), _rt::as_i32(x2), _rt::as_i32(y2));
+            Mat::from_handle(ret as u32)
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// CopyTo copies Mat into destination Mat.
+        pub fn copy_to(&self,dst: Mat,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.copy-to"]
+              fn wit_import(_: i32, _: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&dst).take_handle() as i32);
           }
         }
       }
@@ -2164,92 +2229,95 @@ pub(crate) use __export_cv_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.32.0:wasm:cv:cv:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 4232] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\x8f\x20\x01A\x02\x01\
-A;\x01B\x18\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x01r\x04\x04val1v\x04val2\
-v\x04val3v\x04val4v\x04\0\x06scalar\x03\0\x02\x01r\x02\x03min\x01\x03max\x01\x04\
-\0\x04rect\x03\0\x04\x01r\x04\x01r}\x01g}\x01b}\x01a}\x04\0\x04rgba\x03\0\x06\x01\
-m\x08\x0fborder-constant\x10border-replicate\x0eborder-reflect\x0bborder-wrap\x11\
-border-reflect101\x12border-transparent\x0eborder-default\x0fborder-isolated\x04\
-\0\x0bborder-type\x03\0\x08\x01m\x02\x17adaptive-threshold-mean\x1badaptive-thre\
-shold-gaussian\x04\0\x17adaptive-threshold-type\x03\0\x0a\x01m\x08\x10threshold-\
-binary\x14threshold-binary-inv\x0fthreshold-trunc\x11threshold-to-zero\x15thresh\
-old-to-zero-inv\x0ethreshold-mask\x0ethreshold-otsu\x13tthreshold-triangle\x04\0\
-\x0ethreshold-type\x03\0\x0c\x01m\x07\x13data-layout-unknown\x0edata-layout-nd\x10\
-data-layout-nchw\x11data-layout-ncdhw\x10data-layout-nhwc\x11data-layout-ndhwc\x12\
-data-layout-planar\x04\0\x10data-layout-type\x03\0\x0e\x01m\x03\x11padding-mode-\
-null\x18padding-mode-crop-center\x16padding-mode-letterbox\x04\0\x11padding-mode\
--type\x03\0\x10\x01r\x08\x0cscale-factorv\x04size\x01\x04mean\x03\x07swap-rb\x7f\
-\x06ddepth}\x0bdata-layout\x0f\x0cpadding-mode\x11\x06border\x03\x04\0\x0bblob-p\
-arams\x03\0\x12\x01r\x04\x07min-valv\x07max-valv\x07min-loc\x01\x07max-loc\x01\x04\
-\0\x12mix-max-loc-result\x03\0\x14\x01m\x09\x14hershey-font-simplex\x12hershey-f\
-ont-plain\x13hershey-font-duplex\x14hershey-font-complex\x14hershey-font-triplex\
-\x1ahershey-font-complex-small\x1bhershey-font-script-simplex\x1bhershey-font-sc\
-ript-complex\x13hershey-font-italic\x04\0\x11hershey-font-type\x03\0\x16\x03\0\x0d\
-wasm:cv/types\x05\0\x02\x03\0\0\x12mix-max-loc-result\x01B&\x02\x03\x02\x01\x01\x04\
-\0\x12mix-max-loc-result\x03\0\0\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05cv16s\x05c\
-v32s\x05cv32f\x05cv64f\x04\0\x07mattype\x03\0\x02\x04\0\x03mat\x03\x01\x01i\x04\x01\
-@\0\0\x05\x04\0\x13[static]mat.new-mat\x01\x06\x01@\x03\x04colsy\x04rowsy\x07mat\
-type\x03\0\x05\x04\0\x1d[static]mat.new-mat-with-size\x01\x07\x01h\x04\x01@\x01\x04\
-self\x08\x01\0\x04\0\x11[method]mat.close\x01\x09\x01@\x01\x04self\x08\0y\x04\0\x10\
-[method]mat.cols\x01\x0a\x04\0\x10[method]mat.rows\x01\x0a\x01@\x01\x04self\x08\0\
-\x03\x04\0\x13[method]mat.mattype\x01\x0b\x01py\x01@\x01\x04self\x08\0\x0c\x04\0\
-\x10[method]mat.size\x01\x0d\x01@\x01\x04self\x08\0\x7f\x04\0\x11[method]mat.emp\
-ty\x01\x0e\x01@\x03\x04self\x08\x03rowy\x03coly\0v\x04\0\x18[method]mat.get-floa\
-t-at\x01\x0f\x01@\x04\x04self\x08\x03rowy\x03coly\x03valv\x01\0\x04\0\x18[method\
-]mat.set-float-at\x01\x10\x01@\x03\x04self\x08\x03rowy\x03coly\0}\x04\0\x18[meth\
-od]mat.get-uchar-at\x01\x11\x01@\x04\x04self\x08\x03rowy\x03coly\x03val}\x01\0\x04\
-\0\x18[method]mat.set-uchar-at\x01\x12\x01@\x03\x04self\x08\x08channelsy\x04rows\
-y\0\x05\x04\0\x13[method]mat.reshape\x01\x13\x01@\x03\x04self\x08\x05starty\x03e\
-ndy\0\x05\x04\0\x15[method]mat.row-range\x01\x14\x04\0\x15[method]mat.col-range\x01\
-\x14\x01@\x01\x04self\x08\0\x01\x04\0\x17[method]mat.min-max-loc\x01\x15\x03\0\x0b\
-wasm:cv/mat\x05\x02\x02\x03\0\0\x0bborder-type\x03\0\x0bborder-type\x03\0\x03\x02\
-\x03\0\0\x04size\x03\0\x04size\x03\0\x05\x02\x03\0\0\x17adaptive-threshold-type\x03\
-\0\x17adaptive-threshold-type\x03\0\x07\x02\x03\0\0\x0ethreshold-type\x03\0\x0et\
-hreshold-type\x03\0\x09\x02\x03\0\0\x06scalar\x03\0\x06scalar\x03\0\x0b\x02\x03\0\
-\0\x04rect\x03\0\x04rect\x03\0\x0d\x02\x03\0\0\x04rgba\x03\0\x04rgba\x03\0\x0f\x02\
-\x03\0\0\x0bblob-params\x03\0\x0bblob-params\x03\0\x11\x02\x03\0\0\x11hershey-fo\
-nt-type\x03\0\x11hershey-font-type\x03\0\x13\x02\x03\0\x01\x03mat\x03\0\x03mat\x03\
-\0\x15\x02\x03\0\x01\x07mattype\x03\0\x07mattype\x03\0\x17\x01i\x16\x01@\x04\x03\
-img\x19\x01r\x0e\x01c\x10\x09thickness}\x01\0\x03\0\x09rectangle\x01\x1a\x01@\x07\
-\x03img\x19\x04texts\x03org\x06\x09font-face\x14\x0afont-scaleu\x01c\x10\x09thic\
-knessz\x01\0\x03\0\x08put-text\x01\x1b\x01@\x06\x03src\x19\x09max-valuev\x0dadap\
-tive-type\x08\x0ethreshold-type\x0a\x0ablock-sizey\x01cv\0\x19\x03\0\x12adaptive\
--threshold\x01\x1c\x01@\x02\x03src\x19\x06k-size\x06\0\x19\x03\0\x04blur\x01\x1d\
-\x01@\x03\x03src\x19\x05depthy\x06k-size\x06\0\x19\x03\0\x0abox-filter\x01\x1e\x01\
-@\x05\x03src\x19\x04size\x06\x07sigma-xv\x07sigma-yv\x06border\x04\0\x19\x03\0\x0d\
-gaussian-blur\x01\x1f\x01@\x04\x03src\x19\x06threshv\x09max-valuev\x0ethreshold-\
-type\x0a\0\x19\x03\0\x09threshold\x01\x20\x01pz\x01@\x02\x03src\x19\x05order!\0\x19\
-\x03\0\x0ctranspose-nd\x01\"\x01@\x06\x05image\x19\x0cscale-factorv\x04size\x06\x04\
-mean\x0c\x07swap-rb\x7f\x04crop\x7f\0\x19\x03\0\x0fblob-from-image\x01#\x01@\x02\
-\x05image\x19\x06params\x12\0\x19\x03\0\x1bblob-from-image-with-params\x01$\x01p\
-\x0e\x01@\x03\x06params\x12\x0ablob-rects%\x0aimage-size\x06\0%\x03\0\x19blob-re\
-cts-to-image-rects\x01&\x01pv\x01@\x04\x06bboxes%\x06scores'\x0fscore-thresholdv\
-\x0dnms-thresholdv\0!\x03\0\x09nms-boxes\x01(\x01B)\x02\x03\x02\x01\x15\x04\0\x03\
-mat\x03\0\0\x01m\x06\x13net-backend-default\x12net-backend-halide\x14net-backend\
--openvino\x12net-backend-opencv\x11net-backend-vkcom\x10net-backend-cuda\x04\0\x10\
-net-backend-type\x03\0\x02\x01m\x08\x0enet-target-cpu\x0fnet-target-fp32\x0fnet-\
-target-fp16\x0enet-target-vpu\x11net-target-vulkan\x0fnet-target-fpga\x0fnet-tar\
-get-cuda\x14net-target-cuda-fp16\x04\0\x0fnet-target-type\x03\0\x04\x01m\x06\x13\
-data-layout-unknown\x0edata-layout-nd\x10data-layout-nchw\x10data-layout-nhwc\x11\
-data-layout-ndhwc\x12data-layout-planar\x04\0\x10data-layout-type\x03\0\x06\x01m\
-\x03\x11padding-mode-null\x18padding-mode-crop-center\x16padding-mode-letterbox\x04\
-\0\x11padding-mode-type\x03\0\x08\x04\0\x05layer\x03\x01\x04\0\x03net\x03\x01\x01\
-i\x0a\x01@\0\0\x0c\x04\0\x12[constructor]layer\x01\x0d\x01h\x0a\x01@\x01\x04self\
-\x0e\0s\x04\0\x16[method]layer.get-name\x01\x0f\x01i\x0b\x01@\x02\x05models\x06c\
-onfigs\0\x10\x04\0\x14[static]net.read-net\x01\x11\x01@\x01\x05models\0\x10\x04\0\
-\x1e[static]net.read-net-from-onnx\x01\x12\x01h\x0b\x01@\x01\x04self\x13\x01\0\x04\
-\0\x11[method]net.close\x01\x14\x01@\x01\x04self\x13\0\x7f\x04\0\x11[method]net.\
-empty\x01\x15\x01i\x01\x01@\x03\x04self\x13\x05input\x16\x04names\x01\0\x04\0\x15\
-[method]net.set-input\x01\x17\x01@\x02\x04self\x13\x0boutput-names\0\x16\x04\0\x13\
-[method]net.forward\x01\x18\x01py\x01@\x01\x04self\x13\0\x19\x04\0&[method]net.g\
-et-unconnected-out-layers\x01\x1a\x01ps\x01@\x01\x04self\x13\0\x1b\x04\0\x1b[met\
-hod]net.get-layer-names\x01\x1c\x01@\x02\x04self\x13\x02idy\0\x0c\x04\0\x15[meth\
-od]net.get-layer\x01\x1d\x03\0\x0bwasm:cv/net\x05)\x01B\x05\x02\x03\x02\x01\x15\x04\
-\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\0\x07process\x01\x03\x04\
-\0\x0fwasm:cv/request\x05*\x04\0\x0awasm:cv/cv\x04\0\x0b\x08\x01\0\x02cv\x03\0\0\
-\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-component\x070.217.0\x10wit-bind\
-gen-rust\x060.32.0";
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 4360] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\x8f!\x01A\x02\x01A;\x01\
+B\x18\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x01r\x04\x04val1v\x04val2v\x04v\
+al3v\x04val4v\x04\0\x06scalar\x03\0\x02\x01r\x02\x03min\x01\x03max\x01\x04\0\x04\
+rect\x03\0\x04\x01r\x04\x01r}\x01g}\x01b}\x01a}\x04\0\x04rgba\x03\0\x06\x01m\x08\
+\x0fborder-constant\x10border-replicate\x0eborder-reflect\x0bborder-wrap\x11bord\
+er-reflect101\x12border-transparent\x0eborder-default\x0fborder-isolated\x04\0\x0b\
+border-type\x03\0\x08\x01m\x02\x17adaptive-threshold-mean\x1badaptive-threshold-\
+gaussian\x04\0\x17adaptive-threshold-type\x03\0\x0a\x01m\x08\x10threshold-binary\
+\x14threshold-binary-inv\x0fthreshold-trunc\x11threshold-to-zero\x15threshold-to\
+-zero-inv\x0ethreshold-mask\x0ethreshold-otsu\x13tthreshold-triangle\x04\0\x0eth\
+reshold-type\x03\0\x0c\x01m\x07\x13data-layout-unknown\x0edata-layout-nd\x10data\
+-layout-nchw\x11data-layout-ncdhw\x10data-layout-nhwc\x11data-layout-ndhwc\x12da\
+ta-layout-planar\x04\0\x10data-layout-type\x03\0\x0e\x01m\x03\x11padding-mode-nu\
+ll\x18padding-mode-crop-center\x16padding-mode-letterbox\x04\0\x11padding-mode-t\
+ype\x03\0\x10\x01r\x08\x0cscale-factorv\x04size\x01\x04mean\x03\x07swap-rb\x7f\x06\
+ddepth}\x0bdata-layout\x0f\x0cpadding-mode\x11\x06border\x03\x04\0\x0bblob-param\
+s\x03\0\x12\x01r\x04\x07min-valv\x07max-valv\x07min-loc\x01\x07max-loc\x01\x04\0\
+\x12mix-max-loc-result\x03\0\x14\x01m\x09\x14hershey-font-simplex\x12hershey-fon\
+t-plain\x13hershey-font-duplex\x14hershey-font-complex\x14hershey-font-triplex\x1a\
+hershey-font-complex-small\x1bhershey-font-script-simplex\x1bhershey-font-script\
+-complex\x13hershey-font-italic\x04\0\x11hershey-font-type\x03\0\x16\x03\0\x0dwa\
+sm:cv/types\x05\0\x02\x03\0\0\x12mix-max-loc-result\x02\x03\0\0\x04rect\x01B.\x02\
+\x03\x02\x01\x01\x04\0\x12mix-max-loc-result\x03\0\0\x02\x03\x02\x01\x02\x04\0\x04\
+rect\x03\0\x02\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05cv16s\x05cv32s\x05cv32f\x05c\
+v64f\x04\0\x07mattype\x03\0\x04\x04\0\x03mat\x03\x01\x01i\x06\x01@\0\0\x07\x04\0\
+\x13[static]mat.new-mat\x01\x08\x01@\x03\x04colsy\x04rowsy\x07mattype\x05\0\x07\x04\
+\0\x1d[static]mat.new-mat-with-size\x01\x09\x01h\x06\x01@\x01\x04self\x0a\0\x07\x04\
+\0\x11[method]mat.clone\x01\x0b\x01@\x01\x04self\x0a\x01\0\x04\0\x11[method]mat.\
+close\x01\x0c\x01@\x01\x04self\x0a\0y\x04\0\x10[method]mat.cols\x01\x0d\x04\0\x10\
+[method]mat.rows\x01\x0d\x01@\x02\x04self\x0a\x04rect\x03\0\x07\x04\0\x12[method\
+]mat.region\x01\x0e\x01@\x02\x04self\x0a\x03dst\x07\x01\0\x04\0\x13[method]mat.c\
+opy-to\x01\x0f\x01@\x01\x04self\x0a\0\x05\x04\0\x13[method]mat.mattype\x01\x10\x01\
+py\x01@\x01\x04self\x0a\0\x11\x04\0\x10[method]mat.size\x01\x12\x01@\x01\x04self\
+\x0a\0\x7f\x04\0\x11[method]mat.empty\x01\x13\x01@\x03\x04self\x0a\x03rowy\x03co\
+ly\0v\x04\0\x18[method]mat.get-float-at\x01\x14\x01@\x04\x04self\x0a\x03rowy\x03\
+coly\x03valv\x01\0\x04\0\x18[method]mat.set-float-at\x01\x15\x01@\x03\x04self\x0a\
+\x03rowy\x03coly\0}\x04\0\x18[method]mat.get-uchar-at\x01\x16\x01@\x04\x04self\x0a\
+\x03rowy\x03coly\x03val}\x01\0\x04\0\x18[method]mat.set-uchar-at\x01\x17\x01@\x03\
+\x04self\x0a\x08channelsy\x04rowsy\0\x07\x04\0\x13[method]mat.reshape\x01\x18\x01\
+@\x03\x04self\x0a\x05starty\x03endy\0\x07\x04\0\x15[method]mat.row-range\x01\x19\
+\x04\0\x15[method]mat.col-range\x01\x19\x01@\x01\x04self\x0a\0\x01\x04\0\x17[met\
+hod]mat.min-max-loc\x01\x1a\x03\0\x0bwasm:cv/mat\x05\x03\x02\x03\0\0\x0bborder-t\
+ype\x03\0\x0bborder-type\x03\0\x04\x02\x03\0\0\x04size\x03\0\x04size\x03\0\x06\x02\
+\x03\0\0\x17adaptive-threshold-type\x03\0\x17adaptive-threshold-type\x03\0\x08\x02\
+\x03\0\0\x0ethreshold-type\x03\0\x0ethreshold-type\x03\0\x0a\x02\x03\0\0\x06scal\
+ar\x03\0\x06scalar\x03\0\x0c\x03\0\x04rect\x03\0\x02\x02\x03\0\0\x04rgba\x03\0\x04\
+rgba\x03\0\x0f\x02\x03\0\0\x0bblob-params\x03\0\x0bblob-params\x03\0\x11\x02\x03\
+\0\0\x11hershey-font-type\x03\0\x11hershey-font-type\x03\0\x13\x02\x03\0\x01\x03\
+mat\x03\0\x03mat\x03\0\x15\x02\x03\0\x01\x07mattype\x03\0\x07mattype\x03\0\x17\x01\
+i\x16\x01@\x04\x03img\x19\x01r\x0e\x01c\x10\x09thickness}\x01\0\x03\0\x09rectang\
+le\x01\x1a\x01@\x07\x03img\x19\x04texts\x03org\x07\x09font-face\x14\x0afont-scal\
+eu\x01c\x10\x09thicknessz\x01\0\x03\0\x08put-text\x01\x1b\x01@\x06\x03src\x19\x09\
+max-valuev\x0dadaptive-type\x09\x0ethreshold-type\x0b\x0ablock-sizey\x01cv\0\x19\
+\x03\0\x12adaptive-threshold\x01\x1c\x01@\x02\x03src\x19\x06k-size\x07\0\x19\x03\
+\0\x04blur\x01\x1d\x01@\x03\x03src\x19\x05depthy\x06k-size\x07\0\x19\x03\0\x0abo\
+x-filter\x01\x1e\x01@\x05\x03src\x19\x04size\x07\x07sigma-xv\x07sigma-yv\x06bord\
+er\x05\0\x19\x03\0\x0dgaussian-blur\x01\x1f\x01@\x04\x03src\x19\x06threshv\x09ma\
+x-valuev\x0ethreshold-type\x0b\0\x19\x03\0\x09threshold\x01\x20\x01pz\x01@\x02\x03\
+src\x19\x05order!\0\x19\x03\0\x0ctranspose-nd\x01\"\x01@\x06\x05image\x19\x0csca\
+le-factorv\x04size\x07\x04mean\x0d\x07swap-rb\x7f\x04crop\x7f\0\x19\x03\0\x0fblo\
+b-from-image\x01#\x01@\x02\x05image\x19\x06params\x12\0\x19\x03\0\x1bblob-from-i\
+mage-with-params\x01$\x01p\x0e\x01@\x03\x06params\x12\x0ablob-rects%\x0aimage-si\
+ze\x07\0%\x03\0\x19blob-rects-to-image-rects\x01&\x01pv\x01@\x04\x06bboxes%\x06s\
+cores'\x0fscore-thresholdv\x0dnms-thresholdv\0!\x03\0\x09nms-boxes\x01(\x01B)\x02\
+\x03\x02\x01\x15\x04\0\x03mat\x03\0\0\x01m\x06\x13net-backend-default\x12net-bac\
+kend-halide\x14net-backend-openvino\x12net-backend-opencv\x11net-backend-vkcom\x10\
+net-backend-cuda\x04\0\x10net-backend-type\x03\0\x02\x01m\x08\x0enet-target-cpu\x0f\
+net-target-fp32\x0fnet-target-fp16\x0enet-target-vpu\x11net-target-vulkan\x0fnet\
+-target-fpga\x0fnet-target-cuda\x14net-target-cuda-fp16\x04\0\x0fnet-target-type\
+\x03\0\x04\x01m\x06\x13data-layout-unknown\x0edata-layout-nd\x10data-layout-nchw\
+\x10data-layout-nhwc\x11data-layout-ndhwc\x12data-layout-planar\x04\0\x10data-la\
+yout-type\x03\0\x06\x01m\x03\x11padding-mode-null\x18padding-mode-crop-center\x16\
+padding-mode-letterbox\x04\0\x11padding-mode-type\x03\0\x08\x04\0\x05layer\x03\x01\
+\x04\0\x03net\x03\x01\x01i\x0a\x01@\0\0\x0c\x04\0\x12[constructor]layer\x01\x0d\x01\
+h\x0a\x01@\x01\x04self\x0e\0s\x04\0\x16[method]layer.get-name\x01\x0f\x01i\x0b\x01\
+@\x02\x05models\x06configs\0\x10\x04\0\x14[static]net.read-net\x01\x11\x01@\x01\x05\
+models\0\x10\x04\0\x1e[static]net.read-net-from-onnx\x01\x12\x01h\x0b\x01@\x01\x04\
+self\x13\x01\0\x04\0\x11[method]net.close\x01\x14\x01@\x01\x04self\x13\0\x7f\x04\
+\0\x11[method]net.empty\x01\x15\x01i\x01\x01@\x03\x04self\x13\x05input\x16\x04na\
+mes\x01\0\x04\0\x15[method]net.set-input\x01\x17\x01@\x02\x04self\x13\x0boutput-\
+names\0\x16\x04\0\x13[method]net.forward\x01\x18\x01py\x01@\x01\x04self\x13\0\x19\
+\x04\0&[method]net.get-unconnected-out-layers\x01\x1a\x01ps\x01@\x01\x04self\x13\
+\0\x1b\x04\0\x1b[method]net.get-layer-names\x01\x1c\x01@\x02\x04self\x13\x02idy\0\
+\x0c\x04\0\x15[method]net.get-layer\x01\x1d\x03\0\x0bwasm:cv/net\x05)\x01B\x05\x02\
+\x03\x02\x01\x15\x04\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\0\
+\x07process\x01\x03\x04\0\x0fwasm:cv/request\x05*\x04\0\x0awasm:cv/cv\x04\0\x0b\x08\
+\x01\0\x02cv\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-component\x07\
+0.217.0\x10wit-bindgen-rust\x060.32.0";
 
 #[inline(never)]
 #[doc(hidden)]

@@ -11,6 +11,9 @@ extern int32_t __wasm_import_wasm_cv_mat_static_mat_new_mat(void);
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[static]mat.new-mat-with-size")))
 extern int32_t __wasm_import_wasm_cv_mat_static_mat_new_mat_with_size(int32_t, int32_t, int32_t);
 
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.clone")))
+extern int32_t __wasm_import_wasm_cv_mat_method_mat_clone(int32_t);
+
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.close")))
 extern void __wasm_import_wasm_cv_mat_method_mat_close(int32_t);
 
@@ -19,6 +22,12 @@ extern int32_t __wasm_import_wasm_cv_mat_method_mat_cols(int32_t);
 
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.rows")))
 extern int32_t __wasm_import_wasm_cv_mat_method_mat_rows(int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.region")))
+extern int32_t __wasm_import_wasm_cv_mat_method_mat_region(int32_t, int32_t, int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.copy-to")))
+extern void __wasm_import_wasm_cv_mat_method_mat_copy_to(int32_t, int32_t);
 
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.mattype")))
 extern int32_t __wasm_import_wasm_cv_mat_method_mat_mattype(int32_t);
@@ -257,6 +266,11 @@ wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_new_mat_with_size(uint32_t cols, ui
   return (wasm_cv_mat_own_mat_t) { ret };
 }
 
+wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_clone(wasm_cv_mat_borrow_mat_t self) {
+  int32_t ret = __wasm_import_wasm_cv_mat_method_mat_clone((self).__handle);
+  return (wasm_cv_mat_own_mat_t) { ret };
+}
+
 void wasm_cv_mat_method_mat_close(wasm_cv_mat_borrow_mat_t self) {
   __wasm_import_wasm_cv_mat_method_mat_close((self).__handle);
 }
@@ -269,6 +283,15 @@ uint32_t wasm_cv_mat_method_mat_cols(wasm_cv_mat_borrow_mat_t self) {
 uint32_t wasm_cv_mat_method_mat_rows(wasm_cv_mat_borrow_mat_t self) {
   int32_t ret = __wasm_import_wasm_cv_mat_method_mat_rows((self).__handle);
   return (uint32_t) (ret);
+}
+
+wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_region(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_rect_t *rect) {
+  int32_t ret = __wasm_import_wasm_cv_mat_method_mat_region((self).__handle, ((*rect).min).x, ((*rect).min).y, ((*rect).max).x, ((*rect).max).y);
+  return (wasm_cv_mat_own_mat_t) { ret };
+}
+
+void wasm_cv_mat_method_mat_copy_to(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_own_mat_t dst) {
+  __wasm_import_wasm_cv_mat_method_mat_copy_to((self).__handle, (dst).__handle);
 }
 
 wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_mattype(wasm_cv_mat_borrow_mat_t self) {
