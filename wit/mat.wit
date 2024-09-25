@@ -2,7 +2,7 @@ package wasm:cv;
 /// mat resource is a matrix of bytes, wrapper around the cv::Mat type.
 ///
 interface mat {
-    use types.{mix-max-loc-result};
+    use types.{mix-max-loc-result, rect};
 
     enum mattype {
         cv8u,
@@ -21,6 +21,9 @@ interface mat {
         /// Create a new Mat with the specified size and type.
         new-mat-with-size: static func(cols: u32, rows: u32, mattype: mattype) -> mat;
 
+        /// Clone returns a cloned full copy of the Mat.
+        clone: func() -> mat;
+
         /// Close the Mat
         close: func();
 
@@ -29,6 +32,14 @@ interface mat {
 
         /// Rows returns the number of rows for this Mat.
         rows: func() -> u32;
+
+        /// Region returns a new Mat that points to a region of this Mat. Changes made to the
+        /// region Mat will affect the original Mat, since they are pointers to the underlying
+        /// OpenCV Mat object.
+        region: func(rect: rect) -> mat;
+
+        /// CopyTo copies Mat into destination Mat.
+        copy-to: func(dst: mat);
 
         /// MatType returns the type of the Mat.
         mattype: func() -> mattype;
