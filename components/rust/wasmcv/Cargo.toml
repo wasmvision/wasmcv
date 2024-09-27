@@ -1,7 +1,7 @@
 [package]
 name = "wasmcv"
 description = "Rust bindings for wasmCV computer vision interfaces based on WebAssembly."
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 license = "Apache-2.0"
 keywords = ["opencv", "wasm", "wasi", "vision", "wasmcv"]
@@ -14,5 +14,5 @@ readme = "README.md"
 wit-bindgen = "0.32.0"
 
 [lib]
-path = "src/lib.rs"
+path = "src/imports.rs"
 crate-type = ["lib"]
