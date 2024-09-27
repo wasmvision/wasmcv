@@ -1,5 +1,3 @@
-package wasm:cv;
-
 interface types {
     record size {
         x: s32,

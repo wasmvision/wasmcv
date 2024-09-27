@@ -1,5 +1,3 @@
-package wasm:cv; 
-
 interface net {
     use mat.{mat};
 
@@ -97,8 +95,4 @@ interface net {
 		/// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ac944d7f2d3ead5ef9b1b2fa3885f3ff1
 		get-layer: func(id: u32) -> layer;
     }
-}
-
-world dnn {
-	import net;
 }

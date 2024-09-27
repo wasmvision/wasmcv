@@ -1,6 +1,5 @@
-package wasm:cv; 
 
-world core {
+interface cv {
     use types.{border-type, size, adaptive-threshold-type, threshold-type, scalar, rect, rgba, blob-params, hershey-font-type};
     use mat.{mat, mattype};
 
@@ -10,7 +9,7 @@ world core {
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8f3d1e1b7
-    import rectangle: func(img: mat, r: rect, c: rgba, thickness: u8);
+    rectangle: func(img: mat, r: rect, c: rgba, thickness: u8);
 
     /// PutText draws a text string.
     /// It renders the specified text string into the img Mat at the location
@@ -19,7 +18,7 @@ world core {
     ///
     /// For further details, please see:
     /// http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576
-    import put-text: func(img: mat, text: string, org: size, font-face: hershey-font-type, font-scale: f64, c: rgba, thickness: s32);
+    put-text: func(img: mat, text: string, org: size, font-face: hershey-font-type, font-scale: f64, c: rgba, thickness: s32);
 
     // imgproc functions
 
@@ -27,37 +26,37 @@ world core {
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1b1b397736707afcde3
-    import adaptive-threshold: func(src: mat, max-value: f32, adaptive-type: adaptive-threshold-type, threshold-type: threshold-type, block-size: u32, c: f32) -> mat;
+    adaptive-threshold: func(src: mat, max-value: f32, adaptive-type: adaptive-threshold-type, threshold-type: threshold-type, block-size: u32, c: f32) -> mat;
 
     /// Blur blurs an image Mat using a normalized box filter.
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga8c45db9afe636703801b0b2e440fce37
-    import blur: func(src: mat, k-size: size) -> mat;
+    blur: func(src: mat, k-size: size) -> mat;
 
     /// BoxFilter blurs an image using the box filter.
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gad533230ebf2d42509547d514f7d3fbc3
-    import box-filter: func(src: mat, depth: u32, k-size: size) -> mat;
+    box-filter: func(src: mat, depth: u32, k-size: size) -> mat;
 
     /// GaussianBlur blurs an image using a Gaussian filter.
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
-    import gaussian-blur: func(src: mat, size: size, sigma-x: f32, sigma-y: f32, border: border-type) -> mat;
+    gaussian-blur: func(src: mat, size: size, sigma-x: f32, sigma-y: f32, border: border-type) -> mat;
 
     /// Threshold applies a fixed-level threshold to each array element.
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57
-    import threshold: func(src: mat, thresh: f32, max-value: f32, threshold-type: threshold-type) -> mat;
+    threshold: func(src: mat, thresh: f32, max-value: f32, threshold-type: threshold-type) -> mat;
 
     /// Transpose for n-dimensional matrices.
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
-    import transpose-nd: func(src: mat, order: list<s32>) -> mat;
+    transpose-nd: func(src: mat, order: list<s32>) -> mat;
 
     // dnn functions
 
@@ -66,24 +65,24 @@ world core {
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581ac8d7
-    import blob-from-image: func(image: mat, scale-factor: f32, size: size, mean: scalar, swap-rb: bool, crop: bool) -> mat;
+    blob-from-image: func(image: mat, scale-factor: f32, size: size, mean: scalar, swap-rb: bool, crop: bool) -> mat;
 
     /// BlobFromImageWithParams creates 4-dimensional blob from image. Optionally resizes and crops image from center, 
     /// subtract mean values, scales values by scalefactor, swap Blue and Red channels.
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581ac8d7
-    import blob-from-image-with-params: func(image: mat, params: blob-params) -> mat;
+    blob-from-image-with-params: func(image: mat, params: blob-params) -> mat;
 
     /// BlobRectsToImageRects converts blob rects to image rects.
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee
-    import blob-rects-to-image-rects: func(params: blob-params, blob-rects: list<rect>, image-size: size) -> list<rect>;
+    blob-rects-to-image-rects: func(params: blob-params, blob-rects: list<rect>, image-size: size) -> list<rect>;
 
     /// NMSBoxes performs non maximum suppression given boxes and corresponding scores.
     ///
     /// For futher details, please see:
     /// https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee
-    import nms-boxes: func(bboxes: list<rect>, scores: list<f32>, score-threshold: f32, nms-threshold: f32) -> list<s32>;
+    nms-boxes: func(bboxes: list<rect>, scores: list<f32>, score-threshold: f32, nms-threshold: f32) -> list<s32>;
 }
