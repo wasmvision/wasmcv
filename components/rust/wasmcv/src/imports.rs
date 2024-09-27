@@ -424,6 +424,56 @@ pub mod wasm {
         }
       }
 
+      #[repr(u8)]
+      #[derive(Clone, Copy, Eq, Ord, PartialEq, PartialOrd)]
+      pub enum InterpolationType {
+        InterpolationNearest,
+        InterpolationLinear,
+        InterpolationCubic,
+        InterpolationArea,
+        InterpolationLanczos4,
+      }
+      impl ::core::fmt::Debug for InterpolationType {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          match self {
+            InterpolationType::InterpolationNearest => {
+              f.debug_tuple("InterpolationType::InterpolationNearest").finish()
+            }
+            InterpolationType::InterpolationLinear => {
+              f.debug_tuple("InterpolationType::InterpolationLinear").finish()
+            }
+            InterpolationType::InterpolationCubic => {
+              f.debug_tuple("InterpolationType::InterpolationCubic").finish()
+            }
+            InterpolationType::InterpolationArea => {
+              f.debug_tuple("InterpolationType::InterpolationArea").finish()
+            }
+            InterpolationType::InterpolationLanczos4 => {
+              f.debug_tuple("InterpolationType::InterpolationLanczos4").finish()
+            }
+          }
+        }
+      }
+
+      impl InterpolationType{
+        #[doc(hidden)]
+        pub unsafe fn _lift(val: u8) -> InterpolationType{
+          if !cfg!(debug_assertions) {
+            return ::core::mem::transmute(val);
+          }
+
+          match val {
+            0 => InterpolationType::InterpolationNearest,
+            1 => InterpolationType::InterpolationLinear,
+            2 => InterpolationType::InterpolationCubic,
+            3 => InterpolationType::InterpolationArea,
+            4 => InterpolationType::InterpolationLanczos4,
+
+            _ => panic!("invalid enum discriminant"),
+          }
+        }
+      }
+
 
     }
 
@@ -852,6 +902,240 @@ pub mod wasm {
       }
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
+        /// GetIntAt returns the value at the specified row and column as a s32.
+        pub fn get_int_at(&self,row: u32,col: u32,) -> i32{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.get-int-at"]
+              fn wit_import(_: i32, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, _rt::as_i32(&row), _rt::as_i32(&col));
+            ret
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// SetIntAt sets the value at the specified row and column as a s32.
+        pub fn set_int_at(&self,row: u32,col: u32,val: i32,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.set-int-at"]
+              fn wit_import(_: i32, _: i32, _: i32, _: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32, _rt::as_i32(&row), _rt::as_i32(&col), _rt::as_i32(&val));
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// GetFloatAt3 returns the value at the specified x, y, z as a f32.
+        pub fn get_float_at3(&self,x: u32,y: u32,z: u32,) -> f32{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.get-float-at3"]
+              fn wit_import(_: i32, _: i32, _: i32, _: i32, ) -> f32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, ) -> f32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, _rt::as_i32(&x), _rt::as_i32(&y), _rt::as_i32(&z));
+            ret
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// SetFloatAt3 sets the value at the specified x, y, z as a f32.
+        pub fn set_float_at3(&self,x: u32,y: u32,z: u32,val: f32,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.set-float-at3"]
+              fn wit_import(_: i32, _: i32, _: i32, _: i32, _: f32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, _: f32, ){ unreachable!() }
+            wit_import((self).handle() as i32, _rt::as_i32(&x), _rt::as_i32(&y), _rt::as_i32(&z), _rt::as_f32(&val));
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// GetUCharAt3 returns the value at the specified x, y, z as a u8.
+        pub fn get_uchar_at3(&self,x: u32,y: u32,z: u32,) -> u8{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.get-uchar-at3"]
+              fn wit_import(_: i32, _: i32, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, _rt::as_i32(&x), _rt::as_i32(&y), _rt::as_i32(&z));
+            ret as u8
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// SetUCharAt3 sets the value at the specified x, y, z as a u8.
+        pub fn set_uchar_at3(&self,x: u32,y: u32,z: u32,val: u8,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.set-uchar-at3"]
+              fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32, _rt::as_i32(&x), _rt::as_i32(&y), _rt::as_i32(&z), _rt::as_i32(&val));
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// GetIntAt3 returns the value at the specified x, y, z as a s32.
+        pub fn get_int_at3(&self,x: u32,y: u32,z: u32,) -> i32{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.get-int-at3"]
+              fn wit_import(_: i32, _: i32, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, _rt::as_i32(&x), _rt::as_i32(&y), _rt::as_i32(&z));
+            ret
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// SetIntAt3 sets the value at the specified x, y, z as a s32.
+        pub fn set_int_at3(&self,x: u32,y: u32,z: u32,val: i32,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.set-int-at3"]
+              fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32, _rt::as_i32(&x), _rt::as_i32(&y), _rt::as_i32(&z), _rt::as_i32(&val));
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// GetVecbAt returns a vector of bytes. Its size corresponds to the number of channels of the Mat.
+        pub fn get_vecb_at(&self,row: u32,col: u32,) -> _rt::Vec::<u8>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.get-vecb-at"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, _rt::as_i32(&row), _rt::as_i32(&col), ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            _rt::Vec::from_raw_parts(l1.cast(), len3, len3)
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// GetVecfAt returns a vector of floats. Its size corresponds to the number of channels of the Mat.
+        pub fn get_vecf_at(&self,row: u32,col: u32,) -> _rt::Vec::<f32>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.get-vecf-at"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, _rt::as_i32(&row), _rt::as_i32(&col), ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            _rt::Vec::from_raw_parts(l1.cast(), len3, len3)
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// GetVeciAt returns a vector of s32. Its size corresponds to the number of channels of the Mat.
+        pub fn get_veci_at(&self,row: u32,col: u32,) -> _rt::Vec::<i32>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            extern "C" {
+              #[link_name = "[method]mat.get-veci-at"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, _rt::as_i32(&row), _rt::as_i32(&col), ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            _rt::Vec::from_raw_parts(l1.cast(), len3, len3)
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
         /// Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.
         ///
         /// For further details, please see:
@@ -980,6 +1264,7 @@ pub mod wasm {
       pub type Rect = super::super::super::wasm::cv::types::Rect;
       pub type Rgba = super::super::super::wasm::cv::types::Rgba;
       pub type HersheyFontType = super::super::super::wasm::cv::types::HersheyFontType;
+      pub type InterpolationType = super::super::super::wasm::cv::types::InterpolationType;
       pub type Mat = super::super::super::wasm::cv::mat::Mat;
       #[allow(unused_unsafe, clippy::all)]
       /// drawing functions
@@ -1164,6 +1449,33 @@ pub mod wasm {
           #[cfg(not(target_arch = "wasm32"))]
           fn wit_import(_: i32, _: *mut u8, _: usize, ) -> i32{ unreachable!() }
           let ret = wit_import((&src).take_handle() as i32, ptr0.cast_mut(), len0);
+          super::super::super::wasm::cv::mat::Mat::from_handle(ret as u32)
+        }
+      }
+      #[allow(unused_unsafe, clippy::all)]
+      /// Resize resizes an image.
+      /// It resizes the image src down to or up to the specified size, storing the
+      /// result in dst. Note that src and dst may be the same image. If you wish to
+      /// scale by factor, an empty sz may be passed and non-zero fx and fy. Likewise,
+      /// if you wish to scale to an explicit size, a non-empty sz may be passed with
+      /// zero for both fx and fy.
+      ///
+      /// For further details, please see:
+      /// https://docs.opencv.org/master/da/d54/group__imgproc__transform.html#ga47a974309e9102f5f08231edc7e7529d
+      pub fn resize(src: Mat,size: Size,fx: f32,fy: f32,interp: InterpolationType,) -> Mat{
+        unsafe {
+          let super::super::super::wasm::cv::types::Size{ x:x0, y:y0, } = size;
+
+          #[cfg(target_arch = "wasm32")]
+          #[link(wasm_import_module = "wasm:cv/cv")]
+          extern "C" {
+            #[link_name = "resize"]
+            fn wit_import(_: i32, _: i32, _: i32, _: f32, _: f32, _: i32, ) -> i32;
+          }
+
+          #[cfg(not(target_arch = "wasm32"))]
+          fn wit_import(_: i32, _: i32, _: i32, _: f32, _: f32, _: i32, ) -> i32{ unreachable!() }
+          let ret = wit_import((&src).take_handle() as i32, _rt::as_i32(x0), _rt::as_i32(y0), _rt::as_f32(&fx), _rt::as_f32(&fy), interp.clone() as i32);
           super::super::super::wasm::cv::mat::Mat::from_handle(ret as u32)
         }
       }
@@ -2241,9 +2553,9 @@ pub(crate) use __export_imports_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.32.0:wasm:cv:imports:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 4508] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\x9e\"\x01A\x02\x01A\x16\
-\x01B\x18\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x01r\x04\x04val1v\x04val2v\x04\
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 5303] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xb9(\x01A\x02\x01A\x17\
+\x01B\x1a\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x01r\x04\x04val1v\x04val2v\x04\
 val3v\x04val4v\x04\0\x06scalar\x03\0\x02\x01r\x02\x03min\x01\x03max\x01\x04\0\x04\
 rect\x03\0\x04\x01r\x04\x01r}\x01g}\x01b}\x01a}\x04\0\x04rgba\x03\0\x06\x01m\x08\
 \x0fborder-constant\x10border-replicate\x0eborder-reflect\x0bborder-wrap\x11bord\
@@ -2262,79 +2574,96 @@ s\x03\0\x12\x01r\x04\x07min-valv\x07max-valv\x07min-loc\x01\x07max-loc\x01\x04\0
 \x12mix-max-loc-result\x03\0\x14\x01m\x09\x14hershey-font-simplex\x12hershey-fon\
 t-plain\x13hershey-font-duplex\x14hershey-font-complex\x14hershey-font-triplex\x1a\
 hershey-font-complex-small\x1bhershey-font-script-simplex\x1bhershey-font-script\
--complex\x13hershey-font-italic\x04\0\x11hershey-font-type\x03\0\x16\x03\0\x0dwa\
-sm:cv/types\x05\0\x02\x03\0\0\x12mix-max-loc-result\x02\x03\0\0\x04rect\x01B.\x02\
-\x03\x02\x01\x01\x04\0\x12mix-max-loc-result\x03\0\0\x02\x03\x02\x01\x02\x04\0\x04\
-rect\x03\0\x02\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05cv16s\x05cv32s\x05cv32f\x05c\
-v64f\x04\0\x07mattype\x03\0\x04\x04\0\x03mat\x03\x01\x01i\x06\x01@\0\0\x07\x04\0\
-\x13[static]mat.new-mat\x01\x08\x01@\x03\x04colsy\x04rowsy\x07mattype\x05\0\x07\x04\
-\0\x1d[static]mat.new-mat-with-size\x01\x09\x01h\x06\x01@\x01\x04self\x0a\0\x07\x04\
-\0\x11[method]mat.clone\x01\x0b\x01@\x01\x04self\x0a\x01\0\x04\0\x11[method]mat.\
-close\x01\x0c\x01@\x01\x04self\x0a\0y\x04\0\x10[method]mat.cols\x01\x0d\x04\0\x10\
-[method]mat.rows\x01\x0d\x01@\x02\x04self\x0a\x04rect\x03\0\x07\x04\0\x12[method\
-]mat.region\x01\x0e\x01@\x02\x04self\x0a\x03dst\x07\x01\0\x04\0\x13[method]mat.c\
-opy-to\x01\x0f\x01@\x01\x04self\x0a\0\x05\x04\0\x13[method]mat.mattype\x01\x10\x01\
-py\x01@\x01\x04self\x0a\0\x11\x04\0\x10[method]mat.size\x01\x12\x01@\x01\x04self\
-\x0a\0\x7f\x04\0\x11[method]mat.empty\x01\x13\x01@\x03\x04self\x0a\x03rowy\x03co\
-ly\0v\x04\0\x18[method]mat.get-float-at\x01\x14\x01@\x04\x04self\x0a\x03rowy\x03\
-coly\x03valv\x01\0\x04\0\x18[method]mat.set-float-at\x01\x15\x01@\x03\x04self\x0a\
-\x03rowy\x03coly\0}\x04\0\x18[method]mat.get-uchar-at\x01\x16\x01@\x04\x04self\x0a\
-\x03rowy\x03coly\x03val}\x01\0\x04\0\x18[method]mat.set-uchar-at\x01\x17\x01@\x03\
-\x04self\x0a\x08channelsy\x04rowsy\0\x07\x04\0\x13[method]mat.reshape\x01\x18\x01\
-@\x03\x04self\x0a\x05starty\x03endy\0\x07\x04\0\x15[method]mat.row-range\x01\x19\
-\x04\0\x15[method]mat.col-range\x01\x19\x01@\x01\x04self\x0a\0\x01\x04\0\x17[met\
-hod]mat.min-max-loc\x01\x1a\x03\0\x0bwasm:cv/mat\x05\x03\x02\x03\0\0\x0bborder-t\
-ype\x02\x03\0\0\x04size\x02\x03\0\0\x17adaptive-threshold-type\x02\x03\0\0\x0eth\
-reshold-type\x02\x03\0\0\x06scalar\x02\x03\0\0\x04rgba\x02\x03\0\0\x11hershey-fo\
-nt-type\x02\x03\0\x01\x03mat\x02\x03\0\x01\x07mattype\x01B&\x02\x03\x02\x01\x04\x04\
-\0\x0bborder-type\x03\0\0\x02\x03\x02\x01\x05\x04\0\x04size\x03\0\x02\x02\x03\x02\
-\x01\x06\x04\0\x17adaptive-threshold-type\x03\0\x04\x02\x03\x02\x01\x07\x04\0\x0e\
-threshold-type\x03\0\x06\x02\x03\x02\x01\x08\x04\0\x06scalar\x03\0\x08\x02\x03\x02\
-\x01\x02\x04\0\x04rect\x03\0\x0a\x02\x03\x02\x01\x09\x04\0\x04rgba\x03\0\x0c\x02\
-\x03\x02\x01\x0a\x04\0\x11hershey-font-type\x03\0\x0e\x02\x03\x02\x01\x0b\x04\0\x03\
-mat\x03\0\x10\x02\x03\x02\x01\x0c\x04\0\x07mattype\x03\0\x12\x01i\x11\x01@\x04\x03\
-img\x14\x01r\x0b\x01c\x0d\x09thickness}\x01\0\x04\0\x09rectangle\x01\x15\x01@\x07\
-\x03img\x14\x04texts\x03org\x03\x09font-face\x0f\x0afont-scaleu\x01c\x0d\x09thic\
-knessz\x01\0\x04\0\x08put-text\x01\x16\x01@\x06\x03src\x14\x09max-valuev\x0dadap\
-tive-type\x05\x0ethreshold-type\x07\x0ablock-sizey\x01cv\0\x14\x04\0\x12adaptive\
--threshold\x01\x17\x01@\x02\x03src\x14\x06k-size\x03\0\x14\x04\0\x04blur\x01\x18\
-\x01@\x03\x03src\x14\x05depthy\x06k-size\x03\0\x14\x04\0\x0abox-filter\x01\x19\x01\
-@\x05\x03src\x14\x04size\x03\x07sigma-xv\x07sigma-yv\x06border\x01\0\x14\x04\0\x0d\
-gaussian-blur\x01\x1a\x01@\x04\x03src\x14\x06threshv\x09max-valuev\x0ethreshold-\
-type\x07\0\x14\x04\0\x09threshold\x01\x1b\x01pz\x01@\x02\x03src\x14\x05order\x1c\
-\0\x14\x04\0\x0ctranspose-nd\x01\x1d\x03\0\x0awasm:cv/cv\x05\x0d\x02\x03\0\0\x0b\
-blob-params\x01B>\x02\x03\x02\x01\x0b\x04\0\x03mat\x03\0\0\x02\x03\x02\x01\x05\x04\
-\0\x04size\x03\0\x02\x02\x03\x02\x01\x08\x04\0\x06scalar\x03\0\x04\x02\x03\x02\x01\
-\x02\x04\0\x04rect\x03\0\x06\x02\x03\x02\x01\x09\x04\0\x04rgba\x03\0\x08\x02\x03\
-\x02\x01\x0e\x04\0\x0bblob-params\x03\0\x0a\x01m\x06\x13net-backend-default\x12n\
-et-backend-halide\x14net-backend-openvino\x12net-backend-opencv\x11net-backend-v\
-kcom\x10net-backend-cuda\x04\0\x10net-backend-type\x03\0\x0c\x01m\x08\x0enet-tar\
-get-cpu\x0fnet-target-fp32\x0fnet-target-fp16\x0enet-target-vpu\x11net-target-vu\
-lkan\x0fnet-target-fpga\x0fnet-target-cuda\x14net-target-cuda-fp16\x04\0\x0fnet-\
-target-type\x03\0\x0e\x01m\x06\x13data-layout-unknown\x0edata-layout-nd\x10data-\
-layout-nchw\x10data-layout-nhwc\x11data-layout-ndhwc\x12data-layout-planar\x04\0\
-\x10data-layout-type\x03\0\x10\x01m\x03\x11padding-mode-null\x18padding-mode-cro\
-p-center\x16padding-mode-letterbox\x04\0\x11padding-mode-type\x03\0\x12\x04\0\x05\
-layer\x03\x01\x04\0\x03net\x03\x01\x01i\x14\x01@\0\0\x16\x04\0\x12[constructor]l\
-ayer\x01\x17\x01h\x14\x01@\x01\x04self\x18\0s\x04\0\x16[method]layer.get-name\x01\
-\x19\x01i\x15\x01@\x02\x05models\x06configs\0\x1a\x04\0\x14[static]net.read-net\x01\
-\x1b\x01@\x01\x05models\0\x1a\x04\0\x1e[static]net.read-net-from-onnx\x01\x1c\x01\
-h\x15\x01@\x01\x04self\x1d\x01\0\x04\0\x11[method]net.close\x01\x1e\x01@\x01\x04\
-self\x1d\0\x7f\x04\0\x11[method]net.empty\x01\x1f\x01i\x01\x01@\x03\x04self\x1d\x05\
-input\x20\x04names\x01\0\x04\0\x15[method]net.set-input\x01!\x01@\x02\x04self\x1d\
-\x0boutput-names\0\x20\x04\0\x13[method]net.forward\x01\"\x01py\x01@\x01\x04self\
-\x1d\0#\x04\0&[method]net.get-unconnected-out-layers\x01$\x01ps\x01@\x01\x04self\
-\x1d\0%\x04\0\x1b[method]net.get-layer-names\x01&\x01@\x02\x04self\x1d\x02idy\0\x16\
-\x04\0\x15[method]net.get-layer\x01'\x01@\x06\x05image\x20\x0cscale-factorv\x04s\
-ize\x03\x04mean\x05\x07swap-rb\x7f\x04crop\x7f\0\x20\x04\0\x0fblob-from-image\x01\
-(\x01@\x02\x05image\x20\x06params\x0b\0\x20\x04\0\x1bblob-from-image-with-params\
-\x01)\x01p\x07\x01@\x03\x06params\x0b\x0ablob-rects*\x0aimage-size\x03\0*\x04\0\x19\
-blob-rects-to-image-rects\x01+\x01pv\x01pz\x01@\x04\x06bboxes*\x06scores,\x0fsco\
-re-thresholdv\x0dnms-thresholdv\0-\x04\0\x09nms-boxes\x01.\x03\0\x0bwasm:cv/dnn\x05\
-\x0f\x01B\x05\x02\x03\x02\x01\x0b\x04\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05imag\
-e\x02\0\x02\x04\0\x07process\x01\x03\x04\0\x0fwasm:cv/request\x05\x10\x04\0\x0fw\
-asm:cv/imports\x04\0\x0b\x0d\x01\0\x07imports\x03\0\0\0G\x09producers\x01\x0cpro\
-cessed-by\x02\x0dwit-component\x070.217.0\x10wit-bindgen-rust\x060.32.0";
+-complex\x13hershey-font-italic\x04\0\x11hershey-font-type\x03\0\x16\x01m\x05\x15\
+interpolation-nearest\x14interpolation-linear\x13interpolation-cubic\x12interpol\
+ation-area\x16interpolation-lanczos4\x04\0\x12interpolation-type\x03\0\x18\x03\0\
+\x0dwasm:cv/types\x05\0\x02\x03\0\0\x12mix-max-loc-result\x02\x03\0\0\x04rect\x01\
+BG\x02\x03\x02\x01\x01\x04\0\x12mix-max-loc-result\x03\0\0\x02\x03\x02\x01\x02\x04\
+\0\x04rect\x03\0\x02\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05cv16s\x05cv32s\x05cv32\
+f\x05cv64f\x04\0\x07mattype\x03\0\x04\x04\0\x03mat\x03\x01\x01i\x06\x01@\0\0\x07\
+\x04\0\x13[static]mat.new-mat\x01\x08\x01@\x03\x04colsy\x04rowsy\x07mattype\x05\0\
+\x07\x04\0\x1d[static]mat.new-mat-with-size\x01\x09\x01h\x06\x01@\x01\x04self\x0a\
+\0\x07\x04\0\x11[method]mat.clone\x01\x0b\x01@\x01\x04self\x0a\x01\0\x04\0\x11[m\
+ethod]mat.close\x01\x0c\x01@\x01\x04self\x0a\0y\x04\0\x10[method]mat.cols\x01\x0d\
+\x04\0\x10[method]mat.rows\x01\x0d\x01@\x02\x04self\x0a\x04rect\x03\0\x07\x04\0\x12\
+[method]mat.region\x01\x0e\x01@\x02\x04self\x0a\x03dst\x07\x01\0\x04\0\x13[metho\
+d]mat.copy-to\x01\x0f\x01@\x01\x04self\x0a\0\x05\x04\0\x13[method]mat.mattype\x01\
+\x10\x01py\x01@\x01\x04self\x0a\0\x11\x04\0\x10[method]mat.size\x01\x12\x01@\x01\
+\x04self\x0a\0\x7f\x04\0\x11[method]mat.empty\x01\x13\x01@\x03\x04self\x0a\x03ro\
+wy\x03coly\0v\x04\0\x18[method]mat.get-float-at\x01\x14\x01@\x04\x04self\x0a\x03\
+rowy\x03coly\x03valv\x01\0\x04\0\x18[method]mat.set-float-at\x01\x15\x01@\x03\x04\
+self\x0a\x03rowy\x03coly\0}\x04\0\x18[method]mat.get-uchar-at\x01\x16\x01@\x04\x04\
+self\x0a\x03rowy\x03coly\x03val}\x01\0\x04\0\x18[method]mat.set-uchar-at\x01\x17\
+\x01@\x03\x04self\x0a\x03rowy\x03coly\0z\x04\0\x16[method]mat.get-int-at\x01\x18\
+\x01@\x04\x04self\x0a\x03rowy\x03coly\x03valz\x01\0\x04\0\x16[method]mat.set-int\
+-at\x01\x19\x01@\x04\x04self\x0a\x01xy\x01yy\x01zy\0v\x04\0\x19[method]mat.get-f\
+loat-at3\x01\x1a\x01@\x05\x04self\x0a\x01xy\x01yy\x01zy\x03valv\x01\0\x04\0\x19[\
+method]mat.set-float-at3\x01\x1b\x01@\x04\x04self\x0a\x01xy\x01yy\x01zy\0}\x04\0\
+\x19[method]mat.get-uchar-at3\x01\x1c\x01@\x05\x04self\x0a\x01xy\x01yy\x01zy\x03\
+val}\x01\0\x04\0\x19[method]mat.set-uchar-at3\x01\x1d\x01@\x04\x04self\x0a\x01xy\
+\x01yy\x01zy\0z\x04\0\x17[method]mat.get-int-at3\x01\x1e\x01@\x05\x04self\x0a\x01\
+xy\x01yy\x01zy\x03valz\x01\0\x04\0\x17[method]mat.set-int-at3\x01\x1f\x01p}\x01@\
+\x03\x04self\x0a\x03rowy\x03coly\0\x20\x04\0\x17[method]mat.get-vecb-at\x01!\x01\
+pv\x01@\x03\x04self\x0a\x03rowy\x03coly\0\"\x04\0\x17[method]mat.get-vecf-at\x01\
+#\x01pz\x01@\x03\x04self\x0a\x03rowy\x03coly\0$\x04\0\x17[method]mat.get-veci-at\
+\x01%\x01@\x03\x04self\x0a\x08channelsy\x04rowsy\0\x07\x04\0\x13[method]mat.resh\
+ape\x01&\x01@\x03\x04self\x0a\x05starty\x03endy\0\x07\x04\0\x15[method]mat.row-r\
+ange\x01'\x04\0\x15[method]mat.col-range\x01'\x01@\x01\x04self\x0a\0\x01\x04\0\x17\
+[method]mat.min-max-loc\x01(\x03\0\x0bwasm:cv/mat\x05\x03\x02\x03\0\0\x0bborder-\
+type\x02\x03\0\0\x04size\x02\x03\0\0\x17adaptive-threshold-type\x02\x03\0\0\x0et\
+hreshold-type\x02\x03\0\0\x06scalar\x02\x03\0\0\x04rgba\x02\x03\0\0\x11hershey-f\
+ont-type\x02\x03\0\0\x12interpolation-type\x02\x03\0\x01\x03mat\x02\x03\0\x01\x07\
+mattype\x01B*\x02\x03\x02\x01\x04\x04\0\x0bborder-type\x03\0\0\x02\x03\x02\x01\x05\
+\x04\0\x04size\x03\0\x02\x02\x03\x02\x01\x06\x04\0\x17adaptive-threshold-type\x03\
+\0\x04\x02\x03\x02\x01\x07\x04\0\x0ethreshold-type\x03\0\x06\x02\x03\x02\x01\x08\
+\x04\0\x06scalar\x03\0\x08\x02\x03\x02\x01\x02\x04\0\x04rect\x03\0\x0a\x02\x03\x02\
+\x01\x09\x04\0\x04rgba\x03\0\x0c\x02\x03\x02\x01\x0a\x04\0\x11hershey-font-type\x03\
+\0\x0e\x02\x03\x02\x01\x0b\x04\0\x12interpolation-type\x03\0\x10\x02\x03\x02\x01\
+\x0c\x04\0\x03mat\x03\0\x12\x02\x03\x02\x01\x0d\x04\0\x07mattype\x03\0\x14\x01i\x13\
+\x01@\x04\x03img\x16\x01r\x0b\x01c\x0d\x09thickness}\x01\0\x04\0\x09rectangle\x01\
+\x17\x01@\x07\x03img\x16\x04texts\x03org\x03\x09font-face\x0f\x0afont-scaleu\x01\
+c\x0d\x09thicknessz\x01\0\x04\0\x08put-text\x01\x18\x01@\x06\x03src\x16\x09max-v\
+aluev\x0dadaptive-type\x05\x0ethreshold-type\x07\x0ablock-sizey\x01cv\0\x16\x04\0\
+\x12adaptive-threshold\x01\x19\x01@\x02\x03src\x16\x06k-size\x03\0\x16\x04\0\x04\
+blur\x01\x1a\x01@\x03\x03src\x16\x05depthy\x06k-size\x03\0\x16\x04\0\x0abox-filt\
+er\x01\x1b\x01@\x05\x03src\x16\x04size\x03\x07sigma-xv\x07sigma-yv\x06border\x01\
+\0\x16\x04\0\x0dgaussian-blur\x01\x1c\x01@\x04\x03src\x16\x06threshv\x09max-valu\
+ev\x0ethreshold-type\x07\0\x16\x04\0\x09threshold\x01\x1d\x01pz\x01@\x02\x03src\x16\
+\x05order\x1e\0\x16\x04\0\x0ctranspose-nd\x01\x1f\x01@\x05\x03src\x16\x04size\x03\
+\x02fxv\x02fyv\x06interp\x11\0\x16\x04\0\x06resize\x01\x20\x03\0\x0awasm:cv/cv\x05\
+\x0e\x02\x03\0\0\x0bblob-params\x01B>\x02\x03\x02\x01\x0c\x04\0\x03mat\x03\0\0\x02\
+\x03\x02\x01\x05\x04\0\x04size\x03\0\x02\x02\x03\x02\x01\x08\x04\0\x06scalar\x03\
+\0\x04\x02\x03\x02\x01\x02\x04\0\x04rect\x03\0\x06\x02\x03\x02\x01\x09\x04\0\x04\
+rgba\x03\0\x08\x02\x03\x02\x01\x0f\x04\0\x0bblob-params\x03\0\x0a\x01m\x06\x13ne\
+t-backend-default\x12net-backend-halide\x14net-backend-openvino\x12net-backend-o\
+pencv\x11net-backend-vkcom\x10net-backend-cuda\x04\0\x10net-backend-type\x03\0\x0c\
+\x01m\x08\x0enet-target-cpu\x0fnet-target-fp32\x0fnet-target-fp16\x0enet-target-\
+vpu\x11net-target-vulkan\x0fnet-target-fpga\x0fnet-target-cuda\x14net-target-cud\
+a-fp16\x04\0\x0fnet-target-type\x03\0\x0e\x01m\x06\x13data-layout-unknown\x0edat\
+a-layout-nd\x10data-layout-nchw\x10data-layout-nhwc\x11data-layout-ndhwc\x12data\
+-layout-planar\x04\0\x10data-layout-type\x03\0\x10\x01m\x03\x11padding-mode-null\
+\x18padding-mode-crop-center\x16padding-mode-letterbox\x04\0\x11padding-mode-typ\
+e\x03\0\x12\x04\0\x05layer\x03\x01\x04\0\x03net\x03\x01\x01i\x14\x01@\0\0\x16\x04\
+\0\x12[constructor]layer\x01\x17\x01h\x14\x01@\x01\x04self\x18\0s\x04\0\x16[meth\
+od]layer.get-name\x01\x19\x01i\x15\x01@\x02\x05models\x06configs\0\x1a\x04\0\x14\
+[static]net.read-net\x01\x1b\x01@\x01\x05models\0\x1a\x04\0\x1e[static]net.read-\
+net-from-onnx\x01\x1c\x01h\x15\x01@\x01\x04self\x1d\x01\0\x04\0\x11[method]net.c\
+lose\x01\x1e\x01@\x01\x04self\x1d\0\x7f\x04\0\x11[method]net.empty\x01\x1f\x01i\x01\
+\x01@\x03\x04self\x1d\x05input\x20\x04names\x01\0\x04\0\x15[method]net.set-input\
+\x01!\x01@\x02\x04self\x1d\x0boutput-names\0\x20\x04\0\x13[method]net.forward\x01\
+\"\x01py\x01@\x01\x04self\x1d\0#\x04\0&[method]net.get-unconnected-out-layers\x01\
+$\x01ps\x01@\x01\x04self\x1d\0%\x04\0\x1b[method]net.get-layer-names\x01&\x01@\x02\
+\x04self\x1d\x02idy\0\x16\x04\0\x15[method]net.get-layer\x01'\x01@\x06\x05image\x20\
+\x0cscale-factorv\x04size\x03\x04mean\x05\x07swap-rb\x7f\x04crop\x7f\0\x20\x04\0\
+\x0fblob-from-image\x01(\x01@\x02\x05image\x20\x06params\x0b\0\x20\x04\0\x1bblob\
+-from-image-with-params\x01)\x01p\x07\x01@\x03\x06params\x0b\x0ablob-rects*\x0ai\
+mage-size\x03\0*\x04\0\x19blob-rects-to-image-rects\x01+\x01pv\x01pz\x01@\x04\x06\
+bboxes*\x06scores,\x0fscore-thresholdv\x0dnms-thresholdv\0-\x04\0\x09nms-boxes\x01\
+.\x03\0\x0bwasm:cv/dnn\x05\x10\x01B\x05\x02\x03\x02\x01\x0c\x04\0\x03mat\x03\0\0\
+\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\0\x07process\x01\x03\x04\0\x0fwasm:cv/\
+request\x05\x11\x04\0\x0fwasm:cv/imports\x04\0\x0b\x0d\x01\0\x07imports\x03\0\0\0\
+G\x09producers\x01\x0cprocessed-by\x02\x0dwit-component\x070.217.0\x10wit-bindge\
+n-rust\x060.32.0";
 
 #[inline(never)]
 #[doc(hidden)]

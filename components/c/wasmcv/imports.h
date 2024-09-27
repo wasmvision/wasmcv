@@ -111,6 +111,14 @@ typedef uint8_t wasm_cv_types_hershey_font_type_t;
 #define WASM_CV_TYPES_HERSHEY_FONT_TYPE_HERSHEY_FONT_SCRIPT_COMPLEX 7
 #define WASM_CV_TYPES_HERSHEY_FONT_TYPE_HERSHEY_FONT_ITALIC 8
 
+typedef uint8_t wasm_cv_types_interpolation_type_t;
+
+#define WASM_CV_TYPES_INTERPOLATION_TYPE_INTERPOLATION_NEAREST 0
+#define WASM_CV_TYPES_INTERPOLATION_TYPE_INTERPOLATION_LINEAR 1
+#define WASM_CV_TYPES_INTERPOLATION_TYPE_INTERPOLATION_CUBIC 2
+#define WASM_CV_TYPES_INTERPOLATION_TYPE_INTERPOLATION_AREA 3
+#define WASM_CV_TYPES_INTERPOLATION_TYPE_INTERPOLATION_LANCZOS4 4
+
 typedef wasm_cv_types_mix_max_loc_result_t wasm_cv_mat_mix_max_loc_result_t;
 
 typedef wasm_cv_types_rect_t wasm_cv_mat_rect_t;
@@ -138,6 +146,21 @@ typedef struct {
   size_t len;
 } imports_list_u32_t;
 
+typedef struct {
+  uint8_t *ptr;
+  size_t len;
+} imports_list_u8_t;
+
+typedef struct {
+  float *ptr;
+  size_t len;
+} imports_list_f32_t;
+
+typedef struct {
+  int32_t *ptr;
+  size_t len;
+} imports_list_s32_t;
+
 typedef wasm_cv_types_border_type_t wasm_cv_cv_border_type_t;
 
 typedef wasm_cv_types_size_t wasm_cv_cv_size_t;
@@ -154,14 +177,11 @@ typedef wasm_cv_types_rgba_t wasm_cv_cv_rgba_t;
 
 typedef wasm_cv_types_hershey_font_type_t wasm_cv_cv_hershey_font_type_t;
 
+typedef wasm_cv_types_interpolation_type_t wasm_cv_cv_interpolation_type_t;
+
 typedef wasm_cv_mat_mattype_t wasm_cv_cv_mattype_t;
 
 typedef wasm_cv_mat_own_mat_t wasm_cv_cv_own_mat_t;
-
-typedef struct {
-  int32_t *ptr;
-  size_t len;
-} imports_list_s32_t;
 
 typedef wasm_cv_types_size_t wasm_cv_dnn_size_t;
 
@@ -236,11 +256,6 @@ typedef struct {
   size_t len;
 } wasm_cv_dnn_list_rect_t;
 
-typedef struct {
-  float *ptr;
-  size_t len;
-} imports_list_f32_t;
-
 typedef wasm_cv_mat_own_mat_t exports_wasm_cv_request_own_mat_t;
 
 // Imported Functions from `wasm:cv/mat`
@@ -276,6 +291,28 @@ extern void wasm_cv_mat_method_mat_set_float_at(wasm_cv_mat_borrow_mat_t self, u
 extern uint8_t wasm_cv_mat_method_mat_get_uchar_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col);
 // SetUCharAt sets the value at the specified row and column as a u8.
 extern void wasm_cv_mat_method_mat_set_uchar_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col, uint8_t val);
+// GetIntAt returns the value at the specified row and column as a s32.
+extern int32_t wasm_cv_mat_method_mat_get_int_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col);
+// SetIntAt sets the value at the specified row and column as a s32.
+extern void wasm_cv_mat_method_mat_set_int_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col, int32_t val);
+// GetFloatAt3 returns the value at the specified x, y, z as a f32.
+extern float wasm_cv_mat_method_mat_get_float_at3(wasm_cv_mat_borrow_mat_t self, uint32_t x, uint32_t y, uint32_t z);
+// SetFloatAt3 sets the value at the specified x, y, z as a f32.
+extern void wasm_cv_mat_method_mat_set_float_at3(wasm_cv_mat_borrow_mat_t self, uint32_t x, uint32_t y, uint32_t z, float val);
+// GetUCharAt3 returns the value at the specified x, y, z as a u8.
+extern uint8_t wasm_cv_mat_method_mat_get_uchar_at3(wasm_cv_mat_borrow_mat_t self, uint32_t x, uint32_t y, uint32_t z);
+// SetUCharAt3 sets the value at the specified x, y, z as a u8.
+extern void wasm_cv_mat_method_mat_set_uchar_at3(wasm_cv_mat_borrow_mat_t self, uint32_t x, uint32_t y, uint32_t z, uint8_t val);
+// GetIntAt3 returns the value at the specified x, y, z as a s32.
+extern int32_t wasm_cv_mat_method_mat_get_int_at3(wasm_cv_mat_borrow_mat_t self, uint32_t x, uint32_t y, uint32_t z);
+// SetIntAt3 sets the value at the specified x, y, z as a s32.
+extern void wasm_cv_mat_method_mat_set_int_at3(wasm_cv_mat_borrow_mat_t self, uint32_t x, uint32_t y, uint32_t z, int32_t val);
+// GetVecbAt returns a vector of bytes. Its size corresponds to the number of channels of the Mat.
+extern void wasm_cv_mat_method_mat_get_vecb_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col, imports_list_u8_t *ret);
+// GetVecfAt returns a vector of floats. Its size corresponds to the number of channels of the Mat.
+extern void wasm_cv_mat_method_mat_get_vecf_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col, imports_list_f32_t *ret);
+// GetVeciAt returns a vector of s32. Its size corresponds to the number of channels of the Mat.
+extern void wasm_cv_mat_method_mat_get_veci_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col, imports_list_s32_t *ret);
 // Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.
 // 
 // For further details, please see:
@@ -343,6 +380,16 @@ extern wasm_cv_cv_own_mat_t wasm_cv_cv_threshold(wasm_cv_cv_own_mat_t src, float
 // For further details, please see:
 // https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
 extern wasm_cv_cv_own_mat_t wasm_cv_cv_transpose_nd(wasm_cv_cv_own_mat_t src, imports_list_s32_t *order);
+// Resize resizes an image.
+// It resizes the image src down to or up to the specified size, storing the
+// result in dst. Note that src and dst may be the same image. If you wish to
+// scale by factor, an empty sz may be passed and non-zero fx and fy. Likewise,
+// if you wish to scale to an explicit size, a non-empty sz may be passed with
+// zero for both fx and fy.
+// 
+// For further details, please see:
+// https://docs.opencv.org/master/da/d54/group__imgproc__transform.html#ga47a974309e9102f5f08231edc7e7529d
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_resize(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *size, float fx, float fy, wasm_cv_cv_interpolation_type_t interp);
 
 // Imported Functions from `wasm:cv/dnn`
 extern wasm_cv_dnn_own_layer_t wasm_cv_dnn_constructor_layer(void);
@@ -424,6 +471,10 @@ extern wasm_cv_mat_borrow_mat_t wasm_cv_mat_borrow_mat(wasm_cv_mat_own_mat_t han
 
 void imports_list_u32_free(imports_list_u32_t *ptr);
 
+void imports_list_u8_free(imports_list_u8_t *ptr);
+
+void imports_list_f32_free(imports_list_f32_t *ptr);
+
 void imports_list_s32_free(imports_list_s32_t *ptr);
 
 extern void wasm_cv_dnn_layer_drop_own(wasm_cv_dnn_own_layer_t handle);
@@ -437,8 +488,6 @@ extern wasm_cv_dnn_borrow_net_t wasm_cv_dnn_borrow_net(wasm_cv_dnn_own_net_t han
 void imports_list_string_free(imports_list_string_t *ptr);
 
 void wasm_cv_dnn_list_rect_free(wasm_cv_dnn_list_rect_t *ptr);
-
-void imports_list_f32_free(imports_list_f32_t *ptr);
 
 // Transfers ownership of `s` into the string `ret`
 void imports_string_set(imports_string_t *ret, const char*s);

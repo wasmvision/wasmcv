@@ -50,6 +50,39 @@ extern int32_t __wasm_import_wasm_cv_mat_method_mat_get_uchar_at(int32_t, int32_
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.set-uchar-at")))
 extern void __wasm_import_wasm_cv_mat_method_mat_set_uchar_at(int32_t, int32_t, int32_t, int32_t);
 
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.get-int-at")))
+extern int32_t __wasm_import_wasm_cv_mat_method_mat_get_int_at(int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.set-int-at")))
+extern void __wasm_import_wasm_cv_mat_method_mat_set_int_at(int32_t, int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.get-float-at3")))
+extern float __wasm_import_wasm_cv_mat_method_mat_get_float_at3(int32_t, int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.set-float-at3")))
+extern void __wasm_import_wasm_cv_mat_method_mat_set_float_at3(int32_t, int32_t, int32_t, int32_t, float);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.get-uchar-at3")))
+extern int32_t __wasm_import_wasm_cv_mat_method_mat_get_uchar_at3(int32_t, int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.set-uchar-at3")))
+extern void __wasm_import_wasm_cv_mat_method_mat_set_uchar_at3(int32_t, int32_t, int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.get-int-at3")))
+extern int32_t __wasm_import_wasm_cv_mat_method_mat_get_int_at3(int32_t, int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.set-int-at3")))
+extern void __wasm_import_wasm_cv_mat_method_mat_set_int_at3(int32_t, int32_t, int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.get-vecb-at")))
+extern void __wasm_import_wasm_cv_mat_method_mat_get_vecb_at(int32_t, int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.get-vecf-at")))
+extern void __wasm_import_wasm_cv_mat_method_mat_get_vecf_at(int32_t, int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.get-veci-at")))
+extern void __wasm_import_wasm_cv_mat_method_mat_get_veci_at(int32_t, int32_t, int32_t, uint8_t *);
+
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.reshape")))
 extern int32_t __wasm_import_wasm_cv_mat_method_mat_reshape(int32_t, int32_t, int32_t);
 
@@ -87,6 +120,9 @@ extern int32_t __wasm_import_wasm_cv_cv_threshold(int32_t, float, float, int32_t
 
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("transpose-nd")))
 extern int32_t __wasm_import_wasm_cv_cv_transpose_nd(int32_t, uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("resize")))
+extern int32_t __wasm_import_wasm_cv_cv_resize(int32_t, int32_t, int32_t, float, float, int32_t);
 
 // Imported Functions from `wasm:cv/dnn`
 
@@ -172,6 +208,26 @@ void imports_list_u32_free(imports_list_u32_t *ptr) {
   }
 }
 
+void imports_list_u8_free(imports_list_u8_t *ptr) {
+  size_t list_len = ptr->len;
+  if (list_len > 0) {
+    uint8_t *list_ptr = ptr->ptr;
+    for (size_t i = 0; i < list_len; i++) {
+    }
+    free(list_ptr);
+  }
+}
+
+void imports_list_f32_free(imports_list_f32_t *ptr) {
+  size_t list_len = ptr->len;
+  if (list_len > 0) {
+    float *list_ptr = ptr->ptr;
+    for (size_t i = 0; i < list_len; i++) {
+    }
+    free(list_ptr);
+  }
+}
+
 void imports_list_s32_free(imports_list_s32_t *ptr) {
   size_t list_len = ptr->len;
   if (list_len > 0) {
@@ -219,16 +275,6 @@ void wasm_cv_dnn_list_rect_free(wasm_cv_dnn_list_rect_t *ptr) {
   size_t list_len = ptr->len;
   if (list_len > 0) {
     wasm_cv_dnn_rect_t *list_ptr = ptr->ptr;
-    for (size_t i = 0; i < list_len; i++) {
-    }
-    free(list_ptr);
-  }
-}
-
-void imports_list_f32_free(imports_list_f32_t *ptr) {
-  size_t list_len = ptr->len;
-  if (list_len > 0) {
-    float *list_ptr = ptr->ptr;
     for (size_t i = 0; i < list_len; i++) {
     }
     free(list_ptr);
@@ -330,6 +376,66 @@ void wasm_cv_mat_method_mat_set_uchar_at(wasm_cv_mat_borrow_mat_t self, uint32_t
   __wasm_import_wasm_cv_mat_method_mat_set_uchar_at((self).__handle, (int32_t) (row), (int32_t) (col), (int32_t) (val));
 }
 
+int32_t wasm_cv_mat_method_mat_get_int_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col) {
+  int32_t ret = __wasm_import_wasm_cv_mat_method_mat_get_int_at((self).__handle, (int32_t) (row), (int32_t) (col));
+  return ret;
+}
+
+void wasm_cv_mat_method_mat_set_int_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col, int32_t val) {
+  __wasm_import_wasm_cv_mat_method_mat_set_int_at((self).__handle, (int32_t) (row), (int32_t) (col), val);
+}
+
+float wasm_cv_mat_method_mat_get_float_at3(wasm_cv_mat_borrow_mat_t self, uint32_t x, uint32_t y, uint32_t z) {
+  float ret = __wasm_import_wasm_cv_mat_method_mat_get_float_at3((self).__handle, (int32_t) (x), (int32_t) (y), (int32_t) (z));
+  return ret;
+}
+
+void wasm_cv_mat_method_mat_set_float_at3(wasm_cv_mat_borrow_mat_t self, uint32_t x, uint32_t y, uint32_t z, float val) {
+  __wasm_import_wasm_cv_mat_method_mat_set_float_at3((self).__handle, (int32_t) (x), (int32_t) (y), (int32_t) (z), val);
+}
+
+uint8_t wasm_cv_mat_method_mat_get_uchar_at3(wasm_cv_mat_borrow_mat_t self, uint32_t x, uint32_t y, uint32_t z) {
+  int32_t ret = __wasm_import_wasm_cv_mat_method_mat_get_uchar_at3((self).__handle, (int32_t) (x), (int32_t) (y), (int32_t) (z));
+  return (uint8_t) (ret);
+}
+
+void wasm_cv_mat_method_mat_set_uchar_at3(wasm_cv_mat_borrow_mat_t self, uint32_t x, uint32_t y, uint32_t z, uint8_t val) {
+  __wasm_import_wasm_cv_mat_method_mat_set_uchar_at3((self).__handle, (int32_t) (x), (int32_t) (y), (int32_t) (z), (int32_t) (val));
+}
+
+int32_t wasm_cv_mat_method_mat_get_int_at3(wasm_cv_mat_borrow_mat_t self, uint32_t x, uint32_t y, uint32_t z) {
+  int32_t ret = __wasm_import_wasm_cv_mat_method_mat_get_int_at3((self).__handle, (int32_t) (x), (int32_t) (y), (int32_t) (z));
+  return ret;
+}
+
+void wasm_cv_mat_method_mat_set_int_at3(wasm_cv_mat_borrow_mat_t self, uint32_t x, uint32_t y, uint32_t z, int32_t val) {
+  __wasm_import_wasm_cv_mat_method_mat_set_int_at3((self).__handle, (int32_t) (x), (int32_t) (y), (int32_t) (z), val);
+}
+
+void wasm_cv_mat_method_mat_get_vecb_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col, imports_list_u8_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_mat_method_mat_get_vecb_at((self).__handle, (int32_t) (row), (int32_t) (col), ptr);
+  *ret = (imports_list_u8_t) { (uint8_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+void wasm_cv_mat_method_mat_get_vecf_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col, imports_list_f32_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_mat_method_mat_get_vecf_at((self).__handle, (int32_t) (row), (int32_t) (col), ptr);
+  *ret = (imports_list_f32_t) { (float*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+void wasm_cv_mat_method_mat_get_veci_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col, imports_list_s32_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_mat_method_mat_get_veci_at((self).__handle, (int32_t) (row), (int32_t) (col), ptr);
+  *ret = (imports_list_s32_t) { (int32_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
 wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_reshape(wasm_cv_mat_borrow_mat_t self, uint32_t channels, uint32_t rows) {
   int32_t ret = __wasm_import_wasm_cv_mat_method_mat_reshape((self).__handle, (int32_t) (channels), (int32_t) (rows));
   return (wasm_cv_mat_own_mat_t) { ret };
@@ -399,6 +505,11 @@ wasm_cv_cv_own_mat_t wasm_cv_cv_threshold(wasm_cv_cv_own_mat_t src, float thresh
 
 wasm_cv_cv_own_mat_t wasm_cv_cv_transpose_nd(wasm_cv_cv_own_mat_t src, imports_list_s32_t *order) {
   int32_t ret = __wasm_import_wasm_cv_cv_transpose_nd((src).__handle, (uint8_t *) (*order).ptr, (*order).len);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_resize(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *size, float fx, float fy, wasm_cv_cv_interpolation_type_t interp) {
+  int32_t ret = __wasm_import_wasm_cv_cv_resize((src).__handle, (*size).x, (*size).y, fx, fy, (int32_t) interp);
   return (wasm_cv_cv_own_mat_t) { ret };
 }
 
