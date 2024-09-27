@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	_ "embed"
-	"encoding/binary"
 	"flag"
 	"fmt"
 	"log"
@@ -116,22 +115,17 @@ func matTypeFunc(matref wypes.UInt32) wypes.UInt32 {
 	return wypes.UInt32(frame.Type())
 }
 
-func matSizeFunc(s wypes.Store, matref wypes.UInt32, ptr wypes.UInt32) wypes.Void {
+func matSizeFunc(s wypes.Store, matref wypes.UInt32, list wypes.List[uint32]) wypes.Void {
 	dims := frame.Size()
 
 	result := make([]uint32, len(dims))
-	data := make([]byte, 4)
 	for i, dim := range dims {
 		result[i] = uint32(dim)
-		binary.LittleEndian.PutUint32(data, uint32(dim))
-		s.Memory.Write(guestDataPtr+uint32(i*4), data)
 	}
 
-	l := make([]byte, 8)
-	binary.LittleEndian.PutUint32(l[0:], uint32(guestDataPtr))
-	binary.LittleEndian.PutUint32(l[4:], uint32(len(dims)))
-
-	s.Memory.Write(ptr.Unwrap(), l)
+	list.Raw = result
+	list.DataPtr = guestDataPtr
+	list.Lower(s)
 
 	return wypes.Void{}
 }

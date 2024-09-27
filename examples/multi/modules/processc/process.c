@@ -1,5 +1,5 @@
 #include <string.h>
-#include "../../../../components/c/cv.h"
+#include "../../../../components/c/wasmcv/imports.h"
 
 extern int itoa(int value, char *sp, int radix);
 
