@@ -1,6 +1,6 @@
 
 interface cv {
-    use types.{border-type, size, adaptive-threshold-type, threshold-type, scalar, rect, rgba, blob-params, hershey-font-type};
+    use types.{border-type, size, adaptive-threshold-type, threshold-type, scalar, rect, rgba, hershey-font-type};
     use mat.{mat, mattype};
 
     // drawing functions
@@ -57,32 +57,4 @@ interface cv {
     /// For further details, please see:
     /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
     transpose-nd: func(src: mat, order: list<s32>) -> mat;
-
-    // dnn functions
-
-    /// BlobFromImage creates 4-dimensional blob from image. Optionally resizes and crops image from center, 
-    /// subtract mean values, scales values by scalefactor, swap Blue and Red channels.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581ac8d7
-    blob-from-image: func(image: mat, scale-factor: f32, size: size, mean: scalar, swap-rb: bool, crop: bool) -> mat;
-
-    /// BlobFromImageWithParams creates 4-dimensional blob from image. Optionally resizes and crops image from center, 
-    /// subtract mean values, scales values by scalefactor, swap Blue and Red channels.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581ac8d7
-    blob-from-image-with-params: func(image: mat, params: blob-params) -> mat;
-
-    /// BlobRectsToImageRects converts blob rects to image rects.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee
-    blob-rects-to-image-rects: func(params: blob-params, blob-rects: list<rect>, image-size: size) -> list<rect>;
-
-    /// NMSBoxes performs non maximum suppression given boxes and corresponding scores.
-    ///
-    /// For futher details, please see:
-    /// https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee
-    nms-boxes: func(bboxes: list<rect>, scores: list<f32>, score-threshold: f32, nms-threshold: f32) -> list<s32>;
 }

@@ -6,7 +6,7 @@ world imports {
     import mat;
 
     import cv;
-    import net;
+    import dnn;
 
     export request;
 }
