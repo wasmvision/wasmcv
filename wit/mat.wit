@@ -1,4 +1,3 @@
-package wasm:cv;
 /// mat resource is a matrix of bytes, wrapper around the cv::Mat type.
 ///
 interface mat {
