@@ -20,10 +20,10 @@ extern crate wasmcv;
 
 use alloc::string::String;
 use alloc::string::ToString;
-use wasmcv::cv;
+use wasmcv::wasm::cv;
 
 #[no_mangle]
-pub extern fn process(mat: cv::Mat) -> cv::Mat {
+pub extern fn process(mat: cv::mat::Mat) -> cv::mat::Mat {
     println(&["Cols: ", &mat.cols().to_string(), " Rows: ", &mat.rows().to_string()].concat());
 
     return mat;
