@@ -95,4 +95,12 @@ interface types {
         hershey-font-script-complex,
         hershey-font-italic,
     }
+
+    enum interpolation-type {
+        interpolation-nearest,
+        interpolation-linear,
+        interpolation-cubic,
+        interpolation-area,
+        interpolation-lanczos4,
+    }
 }

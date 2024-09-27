@@ -61,6 +61,39 @@ interface mat {
         /// SetUCharAt sets the value at the specified row and column as a u8.
         set-uchar-at: func(row: u32, col: u32, val: u8);
 
+        /// GetIntAt returns the value at the specified row and column as a s32.
+        get-int-at: func(row: u32, col: u32) -> s32;
+
+        /// SetIntAt sets the value at the specified row and column as a s32.
+        set-int-at: func(row: u32, col: u32, val: s32);
+
+        /// GetFloatAt3 returns the value at the specified x, y, z as a f32.
+        get-float-at3: func(x: u32, y: u32, z: u32) -> f32;
+
+        /// SetFloatAt3 sets the value at the specified x, y, z as a f32.
+        set-float-at3: func(x: u32, y: u32, z: u32, val: f32);
+
+        /// GetUCharAt3 returns the value at the specified x, y, z as a u8.
+        get-uchar-at3: func(x: u32, y: u32, z: u32) -> u8;
+
+        /// SetUCharAt3 sets the value at the specified x, y, z as a u8.
+        set-uchar-at3: func(x: u32, y: u32, z: u32, val: u8);
+
+        /// GetIntAt3 returns the value at the specified x, y, z as a s32.
+        get-int-at3: func(x: u32, y: u32, z: u32) -> s32;
+
+        /// SetIntAt3 sets the value at the specified x, y, z as a s32.
+        set-int-at3: func(x: u32, y: u32, z: u32, val: s32);
+
+        /// GetVecbAt returns a vector of bytes. Its size corresponds to the number of channels of the Mat.
+        get-vecb-at: func(row: u32, col: u32) -> list<u8>;
+
+        /// GetVecfAt returns a vector of floats. Its size corresponds to the number of channels of the Mat.
+        get-vecf-at: func(row: u32, col: u32) -> list<f32>;
+
+        /// GetVeciAt returns a vector of s32. Its size corresponds to the number of channels of the Mat.
+        get-veci-at: func(row: u32, col: u32) -> list<s32>;
+
         /// Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.
         ///
         /// For further details, please see:

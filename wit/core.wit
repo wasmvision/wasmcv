@@ -1,6 +1,6 @@
 
 interface cv {
-    use types.{border-type, size, adaptive-threshold-type, threshold-type, scalar, rect, rgba, hershey-font-type};
+    use types.{border-type, size, adaptive-threshold-type, threshold-type, scalar, rect, rgba, hershey-font-type, interpolation-type};
     use mat.{mat, mattype};
 
     // drawing functions
@@ -57,4 +57,15 @@ interface cv {
     /// For further details, please see:
     /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
     transpose-nd: func(src: mat, order: list<s32>) -> mat;
+
+    /// Resize resizes an image.
+    /// It resizes the image src down to or up to the specified size, storing the
+    /// result in dst. Note that src and dst may be the same image. If you wish to
+    /// scale by factor, an empty sz may be passed and non-zero fx and fy. Likewise,
+    /// if you wish to scale to an explicit size, a non-empty sz may be passed with
+    /// zero for both fx and fy.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/master/da/d54/group__imgproc__transform.html#ga47a974309e9102f5f08231edc7e7529d
+    resize: func(src: mat, size: size, fx: f32, fy: f32, interp: interpolation-type) -> mat;
 }
