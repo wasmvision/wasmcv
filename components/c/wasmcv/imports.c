@@ -88,52 +88,52 @@ extern int32_t __wasm_import_wasm_cv_cv_threshold(int32_t, float, float, int32_t
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("transpose-nd")))
 extern int32_t __wasm_import_wasm_cv_cv_transpose_nd(int32_t, uint8_t *, size_t);
 
-__attribute__((__import_module__("wasm:cv/cv"), __import_name__("blob-from-image")))
-extern int32_t __wasm_import_wasm_cv_cv_blob_from_image(int32_t, float, int32_t, int32_t, float, float, float, float, int32_t, int32_t);
+// Imported Functions from `wasm:cv/dnn`
 
-__attribute__((__import_module__("wasm:cv/cv"), __import_name__("blob-from-image-with-params")))
-extern int32_t __wasm_import_wasm_cv_cv_blob_from_image_with_params(int32_t, float, int32_t, int32_t, float, float, float, float, int32_t, int32_t, int32_t, int32_t, float, float, float, float);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[constructor]layer")))
+extern int32_t __wasm_import_wasm_cv_dnn_constructor_layer(void);
 
-__attribute__((__import_module__("wasm:cv/cv"), __import_name__("blob-rects-to-image-rects")))
-extern void __wasm_import_wasm_cv_cv_blob_rects_to_image_rects(uint8_t *, uint8_t *);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[method]layer.get-name")))
+extern void __wasm_import_wasm_cv_dnn_method_layer_get_name(int32_t, uint8_t *);
 
-__attribute__((__import_module__("wasm:cv/cv"), __import_name__("nms-boxes")))
-extern void __wasm_import_wasm_cv_cv_nms_boxes(uint8_t *, size_t, uint8_t *, size_t, float, float, uint8_t *);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[static]net.read-net")))
+extern int32_t __wasm_import_wasm_cv_dnn_static_net_read_net(uint8_t *, size_t, uint8_t *, size_t);
 
-// Imported Functions from `wasm:cv/net`
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[static]net.read-net-from-onnx")))
+extern int32_t __wasm_import_wasm_cv_dnn_static_net_read_net_from_onnx(uint8_t *, size_t);
 
-__attribute__((__import_module__("wasm:cv/net"), __import_name__("[constructor]layer")))
-extern int32_t __wasm_import_wasm_cv_net_constructor_layer(void);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[method]net.close")))
+extern void __wasm_import_wasm_cv_dnn_method_net_close(int32_t);
 
-__attribute__((__import_module__("wasm:cv/net"), __import_name__("[method]layer.get-name")))
-extern void __wasm_import_wasm_cv_net_method_layer_get_name(int32_t, uint8_t *);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[method]net.empty")))
+extern int32_t __wasm_import_wasm_cv_dnn_method_net_empty(int32_t);
 
-__attribute__((__import_module__("wasm:cv/net"), __import_name__("[static]net.read-net")))
-extern int32_t __wasm_import_wasm_cv_net_static_net_read_net(uint8_t *, size_t, uint8_t *, size_t);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[method]net.set-input")))
+extern void __wasm_import_wasm_cv_dnn_method_net_set_input(int32_t, int32_t, uint8_t *, size_t);
 
-__attribute__((__import_module__("wasm:cv/net"), __import_name__("[static]net.read-net-from-onnx")))
-extern int32_t __wasm_import_wasm_cv_net_static_net_read_net_from_onnx(uint8_t *, size_t);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[method]net.forward")))
+extern int32_t __wasm_import_wasm_cv_dnn_method_net_forward(int32_t, uint8_t *, size_t);
 
-__attribute__((__import_module__("wasm:cv/net"), __import_name__("[method]net.close")))
-extern void __wasm_import_wasm_cv_net_method_net_close(int32_t);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[method]net.get-unconnected-out-layers")))
+extern void __wasm_import_wasm_cv_dnn_method_net_get_unconnected_out_layers(int32_t, uint8_t *);
 
-__attribute__((__import_module__("wasm:cv/net"), __import_name__("[method]net.empty")))
-extern int32_t __wasm_import_wasm_cv_net_method_net_empty(int32_t);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[method]net.get-layer-names")))
+extern void __wasm_import_wasm_cv_dnn_method_net_get_layer_names(int32_t, uint8_t *);
 
-__attribute__((__import_module__("wasm:cv/net"), __import_name__("[method]net.set-input")))
-extern void __wasm_import_wasm_cv_net_method_net_set_input(int32_t, int32_t, uint8_t *, size_t);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[method]net.get-layer")))
+extern int32_t __wasm_import_wasm_cv_dnn_method_net_get_layer(int32_t, int32_t);
 
-__attribute__((__import_module__("wasm:cv/net"), __import_name__("[method]net.forward")))
-extern int32_t __wasm_import_wasm_cv_net_method_net_forward(int32_t, uint8_t *, size_t);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("blob-from-image")))
+extern int32_t __wasm_import_wasm_cv_dnn_blob_from_image(int32_t, float, int32_t, int32_t, float, float, float, float, int32_t, int32_t);
 
-__attribute__((__import_module__("wasm:cv/net"), __import_name__("[method]net.get-unconnected-out-layers")))
-extern void __wasm_import_wasm_cv_net_method_net_get_unconnected_out_layers(int32_t, uint8_t *);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("blob-from-image-with-params")))
+extern int32_t __wasm_import_wasm_cv_dnn_blob_from_image_with_params(int32_t, float, int32_t, int32_t, float, float, float, float, int32_t, int32_t, int32_t, int32_t, float, float, float, float);
 
-__attribute__((__import_module__("wasm:cv/net"), __import_name__("[method]net.get-layer-names")))
-extern void __wasm_import_wasm_cv_net_method_net_get_layer_names(int32_t, uint8_t *);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("blob-rects-to-image-rects")))
+extern void __wasm_import_wasm_cv_dnn_blob_rects_to_image_rects(uint8_t *, uint8_t *);
 
-__attribute__((__import_module__("wasm:cv/net"), __import_name__("[method]net.get-layer")))
-extern int32_t __wasm_import_wasm_cv_net_method_net_get_layer(int32_t, int32_t);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("nms-boxes")))
+extern void __wasm_import_wasm_cv_dnn_nms_boxes(uint8_t *, size_t, uint8_t *, size_t, float, float, uint8_t *);
 
 // Exported Functions from `wasm:cv/request`
 
@@ -182,10 +182,43 @@ void imports_list_s32_free(imports_list_s32_t *ptr) {
   }
 }
 
-void wasm_cv_cv_list_rect_free(wasm_cv_cv_list_rect_t *ptr) {
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[resource-drop]layer")))
+extern void __wasm_import_wasm_cv_dnn_layer_drop(int32_t handle);
+
+void wasm_cv_dnn_layer_drop_own(wasm_cv_dnn_own_layer_t handle) {
+  __wasm_import_wasm_cv_dnn_layer_drop(handle.__handle);
+}
+
+wasm_cv_dnn_borrow_layer_t wasm_cv_dnn_borrow_layer(wasm_cv_dnn_own_layer_t arg) {
+  return (wasm_cv_dnn_borrow_layer_t) { arg.__handle };
+}
+
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[resource-drop]net")))
+extern void __wasm_import_wasm_cv_dnn_net_drop(int32_t handle);
+
+void wasm_cv_dnn_net_drop_own(wasm_cv_dnn_own_net_t handle) {
+  __wasm_import_wasm_cv_dnn_net_drop(handle.__handle);
+}
+
+wasm_cv_dnn_borrow_net_t wasm_cv_dnn_borrow_net(wasm_cv_dnn_own_net_t arg) {
+  return (wasm_cv_dnn_borrow_net_t) { arg.__handle };
+}
+
+void imports_list_string_free(imports_list_string_t *ptr) {
   size_t list_len = ptr->len;
   if (list_len > 0) {
-    wasm_cv_cv_rect_t *list_ptr = ptr->ptr;
+    imports_string_t *list_ptr = ptr->ptr;
+    for (size_t i = 0; i < list_len; i++) {
+      imports_string_free(&list_ptr[i]);
+    }
+    free(list_ptr);
+  }
+}
+
+void wasm_cv_dnn_list_rect_free(wasm_cv_dnn_list_rect_t *ptr) {
+  size_t list_len = ptr->len;
+  if (list_len > 0) {
+    wasm_cv_dnn_rect_t *list_ptr = ptr->ptr;
     for (size_t i = 0; i < list_len; i++) {
     }
     free(list_ptr);
@@ -197,39 +230,6 @@ void imports_list_f32_free(imports_list_f32_t *ptr) {
   if (list_len > 0) {
     float *list_ptr = ptr->ptr;
     for (size_t i = 0; i < list_len; i++) {
-    }
-    free(list_ptr);
-  }
-}
-
-__attribute__((__import_module__("wasm:cv/net"), __import_name__("[resource-drop]layer")))
-extern void __wasm_import_wasm_cv_net_layer_drop(int32_t handle);
-
-void wasm_cv_net_layer_drop_own(wasm_cv_net_own_layer_t handle) {
-  __wasm_import_wasm_cv_net_layer_drop(handle.__handle);
-}
-
-wasm_cv_net_borrow_layer_t wasm_cv_net_borrow_layer(wasm_cv_net_own_layer_t arg) {
-  return (wasm_cv_net_borrow_layer_t) { arg.__handle };
-}
-
-__attribute__((__import_module__("wasm:cv/net"), __import_name__("[resource-drop]net")))
-extern void __wasm_import_wasm_cv_net_net_drop(int32_t handle);
-
-void wasm_cv_net_net_drop_own(wasm_cv_net_own_net_t handle) {
-  __wasm_import_wasm_cv_net_net_drop(handle.__handle);
-}
-
-wasm_cv_net_borrow_net_t wasm_cv_net_borrow_net(wasm_cv_net_own_net_t arg) {
-  return (wasm_cv_net_borrow_net_t) { arg.__handle };
-}
-
-void imports_list_string_free(imports_list_string_t *ptr) {
-  size_t list_len = ptr->len;
-  if (list_len > 0) {
-    imports_string_t *list_ptr = ptr->ptr;
-    for (size_t i = 0; i < list_len; i++) {
-      imports_string_free(&list_ptr[i]);
     }
     free(list_ptr);
   }
@@ -402,17 +402,79 @@ wasm_cv_cv_own_mat_t wasm_cv_cv_transpose_nd(wasm_cv_cv_own_mat_t src, imports_l
   return (wasm_cv_cv_own_mat_t) { ret };
 }
 
-wasm_cv_cv_own_mat_t wasm_cv_cv_blob_from_image(wasm_cv_cv_own_mat_t image, float scale_factor, wasm_cv_cv_size_t *size, wasm_cv_cv_scalar_t *mean, bool swap_rb, bool crop) {
-  int32_t ret = __wasm_import_wasm_cv_cv_blob_from_image((image).__handle, scale_factor, (*size).x, (*size).y, (*mean).val1, (*mean).val2, (*mean).val3, (*mean).val4, swap_rb, crop);
-  return (wasm_cv_cv_own_mat_t) { ret };
+wasm_cv_dnn_own_layer_t wasm_cv_dnn_constructor_layer(void) {
+  int32_t ret = __wasm_import_wasm_cv_dnn_constructor_layer();
+  return (wasm_cv_dnn_own_layer_t) { ret };
 }
 
-wasm_cv_cv_own_mat_t wasm_cv_cv_blob_from_image_with_params(wasm_cv_cv_own_mat_t image, wasm_cv_cv_blob_params_t *params) {
-  int32_t ret = __wasm_import_wasm_cv_cv_blob_from_image_with_params((image).__handle, (*params).scale_factor, ((*params).size).x, ((*params).size).y, ((*params).mean).val1, ((*params).mean).val2, ((*params).mean).val3, ((*params).mean).val4, (*params).swap_rb, (int32_t) ((*params).ddepth), (int32_t) (*params).data_layout, (int32_t) (*params).padding_mode, ((*params).border).val1, ((*params).border).val2, ((*params).border).val3, ((*params).border).val4);
-  return (wasm_cv_cv_own_mat_t) { ret };
+void wasm_cv_dnn_method_layer_get_name(wasm_cv_dnn_borrow_layer_t self, imports_string_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_dnn_method_layer_get_name((self).__handle, ptr);
+  *ret = (imports_string_t) { (uint8_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
 }
 
-void wasm_cv_cv_blob_rects_to_image_rects(wasm_cv_cv_blob_params_t *params, wasm_cv_cv_list_rect_t *blob_rects, wasm_cv_cv_size_t *image_size, wasm_cv_cv_list_rect_t *ret) {
+wasm_cv_dnn_own_net_t wasm_cv_dnn_static_net_read_net(imports_string_t *model, imports_string_t *config) {
+  int32_t ret = __wasm_import_wasm_cv_dnn_static_net_read_net((uint8_t *) (*model).ptr, (*model).len, (uint8_t *) (*config).ptr, (*config).len);
+  return (wasm_cv_dnn_own_net_t) { ret };
+}
+
+wasm_cv_dnn_own_net_t wasm_cv_dnn_static_net_read_net_from_onnx(imports_string_t *model) {
+  int32_t ret = __wasm_import_wasm_cv_dnn_static_net_read_net_from_onnx((uint8_t *) (*model).ptr, (*model).len);
+  return (wasm_cv_dnn_own_net_t) { ret };
+}
+
+void wasm_cv_dnn_method_net_close(wasm_cv_dnn_borrow_net_t self) {
+  __wasm_import_wasm_cv_dnn_method_net_close((self).__handle);
+}
+
+bool wasm_cv_dnn_method_net_empty(wasm_cv_dnn_borrow_net_t self) {
+  int32_t ret = __wasm_import_wasm_cv_dnn_method_net_empty((self).__handle);
+  return ret;
+}
+
+void wasm_cv_dnn_method_net_set_input(wasm_cv_dnn_borrow_net_t self, wasm_cv_dnn_own_mat_t input, imports_string_t *name) {
+  __wasm_import_wasm_cv_dnn_method_net_set_input((self).__handle, (input).__handle, (uint8_t *) (*name).ptr, (*name).len);
+}
+
+wasm_cv_dnn_own_mat_t wasm_cv_dnn_method_net_forward(wasm_cv_dnn_borrow_net_t self, imports_string_t *output_name) {
+  int32_t ret = __wasm_import_wasm_cv_dnn_method_net_forward((self).__handle, (uint8_t *) (*output_name).ptr, (*output_name).len);
+  return (wasm_cv_dnn_own_mat_t) { ret };
+}
+
+void wasm_cv_dnn_method_net_get_unconnected_out_layers(wasm_cv_dnn_borrow_net_t self, imports_list_u32_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_dnn_method_net_get_unconnected_out_layers((self).__handle, ptr);
+  *ret = (imports_list_u32_t) { (uint32_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+void wasm_cv_dnn_method_net_get_layer_names(wasm_cv_dnn_borrow_net_t self, imports_list_string_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_dnn_method_net_get_layer_names((self).__handle, ptr);
+  *ret = (imports_list_string_t) { (imports_string_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+wasm_cv_dnn_own_layer_t wasm_cv_dnn_method_net_get_layer(wasm_cv_dnn_borrow_net_t self, uint32_t id) {
+  int32_t ret = __wasm_import_wasm_cv_dnn_method_net_get_layer((self).__handle, (int32_t) (id));
+  return (wasm_cv_dnn_own_layer_t) { ret };
+}
+
+wasm_cv_dnn_own_mat_t wasm_cv_dnn_blob_from_image(wasm_cv_dnn_own_mat_t image, float scale_factor, wasm_cv_dnn_size_t *size, wasm_cv_dnn_scalar_t *mean, bool swap_rb, bool crop) {
+  int32_t ret = __wasm_import_wasm_cv_dnn_blob_from_image((image).__handle, scale_factor, (*size).x, (*size).y, (*mean).val1, (*mean).val2, (*mean).val3, (*mean).val4, swap_rb, crop);
+  return (wasm_cv_dnn_own_mat_t) { ret };
+}
+
+wasm_cv_dnn_own_mat_t wasm_cv_dnn_blob_from_image_with_params(wasm_cv_dnn_own_mat_t image, wasm_cv_dnn_blob_params_t *params) {
+  int32_t ret = __wasm_import_wasm_cv_dnn_blob_from_image_with_params((image).__handle, (*params).scale_factor, ((*params).size).x, ((*params).size).y, ((*params).mean).val1, ((*params).mean).val2, ((*params).mean).val3, ((*params).mean).val4, (*params).swap_rb, (int32_t) ((*params).ddepth), (int32_t) (*params).data_layout, (int32_t) (*params).padding_mode, ((*params).border).val1, ((*params).border).val2, ((*params).border).val3, ((*params).border).val4);
+  return (wasm_cv_dnn_own_mat_t) { ret };
+}
+
+void wasm_cv_dnn_blob_rects_to_image_rects(wasm_cv_dnn_blob_params_t *params, wasm_cv_dnn_list_rect_t *blob_rects, wasm_cv_dnn_size_t *image_size, wasm_cv_dnn_list_rect_t *ret) {
   __attribute__((__aligned__(4)))
   uint8_t ret_area[64];
   uint8_t *ptr = (uint8_t *) &ret_area;
@@ -436,78 +498,16 @@ void wasm_cv_cv_blob_rects_to_image_rects(wasm_cv_cv_blob_params_t *params, wasm
   *((int32_t*)(ptr + 56)) = (*image_size).x;
   *((int32_t*)(ptr + 60)) = (*image_size).y;
   uint8_t *ptr0 = (uint8_t *) &ret_area;
-  __wasm_import_wasm_cv_cv_blob_rects_to_image_rects(ptr, ptr0);
-  *ret = (wasm_cv_cv_list_rect_t) { (wasm_cv_cv_rect_t*)(*((uint8_t **) (ptr0 + 0))), (*((size_t*) (ptr0 + 4))) };
+  __wasm_import_wasm_cv_dnn_blob_rects_to_image_rects(ptr, ptr0);
+  *ret = (wasm_cv_dnn_list_rect_t) { (wasm_cv_dnn_rect_t*)(*((uint8_t **) (ptr0 + 0))), (*((size_t*) (ptr0 + 4))) };
 }
 
-void wasm_cv_cv_nms_boxes(wasm_cv_cv_list_rect_t *bboxes, imports_list_f32_t *scores, float score_threshold, float nms_threshold, imports_list_s32_t *ret) {
+void wasm_cv_dnn_nms_boxes(wasm_cv_dnn_list_rect_t *bboxes, imports_list_f32_t *scores, float score_threshold, float nms_threshold, imports_list_s32_t *ret) {
   __attribute__((__aligned__(4)))
   uint8_t ret_area[8];
   uint8_t *ptr = (uint8_t *) &ret_area;
-  __wasm_import_wasm_cv_cv_nms_boxes((uint8_t *) (*bboxes).ptr, (*bboxes).len, (uint8_t *) (*scores).ptr, (*scores).len, score_threshold, nms_threshold, ptr);
+  __wasm_import_wasm_cv_dnn_nms_boxes((uint8_t *) (*bboxes).ptr, (*bboxes).len, (uint8_t *) (*scores).ptr, (*scores).len, score_threshold, nms_threshold, ptr);
   *ret = (imports_list_s32_t) { (int32_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
-}
-
-wasm_cv_net_own_layer_t wasm_cv_net_constructor_layer(void) {
-  int32_t ret = __wasm_import_wasm_cv_net_constructor_layer();
-  return (wasm_cv_net_own_layer_t) { ret };
-}
-
-void wasm_cv_net_method_layer_get_name(wasm_cv_net_borrow_layer_t self, imports_string_t *ret) {
-  __attribute__((__aligned__(4)))
-  uint8_t ret_area[8];
-  uint8_t *ptr = (uint8_t *) &ret_area;
-  __wasm_import_wasm_cv_net_method_layer_get_name((self).__handle, ptr);
-  *ret = (imports_string_t) { (uint8_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
-}
-
-wasm_cv_net_own_net_t wasm_cv_net_static_net_read_net(imports_string_t *model, imports_string_t *config) {
-  int32_t ret = __wasm_import_wasm_cv_net_static_net_read_net((uint8_t *) (*model).ptr, (*model).len, (uint8_t *) (*config).ptr, (*config).len);
-  return (wasm_cv_net_own_net_t) { ret };
-}
-
-wasm_cv_net_own_net_t wasm_cv_net_static_net_read_net_from_onnx(imports_string_t *model) {
-  int32_t ret = __wasm_import_wasm_cv_net_static_net_read_net_from_onnx((uint8_t *) (*model).ptr, (*model).len);
-  return (wasm_cv_net_own_net_t) { ret };
-}
-
-void wasm_cv_net_method_net_close(wasm_cv_net_borrow_net_t self) {
-  __wasm_import_wasm_cv_net_method_net_close((self).__handle);
-}
-
-bool wasm_cv_net_method_net_empty(wasm_cv_net_borrow_net_t self) {
-  int32_t ret = __wasm_import_wasm_cv_net_method_net_empty((self).__handle);
-  return ret;
-}
-
-void wasm_cv_net_method_net_set_input(wasm_cv_net_borrow_net_t self, wasm_cv_net_own_mat_t input, imports_string_t *name) {
-  __wasm_import_wasm_cv_net_method_net_set_input((self).__handle, (input).__handle, (uint8_t *) (*name).ptr, (*name).len);
-}
-
-wasm_cv_net_own_mat_t wasm_cv_net_method_net_forward(wasm_cv_net_borrow_net_t self, imports_string_t *output_name) {
-  int32_t ret = __wasm_import_wasm_cv_net_method_net_forward((self).__handle, (uint8_t *) (*output_name).ptr, (*output_name).len);
-  return (wasm_cv_net_own_mat_t) { ret };
-}
-
-void wasm_cv_net_method_net_get_unconnected_out_layers(wasm_cv_net_borrow_net_t self, imports_list_u32_t *ret) {
-  __attribute__((__aligned__(4)))
-  uint8_t ret_area[8];
-  uint8_t *ptr = (uint8_t *) &ret_area;
-  __wasm_import_wasm_cv_net_method_net_get_unconnected_out_layers((self).__handle, ptr);
-  *ret = (imports_list_u32_t) { (uint32_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
-}
-
-void wasm_cv_net_method_net_get_layer_names(wasm_cv_net_borrow_net_t self, imports_list_string_t *ret) {
-  __attribute__((__aligned__(4)))
-  uint8_t ret_area[8];
-  uint8_t *ptr = (uint8_t *) &ret_area;
-  __wasm_import_wasm_cv_net_method_net_get_layer_names((self).__handle, ptr);
-  *ret = (imports_list_string_t) { (imports_string_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
-}
-
-wasm_cv_net_own_layer_t wasm_cv_net_method_net_get_layer(wasm_cv_net_borrow_net_t self, uint32_t id) {
-  int32_t ret = __wasm_import_wasm_cv_net_method_net_get_layer((self).__handle, (int32_t) (id));
-  return (wasm_cv_net_own_layer_t) { ret };
 }
 
 __attribute__((__export_name__("wasm:cv/request#process")))

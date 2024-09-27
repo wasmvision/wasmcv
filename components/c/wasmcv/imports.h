@@ -152,8 +152,6 @@ typedef wasm_cv_types_rect_t wasm_cv_cv_rect_t;
 
 typedef wasm_cv_types_rgba_t wasm_cv_cv_rgba_t;
 
-typedef wasm_cv_types_blob_params_t wasm_cv_cv_blob_params_t;
-
 typedef wasm_cv_types_hershey_font_type_t wasm_cv_cv_hershey_font_type_t;
 
 typedef wasm_cv_mat_mattype_t wasm_cv_cv_mattype_t;
@@ -165,73 +163,83 @@ typedef struct {
   size_t len;
 } imports_list_s32_t;
 
-typedef struct {
-  wasm_cv_cv_rect_t *ptr;
-  size_t len;
-} wasm_cv_cv_list_rect_t;
+typedef wasm_cv_types_size_t wasm_cv_dnn_size_t;
 
-typedef struct {
-  float *ptr;
-  size_t len;
-} imports_list_f32_t;
+typedef wasm_cv_types_scalar_t wasm_cv_dnn_scalar_t;
 
-typedef uint8_t wasm_cv_net_net_backend_type_t;
+typedef wasm_cv_types_rect_t wasm_cv_dnn_rect_t;
 
-#define WASM_CV_NET_NET_BACKEND_TYPE_NET_BACKEND_DEFAULT 0
-#define WASM_CV_NET_NET_BACKEND_TYPE_NET_BACKEND_HALIDE 1
-#define WASM_CV_NET_NET_BACKEND_TYPE_NET_BACKEND_OPENVINO 2
-#define WASM_CV_NET_NET_BACKEND_TYPE_NET_BACKEND_OPENCV 3
-#define WASM_CV_NET_NET_BACKEND_TYPE_NET_BACKEND_VKCOM 4
-#define WASM_CV_NET_NET_BACKEND_TYPE_NET_BACKEND_CUDA 5
+typedef wasm_cv_types_rgba_t wasm_cv_dnn_rgba_t;
 
-typedef uint8_t wasm_cv_net_net_target_type_t;
+typedef wasm_cv_types_blob_params_t wasm_cv_dnn_blob_params_t;
 
-#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_CPU 0
-#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_FP32 1
-#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_FP16 2
-#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_VPU 3
-#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_VULKAN 4
-#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_FPGA 5
-#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_CUDA 6
-#define WASM_CV_NET_NET_TARGET_TYPE_NET_TARGET_CUDA_FP16 7
+typedef uint8_t wasm_cv_dnn_net_backend_type_t;
 
-typedef uint8_t wasm_cv_net_data_layout_type_t;
+#define WASM_CV_DNN_NET_BACKEND_TYPE_NET_BACKEND_DEFAULT 0
+#define WASM_CV_DNN_NET_BACKEND_TYPE_NET_BACKEND_HALIDE 1
+#define WASM_CV_DNN_NET_BACKEND_TYPE_NET_BACKEND_OPENVINO 2
+#define WASM_CV_DNN_NET_BACKEND_TYPE_NET_BACKEND_OPENCV 3
+#define WASM_CV_DNN_NET_BACKEND_TYPE_NET_BACKEND_VKCOM 4
+#define WASM_CV_DNN_NET_BACKEND_TYPE_NET_BACKEND_CUDA 5
 
-#define WASM_CV_NET_DATA_LAYOUT_TYPE_DATA_LAYOUT_UNKNOWN 0
-#define WASM_CV_NET_DATA_LAYOUT_TYPE_DATA_LAYOUT_ND 1
-#define WASM_CV_NET_DATA_LAYOUT_TYPE_DATA_LAYOUT_NCHW 2
-#define WASM_CV_NET_DATA_LAYOUT_TYPE_DATA_LAYOUT_NHWC 3
-#define WASM_CV_NET_DATA_LAYOUT_TYPE_DATA_LAYOUT_NDHWC 4
-#define WASM_CV_NET_DATA_LAYOUT_TYPE_DATA_LAYOUT_PLANAR 5
+typedef uint8_t wasm_cv_dnn_net_target_type_t;
 
-typedef uint8_t wasm_cv_net_padding_mode_type_t;
+#define WASM_CV_DNN_NET_TARGET_TYPE_NET_TARGET_CPU 0
+#define WASM_CV_DNN_NET_TARGET_TYPE_NET_TARGET_FP32 1
+#define WASM_CV_DNN_NET_TARGET_TYPE_NET_TARGET_FP16 2
+#define WASM_CV_DNN_NET_TARGET_TYPE_NET_TARGET_VPU 3
+#define WASM_CV_DNN_NET_TARGET_TYPE_NET_TARGET_VULKAN 4
+#define WASM_CV_DNN_NET_TARGET_TYPE_NET_TARGET_FPGA 5
+#define WASM_CV_DNN_NET_TARGET_TYPE_NET_TARGET_CUDA 6
+#define WASM_CV_DNN_NET_TARGET_TYPE_NET_TARGET_CUDA_FP16 7
 
-#define WASM_CV_NET_PADDING_MODE_TYPE_PADDING_MODE_NULL 0
-#define WASM_CV_NET_PADDING_MODE_TYPE_PADDING_MODE_CROP_CENTER 1
-#define WASM_CV_NET_PADDING_MODE_TYPE_PADDING_MODE_LETTERBOX 2
+typedef uint8_t wasm_cv_dnn_data_layout_type_t;
 
-typedef struct wasm_cv_net_own_layer_t {
+#define WASM_CV_DNN_DATA_LAYOUT_TYPE_DATA_LAYOUT_UNKNOWN 0
+#define WASM_CV_DNN_DATA_LAYOUT_TYPE_DATA_LAYOUT_ND 1
+#define WASM_CV_DNN_DATA_LAYOUT_TYPE_DATA_LAYOUT_NCHW 2
+#define WASM_CV_DNN_DATA_LAYOUT_TYPE_DATA_LAYOUT_NHWC 3
+#define WASM_CV_DNN_DATA_LAYOUT_TYPE_DATA_LAYOUT_NDHWC 4
+#define WASM_CV_DNN_DATA_LAYOUT_TYPE_DATA_LAYOUT_PLANAR 5
+
+typedef uint8_t wasm_cv_dnn_padding_mode_type_t;
+
+#define WASM_CV_DNN_PADDING_MODE_TYPE_PADDING_MODE_NULL 0
+#define WASM_CV_DNN_PADDING_MODE_TYPE_PADDING_MODE_CROP_CENTER 1
+#define WASM_CV_DNN_PADDING_MODE_TYPE_PADDING_MODE_LETTERBOX 2
+
+typedef struct wasm_cv_dnn_own_layer_t {
   int32_t __handle;
-} wasm_cv_net_own_layer_t;
+} wasm_cv_dnn_own_layer_t;
 
-typedef struct wasm_cv_net_borrow_layer_t {
+typedef struct wasm_cv_dnn_borrow_layer_t {
   int32_t __handle;
-} wasm_cv_net_borrow_layer_t;
+} wasm_cv_dnn_borrow_layer_t;
 
-typedef struct wasm_cv_net_own_net_t {
+typedef struct wasm_cv_dnn_own_net_t {
   int32_t __handle;
-} wasm_cv_net_own_net_t;
+} wasm_cv_dnn_own_net_t;
 
-typedef struct wasm_cv_net_borrow_net_t {
+typedef struct wasm_cv_dnn_borrow_net_t {
   int32_t __handle;
-} wasm_cv_net_borrow_net_t;
+} wasm_cv_dnn_borrow_net_t;
 
-typedef wasm_cv_mat_own_mat_t wasm_cv_net_own_mat_t;
+typedef wasm_cv_mat_own_mat_t wasm_cv_dnn_own_mat_t;
 
 typedef struct {
   imports_string_t *ptr;
   size_t len;
 } imports_list_string_t;
+
+typedef struct {
+  wasm_cv_dnn_rect_t *ptr;
+  size_t len;
+} wasm_cv_dnn_list_rect_t;
+
+typedef struct {
+  float *ptr;
+  size_t len;
+} imports_list_f32_t;
 
 typedef wasm_cv_mat_own_mat_t exports_wasm_cv_request_own_mat_t;
 
@@ -335,76 +343,75 @@ extern wasm_cv_cv_own_mat_t wasm_cv_cv_threshold(wasm_cv_cv_own_mat_t src, float
 // For further details, please see:
 // https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
 extern wasm_cv_cv_own_mat_t wasm_cv_cv_transpose_nd(wasm_cv_cv_own_mat_t src, imports_list_s32_t *order);
-// dnn functions
+
+// Imported Functions from `wasm:cv/dnn`
+extern wasm_cv_dnn_own_layer_t wasm_cv_dnn_constructor_layer(void);
+// GetName returns the name of the layer.
+extern void wasm_cv_dnn_method_layer_get_name(wasm_cv_dnn_borrow_layer_t self, imports_string_t *ret);
+// ReadNet read deep learning network represented in one of the supported formats.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga138439da76f26266fdefec9723f6c5cd
+extern wasm_cv_dnn_own_net_t wasm_cv_dnn_static_net_read_net(imports_string_t *model, imports_string_t *config);
+// ReadNetFromONNX reads a network model stored in ONNX framework's format.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd359567
+extern wasm_cv_dnn_own_net_t wasm_cv_dnn_static_net_read_net_from_onnx(imports_string_t *model);
+// Close the network
+extern void wasm_cv_dnn_method_net_close(wasm_cv_dnn_borrow_net_t self);
+// Empty returns true if there are no layers in the network.
+// 
+// For further details, please see:
+// https://docs.opencv.org/master/db/d30/classcv_1_1dnn_1_1Net.html#a6a5778787d5b8770deab5eda6968e66c
+extern bool wasm_cv_dnn_method_net_empty(wasm_cv_dnn_borrow_net_t self);
+// SetInput sets the new input value for the network.
+// 
+// For further details, please see:
+// https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a672a08ae76444d75d05d7bfea3e4a328
+extern void wasm_cv_dnn_method_net_set_input(wasm_cv_dnn_borrow_net_t self, wasm_cv_dnn_own_mat_t input, imports_string_t *name);
+// Forward runs forward pass to compute output of layer with name outputName.
+// 
+// For further details, please see:
+// https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a98ed94cb6ef7063d3697259566da310b
+extern wasm_cv_dnn_own_mat_t wasm_cv_dnn_method_net_forward(wasm_cv_dnn_borrow_net_t self, imports_string_t *output_name);
+// GetUnconnectedOutLayers returns indexes of layers with unconnected outputs.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ae26f0c29b3733d15d0482098ef9053e3
+extern void wasm_cv_dnn_method_net_get_unconnected_out_layers(wasm_cv_dnn_borrow_net_t self, imports_list_u32_t *ret);
+// GetLayerNames returns names of layers in the network.
+// 
+// For further details, please see:
+// hhttps://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#a38e67098ae4ae5906bf8d8ea72199c2e
+extern void wasm_cv_dnn_method_net_get_layer_names(wasm_cv_dnn_borrow_net_t self, imports_list_string_t *ret);
+// GetLayer returns layer with specified id.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ac944d7f2d3ead5ef9b1b2fa3885f3ff1
+extern wasm_cv_dnn_own_layer_t wasm_cv_dnn_method_net_get_layer(wasm_cv_dnn_borrow_net_t self, uint32_t id);
 // BlobFromImage creates 4-dimensional blob from image. Optionally resizes and crops image from center,
 // subtract mean values, scales values by scalefactor, swap Blue and Red channels.
 // 
 // For further details, please see:
 // https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581ac8d7
-extern wasm_cv_cv_own_mat_t wasm_cv_cv_blob_from_image(wasm_cv_cv_own_mat_t image, float scale_factor, wasm_cv_cv_size_t *size, wasm_cv_cv_scalar_t *mean, bool swap_rb, bool crop);
+extern wasm_cv_dnn_own_mat_t wasm_cv_dnn_blob_from_image(wasm_cv_dnn_own_mat_t image, float scale_factor, wasm_cv_dnn_size_t *size, wasm_cv_dnn_scalar_t *mean, bool swap_rb, bool crop);
 // BlobFromImageWithParams creates 4-dimensional blob from image. Optionally resizes and crops image from center,
 // subtract mean values, scales values by scalefactor, swap Blue and Red channels.
 // 
 // For further details, please see:
 // https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581ac8d7
-extern wasm_cv_cv_own_mat_t wasm_cv_cv_blob_from_image_with_params(wasm_cv_cv_own_mat_t image, wasm_cv_cv_blob_params_t *params);
+extern wasm_cv_dnn_own_mat_t wasm_cv_dnn_blob_from_image_with_params(wasm_cv_dnn_own_mat_t image, wasm_cv_dnn_blob_params_t *params);
 // BlobRectsToImageRects converts blob rects to image rects.
 // 
 // For further details, please see:
 // https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee
-extern void wasm_cv_cv_blob_rects_to_image_rects(wasm_cv_cv_blob_params_t *params, wasm_cv_cv_list_rect_t *blob_rects, wasm_cv_cv_size_t *image_size, wasm_cv_cv_list_rect_t *ret);
+extern void wasm_cv_dnn_blob_rects_to_image_rects(wasm_cv_dnn_blob_params_t *params, wasm_cv_dnn_list_rect_t *blob_rects, wasm_cv_dnn_size_t *image_size, wasm_cv_dnn_list_rect_t *ret);
 // NMSBoxes performs non maximum suppression given boxes and corresponding scores.
 // 
 // For futher details, please see:
 // https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee
-extern void wasm_cv_cv_nms_boxes(wasm_cv_cv_list_rect_t *bboxes, imports_list_f32_t *scores, float score_threshold, float nms_threshold, imports_list_s32_t *ret);
-
-// Imported Functions from `wasm:cv/net`
-extern wasm_cv_net_own_layer_t wasm_cv_net_constructor_layer(void);
-// GetName returns the name of the layer.
-extern void wasm_cv_net_method_layer_get_name(wasm_cv_net_borrow_layer_t self, imports_string_t *ret);
-// ReadNet read deep learning network represented in one of the supported formats.
-// 
-// For further details, please see:
-// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga138439da76f26266fdefec9723f6c5cd
-extern wasm_cv_net_own_net_t wasm_cv_net_static_net_read_net(imports_string_t *model, imports_string_t *config);
-// ReadNetFromONNX reads a network model stored in ONNX framework's format.
-// 
-// For further details, please see:
-// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd359567
-extern wasm_cv_net_own_net_t wasm_cv_net_static_net_read_net_from_onnx(imports_string_t *model);
-// Close the network
-extern void wasm_cv_net_method_net_close(wasm_cv_net_borrow_net_t self);
-// Empty returns true if there are no layers in the network.
-// 
-// For further details, please see:
-// https://docs.opencv.org/master/db/d30/classcv_1_1dnn_1_1Net.html#a6a5778787d5b8770deab5eda6968e66c
-extern bool wasm_cv_net_method_net_empty(wasm_cv_net_borrow_net_t self);
-// SetInput sets the new input value for the network.
-// 
-// For further details, please see:
-// https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a672a08ae76444d75d05d7bfea3e4a328
-extern void wasm_cv_net_method_net_set_input(wasm_cv_net_borrow_net_t self, wasm_cv_net_own_mat_t input, imports_string_t *name);
-// Forward runs forward pass to compute output of layer with name outputName.
-// 
-// For further details, please see:
-// https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a98ed94cb6ef7063d3697259566da310b
-extern wasm_cv_net_own_mat_t wasm_cv_net_method_net_forward(wasm_cv_net_borrow_net_t self, imports_string_t *output_name);
-// GetUnconnectedOutLayers returns indexes of layers with unconnected outputs.
-// 
-// For further details, please see:
-// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ae26f0c29b3733d15d0482098ef9053e3
-extern void wasm_cv_net_method_net_get_unconnected_out_layers(wasm_cv_net_borrow_net_t self, imports_list_u32_t *ret);
-// GetLayerNames returns names of layers in the network.
-// 
-// For further details, please see:
-// hhttps://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#a38e67098ae4ae5906bf8d8ea72199c2e
-extern void wasm_cv_net_method_net_get_layer_names(wasm_cv_net_borrow_net_t self, imports_list_string_t *ret);
-// GetLayer returns layer with specified id.
-// 
-// For further details, please see:
-// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ac944d7f2d3ead5ef9b1b2fa3885f3ff1
-extern wasm_cv_net_own_layer_t wasm_cv_net_method_net_get_layer(wasm_cv_net_borrow_net_t self, uint32_t id);
+extern void wasm_cv_dnn_nms_boxes(wasm_cv_dnn_list_rect_t *bboxes, imports_list_f32_t *scores, float score_threshold, float nms_threshold, imports_list_s32_t *ret);
 
 // Exported Functions from `wasm:cv/request`
 exports_wasm_cv_request_own_mat_t exports_wasm_cv_request_process(exports_wasm_cv_request_own_mat_t image);
@@ -419,19 +426,19 @@ void imports_list_u32_free(imports_list_u32_t *ptr);
 
 void imports_list_s32_free(imports_list_s32_t *ptr);
 
-void wasm_cv_cv_list_rect_free(wasm_cv_cv_list_rect_t *ptr);
+extern void wasm_cv_dnn_layer_drop_own(wasm_cv_dnn_own_layer_t handle);
 
-void imports_list_f32_free(imports_list_f32_t *ptr);
+extern wasm_cv_dnn_borrow_layer_t wasm_cv_dnn_borrow_layer(wasm_cv_dnn_own_layer_t handle);
 
-extern void wasm_cv_net_layer_drop_own(wasm_cv_net_own_layer_t handle);
+extern void wasm_cv_dnn_net_drop_own(wasm_cv_dnn_own_net_t handle);
 
-extern wasm_cv_net_borrow_layer_t wasm_cv_net_borrow_layer(wasm_cv_net_own_layer_t handle);
-
-extern void wasm_cv_net_net_drop_own(wasm_cv_net_own_net_t handle);
-
-extern wasm_cv_net_borrow_net_t wasm_cv_net_borrow_net(wasm_cv_net_own_net_t handle);
+extern wasm_cv_dnn_borrow_net_t wasm_cv_dnn_borrow_net(wasm_cv_dnn_own_net_t handle);
 
 void imports_list_string_free(imports_list_string_t *ptr);
+
+void wasm_cv_dnn_list_rect_free(wasm_cv_dnn_list_rect_t *ptr);
+
+void imports_list_f32_free(imports_list_f32_t *ptr);
 
 // Transfers ownership of `s` into the string `ret`
 void imports_string_set(imports_string_t *ret, const char*s);
