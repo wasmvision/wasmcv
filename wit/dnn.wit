@@ -49,13 +49,13 @@ interface dnn {
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga138439da76f26266fdefec9723f6c5cd
-		read-net: static func(model: string, config: string) -> net;
+		read: static func(model: string, config: string) -> net;
 
 		/// ReadNetFromONNX reads a network model stored in ONNX framework's format.
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd359567
-		read-net-from-onnx: static func(model: string) -> net;
+		read-from-onnx: static func(model: string) -> net;
 
 		/// Close the network
 		close: func();
