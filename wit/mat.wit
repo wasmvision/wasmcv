@@ -15,10 +15,10 @@ interface mat {
 
     resource mat {
         /// Create a new Mat.
-        new-mat: static func() -> mat;
+        new: static func() -> mat;
 
         /// Create a new Mat with the specified size and type.
-        new-mat-with-size: static func(cols: u32, rows: u32, mattype: mattype) -> mat;
+        new-with-size: static func(cols: u32, rows: u32, mattype: mattype) -> mat;
 
         /// Clone returns a cloned full copy of the Mat.
         clone: func() -> mat;
