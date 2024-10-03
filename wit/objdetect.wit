@@ -1,0 +1,141 @@
+interface objdetect {
+	use mat.{mat};
+	use types.{size, rect};
+
+	/// CascadeClassifier is a cascade classifier class for object detection.
+	resource cascade-classifier {
+		/// NewCascadeClassifier returns a new CascadeClassifier.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
+		new: static func() -> cascade-classifier;
+
+		/// Close the CascadeClassifier
+		close: func();
+
+		/// Load cascade classifier from a file.
+		///
+		/// For further details, please see:
+		/// http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#a1a5884c8cc749422f9eb77c2471958bc
+		load: func(file: string) -> bool;
+
+		/// DetectMultiScale detects objects of different sizes in the input Mat image.
+		/// The detected objects are returned as a slice of image.Rectangle structs.
+		///
+		/// For further details, please see:
+		/// http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb63968136476ec4204ffca498
+		detect-multi-scale: func(image: mat) -> list<rect>;
+
+		/// DetectMultiScaleWithParams detects objects of different sizes in the input Mat image.
+		/// The detected objects are returned as a slice of image.Rectangle structs.
+		///
+		/// For further details, please see:
+		/// http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb63968136476ec4204ffca498
+		detect-multi-scale-with-params: func(image: mat, scale: f64, min-neighbors: u32, %flags: u32, min-size: size, max-size: size) -> list<rect>;
+	}
+
+	/// HOGDescriptor is a Histogram Of Gradiants (HOG) for object detection.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a723b95b709cfd3f95cf9e616de988fc8
+	resource HOG-descriptor {
+		/// NewHOGDescriptor returns a new HOGDescriptor.
+		new: static func() -> HOG-descriptor;
+
+		/// Close the HOGDescriptor
+		close: func();
+
+		/// DetectMultiScale detects objects of different sizes in the input Mat image.
+		/// The detected objects are returned as a slice of image.Rectangle structs.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036fd5ddf0f5767b352acd948
+		detect-multi-scale: func(image: mat) -> list<rect>;
+
+		/// DetectMultiScaleWithParams detects objects of different sizes in the input Mat image.
+		/// The detected objects are returned as a slice of image.Rectangle structs.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036fd5ddf0f5767b352acd948
+		detect-multi-scale-with-params: func(image: mat, hit-threshold: f64, win-stride: size, padding: size, scale: f64, final-threshold: f64, use-meanshift-grouping: bool) -> list<rect>;
+	}
+
+	resource face-detector-yn {
+		/// Creates an instance of face detector YN with given parameters.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
+		new: static func(model: string, config: string, input-size: size) -> face-detector-yn;
+
+		/// Creates an instance of face detector YN with given parameters.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
+		new-with-params: static func(model: string, config: string, input-size: size, score-threshold: f32, nms-threshold: f32, top-k: u32, backend-id: u32, target-id: u32) -> face-detector-yn;
+
+		/// Close the face detector
+		close: func();
+
+		/// Detects faces in the input image.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#ac05bd075ca3e6edc0e328927aae6f45b
+		detect: func(input: string) -> mat;
+
+		get-input-size: func() -> size;
+		get-nms-threshold: func() -> f32;
+		get-score-threshold: func() -> f32;
+		get-topk: func() -> u32;
+
+		set-input-size: func(size: size);
+		set-nms-threshold: func(threshold: f32);
+		set-score-threshold: func(threshold: f32);
+		set-topk: func(topk: u32);
+	}
+
+	enum face-distance-type {
+		face-distance-type-cosine,
+		face-distance-norm-l2,
+	}
+
+	resource face-recognizer-sf {
+		/// Creates an instance of FaceRecognizerSF with given parameters.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a04df90b0cd7d26d350acd92621a35743
+		new: static func(model: string, config: string) -> face-recognizer-sf;
+
+		/// Creates an instance of FaceRecognizerSF with given parameters.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a04df90b0cd7d26d350acd92621a35743
+		new-with-params: static func(model: string, config: string, backend-id: u32, target-id: u32) -> face-recognizer-sf;
+
+		/// Close the face FaceRecognizerSF
+		close: func();
+
+		/// Aligns detected face with the source input image and crops it.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a84492908abecbc9362b4ddc8d46b8345
+		align-crop: func(src: mat, face-box: mat) -> mat;
+
+		/// Feature extracts face feature from aligned image.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#ab1b4a3c12213e89091a490c573dc5aba
+		feature: func(aligned: mat) -> mat;
+
+		/// Match calculates the distance between two face features.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e64320a1f3ba7e1386d0219
+		match: func(face1: mat, face2: mat) -> f32;
+
+		/// Match calculates the distance between two face features.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e64320a1f3ba7e1386d0219
+		match-with-params: func(face1: mat, face2: mat, distance: face-distance-type) -> f32;
+	}
+}

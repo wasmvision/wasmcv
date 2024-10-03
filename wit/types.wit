@@ -103,4 +103,27 @@ interface types {
         interpolation-area,
         interpolation-lanczos4,
     }
+
+    enum color-coversion-type {
+        color-bgr-to-bgra,
+        color-rgb-to-rgba,
+        color-bgra-to-bgr,
+        color-rgba-to-rgb,
+        color-bgr-to-RGBA,
+        color-rgb-to-bgra,
+        color-rgba-to-bgr,
+        color-bgra-to-rgb,
+        color-bgr-to-rgb,
+        color-rgb-to-bgr,
+        color-bgra-to-rgba,
+        color-rgba-to-bgra,
+        color-bgr-to-gray,
+        color-rgb-to-gray,
+        color-gray-to-bgr,
+        color-gray-to-rgb,
+        color-gray-to-bgra,
+        color-gray-to-rgba,
+        color-bgra-to-gray,
+        color-rgba-to-gray,
+    }
 }
