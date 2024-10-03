@@ -78,6 +78,12 @@ interface dnn {
 		/// https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a98ed94cb6ef7063d3697259566da310b
 		forward: func(output-name: string) -> mat;
 
+		// ForwardLayers forward pass to compute outputs of layers listed in outBlobNames.
+		//
+		// For further details, please see:
+		// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#afe22e099b60a2883e220645391f68d4c
+		forward-layers: func(output-names: list<string>) -> list<mat>;
+
 		/// GetUnconnectedOutLayers returns indexes of layers with unconnected outputs.
 		///
 		/// For further details, please see:
