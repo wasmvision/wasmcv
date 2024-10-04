@@ -60,18 +60,18 @@ interface objdetect {
 		detect-multi-scale-with-params: func(image: mat, hit-threshold: f64, win-stride: size, padding: size, scale: f64, final-threshold: f64, use-meanshift-grouping: bool) -> list<rect>;
 	}
 
-	resource face-detector-yn {
+	resource face-detector-YN {
 		/// Creates an instance of face detector YN with given parameters.
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
-		new: static func(model: string, config: string, input-size: size) -> face-detector-yn;
+		new: static func(model: string, config: string, input-size: size) -> face-detector-YN;
 
 		/// Creates an instance of face detector YN with given parameters.
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
-		new-with-params: static func(model: string, config: string, input-size: size, score-threshold: f32, nms-threshold: f32, top-k: u32, backend-id: u32, target-id: u32) -> face-detector-yn;
+		new-with-params: static func(model: string, config: string, input-size: size, score-threshold: f32, nms-threshold: f32, top-k: u32, backend-id: u32, target-id: u32) -> face-detector-YN;
 
 		/// Close the face detector
 		close: func();
@@ -98,18 +98,18 @@ interface objdetect {
 		face-distance-norm-l2,
 	}
 
-	resource face-recognizer-sf {
+	resource face-recognizer-SF {
 		/// Creates an instance of FaceRecognizerSF with given parameters.
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a04df90b0cd7d26d350acd92621a35743
-		new: static func(model: string, config: string) -> face-recognizer-sf;
+		new: static func(model: string, config: string) -> face-recognizer-SF;
 
 		/// Creates an instance of FaceRecognizerSF with given parameters.
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a04df90b0cd7d26d350acd92621a35743
-		new-with-params: static func(model: string, config: string, backend-id: u32, target-id: u32) -> face-recognizer-sf;
+		new-with-params: static func(model: string, config: string, backend-id: u32, target-id: u32) -> face-recognizer-SF;
 
 		/// Close the face FaceRecognizerSF
 		close: func();
