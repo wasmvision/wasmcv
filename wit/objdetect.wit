@@ -8,7 +8,7 @@ interface objdetect {
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
-		new: static func() -> cascade-classifier;
+		constructor();
 
 		/// Close the CascadeClassifier
 		close: func();
@@ -40,7 +40,7 @@ interface objdetect {
 	/// https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a723b95b709cfd3f95cf9e616de988fc8
 	resource HOG-descriptor {
 		/// NewHOGDescriptor returns a new HOGDescriptor.
-		new: static func() -> HOG-descriptor;
+		constructor();
 
 		/// Close the HOGDescriptor
 		close: func();
@@ -65,7 +65,8 @@ interface objdetect {
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
-		new: static func(model: string, config: string, input-size: size) -> face-detector-YN;
+		constructor(model: string, config: string, input-size: size);
+		//new: static func(model: string, config: string, input-size: size) -> face-detector-YN;
 
 		/// Creates an instance of face detector YN with given parameters.
 		///
@@ -103,7 +104,7 @@ interface objdetect {
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a04df90b0cd7d26d350acd92621a35743
-		new: static func(model: string, config: string) -> face-recognizer-SF;
+		constructor(model: string, config: string);
 
 		/// Creates an instance of FaceRecognizerSF with given parameters.
 		///

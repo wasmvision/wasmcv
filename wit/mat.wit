@@ -15,7 +15,7 @@ interface mat {
 
     resource mat {
         /// Create a new Mat.
-        new: static func() -> mat;
+        constructor();
 
         /// Create a new Mat with the specified size and type.
         new-with-size: static func(cols: u32, rows: u32, mattype: mattype) -> mat;
