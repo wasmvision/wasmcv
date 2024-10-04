@@ -338,7 +338,7 @@ pub mod wasm {
       }
       impl ::core::fmt::Debug for BlobParams {
         fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-          f.debug_struct("BlobParams").field("scale-factor", &self.scale_factor).field("size", &self.size).field("mean", &self.mean).field("swap-rb", &self.swap_rb).field("ddepth", &self.ddepth).field("data-layout", &self.data_layout).field("padding-mode", &self.padding_mode).field("border", &self.border).finish()
+          f.debug_struct("BlobParams").field("scale-factor", &self.scale_factor).field("size", &self.size).field("mean", &self.mean).field("swap-RB", &self.swap_rb).field("ddepth", &self.ddepth).field("data-layout", &self.data_layout).field("padding-mode", &self.padding_mode).field("border", &self.border).finish()
         }
       }
       #[repr(C)]
@@ -474,6 +474,131 @@ pub mod wasm {
         }
       }
 
+      #[repr(u8)]
+      #[derive(Clone, Copy, Eq, Ord, PartialEq, PartialOrd)]
+      pub enum ColorCoversionType {
+        ColorBgrToBgra,
+        ColorRgbToRgba,
+        ColorBgraToBgr,
+        ColorRgbaToRgb,
+        ColorBgrToRgba,
+        ColorRgbToBgra,
+        ColorRgbaToBgr,
+        ColorBgraToRgb,
+        ColorBgrToRgb,
+        ColorRgbToBgr,
+        ColorBgraToRgba,
+        ColorRgbaToBgra,
+        ColorBgrToGray,
+        ColorRgbToGray,
+        ColorGrayToBgr,
+        ColorGrayToRgb,
+        ColorGrayToBgra,
+        ColorGrayToRgba,
+        ColorBgraToGray,
+        ColorRgbaToGray,
+      }
+      impl ::core::fmt::Debug for ColorCoversionType {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          match self {
+            ColorCoversionType::ColorBgrToBgra => {
+              f.debug_tuple("ColorCoversionType::ColorBgrToBgra").finish()
+            }
+            ColorCoversionType::ColorRgbToRgba => {
+              f.debug_tuple("ColorCoversionType::ColorRgbToRgba").finish()
+            }
+            ColorCoversionType::ColorBgraToBgr => {
+              f.debug_tuple("ColorCoversionType::ColorBgraToBgr").finish()
+            }
+            ColorCoversionType::ColorRgbaToRgb => {
+              f.debug_tuple("ColorCoversionType::ColorRgbaToRgb").finish()
+            }
+            ColorCoversionType::ColorBgrToRgba => {
+              f.debug_tuple("ColorCoversionType::ColorBgrToRgba").finish()
+            }
+            ColorCoversionType::ColorRgbToBgra => {
+              f.debug_tuple("ColorCoversionType::ColorRgbToBgra").finish()
+            }
+            ColorCoversionType::ColorRgbaToBgr => {
+              f.debug_tuple("ColorCoversionType::ColorRgbaToBgr").finish()
+            }
+            ColorCoversionType::ColorBgraToRgb => {
+              f.debug_tuple("ColorCoversionType::ColorBgraToRgb").finish()
+            }
+            ColorCoversionType::ColorBgrToRgb => {
+              f.debug_tuple("ColorCoversionType::ColorBgrToRgb").finish()
+            }
+            ColorCoversionType::ColorRgbToBgr => {
+              f.debug_tuple("ColorCoversionType::ColorRgbToBgr").finish()
+            }
+            ColorCoversionType::ColorBgraToRgba => {
+              f.debug_tuple("ColorCoversionType::ColorBgraToRgba").finish()
+            }
+            ColorCoversionType::ColorRgbaToBgra => {
+              f.debug_tuple("ColorCoversionType::ColorRgbaToBgra").finish()
+            }
+            ColorCoversionType::ColorBgrToGray => {
+              f.debug_tuple("ColorCoversionType::ColorBgrToGray").finish()
+            }
+            ColorCoversionType::ColorRgbToGray => {
+              f.debug_tuple("ColorCoversionType::ColorRgbToGray").finish()
+            }
+            ColorCoversionType::ColorGrayToBgr => {
+              f.debug_tuple("ColorCoversionType::ColorGrayToBgr").finish()
+            }
+            ColorCoversionType::ColorGrayToRgb => {
+              f.debug_tuple("ColorCoversionType::ColorGrayToRgb").finish()
+            }
+            ColorCoversionType::ColorGrayToBgra => {
+              f.debug_tuple("ColorCoversionType::ColorGrayToBgra").finish()
+            }
+            ColorCoversionType::ColorGrayToRgba => {
+              f.debug_tuple("ColorCoversionType::ColorGrayToRgba").finish()
+            }
+            ColorCoversionType::ColorBgraToGray => {
+              f.debug_tuple("ColorCoversionType::ColorBgraToGray").finish()
+            }
+            ColorCoversionType::ColorRgbaToGray => {
+              f.debug_tuple("ColorCoversionType::ColorRgbaToGray").finish()
+            }
+          }
+        }
+      }
+
+      impl ColorCoversionType{
+        #[doc(hidden)]
+        pub unsafe fn _lift(val: u8) -> ColorCoversionType{
+          if !cfg!(debug_assertions) {
+            return ::core::mem::transmute(val);
+          }
+
+          match val {
+            0 => ColorCoversionType::ColorBgrToBgra,
+            1 => ColorCoversionType::ColorRgbToRgba,
+            2 => ColorCoversionType::ColorBgraToBgr,
+            3 => ColorCoversionType::ColorRgbaToRgb,
+            4 => ColorCoversionType::ColorBgrToRgba,
+            5 => ColorCoversionType::ColorRgbToBgra,
+            6 => ColorCoversionType::ColorRgbaToBgr,
+            7 => ColorCoversionType::ColorBgraToRgb,
+            8 => ColorCoversionType::ColorBgrToRgb,
+            9 => ColorCoversionType::ColorRgbToBgr,
+            10 => ColorCoversionType::ColorBgraToRgba,
+            11 => ColorCoversionType::ColorRgbaToBgra,
+            12 => ColorCoversionType::ColorBgrToGray,
+            13 => ColorCoversionType::ColorRgbToGray,
+            14 => ColorCoversionType::ColorGrayToBgr,
+            15 => ColorCoversionType::ColorGrayToRgb,
+            16 => ColorCoversionType::ColorGrayToBgra,
+            17 => ColorCoversionType::ColorGrayToRgba,
+            18 => ColorCoversionType::ColorBgraToGray,
+            19 => ColorCoversionType::ColorRgbaToGray,
+
+            _ => panic!("invalid enum discriminant"),
+          }
+        }
+      }
+
 
     }
 
@@ -596,13 +721,13 @@ pub mod wasm {
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
         /// Create a new Mat.
-        pub fn new_mat() -> Mat{
+        pub fn new() -> Self{
           unsafe {
 
             #[cfg(target_arch = "wasm32")]
             #[link(wasm_import_module = "wasm:cv/mat")]
             extern "C" {
-              #[link_name = "[static]mat.new-mat"]
+              #[link_name = "[constructor]mat"]
               fn wit_import() -> i32;
             }
 
@@ -616,13 +741,13 @@ pub mod wasm {
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
         /// Create a new Mat with the specified size and type.
-        pub fn new_mat_with_size(cols: u32,rows: u32,mattype: Mattype,) -> Mat{
+        pub fn new_with_size(cols: u32,rows: u32,mattype: Mattype,) -> Mat{
           unsafe {
 
             #[cfg(target_arch = "wasm32")]
             #[link(wasm_import_module = "wasm:cv/mat")]
             extern "C" {
-              #[link_name = "[static]mat.new-mat-with-size"]
+              #[link_name = "[static]mat.new-with-size"]
               fn wit_import(_: i32, _: i32, _: i32, ) -> i32;
             }
 
@@ -1265,9 +1390,33 @@ pub mod wasm {
       pub type Rgba = super::super::super::wasm::cv::types::Rgba;
       pub type HersheyFontType = super::super::super::wasm::cv::types::HersheyFontType;
       pub type InterpolationType = super::super::super::wasm::cv::types::InterpolationType;
+      pub type ColorCoversionType = super::super::super::wasm::cv::types::ColorCoversionType;
       pub type Mat = super::super::super::wasm::cv::mat::Mat;
       #[allow(unused_unsafe, clippy::all)]
       /// drawing functions
+      /// ArrowedLine draws a arrow segment pointing from the first point to the second one.
+      ///
+      /// For further details, please see:
+      /// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd488ac709fdf10c05b2
+      pub fn arrowed_line(img: Mat,point1: Size,point2: Size,c: Rgba,thickness: u8,){
+        unsafe {
+          let super::super::super::wasm::cv::types::Size{ x:x0, y:y0, } = point1;
+          let super::super::super::wasm::cv::types::Size{ x:x1, y:y1, } = point2;
+          let super::super::super::wasm::cv::types::Rgba{ r:r2, g:g2, b:b2, a:a2, } = c;
+
+          #[cfg(target_arch = "wasm32")]
+          #[link(wasm_import_module = "wasm:cv/cv")]
+          extern "C" {
+            #[link_name = "arrowed-line"]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, );
+          }
+
+          #[cfg(not(target_arch = "wasm32"))]
+          fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, ){ unreachable!() }
+          wit_import((&img).take_handle() as i32, _rt::as_i32(x0), _rt::as_i32(y0), _rt::as_i32(x1), _rt::as_i32(y1), _rt::as_i32(r2), _rt::as_i32(g2), _rt::as_i32(b2), _rt::as_i32(a2), _rt::as_i32(&thickness));
+        }
+      }
+      #[allow(unused_unsafe, clippy::all)]
       /// Rectangle draws a simple, thick, or filled up-right rectangle.
       ///
       /// For further details, please see:
@@ -1289,6 +1438,51 @@ pub mod wasm {
           #[cfg(not(target_arch = "wasm32"))]
           fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, ){ unreachable!() }
           wit_import((&img).take_handle() as i32, _rt::as_i32(x1), _rt::as_i32(y1), _rt::as_i32(x2), _rt::as_i32(y2), _rt::as_i32(r3), _rt::as_i32(g3), _rt::as_i32(b3), _rt::as_i32(a3), _rt::as_i32(&thickness));
+        }
+      }
+      #[allow(unused_unsafe, clippy::all)]
+      /// Circle draws a circle.
+      ///
+      /// For further details, please see:
+      /// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b069374903dbd0f0488cb43670
+      pub fn circle(img: Mat,center: Size,radius: u32,c: Rgba,thickness: u8,){
+        unsafe {
+          let super::super::super::wasm::cv::types::Size{ x:x0, y:y0, } = center;
+          let super::super::super::wasm::cv::types::Rgba{ r:r1, g:g1, b:b1, a:a1, } = c;
+
+          #[cfg(target_arch = "wasm32")]
+          #[link(wasm_import_module = "wasm:cv/cv")]
+          extern "C" {
+            #[link_name = "circle"]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, );
+          }
+
+          #[cfg(not(target_arch = "wasm32"))]
+          fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, ){ unreachable!() }
+          wit_import((&img).take_handle() as i32, _rt::as_i32(x0), _rt::as_i32(y0), _rt::as_i32(&radius), _rt::as_i32(r1), _rt::as_i32(g1), _rt::as_i32(b1), _rt::as_i32(a1), _rt::as_i32(&thickness));
+        }
+      }
+      #[allow(unused_unsafe, clippy::all)]
+      /// Line draws a line segment connecting two points.
+      ///
+      /// For further details, please see:
+      /// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga7078a9fae8c7e7d13d24dac2520ae4a2
+      pub fn line(img: Mat,point1: Size,point2: Size,c: Rgba,thickness: u8,){
+        unsafe {
+          let super::super::super::wasm::cv::types::Size{ x:x0, y:y0, } = point1;
+          let super::super::super::wasm::cv::types::Size{ x:x1, y:y1, } = point2;
+          let super::super::super::wasm::cv::types::Rgba{ r:r2, g:g2, b:b2, a:a2, } = c;
+
+          #[cfg(target_arch = "wasm32")]
+          #[link(wasm_import_module = "wasm:cv/cv")]
+          extern "C" {
+            #[link_name = "line"]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, );
+          }
+
+          #[cfg(not(target_arch = "wasm32"))]
+          fn wit_import(_: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, ){ unreachable!() }
+          wit_import((&img).take_handle() as i32, _rt::as_i32(x0), _rt::as_i32(y0), _rt::as_i32(x1), _rt::as_i32(y1), _rt::as_i32(r2), _rt::as_i32(g2), _rt::as_i32(b2), _rt::as_i32(a2), _rt::as_i32(&thickness));
         }
       }
       #[allow(unused_unsafe, clippy::all)]
@@ -1408,6 +1602,28 @@ pub mod wasm {
         }
       }
       #[allow(unused_unsafe, clippy::all)]
+      /// MedianBlur blurs an image using the median filter.
+      ///
+      /// For further details, please see:
+      /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga564869aa33e58769b4469101aac458f9
+      pub fn median_blur(src: Mat,k_size: Size,) -> Mat{
+        unsafe {
+          let super::super::super::wasm::cv::types::Size{ x:x0, y:y0, } = k_size;
+
+          #[cfg(target_arch = "wasm32")]
+          #[link(wasm_import_module = "wasm:cv/cv")]
+          extern "C" {
+            #[link_name = "median-blur"]
+            fn wit_import(_: i32, _: i32, _: i32, ) -> i32;
+          }
+
+          #[cfg(not(target_arch = "wasm32"))]
+          fn wit_import(_: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+          let ret = wit_import((&src).take_handle() as i32, _rt::as_i32(x0), _rt::as_i32(y0));
+          super::super::super::wasm::cv::mat::Mat::from_handle(ret as u32)
+        }
+      }
+      #[allow(unused_unsafe, clippy::all)]
       /// Threshold applies a fixed-level threshold to each array element.
       ///
       /// For further details, please see:
@@ -1429,6 +1645,27 @@ pub mod wasm {
         }
       }
       #[allow(unused_unsafe, clippy::all)]
+      /// CvtColor converts an image from one color space to another.
+      ///
+      /// For further details, please see:
+      /// http://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga4e0972be5de079fed4e3a10e24ef5ef0
+      pub fn cvt_color(src: Mat,code: ColorCoversionType,) -> Mat{
+        unsafe {
+
+          #[cfg(target_arch = "wasm32")]
+          #[link(wasm_import_module = "wasm:cv/cv")]
+          extern "C" {
+            #[link_name = "cvt-color"]
+            fn wit_import(_: i32, _: i32, ) -> i32;
+          }
+
+          #[cfg(not(target_arch = "wasm32"))]
+          fn wit_import(_: i32, _: i32, ) -> i32{ unreachable!() }
+          let ret = wit_import((&src).take_handle() as i32, code.clone() as i32);
+          super::super::super::wasm::cv::mat::Mat::from_handle(ret as u32)
+        }
+      }
+      #[allow(unused_unsafe, clippy::all)]
       /// Transpose for n-dimensional matrices.
       ///
       /// For further details, please see:
@@ -1442,7 +1679,7 @@ pub mod wasm {
           #[cfg(target_arch = "wasm32")]
           #[link(wasm_import_module = "wasm:cv/cv")]
           extern "C" {
-            #[link_name = "transpose-nd"]
+            #[link_name = "transpose-ND"]
             fn wit_import(_: i32, _: *mut u8, _: usize, ) -> i32;
           }
 
@@ -1854,7 +2091,7 @@ pub mod wasm {
         ///
         /// For further details, please see:
         /// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga138439da76f26266fdefec9723f6c5cd
-        pub fn read_net(model: &str,config: &str,) -> Net{
+        pub fn read(model: &str,config: &str,) -> Net{
           unsafe {
             let vec0 = model;
             let ptr0 = vec0.as_ptr().cast::<u8>();
@@ -1866,7 +2103,7 @@ pub mod wasm {
             #[cfg(target_arch = "wasm32")]
             #[link(wasm_import_module = "wasm:cv/dnn")]
             extern "C" {
-              #[link_name = "[static]net.read-net"]
+              #[link_name = "[static]net.read"]
               fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, ) -> i32;
             }
 
@@ -1883,7 +2120,7 @@ pub mod wasm {
         ///
         /// For further details, please see:
         /// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd359567
-        pub fn read_net_from_onnx(model: &str,) -> Net{
+        pub fn read_from_onnx(model: &str,) -> Net{
           unsafe {
             let vec0 = model;
             let ptr0 = vec0.as_ptr().cast::<u8>();
@@ -1892,7 +2129,7 @@ pub mod wasm {
             #[cfg(target_arch = "wasm32")]
             #[link(wasm_import_module = "wasm:cv/dnn")]
             extern "C" {
-              #[link_name = "[static]net.read-net-from-onnx"]
+              #[link_name = "[static]net.read-from-ONNX"]
               fn wit_import(_: *mut u8, _: usize, ) -> i32;
             }
 
@@ -1993,6 +2230,73 @@ pub mod wasm {
             fn wit_import(_: i32, _: *mut u8, _: usize, ) -> i32{ unreachable!() }
             let ret = wit_import((self).handle() as i32, ptr0.cast_mut(), len0);
             super::super::super::wasm::cv::mat::Mat::from_handle(ret as u32)
+          }
+        }
+      }
+      impl Net {
+        #[allow(unused_unsafe, clippy::all)]
+        /// ForwardLayers forward pass to compute outputs of layers listed in outBlobNames.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#afe22e099b60a2883e220645391f68d4c
+        pub fn forward_layers(&self,output_names: &[_rt::String],) -> _rt::Vec::<Mat>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let vec1 = output_names;
+            let len1 = vec1.len();
+            let layout1 = _rt::alloc::Layout::from_size_align_unchecked(vec1.len() * 8, 4);
+            let result1 = if layout1.size() != 0 {
+              let ptr = _rt::alloc::alloc(layout1).cast::<u8>();
+              if ptr.is_null()
+              {
+                _rt::alloc::handle_alloc_error(layout1);
+              }
+              ptr
+            }else {
+              ::core::ptr::null_mut()
+            };
+            for (i, e) in vec1.into_iter().enumerate() {
+              let base = result1.add(i * 8);
+              {
+                let vec0 = e;
+                let ptr0 = vec0.as_ptr().cast::<u8>();
+                let len0 = vec0.len();
+                *base.add(4).cast::<usize>() = len0;
+                *base.add(0).cast::<*mut u8>() = ptr0.cast_mut();
+              }
+            }
+            let ptr2 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/dnn")]
+            extern "C" {
+              #[link_name = "[method]net.forward-layers"]
+              fn wit_import(_: i32, _: *mut u8, _: usize, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: *mut u8, _: usize, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, result1, len1, ptr2);
+            let l3 = *ptr2.add(0).cast::<*mut u8>();
+            let l4 = *ptr2.add(4).cast::<usize>();
+            let base6 = l3;
+            let len6 = l4;
+            let mut result6 = _rt::Vec::with_capacity(len6);
+            for i in 0..len6 {
+              let base = base6.add(i * 4);
+              let e6 = {
+                let l5 = *base.add(0).cast::<i32>();
+
+                super::super::super::wasm::cv::mat::Mat::from_handle(l5 as u32)
+              };
+              result6.push(e6);
+            }
+            _rt::cabi_dealloc(base6, len6 * 4, 4);
+            if layout1.size() != 0 {
+              _rt::alloc::dealloc(result1.cast(), layout1);
+            }
+            result6
           }
         }
       }
@@ -2216,7 +2520,7 @@ pub mod wasm {
           #[cfg(target_arch = "wasm32")]
           #[link(wasm_import_module = "wasm:cv/dnn")]
           extern "C" {
-            #[link_name = "nms-boxes"]
+            #[link_name = "NMS-boxes"]
             fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, _: f32, _: f32, _: *mut u8, );
           }
 
@@ -2227,6 +2531,907 @@ pub mod wasm {
           let l4 = *ptr2.add(4).cast::<usize>();
           let len5 = l4;
           _rt::Vec::from_raw_parts(l3.cast(), len5, len5)
+        }
+      }
+
+    }
+
+    #[allow(dead_code, clippy::all)]
+    pub mod objdetect {
+      #[used]
+      #[doc(hidden)]
+      static __FORCE_SECTION_REF: fn() =
+      super::super::super::__link_custom_section_describing_imports;
+      
+      use super::super::super::_rt;
+      pub type Mat = super::super::super::wasm::cv::mat::Mat;
+      pub type Size = super::super::super::wasm::cv::types::Size;
+      pub type Rect = super::super::super::wasm::cv::types::Rect;
+      /// CascadeClassifier is a cascade classifier class for object detection.
+
+      #[derive(Debug)]
+      #[repr(transparent)]
+      pub struct CascadeClassifier{
+        handle: _rt::Resource<CascadeClassifier>,
+      }
+
+      impl CascadeClassifier{
+        #[doc(hidden)]
+        pub unsafe fn from_handle(handle: u32) -> Self {
+          Self {
+            handle: _rt::Resource::from_handle(handle),
+          }
+        }
+
+        #[doc(hidden)]
+        pub fn take_handle(&self) -> u32 {
+          _rt::Resource::take_handle(&self.handle)
+        }
+
+        #[doc(hidden)]
+        pub fn handle(&self) -> u32 {
+          _rt::Resource::handle(&self.handle)
+        }
+      }
+
+
+      unsafe impl _rt::WasmResource for CascadeClassifier{
+        #[inline]
+        unsafe fn drop(_handle: u32) {
+          #[cfg(not(target_arch = "wasm32"))]
+          unreachable!();
+
+          #[cfg(target_arch = "wasm32")]
+          {
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[resource-drop]cascade-classifier"]
+              fn drop(_: u32);
+            }
+
+            drop(_handle);
+          }
+        }
+      }
+
+      /// HOGDescriptor is a Histogram Of Gradiants (HOG) for object detection.
+      ///
+      /// For further details, please see:
+      /// https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a723b95b709cfd3f95cf9e616de988fc8
+
+      #[derive(Debug)]
+      #[repr(transparent)]
+      pub struct HogDescriptor{
+        handle: _rt::Resource<HogDescriptor>,
+      }
+
+      impl HogDescriptor{
+        #[doc(hidden)]
+        pub unsafe fn from_handle(handle: u32) -> Self {
+          Self {
+            handle: _rt::Resource::from_handle(handle),
+          }
+        }
+
+        #[doc(hidden)]
+        pub fn take_handle(&self) -> u32 {
+          _rt::Resource::take_handle(&self.handle)
+        }
+
+        #[doc(hidden)]
+        pub fn handle(&self) -> u32 {
+          _rt::Resource::handle(&self.handle)
+        }
+      }
+
+
+      unsafe impl _rt::WasmResource for HogDescriptor{
+        #[inline]
+        unsafe fn drop(_handle: u32) {
+          #[cfg(not(target_arch = "wasm32"))]
+          unreachable!();
+
+          #[cfg(target_arch = "wasm32")]
+          {
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[resource-drop]HOG-descriptor"]
+              fn drop(_: u32);
+            }
+
+            drop(_handle);
+          }
+        }
+      }
+
+
+      #[derive(Debug)]
+      #[repr(transparent)]
+      pub struct FaceDetectorYn{
+        handle: _rt::Resource<FaceDetectorYn>,
+      }
+
+      impl FaceDetectorYn{
+        #[doc(hidden)]
+        pub unsafe fn from_handle(handle: u32) -> Self {
+          Self {
+            handle: _rt::Resource::from_handle(handle),
+          }
+        }
+
+        #[doc(hidden)]
+        pub fn take_handle(&self) -> u32 {
+          _rt::Resource::take_handle(&self.handle)
+        }
+
+        #[doc(hidden)]
+        pub fn handle(&self) -> u32 {
+          _rt::Resource::handle(&self.handle)
+        }
+      }
+
+
+      unsafe impl _rt::WasmResource for FaceDetectorYn{
+        #[inline]
+        unsafe fn drop(_handle: u32) {
+          #[cfg(not(target_arch = "wasm32"))]
+          unreachable!();
+
+          #[cfg(target_arch = "wasm32")]
+          {
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[resource-drop]face-detector-YN"]
+              fn drop(_: u32);
+            }
+
+            drop(_handle);
+          }
+        }
+      }
+
+      #[repr(u8)]
+      #[derive(Clone, Copy, Eq, Ord, PartialEq, PartialOrd)]
+      pub enum FaceDistanceType {
+        FaceDistanceTypeCosine,
+        FaceDistanceNormL2,
+      }
+      impl ::core::fmt::Debug for FaceDistanceType {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          match self {
+            FaceDistanceType::FaceDistanceTypeCosine => {
+              f.debug_tuple("FaceDistanceType::FaceDistanceTypeCosine").finish()
+            }
+            FaceDistanceType::FaceDistanceNormL2 => {
+              f.debug_tuple("FaceDistanceType::FaceDistanceNormL2").finish()
+            }
+          }
+        }
+      }
+
+      impl FaceDistanceType{
+        #[doc(hidden)]
+        pub unsafe fn _lift(val: u8) -> FaceDistanceType{
+          if !cfg!(debug_assertions) {
+            return ::core::mem::transmute(val);
+          }
+
+          match val {
+            0 => FaceDistanceType::FaceDistanceTypeCosine,
+            1 => FaceDistanceType::FaceDistanceNormL2,
+
+            _ => panic!("invalid enum discriminant"),
+          }
+        }
+      }
+
+
+      #[derive(Debug)]
+      #[repr(transparent)]
+      pub struct FaceRecognizerSf{
+        handle: _rt::Resource<FaceRecognizerSf>,
+      }
+
+      impl FaceRecognizerSf{
+        #[doc(hidden)]
+        pub unsafe fn from_handle(handle: u32) -> Self {
+          Self {
+            handle: _rt::Resource::from_handle(handle),
+          }
+        }
+
+        #[doc(hidden)]
+        pub fn take_handle(&self) -> u32 {
+          _rt::Resource::take_handle(&self.handle)
+        }
+
+        #[doc(hidden)]
+        pub fn handle(&self) -> u32 {
+          _rt::Resource::handle(&self.handle)
+        }
+      }
+
+
+      unsafe impl _rt::WasmResource for FaceRecognizerSf{
+        #[inline]
+        unsafe fn drop(_handle: u32) {
+          #[cfg(not(target_arch = "wasm32"))]
+          unreachable!();
+
+          #[cfg(target_arch = "wasm32")]
+          {
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[resource-drop]face-recognizer-SF"]
+              fn drop(_: u32);
+            }
+
+            drop(_handle);
+          }
+        }
+      }
+
+      impl CascadeClassifier {
+        #[allow(unused_unsafe, clippy::all)]
+        /// NewCascadeClassifier returns a new CascadeClassifier.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
+        pub fn new() -> Self{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[constructor]cascade-classifier"]
+              fn wit_import() -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import() -> i32{ unreachable!() }
+            let ret = wit_import();
+            CascadeClassifier::from_handle(ret as u32)
+          }
+        }
+      }
+      impl CascadeClassifier {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Close the CascadeClassifier
+        pub fn close(&self,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]cascade-classifier.close"]
+              fn wit_import(_: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32);
+          }
+        }
+      }
+      impl CascadeClassifier {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Load cascade classifier from a file.
+        ///
+        /// For further details, please see:
+        /// http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#a1a5884c8cc749422f9eb77c2471958bc
+        pub fn load(&self,file: &str,) -> bool{
+          unsafe {
+            let vec0 = file;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]cascade-classifier.load"]
+              fn wit_import(_: i32, _: *mut u8, _: usize, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, ptr0.cast_mut(), len0);
+            _rt::bool_lift(ret as u8)
+          }
+        }
+      }
+      impl CascadeClassifier {
+        #[allow(unused_unsafe, clippy::all)]
+        /// DetectMultiScale detects objects of different sizes in the input Mat image.
+        /// The detected objects are returned as a slice of image.Rectangle structs.
+        ///
+        /// For further details, please see:
+        /// http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb63968136476ec4204ffca498
+        pub fn detect_multi_scale(&self,image: Mat,) -> _rt::Vec::<Rect>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]cascade-classifier.detect-multi-scale"]
+              fn wit_import(_: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&image).take_handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            _rt::Vec::from_raw_parts(l1.cast(), len3, len3)
+          }
+        }
+      }
+      impl CascadeClassifier {
+        #[allow(unused_unsafe, clippy::all)]
+        /// DetectMultiScaleWithParams detects objects of different sizes in the input Mat image.
+        /// The detected objects are returned as a slice of image.Rectangle structs.
+        ///
+        /// For further details, please see:
+        /// http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb63968136476ec4204ffca498
+        pub fn detect_multi_scale_with_params(&self,image: Mat,scale: f64,min_neighbors: u32,flags: u32,min_size: Size,max_size: Size,) -> _rt::Vec::<Rect>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let super::super::super::wasm::cv::types::Size{ x:x0, y:y0, } = min_size;
+            let super::super::super::wasm::cv::types::Size{ x:x1, y:y1, } = max_size;
+            let ptr2 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]cascade-classifier.detect-multi-scale-with-params"]
+              fn wit_import(_: i32, _: i32, _: f64, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: f64, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&image).take_handle() as i32, _rt::as_f64(&scale), _rt::as_i32(&min_neighbors), _rt::as_i32(&flags), _rt::as_i32(x0), _rt::as_i32(y0), _rt::as_i32(x1), _rt::as_i32(y1), ptr2);
+            let l3 = *ptr2.add(0).cast::<*mut u8>();
+            let l4 = *ptr2.add(4).cast::<usize>();
+            let len5 = l4;
+            _rt::Vec::from_raw_parts(l3.cast(), len5, len5)
+          }
+        }
+      }
+      impl HogDescriptor {
+        #[allow(unused_unsafe, clippy::all)]
+        /// NewHOGDescriptor returns a new HOGDescriptor.
+        pub fn new() -> Self{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[constructor]HOG-descriptor"]
+              fn wit_import() -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import() -> i32{ unreachable!() }
+            let ret = wit_import();
+            HogDescriptor::from_handle(ret as u32)
+          }
+        }
+      }
+      impl HogDescriptor {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Close the HOGDescriptor
+        pub fn close(&self,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]HOG-descriptor.close"]
+              fn wit_import(_: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32);
+          }
+        }
+      }
+      impl HogDescriptor {
+        #[allow(unused_unsafe, clippy::all)]
+        /// DetectMultiScale detects objects of different sizes in the input Mat image.
+        /// The detected objects are returned as a slice of image.Rectangle structs.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036fd5ddf0f5767b352acd948
+        pub fn detect_multi_scale(&self,image: Mat,) -> _rt::Vec::<Rect>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]HOG-descriptor.detect-multi-scale"]
+              fn wit_import(_: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&image).take_handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            _rt::Vec::from_raw_parts(l1.cast(), len3, len3)
+          }
+        }
+      }
+      impl HogDescriptor {
+        #[allow(unused_unsafe, clippy::all)]
+        /// DetectMultiScaleWithParams detects objects of different sizes in the input Mat image.
+        /// The detected objects are returned as a slice of image.Rectangle structs.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036fd5ddf0f5767b352acd948
+        pub fn detect_multi_scale_with_params(&self,image: Mat,hit_threshold: f64,win_stride: Size,padding: Size,scale: f64,final_threshold: f64,use_meanshift_grouping: bool,) -> _rt::Vec::<Rect>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let super::super::super::wasm::cv::types::Size{ x:x0, y:y0, } = win_stride;
+            let super::super::super::wasm::cv::types::Size{ x:x1, y:y1, } = padding;
+            let ptr2 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]HOG-descriptor.detect-multi-scale-with-params"]
+              fn wit_import(_: i32, _: i32, _: f64, _: i32, _: i32, _: i32, _: i32, _: f64, _: f64, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: f64, _: i32, _: i32, _: i32, _: i32, _: f64, _: f64, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&image).take_handle() as i32, _rt::as_f64(&hit_threshold), _rt::as_i32(x0), _rt::as_i32(y0), _rt::as_i32(x1), _rt::as_i32(y1), _rt::as_f64(&scale), _rt::as_f64(&final_threshold), match &use_meanshift_grouping { true => 1, false => 0 }, ptr2);
+            let l3 = *ptr2.add(0).cast::<*mut u8>();
+            let l4 = *ptr2.add(4).cast::<usize>();
+            let len5 = l4;
+            _rt::Vec::from_raw_parts(l3.cast(), len5, len5)
+          }
+        }
+      }
+      impl FaceDetectorYn {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Creates an instance of face detector YN with given parameters.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
+        pub fn new(model: &str,config: &str,input_size: Size,) -> Self{
+          unsafe {
+            let vec0 = model;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+            let vec1 = config;
+            let ptr1 = vec1.as_ptr().cast::<u8>();
+            let len1 = vec1.len();
+            let super::super::super::wasm::cv::types::Size{ x:x2, y:y2, } = input_size;
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[constructor]face-detector-YN"]
+              fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0, ptr1.cast_mut(), len1, _rt::as_i32(x2), _rt::as_i32(y2));
+            FaceDetectorYn::from_handle(ret as u32)
+          }
+        }
+      }
+      impl FaceDetectorYn {
+        #[allow(unused_unsafe, clippy::all)]
+        /// new: static func(model: string, config: string, input-size: size) -> face-detector-YN;
+        /// Creates an instance of face detector YN with given parameters.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
+        pub fn new_with_params(model: &str,config: &str,input_size: Size,score_threshold: f32,nms_threshold: f32,top_k: u32,backend_id: u32,target_id: u32,) -> FaceDetectorYn{
+          unsafe {
+            let vec0 = model;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+            let vec1 = config;
+            let ptr1 = vec1.as_ptr().cast::<u8>();
+            let len1 = vec1.len();
+            let super::super::super::wasm::cv::types::Size{ x:x2, y:y2, } = input_size;
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[static]face-detector-YN.new-with-params"]
+              fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, _: i32, _: i32, _: f32, _: f32, _: i32, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, _: i32, _: i32, _: f32, _: f32, _: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0, ptr1.cast_mut(), len1, _rt::as_i32(x2), _rt::as_i32(y2), _rt::as_f32(&score_threshold), _rt::as_f32(&nms_threshold), _rt::as_i32(&top_k), _rt::as_i32(&backend_id), _rt::as_i32(&target_id));
+            FaceDetectorYn::from_handle(ret as u32)
+          }
+        }
+      }
+      impl FaceDetectorYn {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Close the face detector
+        pub fn close(&self,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-detector-YN.close"]
+              fn wit_import(_: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32);
+          }
+        }
+      }
+      impl FaceDetectorYn {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Detects faces in the input image.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#ac05bd075ca3e6edc0e328927aae6f45b
+        pub fn detect(&self,input: &str,) -> Mat{
+          unsafe {
+            let vec0 = input;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-detector-YN.detect"]
+              fn wit_import(_: i32, _: *mut u8, _: usize, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, ptr0.cast_mut(), len0);
+            super::super::super::wasm::cv::mat::Mat::from_handle(ret as u32)
+          }
+        }
+      }
+      impl FaceDetectorYn {
+        #[allow(unused_unsafe, clippy::all)]
+        pub fn get_input_size(&self,) -> Size{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-detector-YN.get-input-size"]
+              fn wit_import(_: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<i32>();
+            let l2 = *ptr0.add(4).cast::<i32>();
+            super::super::super::wasm::cv::types::Size{
+              x: l1,
+              y: l2,
+            }
+          }
+        }
+      }
+      impl FaceDetectorYn {
+        #[allow(unused_unsafe, clippy::all)]
+        pub fn get_nms_threshold(&self,) -> f32{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-detector-YN.get-nms-threshold"]
+              fn wit_import(_: i32, ) -> f32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ) -> f32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32);
+            ret
+          }
+        }
+      }
+      impl FaceDetectorYn {
+        #[allow(unused_unsafe, clippy::all)]
+        pub fn get_score_threshold(&self,) -> f32{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-detector-YN.get-score-threshold"]
+              fn wit_import(_: i32, ) -> f32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ) -> f32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32);
+            ret
+          }
+        }
+      }
+      impl FaceDetectorYn {
+        #[allow(unused_unsafe, clippy::all)]
+        pub fn get_topk(&self,) -> u32{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-detector-YN.get-topk"]
+              fn wit_import(_: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32);
+            ret as u32
+          }
+        }
+      }
+      impl FaceDetectorYn {
+        #[allow(unused_unsafe, clippy::all)]
+        pub fn set_input_size(&self,size: Size,){
+          unsafe {
+            let super::super::super::wasm::cv::types::Size{ x:x0, y:y0, } = size;
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-detector-YN.set-input-size"]
+              fn wit_import(_: i32, _: i32, _: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32, _rt::as_i32(x0), _rt::as_i32(y0));
+          }
+        }
+      }
+      impl FaceDetectorYn {
+        #[allow(unused_unsafe, clippy::all)]
+        pub fn set_nms_threshold(&self,threshold: f32,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-detector-YN.set-nms-threshold"]
+              fn wit_import(_: i32, _: f32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: f32, ){ unreachable!() }
+            wit_import((self).handle() as i32, _rt::as_f32(&threshold));
+          }
+        }
+      }
+      impl FaceDetectorYn {
+        #[allow(unused_unsafe, clippy::all)]
+        pub fn set_score_threshold(&self,threshold: f32,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-detector-YN.set-score-threshold"]
+              fn wit_import(_: i32, _: f32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: f32, ){ unreachable!() }
+            wit_import((self).handle() as i32, _rt::as_f32(&threshold));
+          }
+        }
+      }
+      impl FaceDetectorYn {
+        #[allow(unused_unsafe, clippy::all)]
+        pub fn set_topk(&self,topk: u32,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-detector-YN.set-topk"]
+              fn wit_import(_: i32, _: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32, _rt::as_i32(&topk));
+          }
+        }
+      }
+      impl FaceRecognizerSf {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Creates an instance of FaceRecognizerSF with given parameters.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a04df90b0cd7d26d350acd92621a35743
+        pub fn new(model: &str,config: &str,) -> Self{
+          unsafe {
+            let vec0 = model;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+            let vec1 = config;
+            let ptr1 = vec1.as_ptr().cast::<u8>();
+            let len1 = vec1.len();
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[constructor]face-recognizer-SF"]
+              fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0, ptr1.cast_mut(), len1);
+            FaceRecognizerSf::from_handle(ret as u32)
+          }
+        }
+      }
+      impl FaceRecognizerSf {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Creates an instance of FaceRecognizerSF with given parameters.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a04df90b0cd7d26d350acd92621a35743
+        pub fn new_with_params(model: &str,config: &str,backend_id: u32,target_id: u32,) -> FaceRecognizerSf{
+          unsafe {
+            let vec0 = model;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+            let vec1 = config;
+            let ptr1 = vec1.as_ptr().cast::<u8>();
+            let len1 = vec1.len();
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[static]face-recognizer-SF.new-with-params"]
+              fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: *mut u8, _: usize, _: *mut u8, _: usize, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0, ptr1.cast_mut(), len1, _rt::as_i32(&backend_id), _rt::as_i32(&target_id));
+            FaceRecognizerSf::from_handle(ret as u32)
+          }
+        }
+      }
+      impl FaceRecognizerSf {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Close the face FaceRecognizerSF
+        pub fn close(&self,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-recognizer-SF.close"]
+              fn wit_import(_: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32);
+          }
+        }
+      }
+      impl FaceRecognizerSf {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Aligns detected face with the source input image and crops it.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a84492908abecbc9362b4ddc8d46b8345
+        pub fn align_crop(&self,src: Mat,face_box: Mat,) -> Mat{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-recognizer-SF.align-crop"]
+              fn wit_import(_: i32, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, (&src).take_handle() as i32, (&face_box).take_handle() as i32);
+            super::super::super::wasm::cv::mat::Mat::from_handle(ret as u32)
+          }
+        }
+      }
+      impl FaceRecognizerSf {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Feature extracts face feature from aligned image.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#ab1b4a3c12213e89091a490c573dc5aba
+        pub fn feature(&self,aligned: Mat,) -> Mat{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-recognizer-SF.feature"]
+              fn wit_import(_: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, (&aligned).take_handle() as i32);
+            super::super::super::wasm::cv::mat::Mat::from_handle(ret as u32)
+          }
+        }
+      }
+      impl FaceRecognizerSf {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Match calculates the distance between two face features.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e64320a1f3ba7e1386d0219
+        pub fn match_(&self,face1: Mat,face2: Mat,) -> f32{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-recognizer-SF.match"]
+              fn wit_import(_: i32, _: i32, _: i32, ) -> f32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, ) -> f32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, (&face1).take_handle() as i32, (&face2).take_handle() as i32);
+            ret
+          }
+        }
+      }
+      impl FaceRecognizerSf {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Match calculates the distance between two face features.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e64320a1f3ba7e1386d0219
+        pub fn match_with_params(&self,face1: Mat,face2: Mat,distance: FaceDistanceType,) -> f32{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/objdetect")]
+            extern "C" {
+              #[link_name = "[method]face-recognizer-SF.match-with-params"]
+              fn wit_import(_: i32, _: i32, _: i32, _: i32, ) -> f32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, ) -> f32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, (&face1).take_handle() as i32, (&face2).take_handle() as i32, distance.clone() as i32);
+            ret
+          }
         }
       }
 
@@ -2506,6 +3711,7 @@ mod _rt {
       String::from_utf8_unchecked(bytes)
     }
   }
+  pub use alloc_crate::alloc;
   pub unsafe fn cabi_dealloc(ptr: *mut u8, size: usize, align: usize) {
     if size == 0 {
       return;
@@ -2519,7 +3725,6 @@ mod _rt {
     wit_bindgen::rt::run_ctors_once();
   }
   extern crate alloc as alloc_crate;
-  pub use alloc_crate::alloc;
 }
 
 /// Generates `#[no_mangle]` functions to export the specified type as the
@@ -2553,11 +3758,11 @@ pub(crate) use __export_imports_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.32.0:wasm:cv:imports:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 5303] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xb9(\x01A\x02\x01A\x17\
-\x01B\x1a\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x01r\x04\x04val1v\x04val2v\x04\
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 8065] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\x83>\x01A\x02\x01A\x1a\
+\x01B\x1c\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x01r\x04\x04val1v\x04val2v\x04\
 val3v\x04val4v\x04\0\x06scalar\x03\0\x02\x01r\x02\x03min\x01\x03max\x01\x04\0\x04\
-rect\x03\0\x04\x01r\x04\x01r}\x01g}\x01b}\x01a}\x04\0\x04rgba\x03\0\x06\x01m\x08\
+rect\x03\0\x04\x01r\x04\x01r}\x01g}\x01b}\x01a}\x04\0\x04RGBA\x03\0\x06\x01m\x08\
 \x0fborder-constant\x10border-replicate\x0eborder-reflect\x0bborder-wrap\x11bord\
 er-reflect101\x12border-transparent\x0eborder-default\x0fborder-isolated\x04\0\x0b\
 border-type\x03\0\x08\x01m\x02\x17adaptive-threshold-mean\x1badaptive-threshold-\
@@ -2568,7 +3773,7 @@ reshold-type\x03\0\x0c\x01m\x07\x13data-layout-unknown\x0edata-layout-nd\x10data
 -layout-nchw\x11data-layout-ncdhw\x10data-layout-nhwc\x11data-layout-ndhwc\x12da\
 ta-layout-planar\x04\0\x10data-layout-type\x03\0\x0e\x01m\x03\x11padding-mode-nu\
 ll\x18padding-mode-crop-center\x16padding-mode-letterbox\x04\0\x11padding-mode-t\
-ype\x03\0\x10\x01r\x08\x0cscale-factorv\x04size\x01\x04mean\x03\x07swap-rb\x7f\x06\
+ype\x03\0\x10\x01r\x08\x0cscale-factorv\x04size\x01\x04mean\x03\x07swap-RB\x7f\x06\
 ddepth}\x0bdata-layout\x0f\x0cpadding-mode\x11\x06border\x03\x04\0\x0bblob-param\
 s\x03\0\x12\x01r\x04\x07min-valv\x07max-valv\x07min-loc\x01\x07max-loc\x01\x04\0\
 \x12mix-max-loc-result\x03\0\x14\x01m\x09\x14hershey-font-simplex\x12hershey-fon\
@@ -2576,94 +3781,144 @@ t-plain\x13hershey-font-duplex\x14hershey-font-complex\x14hershey-font-triplex\x
 hershey-font-complex-small\x1bhershey-font-script-simplex\x1bhershey-font-script\
 -complex\x13hershey-font-italic\x04\0\x11hershey-font-type\x03\0\x16\x01m\x05\x15\
 interpolation-nearest\x14interpolation-linear\x13interpolation-cubic\x12interpol\
-ation-area\x16interpolation-lanczos4\x04\0\x12interpolation-type\x03\0\x18\x03\0\
-\x0dwasm:cv/types\x05\0\x02\x03\0\0\x12mix-max-loc-result\x02\x03\0\0\x04rect\x01\
-BG\x02\x03\x02\x01\x01\x04\0\x12mix-max-loc-result\x03\0\0\x02\x03\x02\x01\x02\x04\
-\0\x04rect\x03\0\x02\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05cv16s\x05cv32s\x05cv32\
-f\x05cv64f\x04\0\x07mattype\x03\0\x04\x04\0\x03mat\x03\x01\x01i\x06\x01@\0\0\x07\
-\x04\0\x13[static]mat.new-mat\x01\x08\x01@\x03\x04colsy\x04rowsy\x07mattype\x05\0\
-\x07\x04\0\x1d[static]mat.new-mat-with-size\x01\x09\x01h\x06\x01@\x01\x04self\x0a\
-\0\x07\x04\0\x11[method]mat.clone\x01\x0b\x01@\x01\x04self\x0a\x01\0\x04\0\x11[m\
-ethod]mat.close\x01\x0c\x01@\x01\x04self\x0a\0y\x04\0\x10[method]mat.cols\x01\x0d\
-\x04\0\x10[method]mat.rows\x01\x0d\x01@\x02\x04self\x0a\x04rect\x03\0\x07\x04\0\x12\
-[method]mat.region\x01\x0e\x01@\x02\x04self\x0a\x03dst\x07\x01\0\x04\0\x13[metho\
-d]mat.copy-to\x01\x0f\x01@\x01\x04self\x0a\0\x05\x04\0\x13[method]mat.mattype\x01\
-\x10\x01py\x01@\x01\x04self\x0a\0\x11\x04\0\x10[method]mat.size\x01\x12\x01@\x01\
-\x04self\x0a\0\x7f\x04\0\x11[method]mat.empty\x01\x13\x01@\x03\x04self\x0a\x03ro\
-wy\x03coly\0v\x04\0\x18[method]mat.get-float-at\x01\x14\x01@\x04\x04self\x0a\x03\
-rowy\x03coly\x03valv\x01\0\x04\0\x18[method]mat.set-float-at\x01\x15\x01@\x03\x04\
-self\x0a\x03rowy\x03coly\0}\x04\0\x18[method]mat.get-uchar-at\x01\x16\x01@\x04\x04\
-self\x0a\x03rowy\x03coly\x03val}\x01\0\x04\0\x18[method]mat.set-uchar-at\x01\x17\
-\x01@\x03\x04self\x0a\x03rowy\x03coly\0z\x04\0\x16[method]mat.get-int-at\x01\x18\
-\x01@\x04\x04self\x0a\x03rowy\x03coly\x03valz\x01\0\x04\0\x16[method]mat.set-int\
--at\x01\x19\x01@\x04\x04self\x0a\x01xy\x01yy\x01zy\0v\x04\0\x19[method]mat.get-f\
-loat-at3\x01\x1a\x01@\x05\x04self\x0a\x01xy\x01yy\x01zy\x03valv\x01\0\x04\0\x19[\
-method]mat.set-float-at3\x01\x1b\x01@\x04\x04self\x0a\x01xy\x01yy\x01zy\0}\x04\0\
-\x19[method]mat.get-uchar-at3\x01\x1c\x01@\x05\x04self\x0a\x01xy\x01yy\x01zy\x03\
-val}\x01\0\x04\0\x19[method]mat.set-uchar-at3\x01\x1d\x01@\x04\x04self\x0a\x01xy\
-\x01yy\x01zy\0z\x04\0\x17[method]mat.get-int-at3\x01\x1e\x01@\x05\x04self\x0a\x01\
-xy\x01yy\x01zy\x03valz\x01\0\x04\0\x17[method]mat.set-int-at3\x01\x1f\x01p}\x01@\
-\x03\x04self\x0a\x03rowy\x03coly\0\x20\x04\0\x17[method]mat.get-vecb-at\x01!\x01\
-pv\x01@\x03\x04self\x0a\x03rowy\x03coly\0\"\x04\0\x17[method]mat.get-vecf-at\x01\
-#\x01pz\x01@\x03\x04self\x0a\x03rowy\x03coly\0$\x04\0\x17[method]mat.get-veci-at\
-\x01%\x01@\x03\x04self\x0a\x08channelsy\x04rowsy\0\x07\x04\0\x13[method]mat.resh\
-ape\x01&\x01@\x03\x04self\x0a\x05starty\x03endy\0\x07\x04\0\x15[method]mat.row-r\
-ange\x01'\x04\0\x15[method]mat.col-range\x01'\x01@\x01\x04self\x0a\0\x01\x04\0\x17\
-[method]mat.min-max-loc\x01(\x03\0\x0bwasm:cv/mat\x05\x03\x02\x03\0\0\x0bborder-\
-type\x02\x03\0\0\x04size\x02\x03\0\0\x17adaptive-threshold-type\x02\x03\0\0\x0et\
-hreshold-type\x02\x03\0\0\x06scalar\x02\x03\0\0\x04rgba\x02\x03\0\0\x11hershey-f\
-ont-type\x02\x03\0\0\x12interpolation-type\x02\x03\0\x01\x03mat\x02\x03\0\x01\x07\
-mattype\x01B*\x02\x03\x02\x01\x04\x04\0\x0bborder-type\x03\0\0\x02\x03\x02\x01\x05\
-\x04\0\x04size\x03\0\x02\x02\x03\x02\x01\x06\x04\0\x17adaptive-threshold-type\x03\
-\0\x04\x02\x03\x02\x01\x07\x04\0\x0ethreshold-type\x03\0\x06\x02\x03\x02\x01\x08\
-\x04\0\x06scalar\x03\0\x08\x02\x03\x02\x01\x02\x04\0\x04rect\x03\0\x0a\x02\x03\x02\
-\x01\x09\x04\0\x04rgba\x03\0\x0c\x02\x03\x02\x01\x0a\x04\0\x11hershey-font-type\x03\
-\0\x0e\x02\x03\x02\x01\x0b\x04\0\x12interpolation-type\x03\0\x10\x02\x03\x02\x01\
-\x0c\x04\0\x03mat\x03\0\x12\x02\x03\x02\x01\x0d\x04\0\x07mattype\x03\0\x14\x01i\x13\
-\x01@\x04\x03img\x16\x01r\x0b\x01c\x0d\x09thickness}\x01\0\x04\0\x09rectangle\x01\
-\x17\x01@\x07\x03img\x16\x04texts\x03org\x03\x09font-face\x0f\x0afont-scaleu\x01\
-c\x0d\x09thicknessz\x01\0\x04\0\x08put-text\x01\x18\x01@\x06\x03src\x16\x09max-v\
-aluev\x0dadaptive-type\x05\x0ethreshold-type\x07\x0ablock-sizey\x01cv\0\x16\x04\0\
-\x12adaptive-threshold\x01\x19\x01@\x02\x03src\x16\x06k-size\x03\0\x16\x04\0\x04\
-blur\x01\x1a\x01@\x03\x03src\x16\x05depthy\x06k-size\x03\0\x16\x04\0\x0abox-filt\
-er\x01\x1b\x01@\x05\x03src\x16\x04size\x03\x07sigma-xv\x07sigma-yv\x06border\x01\
-\0\x16\x04\0\x0dgaussian-blur\x01\x1c\x01@\x04\x03src\x16\x06threshv\x09max-valu\
-ev\x0ethreshold-type\x07\0\x16\x04\0\x09threshold\x01\x1d\x01pz\x01@\x02\x03src\x16\
-\x05order\x1e\0\x16\x04\0\x0ctranspose-nd\x01\x1f\x01@\x05\x03src\x16\x04size\x03\
-\x02fxv\x02fyv\x06interp\x11\0\x16\x04\0\x06resize\x01\x20\x03\0\x0awasm:cv/cv\x05\
-\x0e\x02\x03\0\0\x0bblob-params\x01B>\x02\x03\x02\x01\x0c\x04\0\x03mat\x03\0\0\x02\
-\x03\x02\x01\x05\x04\0\x04size\x03\0\x02\x02\x03\x02\x01\x08\x04\0\x06scalar\x03\
-\0\x04\x02\x03\x02\x01\x02\x04\0\x04rect\x03\0\x06\x02\x03\x02\x01\x09\x04\0\x04\
-rgba\x03\0\x08\x02\x03\x02\x01\x0f\x04\0\x0bblob-params\x03\0\x0a\x01m\x06\x13ne\
+ation-area\x16interpolation-lanczos4\x04\0\x12interpolation-type\x03\0\x18\x01m\x14\
+\x11color-BGR-to-BGRA\x11color-RGB-to-RGBA\x11color-BGRA-to-BGR\x11color-RGBA-to\
+-RGB\x11color-BGR-to-RGBA\x11color-RGB-to-BGRA\x11color-RGBA-to-BGR\x11color-BGR\
+A-to-RGB\x10color-BGR-to-RGB\x10color-RGB-to-BGR\x12color-BGRA-to-RGBA\x12color-\
+RGBA-to-BGRA\x11color-BGR-to-gray\x11color-RGB-to-gray\x11color-gray-to-BGR\x11c\
+olor-gray-to-RGB\x12color-gray-to-BGRA\x12color-gray-to-RGBA\x12color-BGRA-to-gr\
+ay\x12color-RGBA-to-gray\x04\0\x14color-coversion-type\x03\0\x1a\x03\0\x0dwasm:c\
+v/types\x05\0\x02\x03\0\0\x12mix-max-loc-result\x02\x03\0\0\x04rect\x01BG\x02\x03\
+\x02\x01\x01\x04\0\x12mix-max-loc-result\x03\0\0\x02\x03\x02\x01\x02\x04\0\x04re\
+ct\x03\0\x02\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05cv16s\x05cv32s\x05cv32f\x05cv6\
+4f\x04\0\x07mattype\x03\0\x04\x04\0\x03mat\x03\x01\x01i\x06\x01@\0\0\x07\x04\0\x10\
+[constructor]mat\x01\x08\x01@\x03\x04colsy\x04rowsy\x07mattype\x05\0\x07\x04\0\x19\
+[static]mat.new-with-size\x01\x09\x01h\x06\x01@\x01\x04self\x0a\0\x07\x04\0\x11[\
+method]mat.clone\x01\x0b\x01@\x01\x04self\x0a\x01\0\x04\0\x11[method]mat.close\x01\
+\x0c\x01@\x01\x04self\x0a\0y\x04\0\x10[method]mat.cols\x01\x0d\x04\0\x10[method]\
+mat.rows\x01\x0d\x01@\x02\x04self\x0a\x04rect\x03\0\x07\x04\0\x12[method]mat.reg\
+ion\x01\x0e\x01@\x02\x04self\x0a\x03dst\x07\x01\0\x04\0\x13[method]mat.copy-to\x01\
+\x0f\x01@\x01\x04self\x0a\0\x05\x04\0\x13[method]mat.mattype\x01\x10\x01py\x01@\x01\
+\x04self\x0a\0\x11\x04\0\x10[method]mat.size\x01\x12\x01@\x01\x04self\x0a\0\x7f\x04\
+\0\x11[method]mat.empty\x01\x13\x01@\x03\x04self\x0a\x03rowy\x03coly\0v\x04\0\x18\
+[method]mat.get-float-at\x01\x14\x01@\x04\x04self\x0a\x03rowy\x03coly\x03valv\x01\
+\0\x04\0\x18[method]mat.set-float-at\x01\x15\x01@\x03\x04self\x0a\x03rowy\x03col\
+y\0}\x04\0\x18[method]mat.get-uchar-at\x01\x16\x01@\x04\x04self\x0a\x03rowy\x03c\
+oly\x03val}\x01\0\x04\0\x18[method]mat.set-uchar-at\x01\x17\x01@\x03\x04self\x0a\
+\x03rowy\x03coly\0z\x04\0\x16[method]mat.get-int-at\x01\x18\x01@\x04\x04self\x0a\
+\x03rowy\x03coly\x03valz\x01\0\x04\0\x16[method]mat.set-int-at\x01\x19\x01@\x04\x04\
+self\x0a\x01xy\x01yy\x01zy\0v\x04\0\x19[method]mat.get-float-at3\x01\x1a\x01@\x05\
+\x04self\x0a\x01xy\x01yy\x01zy\x03valv\x01\0\x04\0\x19[method]mat.set-float-at3\x01\
+\x1b\x01@\x04\x04self\x0a\x01xy\x01yy\x01zy\0}\x04\0\x19[method]mat.get-uchar-at\
+3\x01\x1c\x01@\x05\x04self\x0a\x01xy\x01yy\x01zy\x03val}\x01\0\x04\0\x19[method]\
+mat.set-uchar-at3\x01\x1d\x01@\x04\x04self\x0a\x01xy\x01yy\x01zy\0z\x04\0\x17[me\
+thod]mat.get-int-at3\x01\x1e\x01@\x05\x04self\x0a\x01xy\x01yy\x01zy\x03valz\x01\0\
+\x04\0\x17[method]mat.set-int-at3\x01\x1f\x01p}\x01@\x03\x04self\x0a\x03rowy\x03\
+coly\0\x20\x04\0\x17[method]mat.get-vecb-at\x01!\x01pv\x01@\x03\x04self\x0a\x03r\
+owy\x03coly\0\"\x04\0\x17[method]mat.get-vecf-at\x01#\x01pz\x01@\x03\x04self\x0a\
+\x03rowy\x03coly\0$\x04\0\x17[method]mat.get-veci-at\x01%\x01@\x03\x04self\x0a\x08\
+channelsy\x04rowsy\0\x07\x04\0\x13[method]mat.reshape\x01&\x01@\x03\x04self\x0a\x05\
+starty\x03endy\0\x07\x04\0\x15[method]mat.row-range\x01'\x04\0\x15[method]mat.co\
+l-range\x01'\x01@\x01\x04self\x0a\0\x01\x04\0\x17[method]mat.min-max-loc\x01(\x03\
+\0\x0bwasm:cv/mat\x05\x03\x02\x03\0\0\x0bborder-type\x02\x03\0\0\x04size\x02\x03\
+\0\0\x17adaptive-threshold-type\x02\x03\0\0\x0ethreshold-type\x02\x03\0\0\x06sca\
+lar\x02\x03\0\0\x04RGBA\x02\x03\0\0\x11hershey-font-type\x02\x03\0\0\x12interpol\
+ation-type\x02\x03\0\0\x14color-coversion-type\x02\x03\0\x01\x03mat\x02\x03\0\x01\
+\x07mattype\x01B4\x02\x03\x02\x01\x04\x04\0\x0bborder-type\x03\0\0\x02\x03\x02\x01\
+\x05\x04\0\x04size\x03\0\x02\x02\x03\x02\x01\x06\x04\0\x17adaptive-threshold-typ\
+e\x03\0\x04\x02\x03\x02\x01\x07\x04\0\x0ethreshold-type\x03\0\x06\x02\x03\x02\x01\
+\x08\x04\0\x06scalar\x03\0\x08\x02\x03\x02\x01\x02\x04\0\x04rect\x03\0\x0a\x02\x03\
+\x02\x01\x09\x04\0\x04RGBA\x03\0\x0c\x02\x03\x02\x01\x0a\x04\0\x11hershey-font-t\
+ype\x03\0\x0e\x02\x03\x02\x01\x0b\x04\0\x12interpolation-type\x03\0\x10\x02\x03\x02\
+\x01\x0c\x04\0\x14color-coversion-type\x03\0\x12\x02\x03\x02\x01\x0d\x04\0\x03ma\
+t\x03\0\x14\x02\x03\x02\x01\x0e\x04\0\x07mattype\x03\0\x16\x01i\x15\x01@\x05\x03\
+img\x18\x06point1\x03\x06point2\x03\x01c\x0d\x09thickness}\x01\0\x04\0\x0carrowe\
+d-line\x01\x19\x01@\x04\x03img\x18\x01r\x0b\x01c\x0d\x09thickness}\x01\0\x04\0\x09\
+rectangle\x01\x1a\x01@\x05\x03img\x18\x06center\x03\x06radiusy\x01c\x0d\x09thick\
+ness}\x01\0\x04\0\x06circle\x01\x1b\x04\0\x04line\x01\x19\x01@\x07\x03img\x18\x04\
+texts\x03org\x03\x09font-face\x0f\x0afont-scaleu\x01c\x0d\x09thicknessz\x01\0\x04\
+\0\x08put-text\x01\x1c\x01@\x06\x03src\x18\x09max-valuev\x0dadaptive-type\x05\x0e\
+threshold-type\x07\x0ablock-sizey\x01cv\0\x18\x04\0\x12adaptive-threshold\x01\x1d\
+\x01@\x02\x03src\x18\x06k-size\x03\0\x18\x04\0\x04blur\x01\x1e\x01@\x03\x03src\x18\
+\x05depthy\x06k-size\x03\0\x18\x04\0\x0abox-filter\x01\x1f\x01@\x05\x03src\x18\x04\
+size\x03\x07sigma-xv\x07sigma-yv\x06border\x01\0\x18\x04\0\x0dgaussian-blur\x01\x20\
+\x04\0\x0bmedian-blur\x01\x1e\x01@\x04\x03src\x18\x06threshv\x09max-valuev\x0eth\
+reshold-type\x07\0\x18\x04\0\x09threshold\x01!\x01@\x02\x03src\x18\x04code\x13\0\
+\x18\x04\0\x09cvt-color\x01\"\x01pz\x01@\x02\x03src\x18\x05order#\0\x18\x04\0\x0c\
+transpose-ND\x01$\x01@\x05\x03src\x18\x04size\x03\x02fxv\x02fyv\x06interp\x11\0\x18\
+\x04\0\x06resize\x01%\x03\0\x0awasm:cv/cv\x05\x0f\x02\x03\0\0\x0bblob-params\x01\
+B?\x02\x03\x02\x01\x0d\x04\0\x03mat\x03\0\0\x02\x03\x02\x01\x05\x04\0\x04size\x03\
+\0\x02\x02\x03\x02\x01\x08\x04\0\x06scalar\x03\0\x04\x02\x03\x02\x01\x02\x04\0\x04\
+rect\x03\0\x06\x02\x03\x02\x01\x10\x04\0\x0bblob-params\x03\0\x08\x01m\x06\x13ne\
 t-backend-default\x12net-backend-halide\x14net-backend-openvino\x12net-backend-o\
-pencv\x11net-backend-vkcom\x10net-backend-cuda\x04\0\x10net-backend-type\x03\0\x0c\
+pencv\x11net-backend-vkcom\x10net-backend-cuda\x04\0\x10net-backend-type\x03\0\x0a\
 \x01m\x08\x0enet-target-cpu\x0fnet-target-fp32\x0fnet-target-fp16\x0enet-target-\
 vpu\x11net-target-vulkan\x0fnet-target-fpga\x0fnet-target-cuda\x14net-target-cud\
-a-fp16\x04\0\x0fnet-target-type\x03\0\x0e\x01m\x06\x13data-layout-unknown\x0edat\
+a-fp16\x04\0\x0fnet-target-type\x03\0\x0c\x01m\x06\x13data-layout-unknown\x0edat\
 a-layout-nd\x10data-layout-nchw\x10data-layout-nhwc\x11data-layout-ndhwc\x12data\
--layout-planar\x04\0\x10data-layout-type\x03\0\x10\x01m\x03\x11padding-mode-null\
+-layout-planar\x04\0\x10data-layout-type\x03\0\x0e\x01m\x03\x11padding-mode-null\
 \x18padding-mode-crop-center\x16padding-mode-letterbox\x04\0\x11padding-mode-typ\
-e\x03\0\x12\x04\0\x05layer\x03\x01\x04\0\x03net\x03\x01\x01i\x14\x01@\0\0\x16\x04\
-\0\x12[constructor]layer\x01\x17\x01h\x14\x01@\x01\x04self\x18\0s\x04\0\x16[meth\
-od]layer.get-name\x01\x19\x01i\x15\x01@\x02\x05models\x06configs\0\x1a\x04\0\x14\
-[static]net.read-net\x01\x1b\x01@\x01\x05models\0\x1a\x04\0\x1e[static]net.read-\
-net-from-onnx\x01\x1c\x01h\x15\x01@\x01\x04self\x1d\x01\0\x04\0\x11[method]net.c\
-lose\x01\x1e\x01@\x01\x04self\x1d\0\x7f\x04\0\x11[method]net.empty\x01\x1f\x01i\x01\
-\x01@\x03\x04self\x1d\x05input\x20\x04names\x01\0\x04\0\x15[method]net.set-input\
-\x01!\x01@\x02\x04self\x1d\x0boutput-names\0\x20\x04\0\x13[method]net.forward\x01\
-\"\x01py\x01@\x01\x04self\x1d\0#\x04\0&[method]net.get-unconnected-out-layers\x01\
-$\x01ps\x01@\x01\x04self\x1d\0%\x04\0\x1b[method]net.get-layer-names\x01&\x01@\x02\
-\x04self\x1d\x02idy\0\x16\x04\0\x15[method]net.get-layer\x01'\x01@\x06\x05image\x20\
-\x0cscale-factorv\x04size\x03\x04mean\x05\x07swap-rb\x7f\x04crop\x7f\0\x20\x04\0\
-\x0fblob-from-image\x01(\x01@\x02\x05image\x20\x06params\x0b\0\x20\x04\0\x1bblob\
--from-image-with-params\x01)\x01p\x07\x01@\x03\x06params\x0b\x0ablob-rects*\x0ai\
-mage-size\x03\0*\x04\0\x19blob-rects-to-image-rects\x01+\x01pv\x01pz\x01@\x04\x06\
-bboxes*\x06scores,\x0fscore-thresholdv\x0dnms-thresholdv\0-\x04\0\x09nms-boxes\x01\
-.\x03\0\x0bwasm:cv/dnn\x05\x10\x01B\x05\x02\x03\x02\x01\x0c\x04\0\x03mat\x03\0\0\
-\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\0\x07process\x01\x03\x04\0\x0fwasm:cv/\
-request\x05\x11\x04\0\x0fwasm:cv/imports\x04\0\x0b\x0d\x01\0\x07imports\x03\0\0\0\
-G\x09producers\x01\x0cprocessed-by\x02\x0dwit-component\x070.217.0\x10wit-bindge\
-n-rust\x060.32.0";
+e\x03\0\x10\x04\0\x05layer\x03\x01\x04\0\x03net\x03\x01\x01i\x12\x01@\0\0\x14\x04\
+\0\x12[constructor]layer\x01\x15\x01h\x12\x01@\x01\x04self\x16\0s\x04\0\x16[meth\
+od]layer.get-name\x01\x17\x01i\x13\x01@\x02\x05models\x06configs\0\x18\x04\0\x10\
+[static]net.read\x01\x19\x01@\x01\x05models\0\x18\x04\0\x1a[static]net.read-from\
+-ONNX\x01\x1a\x01h\x13\x01@\x01\x04self\x1b\x01\0\x04\0\x11[method]net.close\x01\
+\x1c\x01@\x01\x04self\x1b\0\x7f\x04\0\x11[method]net.empty\x01\x1d\x01i\x01\x01@\
+\x03\x04self\x1b\x05input\x1e\x04names\x01\0\x04\0\x15[method]net.set-input\x01\x1f\
+\x01@\x02\x04self\x1b\x0boutput-names\0\x1e\x04\0\x13[method]net.forward\x01\x20\
+\x01ps\x01p\x1e\x01@\x02\x04self\x1b\x0coutput-names!\0\"\x04\0\x1a[method]net.f\
+orward-layers\x01#\x01py\x01@\x01\x04self\x1b\0$\x04\0&[method]net.get-unconnect\
+ed-out-layers\x01%\x01@\x01\x04self\x1b\0!\x04\0\x1b[method]net.get-layer-names\x01\
+&\x01@\x02\x04self\x1b\x02idy\0\x14\x04\0\x15[method]net.get-layer\x01'\x01@\x06\
+\x05image\x1e\x0cscale-factorv\x04size\x03\x04mean\x05\x07swap-rb\x7f\x04crop\x7f\
+\0\x1e\x04\0\x0fblob-from-image\x01(\x01@\x02\x05image\x1e\x06params\x09\0\x1e\x04\
+\0\x1bblob-from-image-with-params\x01)\x01p\x07\x01@\x03\x06params\x09\x0ablob-r\
+ects*\x0aimage-size\x03\0*\x04\0\x19blob-rects-to-image-rects\x01+\x01pv\x01pz\x01\
+@\x04\x06bboxes*\x06scores,\x0fscore-thresholdv\x0dnms-thresholdv\0-\x04\0\x09NM\
+S-boxes\x01.\x03\0\x0bwasm:cv/dnn\x05\x11\x01BL\x02\x03\x02\x01\x0d\x04\0\x03mat\
+\x03\0\0\x02\x03\x02\x01\x05\x04\0\x04size\x03\0\x02\x02\x03\x02\x01\x02\x04\0\x04\
+rect\x03\0\x04\x04\0\x12cascade-classifier\x03\x01\x04\0\x0eHOG-descriptor\x03\x01\
+\x04\0\x10face-detector-YN\x03\x01\x01m\x02\x19face-distance-type-cosine\x15face\
+-distance-norm-l2\x04\0\x12face-distance-type\x03\0\x09\x04\0\x12face-recognizer\
+-SF\x03\x01\x01i\x06\x01@\0\0\x0c\x04\0\x1f[constructor]cascade-classifier\x01\x0d\
+\x01h\x06\x01@\x01\x04self\x0e\x01\0\x04\0\x20[method]cascade-classifier.close\x01\
+\x0f\x01@\x02\x04self\x0e\x04files\0\x7f\x04\0\x1f[method]cascade-classifier.loa\
+d\x01\x10\x01i\x01\x01p\x05\x01@\x02\x04self\x0e\x05image\x11\0\x12\x04\0-[metho\
+d]cascade-classifier.detect-multi-scale\x01\x13\x01@\x07\x04self\x0e\x05image\x11\
+\x05scaleu\x0dmin-neighborsy\x05flagsy\x08min-size\x03\x08max-size\x03\0\x12\x04\
+\09[method]cascade-classifier.detect-multi-scale-with-params\x01\x14\x01i\x07\x01\
+@\0\0\x15\x04\0\x1b[constructor]HOG-descriptor\x01\x16\x01h\x07\x01@\x01\x04self\
+\x17\x01\0\x04\0\x1c[method]HOG-descriptor.close\x01\x18\x01@\x02\x04self\x17\x05\
+image\x11\0\x12\x04\0)[method]HOG-descriptor.detect-multi-scale\x01\x19\x01@\x08\
+\x04self\x17\x05image\x11\x0dhit-thresholdu\x0awin-stride\x03\x07padding\x03\x05\
+scaleu\x0ffinal-thresholdu\x16use-meanshift-grouping\x7f\0\x12\x04\05[method]HOG\
+-descriptor.detect-multi-scale-with-params\x01\x1a\x01i\x08\x01@\x03\x05models\x06\
+configs\x0ainput-size\x03\0\x1b\x04\0\x1d[constructor]face-detector-YN\x01\x1c\x01\
+@\x08\x05models\x06configs\x0ainput-size\x03\x0fscore-thresholdv\x0dnms-threshol\
+dv\x05top-ky\x0abackend-idy\x09target-idy\0\x1b\x04\0([static]face-detector-YN.n\
+ew-with-params\x01\x1d\x01h\x08\x01@\x01\x04self\x1e\x01\0\x04\0\x1e[method]face\
+-detector-YN.close\x01\x1f\x01@\x02\x04self\x1e\x05inputs\0\x11\x04\0\x1f[method\
+]face-detector-YN.detect\x01\x20\x01@\x01\x04self\x1e\0\x03\x04\0'[method]face-d\
+etector-YN.get-input-size\x01!\x01@\x01\x04self\x1e\0v\x04\0*[method]face-detect\
+or-YN.get-nms-threshold\x01\"\x04\0,[method]face-detector-YN.get-score-threshold\
+\x01\"\x01@\x01\x04self\x1e\0y\x04\0![method]face-detector-YN.get-topk\x01#\x01@\
+\x02\x04self\x1e\x04size\x03\x01\0\x04\0'[method]face-detector-YN.set-input-size\
+\x01$\x01@\x02\x04self\x1e\x09thresholdv\x01\0\x04\0*[method]face-detector-YN.se\
+t-nms-threshold\x01%\x04\0,[method]face-detector-YN.set-score-threshold\x01%\x01\
+@\x02\x04self\x1e\x04topky\x01\0\x04\0![method]face-detector-YN.set-topk\x01&\x01\
+i\x0b\x01@\x02\x05models\x06configs\0'\x04\0\x1f[constructor]face-recognizer-SF\x01\
+(\x01@\x04\x05models\x06configs\x0abackend-idy\x09target-idy\0'\x04\0*[static]fa\
+ce-recognizer-SF.new-with-params\x01)\x01h\x0b\x01@\x01\x04self*\x01\0\x04\0\x20\
+[method]face-recognizer-SF.close\x01+\x01@\x03\x04self*\x03src\x11\x08face-box\x11\
+\0\x11\x04\0%[method]face-recognizer-SF.align-crop\x01,\x01@\x02\x04self*\x07ali\
+gned\x11\0\x11\x04\0\"[method]face-recognizer-SF.feature\x01-\x01@\x03\x04self*\x05\
+face1\x11\x05face2\x11\0v\x04\0\x20[method]face-recognizer-SF.match\x01.\x01@\x04\
+\x04self*\x05face1\x11\x05face2\x11\x08distance\x0a\0v\x04\0,[method]face-recogn\
+izer-SF.match-with-params\x01/\x03\0\x11wasm:cv/objdetect\x05\x12\x01B\x05\x02\x03\
+\x02\x01\x0d\x04\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\0\x07\
+process\x01\x03\x04\0\x0fwasm:cv/request\x05\x13\x04\0\x0fwasm:cv/imports\x04\0\x0b\
+\x0d\x01\0\x07imports\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-com\
+ponent\x070.217.0\x10wit-bindgen-rust\x060.32.0";
 
 #[inline(never)]
 #[doc(hidden)]

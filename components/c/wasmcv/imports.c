@@ -5,11 +5,11 @@
 
 // Imported Functions from `wasm:cv/mat`
 
-__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[static]mat.new-mat")))
-extern int32_t __wasm_import_wasm_cv_mat_static_mat_new_mat(void);
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[constructor]mat")))
+extern int32_t __wasm_import_wasm_cv_mat_constructor_mat(void);
 
-__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[static]mat.new-mat-with-size")))
-extern int32_t __wasm_import_wasm_cv_mat_static_mat_new_mat_with_size(int32_t, int32_t, int32_t);
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[static]mat.new-with-size")))
+extern int32_t __wasm_import_wasm_cv_mat_static_mat_new_with_size(int32_t, int32_t, int32_t);
 
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.clone")))
 extern int32_t __wasm_import_wasm_cv_mat_method_mat_clone(int32_t);
@@ -97,8 +97,17 @@ extern void __wasm_import_wasm_cv_mat_method_mat_min_max_loc(int32_t, uint8_t *)
 
 // Imported Functions from `wasm:cv/cv`
 
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("arrowed-line")))
+extern void __wasm_import_wasm_cv_cv_arrowed_line(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
+
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("rectangle")))
 extern void __wasm_import_wasm_cv_cv_rectangle(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("circle")))
+extern void __wasm_import_wasm_cv_cv_circle(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("line")))
+extern void __wasm_import_wasm_cv_cv_line(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
 
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("put-text")))
 extern void __wasm_import_wasm_cv_cv_put_text(int32_t, uint8_t *, size_t, int32_t, int32_t, int32_t, double, int32_t, int32_t, int32_t, int32_t, int32_t);
@@ -115,10 +124,16 @@ extern int32_t __wasm_import_wasm_cv_cv_box_filter(int32_t, int32_t, int32_t, in
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("gaussian-blur")))
 extern int32_t __wasm_import_wasm_cv_cv_gaussian_blur(int32_t, int32_t, int32_t, float, float, int32_t);
 
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("median-blur")))
+extern int32_t __wasm_import_wasm_cv_cv_median_blur(int32_t, int32_t, int32_t);
+
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("threshold")))
 extern int32_t __wasm_import_wasm_cv_cv_threshold(int32_t, float, float, int32_t);
 
-__attribute__((__import_module__("wasm:cv/cv"), __import_name__("transpose-nd")))
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("cvt-color")))
+extern int32_t __wasm_import_wasm_cv_cv_cvt_color(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("transpose-ND")))
 extern int32_t __wasm_import_wasm_cv_cv_transpose_nd(int32_t, uint8_t *, size_t);
 
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("resize")))
@@ -132,11 +147,11 @@ extern int32_t __wasm_import_wasm_cv_dnn_constructor_layer(void);
 __attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[method]layer.get-name")))
 extern void __wasm_import_wasm_cv_dnn_method_layer_get_name(int32_t, uint8_t *);
 
-__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[static]net.read-net")))
-extern int32_t __wasm_import_wasm_cv_dnn_static_net_read_net(uint8_t *, size_t, uint8_t *, size_t);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[static]net.read")))
+extern int32_t __wasm_import_wasm_cv_dnn_static_net_read(uint8_t *, size_t, uint8_t *, size_t);
 
-__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[static]net.read-net-from-onnx")))
-extern int32_t __wasm_import_wasm_cv_dnn_static_net_read_net_from_onnx(uint8_t *, size_t);
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[static]net.read-from-ONNX")))
+extern int32_t __wasm_import_wasm_cv_dnn_static_net_read_from_onnx(uint8_t *, size_t);
 
 __attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[method]net.close")))
 extern void __wasm_import_wasm_cv_dnn_method_net_close(int32_t);
@@ -149,6 +164,9 @@ extern void __wasm_import_wasm_cv_dnn_method_net_set_input(int32_t, int32_t, uin
 
 __attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[method]net.forward")))
 extern int32_t __wasm_import_wasm_cv_dnn_method_net_forward(int32_t, uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[method]net.forward-layers")))
+extern void __wasm_import_wasm_cv_dnn_method_net_forward_layers(int32_t, uint8_t *, size_t, uint8_t *);
 
 __attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[method]net.get-unconnected-out-layers")))
 extern void __wasm_import_wasm_cv_dnn_method_net_get_unconnected_out_layers(int32_t, uint8_t *);
@@ -168,8 +186,94 @@ extern int32_t __wasm_import_wasm_cv_dnn_blob_from_image_with_params(int32_t, fl
 __attribute__((__import_module__("wasm:cv/dnn"), __import_name__("blob-rects-to-image-rects")))
 extern void __wasm_import_wasm_cv_dnn_blob_rects_to_image_rects(uint8_t *, uint8_t *);
 
-__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("nms-boxes")))
+__attribute__((__import_module__("wasm:cv/dnn"), __import_name__("NMS-boxes")))
 extern void __wasm_import_wasm_cv_dnn_nms_boxes(uint8_t *, size_t, uint8_t *, size_t, float, float, uint8_t *);
+
+// Imported Functions from `wasm:cv/objdetect`
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[constructor]cascade-classifier")))
+extern int32_t __wasm_import_wasm_cv_objdetect_constructor_cascade_classifier(void);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]cascade-classifier.close")))
+extern void __wasm_import_wasm_cv_objdetect_method_cascade_classifier_close(int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]cascade-classifier.load")))
+extern int32_t __wasm_import_wasm_cv_objdetect_method_cascade_classifier_load(int32_t, uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]cascade-classifier.detect-multi-scale")))
+extern void __wasm_import_wasm_cv_objdetect_method_cascade_classifier_detect_multi_scale(int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]cascade-classifier.detect-multi-scale-with-params")))
+extern void __wasm_import_wasm_cv_objdetect_method_cascade_classifier_detect_multi_scale_with_params(int32_t, int32_t, double, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[constructor]HOG-descriptor")))
+extern int32_t __wasm_import_wasm_cv_objdetect_constructor_hog_descriptor(void);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]HOG-descriptor.close")))
+extern void __wasm_import_wasm_cv_objdetect_method_hog_descriptor_close(int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]HOG-descriptor.detect-multi-scale")))
+extern void __wasm_import_wasm_cv_objdetect_method_hog_descriptor_detect_multi_scale(int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]HOG-descriptor.detect-multi-scale-with-params")))
+extern void __wasm_import_wasm_cv_objdetect_method_hog_descriptor_detect_multi_scale_with_params(int32_t, int32_t, double, int32_t, int32_t, int32_t, int32_t, double, double, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[constructor]face-detector-YN")))
+extern int32_t __wasm_import_wasm_cv_objdetect_constructor_face_detector_yn(uint8_t *, size_t, uint8_t *, size_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[static]face-detector-YN.new-with-params")))
+extern int32_t __wasm_import_wasm_cv_objdetect_static_face_detector_yn_new_with_params(uint8_t *, size_t, uint8_t *, size_t, int32_t, int32_t, float, float, int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-detector-YN.close")))
+extern void __wasm_import_wasm_cv_objdetect_method_face_detector_yn_close(int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-detector-YN.detect")))
+extern int32_t __wasm_import_wasm_cv_objdetect_method_face_detector_yn_detect(int32_t, uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-detector-YN.get-input-size")))
+extern void __wasm_import_wasm_cv_objdetect_method_face_detector_yn_get_input_size(int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-detector-YN.get-nms-threshold")))
+extern float __wasm_import_wasm_cv_objdetect_method_face_detector_yn_get_nms_threshold(int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-detector-YN.get-score-threshold")))
+extern float __wasm_import_wasm_cv_objdetect_method_face_detector_yn_get_score_threshold(int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-detector-YN.get-topk")))
+extern int32_t __wasm_import_wasm_cv_objdetect_method_face_detector_yn_get_topk(int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-detector-YN.set-input-size")))
+extern void __wasm_import_wasm_cv_objdetect_method_face_detector_yn_set_input_size(int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-detector-YN.set-nms-threshold")))
+extern void __wasm_import_wasm_cv_objdetect_method_face_detector_yn_set_nms_threshold(int32_t, float);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-detector-YN.set-score-threshold")))
+extern void __wasm_import_wasm_cv_objdetect_method_face_detector_yn_set_score_threshold(int32_t, float);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-detector-YN.set-topk")))
+extern void __wasm_import_wasm_cv_objdetect_method_face_detector_yn_set_topk(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[constructor]face-recognizer-SF")))
+extern int32_t __wasm_import_wasm_cv_objdetect_constructor_face_recognizer_sf(uint8_t *, size_t, uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[static]face-recognizer-SF.new-with-params")))
+extern int32_t __wasm_import_wasm_cv_objdetect_static_face_recognizer_sf_new_with_params(uint8_t *, size_t, uint8_t *, size_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-recognizer-SF.close")))
+extern void __wasm_import_wasm_cv_objdetect_method_face_recognizer_sf_close(int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-recognizer-SF.align-crop")))
+extern int32_t __wasm_import_wasm_cv_objdetect_method_face_recognizer_sf_align_crop(int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-recognizer-SF.feature")))
+extern int32_t __wasm_import_wasm_cv_objdetect_method_face_recognizer_sf_feature(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-recognizer-SF.match")))
+extern float __wasm_import_wasm_cv_objdetect_method_face_recognizer_sf_match(int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-recognizer-SF.match-with-params")))
+extern float __wasm_import_wasm_cv_objdetect_method_face_recognizer_sf_match_with_params(int32_t, int32_t, int32_t, int32_t);
 
 // Exported Functions from `wasm:cv/request`
 
@@ -271,10 +375,74 @@ void imports_list_string_free(imports_list_string_t *ptr) {
   }
 }
 
+void wasm_cv_dnn_list_own_mat_free(wasm_cv_dnn_list_own_mat_t *ptr) {
+  size_t list_len = ptr->len;
+  if (list_len > 0) {
+    wasm_cv_dnn_own_mat_t *list_ptr = ptr->ptr;
+    for (size_t i = 0; i < list_len; i++) {
+    }
+    free(list_ptr);
+  }
+}
+
 void wasm_cv_dnn_list_rect_free(wasm_cv_dnn_list_rect_t *ptr) {
   size_t list_len = ptr->len;
   if (list_len > 0) {
     wasm_cv_dnn_rect_t *list_ptr = ptr->ptr;
+    for (size_t i = 0; i < list_len; i++) {
+    }
+    free(list_ptr);
+  }
+}
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[resource-drop]cascade-classifier")))
+extern void __wasm_import_wasm_cv_objdetect_cascade_classifier_drop(int32_t handle);
+
+void wasm_cv_objdetect_cascade_classifier_drop_own(wasm_cv_objdetect_own_cascade_classifier_t handle) {
+  __wasm_import_wasm_cv_objdetect_cascade_classifier_drop(handle.__handle);
+}
+
+wasm_cv_objdetect_borrow_cascade_classifier_t wasm_cv_objdetect_borrow_cascade_classifier(wasm_cv_objdetect_own_cascade_classifier_t arg) {
+  return (wasm_cv_objdetect_borrow_cascade_classifier_t) { arg.__handle };
+}
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[resource-drop]HOG-descriptor")))
+extern void __wasm_import_wasm_cv_objdetect_hog_descriptor_drop(int32_t handle);
+
+void wasm_cv_objdetect_hog_descriptor_drop_own(wasm_cv_objdetect_own_hog_descriptor_t handle) {
+  __wasm_import_wasm_cv_objdetect_hog_descriptor_drop(handle.__handle);
+}
+
+wasm_cv_objdetect_borrow_hog_descriptor_t wasm_cv_objdetect_borrow_hog_descriptor(wasm_cv_objdetect_own_hog_descriptor_t arg) {
+  return (wasm_cv_objdetect_borrow_hog_descriptor_t) { arg.__handle };
+}
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[resource-drop]face-detector-YN")))
+extern void __wasm_import_wasm_cv_objdetect_face_detector_yn_drop(int32_t handle);
+
+void wasm_cv_objdetect_face_detector_yn_drop_own(wasm_cv_objdetect_own_face_detector_yn_t handle) {
+  __wasm_import_wasm_cv_objdetect_face_detector_yn_drop(handle.__handle);
+}
+
+wasm_cv_objdetect_borrow_face_detector_yn_t wasm_cv_objdetect_borrow_face_detector_yn(wasm_cv_objdetect_own_face_detector_yn_t arg) {
+  return (wasm_cv_objdetect_borrow_face_detector_yn_t) { arg.__handle };
+}
+
+__attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[resource-drop]face-recognizer-SF")))
+extern void __wasm_import_wasm_cv_objdetect_face_recognizer_sf_drop(int32_t handle);
+
+void wasm_cv_objdetect_face_recognizer_sf_drop_own(wasm_cv_objdetect_own_face_recognizer_sf_t handle) {
+  __wasm_import_wasm_cv_objdetect_face_recognizer_sf_drop(handle.__handle);
+}
+
+wasm_cv_objdetect_borrow_face_recognizer_sf_t wasm_cv_objdetect_borrow_face_recognizer_sf(wasm_cv_objdetect_own_face_recognizer_sf_t arg) {
+  return (wasm_cv_objdetect_borrow_face_recognizer_sf_t) { arg.__handle };
+}
+
+void wasm_cv_objdetect_list_rect_free(wasm_cv_objdetect_list_rect_t *ptr) {
+  size_t list_len = ptr->len;
+  if (list_len > 0) {
+    wasm_cv_objdetect_rect_t *list_ptr = ptr->ptr;
     for (size_t i = 0; i < list_len; i++) {
     }
     free(list_ptr);
@@ -302,13 +470,13 @@ void imports_string_free(imports_string_t *ret) {
 
 // Component Adapters
 
-wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_new_mat(void) {
-  int32_t ret = __wasm_import_wasm_cv_mat_static_mat_new_mat();
+wasm_cv_mat_own_mat_t wasm_cv_mat_constructor_mat(void) {
+  int32_t ret = __wasm_import_wasm_cv_mat_constructor_mat();
   return (wasm_cv_mat_own_mat_t) { ret };
 }
 
-wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_new_mat_with_size(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t mattype) {
-  int32_t ret = __wasm_import_wasm_cv_mat_static_mat_new_mat_with_size((int32_t) (cols), (int32_t) (rows), (int32_t) mattype);
+wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_new_with_size(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t mattype) {
+  int32_t ret = __wasm_import_wasm_cv_mat_static_mat_new_with_size((int32_t) (cols), (int32_t) (rows), (int32_t) mattype);
   return (wasm_cv_mat_own_mat_t) { ret };
 }
 
@@ -470,8 +638,20 @@ void wasm_cv_mat_method_mat_min_max_loc(wasm_cv_mat_borrow_mat_t self, wasm_cv_m
   };
 }
 
+void wasm_cv_cv_arrowed_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_size_t *point1, wasm_cv_cv_size_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
+  __wasm_import_wasm_cv_cv_arrowed_line((img).__handle, (*point1).x, (*point1).y, (*point2).x, (*point2).y, (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), (int32_t) (thickness));
+}
+
 void wasm_cv_cv_rectangle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_rect_t *r, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
   __wasm_import_wasm_cv_cv_rectangle((img).__handle, ((*r).min).x, ((*r).min).y, ((*r).max).x, ((*r).max).y, (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), (int32_t) (thickness));
+}
+
+void wasm_cv_cv_circle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_size_t *center, uint32_t radius, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
+  __wasm_import_wasm_cv_cv_circle((img).__handle, (*center).x, (*center).y, (int32_t) (radius), (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), (int32_t) (thickness));
+}
+
+void wasm_cv_cv_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_size_t *point1, wasm_cv_cv_size_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
+  __wasm_import_wasm_cv_cv_line((img).__handle, (*point1).x, (*point1).y, (*point2).x, (*point2).y, (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), (int32_t) (thickness));
 }
 
 void wasm_cv_cv_put_text(wasm_cv_cv_own_mat_t img, imports_string_t *text, wasm_cv_cv_size_t *org, wasm_cv_cv_hershey_font_type_t font_face, double font_scale, wasm_cv_cv_rgba_t *c, int32_t thickness) {
@@ -498,8 +678,18 @@ wasm_cv_cv_own_mat_t wasm_cv_cv_gaussian_blur(wasm_cv_cv_own_mat_t src, wasm_cv_
   return (wasm_cv_cv_own_mat_t) { ret };
 }
 
+wasm_cv_cv_own_mat_t wasm_cv_cv_median_blur(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *k_size) {
+  int32_t ret = __wasm_import_wasm_cv_cv_median_blur((src).__handle, (*k_size).x, (*k_size).y);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
 wasm_cv_cv_own_mat_t wasm_cv_cv_threshold(wasm_cv_cv_own_mat_t src, float thresh, float max_value, wasm_cv_cv_threshold_type_t threshold_type) {
   int32_t ret = __wasm_import_wasm_cv_cv_threshold((src).__handle, thresh, max_value, (int32_t) threshold_type);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_cvt_color(wasm_cv_cv_own_mat_t src, wasm_cv_cv_color_coversion_type_t code) {
+  int32_t ret = __wasm_import_wasm_cv_cv_cvt_color((src).__handle, (int32_t) code);
   return (wasm_cv_cv_own_mat_t) { ret };
 }
 
@@ -526,13 +716,13 @@ void wasm_cv_dnn_method_layer_get_name(wasm_cv_dnn_borrow_layer_t self, imports_
   *ret = (imports_string_t) { (uint8_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
 }
 
-wasm_cv_dnn_own_net_t wasm_cv_dnn_static_net_read_net(imports_string_t *model, imports_string_t *config) {
-  int32_t ret = __wasm_import_wasm_cv_dnn_static_net_read_net((uint8_t *) (*model).ptr, (*model).len, (uint8_t *) (*config).ptr, (*config).len);
+wasm_cv_dnn_own_net_t wasm_cv_dnn_static_net_read(imports_string_t *model, imports_string_t *config) {
+  int32_t ret = __wasm_import_wasm_cv_dnn_static_net_read((uint8_t *) (*model).ptr, (*model).len, (uint8_t *) (*config).ptr, (*config).len);
   return (wasm_cv_dnn_own_net_t) { ret };
 }
 
-wasm_cv_dnn_own_net_t wasm_cv_dnn_static_net_read_net_from_onnx(imports_string_t *model) {
-  int32_t ret = __wasm_import_wasm_cv_dnn_static_net_read_net_from_onnx((uint8_t *) (*model).ptr, (*model).len);
+wasm_cv_dnn_own_net_t wasm_cv_dnn_static_net_read_from_onnx(imports_string_t *model) {
+  int32_t ret = __wasm_import_wasm_cv_dnn_static_net_read_from_onnx((uint8_t *) (*model).ptr, (*model).len);
   return (wasm_cv_dnn_own_net_t) { ret };
 }
 
@@ -552,6 +742,14 @@ void wasm_cv_dnn_method_net_set_input(wasm_cv_dnn_borrow_net_t self, wasm_cv_dnn
 wasm_cv_dnn_own_mat_t wasm_cv_dnn_method_net_forward(wasm_cv_dnn_borrow_net_t self, imports_string_t *output_name) {
   int32_t ret = __wasm_import_wasm_cv_dnn_method_net_forward((self).__handle, (uint8_t *) (*output_name).ptr, (*output_name).len);
   return (wasm_cv_dnn_own_mat_t) { ret };
+}
+
+void wasm_cv_dnn_method_net_forward_layers(wasm_cv_dnn_borrow_net_t self, imports_list_string_t *output_names, wasm_cv_dnn_list_own_mat_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_dnn_method_net_forward_layers((self).__handle, (uint8_t *) (*output_names).ptr, (*output_names).len, ptr);
+  *ret = (wasm_cv_dnn_list_own_mat_t) { (wasm_cv_dnn_own_mat_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
 }
 
 void wasm_cv_dnn_method_net_get_unconnected_out_layers(wasm_cv_dnn_borrow_net_t self, imports_list_u32_t *ret) {
@@ -619,6 +817,156 @@ void wasm_cv_dnn_nms_boxes(wasm_cv_dnn_list_rect_t *bboxes, imports_list_f32_t *
   uint8_t *ptr = (uint8_t *) &ret_area;
   __wasm_import_wasm_cv_dnn_nms_boxes((uint8_t *) (*bboxes).ptr, (*bboxes).len, (uint8_t *) (*scores).ptr, (*scores).len, score_threshold, nms_threshold, ptr);
   *ret = (imports_list_s32_t) { (int32_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+wasm_cv_objdetect_own_cascade_classifier_t wasm_cv_objdetect_constructor_cascade_classifier(void) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_constructor_cascade_classifier();
+  return (wasm_cv_objdetect_own_cascade_classifier_t) { ret };
+}
+
+void wasm_cv_objdetect_method_cascade_classifier_close(wasm_cv_objdetect_borrow_cascade_classifier_t self) {
+  __wasm_import_wasm_cv_objdetect_method_cascade_classifier_close((self).__handle);
+}
+
+bool wasm_cv_objdetect_method_cascade_classifier_load(wasm_cv_objdetect_borrow_cascade_classifier_t self, imports_string_t *file) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_method_cascade_classifier_load((self).__handle, (uint8_t *) (*file).ptr, (*file).len);
+  return ret;
+}
+
+void wasm_cv_objdetect_method_cascade_classifier_detect_multi_scale(wasm_cv_objdetect_borrow_cascade_classifier_t self, wasm_cv_objdetect_own_mat_t image, wasm_cv_objdetect_list_rect_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_objdetect_method_cascade_classifier_detect_multi_scale((self).__handle, (image).__handle, ptr);
+  *ret = (wasm_cv_objdetect_list_rect_t) { (wasm_cv_objdetect_rect_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+void wasm_cv_objdetect_method_cascade_classifier_detect_multi_scale_with_params(wasm_cv_objdetect_borrow_cascade_classifier_t self, wasm_cv_objdetect_own_mat_t image, double scale, uint32_t min_neighbors, uint32_t flags, wasm_cv_objdetect_size_t *min_size, wasm_cv_objdetect_size_t *max_size, wasm_cv_objdetect_list_rect_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_objdetect_method_cascade_classifier_detect_multi_scale_with_params((self).__handle, (image).__handle, scale, (int32_t) (min_neighbors), (int32_t) (flags), (*min_size).x, (*min_size).y, (*max_size).x, (*max_size).y, ptr);
+  *ret = (wasm_cv_objdetect_list_rect_t) { (wasm_cv_objdetect_rect_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+wasm_cv_objdetect_own_hog_descriptor_t wasm_cv_objdetect_constructor_hog_descriptor(void) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_constructor_hog_descriptor();
+  return (wasm_cv_objdetect_own_hog_descriptor_t) { ret };
+}
+
+void wasm_cv_objdetect_method_hog_descriptor_close(wasm_cv_objdetect_borrow_hog_descriptor_t self) {
+  __wasm_import_wasm_cv_objdetect_method_hog_descriptor_close((self).__handle);
+}
+
+void wasm_cv_objdetect_method_hog_descriptor_detect_multi_scale(wasm_cv_objdetect_borrow_hog_descriptor_t self, wasm_cv_objdetect_own_mat_t image, wasm_cv_objdetect_list_rect_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_objdetect_method_hog_descriptor_detect_multi_scale((self).__handle, (image).__handle, ptr);
+  *ret = (wasm_cv_objdetect_list_rect_t) { (wasm_cv_objdetect_rect_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+void wasm_cv_objdetect_method_hog_descriptor_detect_multi_scale_with_params(wasm_cv_objdetect_borrow_hog_descriptor_t self, wasm_cv_objdetect_own_mat_t image, double hit_threshold, wasm_cv_objdetect_size_t *win_stride, wasm_cv_objdetect_size_t *padding, double scale, double final_threshold, bool use_meanshift_grouping, wasm_cv_objdetect_list_rect_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_objdetect_method_hog_descriptor_detect_multi_scale_with_params((self).__handle, (image).__handle, hit_threshold, (*win_stride).x, (*win_stride).y, (*padding).x, (*padding).y, scale, final_threshold, use_meanshift_grouping, ptr);
+  *ret = (wasm_cv_objdetect_list_rect_t) { (wasm_cv_objdetect_rect_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+wasm_cv_objdetect_own_face_detector_yn_t wasm_cv_objdetect_constructor_face_detector_yn(imports_string_t *model, imports_string_t *config, wasm_cv_objdetect_size_t *input_size) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_constructor_face_detector_yn((uint8_t *) (*model).ptr, (*model).len, (uint8_t *) (*config).ptr, (*config).len, (*input_size).x, (*input_size).y);
+  return (wasm_cv_objdetect_own_face_detector_yn_t) { ret };
+}
+
+wasm_cv_objdetect_own_face_detector_yn_t wasm_cv_objdetect_static_face_detector_yn_new_with_params(imports_string_t *model, imports_string_t *config, wasm_cv_objdetect_size_t *input_size, float score_threshold, float nms_threshold, uint32_t top_k, uint32_t backend_id, uint32_t target_id) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_static_face_detector_yn_new_with_params((uint8_t *) (*model).ptr, (*model).len, (uint8_t *) (*config).ptr, (*config).len, (*input_size).x, (*input_size).y, score_threshold, nms_threshold, (int32_t) (top_k), (int32_t) (backend_id), (int32_t) (target_id));
+  return (wasm_cv_objdetect_own_face_detector_yn_t) { ret };
+}
+
+void wasm_cv_objdetect_method_face_detector_yn_close(wasm_cv_objdetect_borrow_face_detector_yn_t self) {
+  __wasm_import_wasm_cv_objdetect_method_face_detector_yn_close((self).__handle);
+}
+
+wasm_cv_objdetect_own_mat_t wasm_cv_objdetect_method_face_detector_yn_detect(wasm_cv_objdetect_borrow_face_detector_yn_t self, imports_string_t *input) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_method_face_detector_yn_detect((self).__handle, (uint8_t *) (*input).ptr, (*input).len);
+  return (wasm_cv_objdetect_own_mat_t) { ret };
+}
+
+void wasm_cv_objdetect_method_face_detector_yn_get_input_size(wasm_cv_objdetect_borrow_face_detector_yn_t self, wasm_cv_objdetect_size_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_objdetect_method_face_detector_yn_get_input_size((self).__handle, ptr);
+  *ret = (wasm_cv_types_size_t) {
+    (int32_t) *((int32_t*) (ptr + 0)),
+    (int32_t) *((int32_t*) (ptr + 4)),
+  };
+}
+
+float wasm_cv_objdetect_method_face_detector_yn_get_nms_threshold(wasm_cv_objdetect_borrow_face_detector_yn_t self) {
+  float ret = __wasm_import_wasm_cv_objdetect_method_face_detector_yn_get_nms_threshold((self).__handle);
+  return ret;
+}
+
+float wasm_cv_objdetect_method_face_detector_yn_get_score_threshold(wasm_cv_objdetect_borrow_face_detector_yn_t self) {
+  float ret = __wasm_import_wasm_cv_objdetect_method_face_detector_yn_get_score_threshold((self).__handle);
+  return ret;
+}
+
+uint32_t wasm_cv_objdetect_method_face_detector_yn_get_topk(wasm_cv_objdetect_borrow_face_detector_yn_t self) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_method_face_detector_yn_get_topk((self).__handle);
+  return (uint32_t) (ret);
+}
+
+void wasm_cv_objdetect_method_face_detector_yn_set_input_size(wasm_cv_objdetect_borrow_face_detector_yn_t self, wasm_cv_objdetect_size_t *size) {
+  __wasm_import_wasm_cv_objdetect_method_face_detector_yn_set_input_size((self).__handle, (*size).x, (*size).y);
+}
+
+void wasm_cv_objdetect_method_face_detector_yn_set_nms_threshold(wasm_cv_objdetect_borrow_face_detector_yn_t self, float threshold) {
+  __wasm_import_wasm_cv_objdetect_method_face_detector_yn_set_nms_threshold((self).__handle, threshold);
+}
+
+void wasm_cv_objdetect_method_face_detector_yn_set_score_threshold(wasm_cv_objdetect_borrow_face_detector_yn_t self, float threshold) {
+  __wasm_import_wasm_cv_objdetect_method_face_detector_yn_set_score_threshold((self).__handle, threshold);
+}
+
+void wasm_cv_objdetect_method_face_detector_yn_set_topk(wasm_cv_objdetect_borrow_face_detector_yn_t self, uint32_t topk) {
+  __wasm_import_wasm_cv_objdetect_method_face_detector_yn_set_topk((self).__handle, (int32_t) (topk));
+}
+
+wasm_cv_objdetect_own_face_recognizer_sf_t wasm_cv_objdetect_constructor_face_recognizer_sf(imports_string_t *model, imports_string_t *config) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_constructor_face_recognizer_sf((uint8_t *) (*model).ptr, (*model).len, (uint8_t *) (*config).ptr, (*config).len);
+  return (wasm_cv_objdetect_own_face_recognizer_sf_t) { ret };
+}
+
+wasm_cv_objdetect_own_face_recognizer_sf_t wasm_cv_objdetect_static_face_recognizer_sf_new_with_params(imports_string_t *model, imports_string_t *config, uint32_t backend_id, uint32_t target_id) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_static_face_recognizer_sf_new_with_params((uint8_t *) (*model).ptr, (*model).len, (uint8_t *) (*config).ptr, (*config).len, (int32_t) (backend_id), (int32_t) (target_id));
+  return (wasm_cv_objdetect_own_face_recognizer_sf_t) { ret };
+}
+
+void wasm_cv_objdetect_method_face_recognizer_sf_close(wasm_cv_objdetect_borrow_face_recognizer_sf_t self) {
+  __wasm_import_wasm_cv_objdetect_method_face_recognizer_sf_close((self).__handle);
+}
+
+wasm_cv_objdetect_own_mat_t wasm_cv_objdetect_method_face_recognizer_sf_align_crop(wasm_cv_objdetect_borrow_face_recognizer_sf_t self, wasm_cv_objdetect_own_mat_t src, wasm_cv_objdetect_own_mat_t face_box) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_method_face_recognizer_sf_align_crop((self).__handle, (src).__handle, (face_box).__handle);
+  return (wasm_cv_objdetect_own_mat_t) { ret };
+}
+
+wasm_cv_objdetect_own_mat_t wasm_cv_objdetect_method_face_recognizer_sf_feature(wasm_cv_objdetect_borrow_face_recognizer_sf_t self, wasm_cv_objdetect_own_mat_t aligned) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_method_face_recognizer_sf_feature((self).__handle, (aligned).__handle);
+  return (wasm_cv_objdetect_own_mat_t) { ret };
+}
+
+float wasm_cv_objdetect_method_face_recognizer_sf_match(wasm_cv_objdetect_borrow_face_recognizer_sf_t self, wasm_cv_objdetect_own_mat_t face1, wasm_cv_objdetect_own_mat_t face2) {
+  float ret = __wasm_import_wasm_cv_objdetect_method_face_recognizer_sf_match((self).__handle, (face1).__handle, (face2).__handle);
+  return ret;
+}
+
+float wasm_cv_objdetect_method_face_recognizer_sf_match_with_params(wasm_cv_objdetect_borrow_face_recognizer_sf_t self, wasm_cv_objdetect_own_mat_t face1, wasm_cv_objdetect_own_mat_t face2, wasm_cv_objdetect_face_distance_type_t distance) {
+  float ret = __wasm_import_wasm_cv_objdetect_method_face_recognizer_sf_match_with_params((self).__handle, (face1).__handle, (face2).__handle, (int32_t) distance);
+  return ret;
 }
 
 __attribute__((__export_name__("wasm:cv/request#process")))

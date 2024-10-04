@@ -119,6 +119,29 @@ typedef uint8_t wasm_cv_types_interpolation_type_t;
 #define WASM_CV_TYPES_INTERPOLATION_TYPE_INTERPOLATION_AREA 3
 #define WASM_CV_TYPES_INTERPOLATION_TYPE_INTERPOLATION_LANCZOS4 4
 
+typedef uint8_t wasm_cv_types_color_coversion_type_t;
+
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_BGR_TO_BGRA 0
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_RGB_TO_RGBA 1
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_BGRA_TO_BGR 2
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_RGBA_TO_RGB 3
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_BGR_TO_RGBA 4
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_RGB_TO_BGRA 5
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_RGBA_TO_BGR 6
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_BGRA_TO_RGB 7
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_BGR_TO_RGB 8
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_RGB_TO_BGR 9
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_BGRA_TO_RGBA 10
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_RGBA_TO_BGRA 11
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_BGR_TO_GRAY 12
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_RGB_TO_GRAY 13
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_GRAY_TO_BGR 14
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_GRAY_TO_RGB 15
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_GRAY_TO_BGRA 16
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_GRAY_TO_RGBA 17
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_BGRA_TO_GRAY 18
+#define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_RGBA_TO_GRAY 19
+
 typedef wasm_cv_types_mix_max_loc_result_t wasm_cv_mat_mix_max_loc_result_t;
 
 typedef wasm_cv_types_rect_t wasm_cv_mat_rect_t;
@@ -179,6 +202,8 @@ typedef wasm_cv_types_hershey_font_type_t wasm_cv_cv_hershey_font_type_t;
 
 typedef wasm_cv_types_interpolation_type_t wasm_cv_cv_interpolation_type_t;
 
+typedef wasm_cv_types_color_coversion_type_t wasm_cv_cv_color_coversion_type_t;
+
 typedef wasm_cv_mat_mattype_t wasm_cv_cv_mattype_t;
 
 typedef wasm_cv_mat_own_mat_t wasm_cv_cv_own_mat_t;
@@ -188,8 +213,6 @@ typedef wasm_cv_types_size_t wasm_cv_dnn_size_t;
 typedef wasm_cv_types_scalar_t wasm_cv_dnn_scalar_t;
 
 typedef wasm_cv_types_rect_t wasm_cv_dnn_rect_t;
-
-typedef wasm_cv_types_rgba_t wasm_cv_dnn_rgba_t;
 
 typedef wasm_cv_types_blob_params_t wasm_cv_dnn_blob_params_t;
 
@@ -252,17 +275,70 @@ typedef struct {
 } imports_list_string_t;
 
 typedef struct {
+  wasm_cv_dnn_own_mat_t *ptr;
+  size_t len;
+} wasm_cv_dnn_list_own_mat_t;
+
+typedef struct {
   wasm_cv_dnn_rect_t *ptr;
   size_t len;
 } wasm_cv_dnn_list_rect_t;
+
+typedef wasm_cv_types_size_t wasm_cv_objdetect_size_t;
+
+typedef wasm_cv_types_rect_t wasm_cv_objdetect_rect_t;
+
+typedef struct wasm_cv_objdetect_own_cascade_classifier_t {
+  int32_t __handle;
+} wasm_cv_objdetect_own_cascade_classifier_t;
+
+typedef struct wasm_cv_objdetect_borrow_cascade_classifier_t {
+  int32_t __handle;
+} wasm_cv_objdetect_borrow_cascade_classifier_t;
+
+typedef struct wasm_cv_objdetect_own_hog_descriptor_t {
+  int32_t __handle;
+} wasm_cv_objdetect_own_hog_descriptor_t;
+
+typedef struct wasm_cv_objdetect_borrow_hog_descriptor_t {
+  int32_t __handle;
+} wasm_cv_objdetect_borrow_hog_descriptor_t;
+
+typedef struct wasm_cv_objdetect_own_face_detector_yn_t {
+  int32_t __handle;
+} wasm_cv_objdetect_own_face_detector_yn_t;
+
+typedef struct wasm_cv_objdetect_borrow_face_detector_yn_t {
+  int32_t __handle;
+} wasm_cv_objdetect_borrow_face_detector_yn_t;
+
+typedef uint8_t wasm_cv_objdetect_face_distance_type_t;
+
+#define WASM_CV_OBJDETECT_FACE_DISTANCE_TYPE_FACE_DISTANCE_TYPE_COSINE 0
+#define WASM_CV_OBJDETECT_FACE_DISTANCE_TYPE_FACE_DISTANCE_NORM_L2 1
+
+typedef struct wasm_cv_objdetect_own_face_recognizer_sf_t {
+  int32_t __handle;
+} wasm_cv_objdetect_own_face_recognizer_sf_t;
+
+typedef struct wasm_cv_objdetect_borrow_face_recognizer_sf_t {
+  int32_t __handle;
+} wasm_cv_objdetect_borrow_face_recognizer_sf_t;
+
+typedef wasm_cv_mat_own_mat_t wasm_cv_objdetect_own_mat_t;
+
+typedef struct {
+  wasm_cv_objdetect_rect_t *ptr;
+  size_t len;
+} wasm_cv_objdetect_list_rect_t;
 
 typedef wasm_cv_mat_own_mat_t exports_wasm_cv_request_own_mat_t;
 
 // Imported Functions from `wasm:cv/mat`
 // Create a new Mat.
-extern wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_new_mat(void);
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_constructor_mat(void);
 // Create a new Mat with the specified size and type.
-extern wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_new_mat_with_size(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t mattype);
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_new_with_size(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t mattype);
 // Clone returns a cloned full copy of the Mat.
 extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_clone(wasm_cv_mat_borrow_mat_t self);
 // Close the Mat
@@ -336,11 +412,26 @@ extern void wasm_cv_mat_method_mat_min_max_loc(wasm_cv_mat_borrow_mat_t self, wa
 
 // Imported Functions from `wasm:cv/cv`
 // drawing functions
+// ArrowedLine draws a arrow segment pointing from the first point to the second one.
+// 
+// For further details, please see:
+// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd488ac709fdf10c05b2
+extern void wasm_cv_cv_arrowed_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_size_t *point1, wasm_cv_cv_size_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness);
 // Rectangle draws a simple, thick, or filled up-right rectangle.
 // 
 // For further details, please see:
 // https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8f3d1e1b7
 extern void wasm_cv_cv_rectangle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_rect_t *r, wasm_cv_cv_rgba_t *c, uint8_t thickness);
+// Circle draws a circle.
+// 
+// For further details, please see:
+// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b069374903dbd0f0488cb43670
+extern void wasm_cv_cv_circle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_size_t *center, uint32_t radius, wasm_cv_cv_rgba_t *c, uint8_t thickness);
+// Line draws a line segment connecting two points.
+// 
+// For further details, please see:
+// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga7078a9fae8c7e7d13d24dac2520ae4a2
+extern void wasm_cv_cv_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_size_t *point1, wasm_cv_cv_size_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness);
 // PutText draws a text string.
 // It renders the specified text string into the img Mat at the location
 // passed in the "org" param, using the desired font face, font scale,
@@ -370,11 +461,21 @@ extern wasm_cv_cv_own_mat_t wasm_cv_cv_box_filter(wasm_cv_cv_own_mat_t src, uint
 // For further details, please see:
 // https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
 extern wasm_cv_cv_own_mat_t wasm_cv_cv_gaussian_blur(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *size, float sigma_x, float sigma_y, wasm_cv_cv_border_type_t border);
+// MedianBlur blurs an image using the median filter.
+// 
+// For further details, please see:
+// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga564869aa33e58769b4469101aac458f9
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_median_blur(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *k_size);
 // Threshold applies a fixed-level threshold to each array element.
 // 
 // For further details, please see:
 // https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57
 extern wasm_cv_cv_own_mat_t wasm_cv_cv_threshold(wasm_cv_cv_own_mat_t src, float thresh, float max_value, wasm_cv_cv_threshold_type_t threshold_type);
+// CvtColor converts an image from one color space to another.
+// 
+// For further details, please see:
+// http://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga4e0972be5de079fed4e3a10e24ef5ef0
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_cvt_color(wasm_cv_cv_own_mat_t src, wasm_cv_cv_color_coversion_type_t code);
 // Transpose for n-dimensional matrices.
 // 
 // For further details, please see:
@@ -399,12 +500,12 @@ extern void wasm_cv_dnn_method_layer_get_name(wasm_cv_dnn_borrow_layer_t self, i
 // 
 // For further details, please see:
 // https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga138439da76f26266fdefec9723f6c5cd
-extern wasm_cv_dnn_own_net_t wasm_cv_dnn_static_net_read_net(imports_string_t *model, imports_string_t *config);
+extern wasm_cv_dnn_own_net_t wasm_cv_dnn_static_net_read(imports_string_t *model, imports_string_t *config);
 // ReadNetFromONNX reads a network model stored in ONNX framework's format.
 // 
 // For further details, please see:
 // https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd359567
-extern wasm_cv_dnn_own_net_t wasm_cv_dnn_static_net_read_net_from_onnx(imports_string_t *model);
+extern wasm_cv_dnn_own_net_t wasm_cv_dnn_static_net_read_from_onnx(imports_string_t *model);
 // Close the network
 extern void wasm_cv_dnn_method_net_close(wasm_cv_dnn_borrow_net_t self);
 // Empty returns true if there are no layers in the network.
@@ -422,6 +523,11 @@ extern void wasm_cv_dnn_method_net_set_input(wasm_cv_dnn_borrow_net_t self, wasm
 // For further details, please see:
 // https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a98ed94cb6ef7063d3697259566da310b
 extern wasm_cv_dnn_own_mat_t wasm_cv_dnn_method_net_forward(wasm_cv_dnn_borrow_net_t self, imports_string_t *output_name);
+// ForwardLayers forward pass to compute outputs of layers listed in outBlobNames.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#afe22e099b60a2883e220645391f68d4c
+extern void wasm_cv_dnn_method_net_forward_layers(wasm_cv_dnn_borrow_net_t self, imports_list_string_t *output_names, wasm_cv_dnn_list_own_mat_t *ret);
 // GetUnconnectedOutLayers returns indexes of layers with unconnected outputs.
 // 
 // For further details, please see:
@@ -460,6 +566,106 @@ extern void wasm_cv_dnn_blob_rects_to_image_rects(wasm_cv_dnn_blob_params_t *par
 // https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee
 extern void wasm_cv_dnn_nms_boxes(wasm_cv_dnn_list_rect_t *bboxes, imports_list_f32_t *scores, float score_threshold, float nms_threshold, imports_list_s32_t *ret);
 
+// Imported Functions from `wasm:cv/objdetect`
+// NewCascadeClassifier returns a new CascadeClassifier.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
+extern wasm_cv_objdetect_own_cascade_classifier_t wasm_cv_objdetect_constructor_cascade_classifier(void);
+// Close the CascadeClassifier
+extern void wasm_cv_objdetect_method_cascade_classifier_close(wasm_cv_objdetect_borrow_cascade_classifier_t self);
+// Load cascade classifier from a file.
+// 
+// For further details, please see:
+// http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#a1a5884c8cc749422f9eb77c2471958bc
+extern bool wasm_cv_objdetect_method_cascade_classifier_load(wasm_cv_objdetect_borrow_cascade_classifier_t self, imports_string_t *file);
+// DetectMultiScale detects objects of different sizes in the input Mat image.
+// The detected objects are returned as a slice of image.Rectangle structs.
+// 
+// For further details, please see:
+// http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb63968136476ec4204ffca498
+extern void wasm_cv_objdetect_method_cascade_classifier_detect_multi_scale(wasm_cv_objdetect_borrow_cascade_classifier_t self, wasm_cv_objdetect_own_mat_t image, wasm_cv_objdetect_list_rect_t *ret);
+// DetectMultiScaleWithParams detects objects of different sizes in the input Mat image.
+// The detected objects are returned as a slice of image.Rectangle structs.
+// 
+// For further details, please see:
+// http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb63968136476ec4204ffca498
+extern void wasm_cv_objdetect_method_cascade_classifier_detect_multi_scale_with_params(wasm_cv_objdetect_borrow_cascade_classifier_t self, wasm_cv_objdetect_own_mat_t image, double scale, uint32_t min_neighbors, uint32_t flags, wasm_cv_objdetect_size_t *min_size, wasm_cv_objdetect_size_t *max_size, wasm_cv_objdetect_list_rect_t *ret);
+// NewHOGDescriptor returns a new HOGDescriptor.
+extern wasm_cv_objdetect_own_hog_descriptor_t wasm_cv_objdetect_constructor_hog_descriptor(void);
+// Close the HOGDescriptor
+extern void wasm_cv_objdetect_method_hog_descriptor_close(wasm_cv_objdetect_borrow_hog_descriptor_t self);
+// DetectMultiScale detects objects of different sizes in the input Mat image.
+// The detected objects are returned as a slice of image.Rectangle structs.
+// 
+// For further details, please see:
+// https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036fd5ddf0f5767b352acd948
+extern void wasm_cv_objdetect_method_hog_descriptor_detect_multi_scale(wasm_cv_objdetect_borrow_hog_descriptor_t self, wasm_cv_objdetect_own_mat_t image, wasm_cv_objdetect_list_rect_t *ret);
+// DetectMultiScaleWithParams detects objects of different sizes in the input Mat image.
+// The detected objects are returned as a slice of image.Rectangle structs.
+// 
+// For further details, please see:
+// https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036fd5ddf0f5767b352acd948
+extern void wasm_cv_objdetect_method_hog_descriptor_detect_multi_scale_with_params(wasm_cv_objdetect_borrow_hog_descriptor_t self, wasm_cv_objdetect_own_mat_t image, double hit_threshold, wasm_cv_objdetect_size_t *win_stride, wasm_cv_objdetect_size_t *padding, double scale, double final_threshold, bool use_meanshift_grouping, wasm_cv_objdetect_list_rect_t *ret);
+// Creates an instance of face detector YN with given parameters.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
+extern wasm_cv_objdetect_own_face_detector_yn_t wasm_cv_objdetect_constructor_face_detector_yn(imports_string_t *model, imports_string_t *config, wasm_cv_objdetect_size_t *input_size);
+// new: static func(model: string, config: string, input-size: size) -> face-detector-YN;
+// Creates an instance of face detector YN with given parameters.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
+extern wasm_cv_objdetect_own_face_detector_yn_t wasm_cv_objdetect_static_face_detector_yn_new_with_params(imports_string_t *model, imports_string_t *config, wasm_cv_objdetect_size_t *input_size, float score_threshold, float nms_threshold, uint32_t top_k, uint32_t backend_id, uint32_t target_id);
+// Close the face detector
+extern void wasm_cv_objdetect_method_face_detector_yn_close(wasm_cv_objdetect_borrow_face_detector_yn_t self);
+// Detects faces in the input image.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#ac05bd075ca3e6edc0e328927aae6f45b
+extern wasm_cv_objdetect_own_mat_t wasm_cv_objdetect_method_face_detector_yn_detect(wasm_cv_objdetect_borrow_face_detector_yn_t self, imports_string_t *input);
+extern void wasm_cv_objdetect_method_face_detector_yn_get_input_size(wasm_cv_objdetect_borrow_face_detector_yn_t self, wasm_cv_objdetect_size_t *ret);
+extern float wasm_cv_objdetect_method_face_detector_yn_get_nms_threshold(wasm_cv_objdetect_borrow_face_detector_yn_t self);
+extern float wasm_cv_objdetect_method_face_detector_yn_get_score_threshold(wasm_cv_objdetect_borrow_face_detector_yn_t self);
+extern uint32_t wasm_cv_objdetect_method_face_detector_yn_get_topk(wasm_cv_objdetect_borrow_face_detector_yn_t self);
+extern void wasm_cv_objdetect_method_face_detector_yn_set_input_size(wasm_cv_objdetect_borrow_face_detector_yn_t self, wasm_cv_objdetect_size_t *size);
+extern void wasm_cv_objdetect_method_face_detector_yn_set_nms_threshold(wasm_cv_objdetect_borrow_face_detector_yn_t self, float threshold);
+extern void wasm_cv_objdetect_method_face_detector_yn_set_score_threshold(wasm_cv_objdetect_borrow_face_detector_yn_t self, float threshold);
+extern void wasm_cv_objdetect_method_face_detector_yn_set_topk(wasm_cv_objdetect_borrow_face_detector_yn_t self, uint32_t topk);
+// Creates an instance of FaceRecognizerSF with given parameters.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a04df90b0cd7d26d350acd92621a35743
+extern wasm_cv_objdetect_own_face_recognizer_sf_t wasm_cv_objdetect_constructor_face_recognizer_sf(imports_string_t *model, imports_string_t *config);
+// Creates an instance of FaceRecognizerSF with given parameters.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a04df90b0cd7d26d350acd92621a35743
+extern wasm_cv_objdetect_own_face_recognizer_sf_t wasm_cv_objdetect_static_face_recognizer_sf_new_with_params(imports_string_t *model, imports_string_t *config, uint32_t backend_id, uint32_t target_id);
+// Close the face FaceRecognizerSF
+extern void wasm_cv_objdetect_method_face_recognizer_sf_close(wasm_cv_objdetect_borrow_face_recognizer_sf_t self);
+// Aligns detected face with the source input image and crops it.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a84492908abecbc9362b4ddc8d46b8345
+extern wasm_cv_objdetect_own_mat_t wasm_cv_objdetect_method_face_recognizer_sf_align_crop(wasm_cv_objdetect_borrow_face_recognizer_sf_t self, wasm_cv_objdetect_own_mat_t src, wasm_cv_objdetect_own_mat_t face_box);
+// Feature extracts face feature from aligned image.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#ab1b4a3c12213e89091a490c573dc5aba
+extern wasm_cv_objdetect_own_mat_t wasm_cv_objdetect_method_face_recognizer_sf_feature(wasm_cv_objdetect_borrow_face_recognizer_sf_t self, wasm_cv_objdetect_own_mat_t aligned);
+// Match calculates the distance between two face features.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e64320a1f3ba7e1386d0219
+extern float wasm_cv_objdetect_method_face_recognizer_sf_match(wasm_cv_objdetect_borrow_face_recognizer_sf_t self, wasm_cv_objdetect_own_mat_t face1, wasm_cv_objdetect_own_mat_t face2);
+// Match calculates the distance between two face features.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e64320a1f3ba7e1386d0219
+extern float wasm_cv_objdetect_method_face_recognizer_sf_match_with_params(wasm_cv_objdetect_borrow_face_recognizer_sf_t self, wasm_cv_objdetect_own_mat_t face1, wasm_cv_objdetect_own_mat_t face2, wasm_cv_objdetect_face_distance_type_t distance);
+
 // Exported Functions from `wasm:cv/request`
 exports_wasm_cv_request_own_mat_t exports_wasm_cv_request_process(exports_wasm_cv_request_own_mat_t image);
 
@@ -487,7 +693,27 @@ extern wasm_cv_dnn_borrow_net_t wasm_cv_dnn_borrow_net(wasm_cv_dnn_own_net_t han
 
 void imports_list_string_free(imports_list_string_t *ptr);
 
+void wasm_cv_dnn_list_own_mat_free(wasm_cv_dnn_list_own_mat_t *ptr);
+
 void wasm_cv_dnn_list_rect_free(wasm_cv_dnn_list_rect_t *ptr);
+
+extern void wasm_cv_objdetect_cascade_classifier_drop_own(wasm_cv_objdetect_own_cascade_classifier_t handle);
+
+extern wasm_cv_objdetect_borrow_cascade_classifier_t wasm_cv_objdetect_borrow_cascade_classifier(wasm_cv_objdetect_own_cascade_classifier_t handle);
+
+extern void wasm_cv_objdetect_hog_descriptor_drop_own(wasm_cv_objdetect_own_hog_descriptor_t handle);
+
+extern wasm_cv_objdetect_borrow_hog_descriptor_t wasm_cv_objdetect_borrow_hog_descriptor(wasm_cv_objdetect_own_hog_descriptor_t handle);
+
+extern void wasm_cv_objdetect_face_detector_yn_drop_own(wasm_cv_objdetect_own_face_detector_yn_t handle);
+
+extern wasm_cv_objdetect_borrow_face_detector_yn_t wasm_cv_objdetect_borrow_face_detector_yn(wasm_cv_objdetect_own_face_detector_yn_t handle);
+
+extern void wasm_cv_objdetect_face_recognizer_sf_drop_own(wasm_cv_objdetect_own_face_recognizer_sf_t handle);
+
+extern wasm_cv_objdetect_borrow_face_recognizer_sf_t wasm_cv_objdetect_borrow_face_recognizer_sf(wasm_cv_objdetect_own_face_recognizer_sf_t handle);
+
+void wasm_cv_objdetect_list_rect_free(wasm_cv_objdetect_list_rect_t *ptr);
 
 // Transfers ownership of `s` into the string `ret`
 void imports_string_set(imports_string_t *ret, const char*s);
