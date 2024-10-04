@@ -16,7 +16,7 @@ interface types {
         max: size,
     }
 
-    record rgba {
+    record RGBA {
         r: u8,
         g: u8,
         b: u8,
@@ -70,7 +70,7 @@ interface types {
         scale-factor: f32,
         size: size,
         mean: scalar,
-        swap-rb: bool,
+        swap-RB: bool,
         ddepth: u8,
         data-layout: data-layout-type,
         padding-mode: padding-mode-type,
@@ -105,25 +105,25 @@ interface types {
     }
 
     enum color-coversion-type {
-        color-bgr-to-bgra,
-        color-rgb-to-rgba,
-        color-bgra-to-bgr,
-        color-rgba-to-rgb,
-        color-bgr-to-RGBA,
-        color-rgb-to-bgra,
-        color-rgba-to-bgr,
-        color-bgra-to-rgb,
-        color-bgr-to-rgb,
-        color-rgb-to-bgr,
-        color-bgra-to-rgba,
-        color-rgba-to-bgra,
-        color-bgr-to-gray,
-        color-rgb-to-gray,
-        color-gray-to-bgr,
-        color-gray-to-rgb,
-        color-gray-to-bgra,
-        color-gray-to-rgba,
-        color-bgra-to-gray,
-        color-rgba-to-gray,
+        color-BGR-to-BGRA,
+        color-RGB-to-RGBA,
+        color-BGRA-to-BGR,
+        color-RGBA-to-RGB,
+        color-BGR-to-RGBA,
+        color-RGB-to-BGRA,
+        color-RGBA-to-BGR,
+        color-BGRA-to-RGB,
+        color-BGR-to-RGB,
+        color-RGB-to-BGR,
+        color-BGRA-to-RGBA,
+        color-RGBA-to-BGRA,
+        color-BGR-to-gray,
+        color-RGB-to-gray,
+        color-gray-to-BGR,
+        color-gray-to-RGB,
+        color-gray-to-BGRA,
+        color-gray-to-RGBA,
+        color-BGRA-to-gray,
+        color-RGBA-to-gray,
     }
 }

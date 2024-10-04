@@ -1,6 +1,6 @@
 interface dnn {
     use mat.{mat};
-    use types.{size, scalar, rect, rgba, blob-params};
+    use types.{size, scalar, rect, blob-params};
 
 	enum net-backend-type {
 		net-backend-default,
@@ -55,7 +55,7 @@ interface dnn {
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd359567
-		read-from-onnx: static func(model: string) -> net;
+		read-from-ONNX: static func(model: string) -> net;
 
 		/// Close the network
 		close: func();
@@ -127,5 +127,5 @@ interface dnn {
     ///
     /// For futher details, please see:
     /// https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee
-    nms-boxes: func(bboxes: list<rect>, scores: list<f32>, score-threshold: f32, nms-threshold: f32) -> list<s32>;
+    NMS-boxes: func(bboxes: list<rect>, scores: list<f32>, score-threshold: f32, nms-threshold: f32) -> list<s32>;
 }
