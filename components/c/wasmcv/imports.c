@@ -228,7 +228,7 @@ __attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]
 extern void __wasm_import_wasm_cv_objdetect_method_face_detector_yn_close(int32_t);
 
 __attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-detector-YN.detect")))
-extern int32_t __wasm_import_wasm_cv_objdetect_method_face_detector_yn_detect(int32_t, uint8_t *, size_t);
+extern int32_t __wasm_import_wasm_cv_objdetect_method_face_detector_yn_detect(int32_t, int32_t);
 
 __attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-detector-YN.get-input-size")))
 extern void __wasm_import_wasm_cv_objdetect_method_face_detector_yn_get_input_size(int32_t, uint8_t *);
@@ -888,8 +888,8 @@ void wasm_cv_objdetect_method_face_detector_yn_close(wasm_cv_objdetect_borrow_fa
   __wasm_import_wasm_cv_objdetect_method_face_detector_yn_close((self).__handle);
 }
 
-wasm_cv_objdetect_own_mat_t wasm_cv_objdetect_method_face_detector_yn_detect(wasm_cv_objdetect_borrow_face_detector_yn_t self, imports_string_t *input) {
-  int32_t ret = __wasm_import_wasm_cv_objdetect_method_face_detector_yn_detect((self).__handle, (uint8_t *) (*input).ptr, (*input).len);
+wasm_cv_objdetect_own_mat_t wasm_cv_objdetect_method_face_detector_yn_detect(wasm_cv_objdetect_borrow_face_detector_yn_t self, wasm_cv_objdetect_own_mat_t input) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_method_face_detector_yn_detect((self).__handle, (input).__handle);
   return (wasm_cv_objdetect_own_mat_t) { ret };
 }
 

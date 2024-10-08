@@ -3093,22 +3093,19 @@ pub mod wasm {
         ///
         /// For further details, please see:
         /// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#ac05bd075ca3e6edc0e328927aae6f45b
-        pub fn detect(&self,input: &str,) -> Mat{
+        pub fn detect(&self,input: Mat,) -> Mat{
           unsafe {
-            let vec0 = input;
-            let ptr0 = vec0.as_ptr().cast::<u8>();
-            let len0 = vec0.len();
 
             #[cfg(target_arch = "wasm32")]
             #[link(wasm_import_module = "wasm:cv/objdetect")]
             extern "C" {
               #[link_name = "[method]face-detector-YN.detect"]
-              fn wit_import(_: i32, _: *mut u8, _: usize, ) -> i32;
+              fn wit_import(_: i32, _: i32, ) -> i32;
             }
 
             #[cfg(not(target_arch = "wasm32"))]
-            fn wit_import(_: i32, _: *mut u8, _: usize, ) -> i32{ unreachable!() }
-            let ret = wit_import((self).handle() as i32, ptr0.cast_mut(), len0);
+            fn wit_import(_: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import((self).handle() as i32, (&input).take_handle() as i32);
             super::super::super::wasm::cv::mat::Mat::from_handle(ret as u32)
           }
         }
@@ -3902,24 +3899,24 @@ dding\x03\x05scaleu\x0ffinal-thresholdu\x16use-meanshift-grouping\x7f\0\x12\x04\
 r-YN\x01\x1c\x01@\x08\x05models\x06configs\x0ainput-size\x03\x0fscore-thresholdv\
 \x0dnms-thresholdv\x05top-ky\x0abackend-idy\x09target-idy\0\x1b\x04\0([static]fa\
 ce-detector-YN.new-with-params\x01\x1d\x01h\x08\x01@\x01\x04self\x1e\x01\0\x04\0\
-\x1e[method]face-detector-YN.close\x01\x1f\x01@\x02\x04self\x1e\x05inputs\0\x11\x04\
-\0\x1f[method]face-detector-YN.detect\x01\x20\x01@\x01\x04self\x1e\0\x03\x04\0'[\
-method]face-detector-YN.get-input-size\x01!\x01@\x01\x04self\x1e\0v\x04\0*[metho\
-d]face-detector-YN.get-nms-threshold\x01\"\x04\0,[method]face-detector-YN.get-sc\
-ore-threshold\x01\"\x01@\x01\x04self\x1e\0y\x04\0![method]face-detector-YN.get-t\
-opk\x01#\x01@\x02\x04self\x1e\x04size\x03\x01\0\x04\0'[method]face-detector-YN.s\
-et-input-size\x01$\x01@\x02\x04self\x1e\x09thresholdv\x01\0\x04\0*[method]face-d\
-etector-YN.set-nms-threshold\x01%\x04\0,[method]face-detector-YN.set-score-thres\
-hold\x01%\x01@\x02\x04self\x1e\x04topky\x01\0\x04\0![method]face-detector-YN.set\
--topk\x01&\x01i\x0b\x01@\x02\x05models\x06configs\0'\x04\0\x1f[constructor]face-\
-recognizer-SF\x01(\x01@\x04\x05models\x06configs\x0abackend-idy\x09target-idy\0'\
-\x04\0*[static]face-recognizer-SF.new-with-params\x01)\x01h\x0b\x01@\x01\x04self\
-*\x01\0\x04\0\x20[method]face-recognizer-SF.close\x01+\x01@\x03\x04self*\x03src\x11\
-\x08face-box\x11\0\x11\x04\0%[method]face-recognizer-SF.align-crop\x01,\x01@\x02\
-\x04self*\x07aligned\x11\0\x11\x04\0\"[method]face-recognizer-SF.feature\x01-\x01\
-@\x03\x04self*\x05face1\x11\x05face2\x11\0v\x04\0\x20[method]face-recognizer-SF.\
-match\x01.\x01@\x04\x04self*\x05face1\x11\x05face2\x11\x08distance\x0a\0v\x04\0,\
-[method]face-recognizer-SF.match-with-params\x01/\x03\0\x11wasm:cv/objdetect\x05\
+\x1e[method]face-detector-YN.close\x01\x1f\x01@\x02\x04self\x1e\x05input\x11\0\x11\
+\x04\0\x1f[method]face-detector-YN.detect\x01\x20\x01@\x01\x04self\x1e\0\x03\x04\
+\0'[method]face-detector-YN.get-input-size\x01!\x01@\x01\x04self\x1e\0v\x04\0*[m\
+ethod]face-detector-YN.get-nms-threshold\x01\"\x04\0,[method]face-detector-YN.ge\
+t-score-threshold\x01\"\x01@\x01\x04self\x1e\0y\x04\0![method]face-detector-YN.g\
+et-topk\x01#\x01@\x02\x04self\x1e\x04size\x03\x01\0\x04\0'[method]face-detector-\
+YN.set-input-size\x01$\x01@\x02\x04self\x1e\x09thresholdv\x01\0\x04\0*[method]fa\
+ce-detector-YN.set-nms-threshold\x01%\x04\0,[method]face-detector-YN.set-score-t\
+hreshold\x01%\x01@\x02\x04self\x1e\x04topky\x01\0\x04\0![method]face-detector-YN\
+.set-topk\x01&\x01i\x0b\x01@\x02\x05models\x06configs\0'\x04\0\x1f[constructor]f\
+ace-recognizer-SF\x01(\x01@\x04\x05models\x06configs\x0abackend-idy\x09target-id\
+y\0'\x04\0*[static]face-recognizer-SF.new-with-params\x01)\x01h\x0b\x01@\x01\x04\
+self*\x01\0\x04\0\x20[method]face-recognizer-SF.close\x01+\x01@\x03\x04self*\x03\
+src\x11\x08face-box\x11\0\x11\x04\0%[method]face-recognizer-SF.align-crop\x01,\x01\
+@\x02\x04self*\x07aligned\x11\0\x11\x04\0\"[method]face-recognizer-SF.feature\x01\
+-\x01@\x03\x04self*\x05face1\x11\x05face2\x11\0v\x04\0\x20[method]face-recognize\
+r-SF.match\x01.\x01@\x04\x04self*\x05face1\x11\x05face2\x11\x08distance\x0a\0v\x04\
+\0,[method]face-recognizer-SF.match-with-params\x01/\x03\0\x11wasm:cv/objdetect\x05\
 \x12\x01B\x05\x02\x03\x02\x01\x0d\x04\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05imag\
 e\x02\0\x02\x04\0\x07process\x01\x03\x04\0\x0fwasm:cv/request\x05\x13\x04\0\x0fw\
 asm:cv/imports\x04\0\x0b\x0d\x01\0\x07imports\x03\0\0\0G\x09producers\x01\x0cpro\

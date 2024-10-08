@@ -623,7 +623,7 @@ extern void wasm_cv_objdetect_method_face_detector_yn_close(wasm_cv_objdetect_bo
 // 
 // For further details, please see:
 // https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#ac05bd075ca3e6edc0e328927aae6f45b
-extern wasm_cv_objdetect_own_mat_t wasm_cv_objdetect_method_face_detector_yn_detect(wasm_cv_objdetect_borrow_face_detector_yn_t self, imports_string_t *input);
+extern wasm_cv_objdetect_own_mat_t wasm_cv_objdetect_method_face_detector_yn_detect(wasm_cv_objdetect_borrow_face_detector_yn_t self, wasm_cv_objdetect_own_mat_t input);
 extern void wasm_cv_objdetect_method_face_detector_yn_get_input_size(wasm_cv_objdetect_borrow_face_detector_yn_t self, wasm_cv_objdetect_size_t *ret);
 extern float wasm_cv_objdetect_method_face_detector_yn_get_nms_threshold(wasm_cv_objdetect_borrow_face_detector_yn_t self);
 extern float wasm_cv_objdetect_method_face_detector_yn_get_score_threshold(wasm_cv_objdetect_borrow_face_detector_yn_t self);
