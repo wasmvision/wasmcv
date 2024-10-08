@@ -192,7 +192,7 @@ extern void __wasm_import_wasm_cv_dnn_nms_boxes(uint8_t *, size_t, uint8_t *, si
 // Imported Functions from `wasm:cv/objdetect`
 
 __attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[constructor]cascade-classifier")))
-extern int32_t __wasm_import_wasm_cv_objdetect_constructor_cascade_classifier(void);
+extern int32_t __wasm_import_wasm_cv_objdetect_constructor_cascade_classifier(uint8_t *, size_t);
 
 __attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]cascade-classifier.close")))
 extern void __wasm_import_wasm_cv_objdetect_method_cascade_classifier_close(int32_t);
@@ -207,7 +207,7 @@ __attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]
 extern void __wasm_import_wasm_cv_objdetect_method_cascade_classifier_detect_multi_scale_with_params(int32_t, int32_t, double, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, uint8_t *);
 
 __attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[constructor]HOG-descriptor")))
-extern int32_t __wasm_import_wasm_cv_objdetect_constructor_hog_descriptor(void);
+extern int32_t __wasm_import_wasm_cv_objdetect_constructor_hog_descriptor(uint8_t *, size_t);
 
 __attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]HOG-descriptor.close")))
 extern void __wasm_import_wasm_cv_objdetect_method_hog_descriptor_close(int32_t);
@@ -819,8 +819,8 @@ void wasm_cv_dnn_nms_boxes(wasm_cv_dnn_list_rect_t *bboxes, imports_list_f32_t *
   *ret = (imports_list_s32_t) { (int32_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
 }
 
-wasm_cv_objdetect_own_cascade_classifier_t wasm_cv_objdetect_constructor_cascade_classifier(void) {
-  int32_t ret = __wasm_import_wasm_cv_objdetect_constructor_cascade_classifier();
+wasm_cv_objdetect_own_cascade_classifier_t wasm_cv_objdetect_constructor_cascade_classifier(imports_string_t *name) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_constructor_cascade_classifier((uint8_t *) (*name).ptr, (*name).len);
   return (wasm_cv_objdetect_own_cascade_classifier_t) { ret };
 }
 
@@ -849,8 +849,8 @@ void wasm_cv_objdetect_method_cascade_classifier_detect_multi_scale_with_params(
   *ret = (wasm_cv_objdetect_list_rect_t) { (wasm_cv_objdetect_rect_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
 }
 
-wasm_cv_objdetect_own_hog_descriptor_t wasm_cv_objdetect_constructor_hog_descriptor(void) {
-  int32_t ret = __wasm_import_wasm_cv_objdetect_constructor_hog_descriptor();
+wasm_cv_objdetect_own_hog_descriptor_t wasm_cv_objdetect_constructor_hog_descriptor(imports_string_t *name) {
+  int32_t ret = __wasm_import_wasm_cv_objdetect_constructor_hog_descriptor((uint8_t *) (*name).ptr, (*name).len);
   return (wasm_cv_objdetect_own_hog_descriptor_t) { ret };
 }
 

@@ -571,7 +571,7 @@ extern void wasm_cv_dnn_nms_boxes(wasm_cv_dnn_list_rect_t *bboxes, imports_list_
 // 
 // For further details, please see:
 // https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
-extern wasm_cv_objdetect_own_cascade_classifier_t wasm_cv_objdetect_constructor_cascade_classifier(void);
+extern wasm_cv_objdetect_own_cascade_classifier_t wasm_cv_objdetect_constructor_cascade_classifier(imports_string_t *name);
 // Close the CascadeClassifier
 extern void wasm_cv_objdetect_method_cascade_classifier_close(wasm_cv_objdetect_borrow_cascade_classifier_t self);
 // Load cascade classifier from a file.
@@ -592,7 +592,7 @@ extern void wasm_cv_objdetect_method_cascade_classifier_detect_multi_scale(wasm_
 // http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb63968136476ec4204ffca498
 extern void wasm_cv_objdetect_method_cascade_classifier_detect_multi_scale_with_params(wasm_cv_objdetect_borrow_cascade_classifier_t self, wasm_cv_objdetect_own_mat_t image, double scale, uint32_t min_neighbors, uint32_t flags, wasm_cv_objdetect_size_t *min_size, wasm_cv_objdetect_size_t *max_size, wasm_cv_objdetect_list_rect_t *ret);
 // NewHOGDescriptor returns a new HOGDescriptor.
-extern wasm_cv_objdetect_own_hog_descriptor_t wasm_cv_objdetect_constructor_hog_descriptor(void);
+extern wasm_cv_objdetect_own_hog_descriptor_t wasm_cv_objdetect_constructor_hog_descriptor(imports_string_t *name);
 // Close the HOGDescriptor
 extern void wasm_cv_objdetect_method_hog_descriptor_close(wasm_cv_objdetect_borrow_hog_descriptor_t self);
 // DetectMultiScale detects objects of different sizes in the input Mat image.
@@ -612,7 +612,6 @@ extern void wasm_cv_objdetect_method_hog_descriptor_detect_multi_scale_with_para
 // For further details, please see:
 // https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
 extern wasm_cv_objdetect_own_face_detector_yn_t wasm_cv_objdetect_constructor_face_detector_yn(imports_string_t *model, imports_string_t *config, wasm_cv_objdetect_size_t *input_size);
-// new: static func(model: string, config: string, input-size: size) -> face-detector-YN;
 // Creates an instance of face detector YN with given parameters.
 // 
 // For further details, please see:

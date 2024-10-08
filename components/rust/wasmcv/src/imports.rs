@@ -2777,19 +2777,22 @@ pub mod wasm {
         ///
         /// For further details, please see:
         /// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516
-        pub fn new() -> Self{
+        pub fn new(name: &str,) -> Self{
           unsafe {
+            let vec0 = name;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
 
             #[cfg(target_arch = "wasm32")]
             #[link(wasm_import_module = "wasm:cv/objdetect")]
             extern "C" {
               #[link_name = "[constructor]cascade-classifier"]
-              fn wit_import() -> i32;
+              fn wit_import(_: *mut u8, _: usize, ) -> i32;
             }
 
             #[cfg(not(target_arch = "wasm32"))]
-            fn wit_import() -> i32{ unreachable!() }
-            let ret = wit_import();
+            fn wit_import(_: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0);
             CascadeClassifier::from_handle(ret as u32)
           }
         }
@@ -2904,19 +2907,22 @@ pub mod wasm {
       impl HogDescriptor {
         #[allow(unused_unsafe, clippy::all)]
         /// NewHOGDescriptor returns a new HOGDescriptor.
-        pub fn new() -> Self{
+        pub fn new(name: &str,) -> Self{
           unsafe {
+            let vec0 = name;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
 
             #[cfg(target_arch = "wasm32")]
             #[link(wasm_import_module = "wasm:cv/objdetect")]
             extern "C" {
               #[link_name = "[constructor]HOG-descriptor"]
-              fn wit_import() -> i32;
+              fn wit_import(_: *mut u8, _: usize, ) -> i32;
             }
 
             #[cfg(not(target_arch = "wasm32"))]
-            fn wit_import() -> i32{ unreachable!() }
-            let ret = wit_import();
+            fn wit_import(_: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0);
             HogDescriptor::from_handle(ret as u32)
           }
         }
@@ -3034,7 +3040,6 @@ pub mod wasm {
       }
       impl FaceDetectorYn {
         #[allow(unused_unsafe, clippy::all)]
-        /// new: static func(model: string, config: string, input-size: size) -> face-detector-YN;
         /// Creates an instance of face detector YN with given parameters.
         ///
         /// For further details, please see:
@@ -3758,8 +3763,8 @@ pub(crate) use __export_imports_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.32.0:wasm:cv:imports:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 8065] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\x83>\x01A\x02\x01A\x1a\
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 8077] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\x8f>\x01A\x02\x01A\x1a\
 \x01B\x1c\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x01r\x04\x04val1v\x04val2v\x04\
 val3v\x04val4v\x04\0\x06scalar\x03\0\x02\x01r\x02\x03min\x01\x03max\x01\x04\0\x04\
 rect\x03\0\x04\x01r\x04\x01r}\x01g}\x01b}\x01a}\x04\0\x04RGBA\x03\0\x06\x01m\x08\
@@ -3880,45 +3885,45 @@ S-boxes\x01.\x03\0\x0bwasm:cv/dnn\x05\x11\x01BL\x02\x03\x02\x01\x0d\x04\0\x03mat
 rect\x03\0\x04\x04\0\x12cascade-classifier\x03\x01\x04\0\x0eHOG-descriptor\x03\x01\
 \x04\0\x10face-detector-YN\x03\x01\x01m\x02\x19face-distance-type-cosine\x15face\
 -distance-norm-l2\x04\0\x12face-distance-type\x03\0\x09\x04\0\x12face-recognizer\
--SF\x03\x01\x01i\x06\x01@\0\0\x0c\x04\0\x1f[constructor]cascade-classifier\x01\x0d\
-\x01h\x06\x01@\x01\x04self\x0e\x01\0\x04\0\x20[method]cascade-classifier.close\x01\
-\x0f\x01@\x02\x04self\x0e\x04files\0\x7f\x04\0\x1f[method]cascade-classifier.loa\
-d\x01\x10\x01i\x01\x01p\x05\x01@\x02\x04self\x0e\x05image\x11\0\x12\x04\0-[metho\
-d]cascade-classifier.detect-multi-scale\x01\x13\x01@\x07\x04self\x0e\x05image\x11\
-\x05scaleu\x0dmin-neighborsy\x05flagsy\x08min-size\x03\x08max-size\x03\0\x12\x04\
-\09[method]cascade-classifier.detect-multi-scale-with-params\x01\x14\x01i\x07\x01\
-@\0\0\x15\x04\0\x1b[constructor]HOG-descriptor\x01\x16\x01h\x07\x01@\x01\x04self\
-\x17\x01\0\x04\0\x1c[method]HOG-descriptor.close\x01\x18\x01@\x02\x04self\x17\x05\
-image\x11\0\x12\x04\0)[method]HOG-descriptor.detect-multi-scale\x01\x19\x01@\x08\
-\x04self\x17\x05image\x11\x0dhit-thresholdu\x0awin-stride\x03\x07padding\x03\x05\
-scaleu\x0ffinal-thresholdu\x16use-meanshift-grouping\x7f\0\x12\x04\05[method]HOG\
--descriptor.detect-multi-scale-with-params\x01\x1a\x01i\x08\x01@\x03\x05models\x06\
-configs\x0ainput-size\x03\0\x1b\x04\0\x1d[constructor]face-detector-YN\x01\x1c\x01\
-@\x08\x05models\x06configs\x0ainput-size\x03\x0fscore-thresholdv\x0dnms-threshol\
-dv\x05top-ky\x0abackend-idy\x09target-idy\0\x1b\x04\0([static]face-detector-YN.n\
-ew-with-params\x01\x1d\x01h\x08\x01@\x01\x04self\x1e\x01\0\x04\0\x1e[method]face\
--detector-YN.close\x01\x1f\x01@\x02\x04self\x1e\x05inputs\0\x11\x04\0\x1f[method\
-]face-detector-YN.detect\x01\x20\x01@\x01\x04self\x1e\0\x03\x04\0'[method]face-d\
-etector-YN.get-input-size\x01!\x01@\x01\x04self\x1e\0v\x04\0*[method]face-detect\
-or-YN.get-nms-threshold\x01\"\x04\0,[method]face-detector-YN.get-score-threshold\
-\x01\"\x01@\x01\x04self\x1e\0y\x04\0![method]face-detector-YN.get-topk\x01#\x01@\
-\x02\x04self\x1e\x04size\x03\x01\0\x04\0'[method]face-detector-YN.set-input-size\
-\x01$\x01@\x02\x04self\x1e\x09thresholdv\x01\0\x04\0*[method]face-detector-YN.se\
-t-nms-threshold\x01%\x04\0,[method]face-detector-YN.set-score-threshold\x01%\x01\
-@\x02\x04self\x1e\x04topky\x01\0\x04\0![method]face-detector-YN.set-topk\x01&\x01\
-i\x0b\x01@\x02\x05models\x06configs\0'\x04\0\x1f[constructor]face-recognizer-SF\x01\
-(\x01@\x04\x05models\x06configs\x0abackend-idy\x09target-idy\0'\x04\0*[static]fa\
-ce-recognizer-SF.new-with-params\x01)\x01h\x0b\x01@\x01\x04self*\x01\0\x04\0\x20\
-[method]face-recognizer-SF.close\x01+\x01@\x03\x04self*\x03src\x11\x08face-box\x11\
-\0\x11\x04\0%[method]face-recognizer-SF.align-crop\x01,\x01@\x02\x04self*\x07ali\
-gned\x11\0\x11\x04\0\"[method]face-recognizer-SF.feature\x01-\x01@\x03\x04self*\x05\
-face1\x11\x05face2\x11\0v\x04\0\x20[method]face-recognizer-SF.match\x01.\x01@\x04\
-\x04self*\x05face1\x11\x05face2\x11\x08distance\x0a\0v\x04\0,[method]face-recogn\
-izer-SF.match-with-params\x01/\x03\0\x11wasm:cv/objdetect\x05\x12\x01B\x05\x02\x03\
-\x02\x01\x0d\x04\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\0\x07\
-process\x01\x03\x04\0\x0fwasm:cv/request\x05\x13\x04\0\x0fwasm:cv/imports\x04\0\x0b\
-\x0d\x01\0\x07imports\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-com\
-ponent\x070.217.0\x10wit-bindgen-rust\x060.32.0";
+-SF\x03\x01\x01i\x06\x01@\x01\x04names\0\x0c\x04\0\x1f[constructor]cascade-class\
+ifier\x01\x0d\x01h\x06\x01@\x01\x04self\x0e\x01\0\x04\0\x20[method]cascade-class\
+ifier.close\x01\x0f\x01@\x02\x04self\x0e\x04files\0\x7f\x04\0\x1f[method]cascade\
+-classifier.load\x01\x10\x01i\x01\x01p\x05\x01@\x02\x04self\x0e\x05image\x11\0\x12\
+\x04\0-[method]cascade-classifier.detect-multi-scale\x01\x13\x01@\x07\x04self\x0e\
+\x05image\x11\x05scaleu\x0dmin-neighborsy\x05flagsy\x08min-size\x03\x08max-size\x03\
+\0\x12\x04\09[method]cascade-classifier.detect-multi-scale-with-params\x01\x14\x01\
+i\x07\x01@\x01\x04names\0\x15\x04\0\x1b[constructor]HOG-descriptor\x01\x16\x01h\x07\
+\x01@\x01\x04self\x17\x01\0\x04\0\x1c[method]HOG-descriptor.close\x01\x18\x01@\x02\
+\x04self\x17\x05image\x11\0\x12\x04\0)[method]HOG-descriptor.detect-multi-scale\x01\
+\x19\x01@\x08\x04self\x17\x05image\x11\x0dhit-thresholdu\x0awin-stride\x03\x07pa\
+dding\x03\x05scaleu\x0ffinal-thresholdu\x16use-meanshift-grouping\x7f\0\x12\x04\0\
+5[method]HOG-descriptor.detect-multi-scale-with-params\x01\x1a\x01i\x08\x01@\x03\
+\x05models\x06configs\x0ainput-size\x03\0\x1b\x04\0\x1d[constructor]face-detecto\
+r-YN\x01\x1c\x01@\x08\x05models\x06configs\x0ainput-size\x03\x0fscore-thresholdv\
+\x0dnms-thresholdv\x05top-ky\x0abackend-idy\x09target-idy\0\x1b\x04\0([static]fa\
+ce-detector-YN.new-with-params\x01\x1d\x01h\x08\x01@\x01\x04self\x1e\x01\0\x04\0\
+\x1e[method]face-detector-YN.close\x01\x1f\x01@\x02\x04self\x1e\x05inputs\0\x11\x04\
+\0\x1f[method]face-detector-YN.detect\x01\x20\x01@\x01\x04self\x1e\0\x03\x04\0'[\
+method]face-detector-YN.get-input-size\x01!\x01@\x01\x04self\x1e\0v\x04\0*[metho\
+d]face-detector-YN.get-nms-threshold\x01\"\x04\0,[method]face-detector-YN.get-sc\
+ore-threshold\x01\"\x01@\x01\x04self\x1e\0y\x04\0![method]face-detector-YN.get-t\
+opk\x01#\x01@\x02\x04self\x1e\x04size\x03\x01\0\x04\0'[method]face-detector-YN.s\
+et-input-size\x01$\x01@\x02\x04self\x1e\x09thresholdv\x01\0\x04\0*[method]face-d\
+etector-YN.set-nms-threshold\x01%\x04\0,[method]face-detector-YN.set-score-thres\
+hold\x01%\x01@\x02\x04self\x1e\x04topky\x01\0\x04\0![method]face-detector-YN.set\
+-topk\x01&\x01i\x0b\x01@\x02\x05models\x06configs\0'\x04\0\x1f[constructor]face-\
+recognizer-SF\x01(\x01@\x04\x05models\x06configs\x0abackend-idy\x09target-idy\0'\
+\x04\0*[static]face-recognizer-SF.new-with-params\x01)\x01h\x0b\x01@\x01\x04self\
+*\x01\0\x04\0\x20[method]face-recognizer-SF.close\x01+\x01@\x03\x04self*\x03src\x11\
+\x08face-box\x11\0\x11\x04\0%[method]face-recognizer-SF.align-crop\x01,\x01@\x02\
+\x04self*\x07aligned\x11\0\x11\x04\0\"[method]face-recognizer-SF.feature\x01-\x01\
+@\x03\x04self*\x05face1\x11\x05face2\x11\0v\x04\0\x20[method]face-recognizer-SF.\
+match\x01.\x01@\x04\x04self*\x05face1\x11\x05face2\x11\x08distance\x0a\0v\x04\0,\
+[method]face-recognizer-SF.match-with-params\x01/\x03\0\x11wasm:cv/objdetect\x05\
+\x12\x01B\x05\x02\x03\x02\x01\x0d\x04\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05imag\
+e\x02\0\x02\x04\0\x07process\x01\x03\x04\0\x0fwasm:cv/request\x05\x13\x04\0\x0fw\
+asm:cv/imports\x04\0\x0b\x0d\x01\0\x07imports\x03\0\0\0G\x09producers\x01\x0cpro\
+cessed-by\x02\x0dwit-component\x070.217.0\x10wit-bindgen-rust\x060.32.0";
 
 #[inline(never)]
 #[doc(hidden)]
