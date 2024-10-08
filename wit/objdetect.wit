@@ -80,7 +80,7 @@ interface objdetect {
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#ac05bd075ca3e6edc0e328927aae6f45b
-		detect: func(input: string) -> mat;
+		detect: func(input: mat) -> mat;
 
 		get-input-size: func() -> size;
 		get-nms-threshold: func() -> f32;
