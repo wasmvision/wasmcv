@@ -8,6 +8,9 @@ generate-rust:
 generate-c:
 	wit-bindgen c --out-dir ./components/c/wasmcv -w imports ./wit/
 
+generate-docs:
+	wit-bindgen markdown --out-dir ./docs -w imports ./wit/
+
 generate: generate-go generate-rust generate-c
 
 # build basic example guest module
