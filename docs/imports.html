@@ -1,0 +1,1495 @@
+<h1><a id="imports"></a>World imports</h1>
+<p>wasmCV is a WebAssembly guest module interface for computer vision based on OpenCV.</p>
+<ul>
+<li>Imports:
+<ul>
+<li>interface <a href="#wasm_cv_types"><code>wasm:cv/types</code></a></li>
+<li>interface <a href="#wasm_cv_mat"><code>wasm:cv/mat</code></a></li>
+<li>interface <a href="#wasm_cv_cv"><code>wasm:cv/cv</code></a></li>
+<li>interface <a href="#wasm_cv_dnn"><code>wasm:cv/dnn</code></a></li>
+<li>interface <a href="#wasm_cv_objdetect"><code>wasm:cv/objdetect</code></a></li>
+</ul>
+</li>
+<li>Exports:
+<ul>
+<li>interface <a href="#wasm_cv_request"><code>wasm:cv/request</code></a></li>
+</ul>
+</li>
+</ul>
+<h2><a id="wasm_cv_types"></a>Import interface wasm:cv/types</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="size"></a><code>record size</code></h4>
+<p>size is a 2-element integer vector.
+It represents a width and height.</p>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="size.x"></a><code>x</code>: <code>s32</code></li>
+<li><a id="size.y"></a><code>y</code>: <code>s32</code></li>
+</ul>
+<h4><a id="point"></a><code>type point</code></h4>
+<p><a href="#size"><a href="#size"><code>size</code></a></a></p>
+<p>point is a 2-element integer vector.
+It represents a x and y coordinate.
+<h4><a id="scalar"></a><code>record scalar</code></h4>
+<p>scalar is a 4-element floating point vector.</p>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="scalar.val1"></a><code>val1</code>: <code>f32</code></li>
+<li><a id="scalar.val2"></a><code>val2</code>: <code>f32</code></li>
+<li><a id="scalar.val3"></a><code>val3</code>: <code>f32</code></li>
+<li><a id="scalar.val4"></a><code>val4</code>: <code>f32</code></li>
+</ul>
+<h4><a id="rect"></a><code>record rect</code></h4>
+<p>rect is a rectangle with integer coordinates.
+It is represented by the top-left corner and the bottom-right corner.</p>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="rect.min"></a><code>min</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+<li><a id="rect.max"></a><code>max</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+</ul>
+<h4><a id="rgba"></a><code>record RGBA</code></h4>
+<p>RGBA is a color with red, green, blue, and alpha channels.</p>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="rgba.r"></a><code>r</code>: <code>u8</code></li>
+<li><a id="rgba.g"></a><code>g</code>: <code>u8</code></li>
+<li><a id="rgba.b"></a><code>b</code>: <code>u8</code></li>
+<li><a id="rgba.a"></a><code>a</code>: <code>u8</code></li>
+</ul>
+<h4><a id="border_type"></a><code>enum border-type</code></h4>
+<p>border-type is a type of border to add to an image.</p>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="border_type.border_constant"></a><code>border-constant</code></li>
+<li><a id="border_type.border_replicate"></a><code>border-replicate</code></li>
+<li><a id="border_type.border_reflect"></a><code>border-reflect</code></li>
+<li><a id="border_type.border_wrap"></a><code>border-wrap</code></li>
+<li><a id="border_type.border_reflect101"></a><code>border-reflect101</code></li>
+<li><a id="border_type.border_transparent"></a><code>border-transparent</code></li>
+<li><a id="border_type.border_default"></a><code>border-default</code></li>
+<li><a id="border_type.border_isolated"></a><code>border-isolated</code></li>
+</ul>
+<h4><a id="adaptive_threshold_type"></a><code>enum adaptive-threshold-type</code></h4>
+<p>adaptive-threshold-type is a type of adaptive thresholding.</p>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="adaptive_threshold_type.adaptive_threshold_mean"></a><code>adaptive-threshold-mean</code></li>
+<li><a id="adaptive_threshold_type.adaptive_threshold_gaussian"></a><code>adaptive-threshold-gaussian</code></li>
+</ul>
+<h4><a id="threshold_type"></a><code>enum threshold-type</code></h4>
+<p>threshold-type is a type of thresholding.</p>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="threshold_type.threshold_binary"></a><code>threshold-binary</code></li>
+<li><a id="threshold_type.threshold_binary_inv"></a><code>threshold-binary-inv</code></li>
+<li><a id="threshold_type.threshold_trunc"></a><code>threshold-trunc</code></li>
+<li><a id="threshold_type.threshold_to_zero"></a><code>threshold-to-zero</code></li>
+<li><a id="threshold_type.threshold_to_zero_inv"></a><code>threshold-to-zero-inv</code></li>
+<li><a id="threshold_type.threshold_mask"></a><code>threshold-mask</code></li>
+<li><a id="threshold_type.threshold_otsu"></a><code>threshold-otsu</code></li>
+<li><a id="threshold_type.tthreshold_triangle"></a><code>tthreshold-triangle</code></li>
+</ul>
+<h4><a id="data_layout_type"></a><code>enum data-layout-type</code></h4>
+<p>data-layout-type is a type of data layout.</p>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="data_layout_type.data_layout_unknown"></a><code>data-layout-unknown</code></li>
+<li><a id="data_layout_type.data_layout_nd"></a><code>data-layout-nd</code></li>
+<li><a id="data_layout_type.data_layout_nchw"></a><code>data-layout-nchw</code></li>
+<li><a id="data_layout_type.data_layout_ncdhw"></a><code>data-layout-ncdhw</code></li>
+<li><a id="data_layout_type.data_layout_nhwc"></a><code>data-layout-nhwc</code></li>
+<li><a id="data_layout_type.data_layout_ndhwc"></a><code>data-layout-ndhwc</code></li>
+<li><a id="data_layout_type.data_layout_planar"></a><code>data-layout-planar</code></li>
+</ul>
+<h4><a id="padding_mode_type"></a><code>enum padding-mode-type</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="padding_mode_type.padding_mode_null"></a><code>padding-mode-null</code></li>
+<li><a id="padding_mode_type.padding_mode_crop_center"></a><code>padding-mode-crop-center</code></li>
+<li><a id="padding_mode_type.padding_mode_letterbox"></a><code>padding-mode-letterbox</code></li>
+</ul>
+<h4><a id="blob_params"></a><code>record blob-params</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="blob_params.scale_factor"></a><code>scale-factor</code>: <code>f32</code></li>
+<li><a id="blob_params.size"></a><a href="#size"><code>size</code></a>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+<li><a id="blob_params.mean"></a><code>mean</code>: <a href="#scalar"><a href="#scalar"><code>scalar</code></a></a></li>
+<li><a id="blob_params.swap_rb"></a><code>swap-RB</code>: <code>bool</code></li>
+<li><a id="blob_params.ddepth"></a><code>ddepth</code>: <code>u8</code></li>
+<li><a id="blob_params.data_layout"></a><code>data-layout</code>: <a href="#data_layout_type"><a href="#data_layout_type"><code>data-layout-type</code></a></a></li>
+<li><a id="blob_params.padding_mode"></a><code>padding-mode</code>: <a href="#padding_mode_type"><a href="#padding_mode_type"><code>padding-mode-type</code></a></a></li>
+<li><a id="blob_params.border"></a><code>border</code>: <a href="#scalar"><a href="#scalar"><code>scalar</code></a></a></li>
+</ul>
+<h4><a id="mix_max_loc_result"></a><code>record mix-max-loc-result</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="mix_max_loc_result.min_val"></a><code>min-val</code>: <code>f32</code></li>
+<li><a id="mix_max_loc_result.max_val"></a><code>max-val</code>: <code>f32</code></li>
+<li><a id="mix_max_loc_result.min_loc"></a><code>min-loc</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+<li><a id="mix_max_loc_result.max_loc"></a><code>max-loc</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+</ul>
+<h4><a id="hershey_font_type"></a><code>enum hershey-font-type</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="hershey_font_type.hershey_font_simplex"></a><code>hershey-font-simplex</code></li>
+<li><a id="hershey_font_type.hershey_font_plain"></a><code>hershey-font-plain</code></li>
+<li><a id="hershey_font_type.hershey_font_duplex"></a><code>hershey-font-duplex</code></li>
+<li><a id="hershey_font_type.hershey_font_complex"></a><code>hershey-font-complex</code></li>
+<li><a id="hershey_font_type.hershey_font_triplex"></a><code>hershey-font-triplex</code></li>
+<li><a id="hershey_font_type.hershey_font_complex_small"></a><code>hershey-font-complex-small</code></li>
+<li><a id="hershey_font_type.hershey_font_script_simplex"></a><code>hershey-font-script-simplex</code></li>
+<li><a id="hershey_font_type.hershey_font_script_complex"></a><code>hershey-font-script-complex</code></li>
+<li><a id="hershey_font_type.hershey_font_italic"></a><code>hershey-font-italic</code></li>
+</ul>
+<h4><a id="interpolation_type"></a><code>enum interpolation-type</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="interpolation_type.interpolation_nearest"></a><code>interpolation-nearest</code></li>
+<li><a id="interpolation_type.interpolation_linear"></a><code>interpolation-linear</code></li>
+<li><a id="interpolation_type.interpolation_cubic"></a><code>interpolation-cubic</code></li>
+<li><a id="interpolation_type.interpolation_area"></a><code>interpolation-area</code></li>
+<li><a id="interpolation_type.interpolation_lanczos4"></a><code>interpolation-lanczos4</code></li>
+</ul>
+<h4><a id="color_coversion_type"></a><code>enum color-coversion-type</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="color_coversion_type.color_bgr_to_bgra"></a><code>color-BGR-to-BGRA</code></li>
+<li><a id="color_coversion_type.color_rgb_to_rgba"></a><code>color-RGB-to-RGBA</code></li>
+<li><a id="color_coversion_type.color_bgra_to_bgr"></a><code>color-BGRA-to-BGR</code></li>
+<li><a id="color_coversion_type.color_rgba_to_rgb"></a><code>color-RGBA-to-RGB</code></li>
+<li><a id="color_coversion_type.color_bgr_to_rgba"></a><code>color-BGR-to-RGBA</code></li>
+<li><a id="color_coversion_type.color_rgb_to_bgra"></a><code>color-RGB-to-BGRA</code></li>
+<li><a id="color_coversion_type.color_rgba_to_bgr"></a><code>color-RGBA-to-BGR</code></li>
+<li><a id="color_coversion_type.color_bgra_to_rgb"></a><code>color-BGRA-to-RGB</code></li>
+<li><a id="color_coversion_type.color_bgr_to_rgb"></a><code>color-BGR-to-RGB</code></li>
+<li><a id="color_coversion_type.color_rgb_to_bgr"></a><code>color-RGB-to-BGR</code></li>
+<li><a id="color_coversion_type.color_bgra_to_rgba"></a><code>color-BGRA-to-RGBA</code></li>
+<li><a id="color_coversion_type.color_rgba_to_bgra"></a><code>color-RGBA-to-BGRA</code></li>
+<li><a id="color_coversion_type.color_bgr_to_gray"></a><code>color-BGR-to-gray</code></li>
+<li><a id="color_coversion_type.color_rgb_to_gray"></a><code>color-RGB-to-gray</code></li>
+<li><a id="color_coversion_type.color_gray_to_bgr"></a><code>color-gray-to-BGR</code></li>
+<li><a id="color_coversion_type.color_gray_to_rgb"></a><code>color-gray-to-RGB</code></li>
+<li><a id="color_coversion_type.color_gray_to_bgra"></a><code>color-gray-to-BGRA</code></li>
+<li><a id="color_coversion_type.color_gray_to_rgba"></a><code>color-gray-to-RGBA</code></li>
+<li><a id="color_coversion_type.color_bgra_to_gray"></a><code>color-BGRA-to-gray</code></li>
+<li><a id="color_coversion_type.color_rgba_to_gray"></a><code>color-RGBA-to-gray</code></li>
+</ul>
+<h4><a id="morph_shape"></a><code>enum morph-shape</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="morph_shape.morph_rect"></a><code>morph-rect</code></li>
+<li><a id="morph_shape.morph_cross"></a><code>morph-cross</code></li>
+<li><a id="morph_shape.morph_ellipse"></a><code>morph-ellipse</code></li>
+</ul>
+<h2><a id="wasm_cv_mat"></a>Import interface wasm:cv/mat</h2>
+<p>mat resource is a matrix of bytes, wrapper around the cv::Mat type.</p>
+<hr />
+<h3>Types</h3>
+<h4><a id="mix_max_loc_result"></a><code>type mix-max-loc-result</code></h4>
+<p><a href="#mix_max_loc_result"><a href="#mix_max_loc_result"><code>mix-max-loc-result</code></a></a></p>
+<p>
+#### <a id="rect"></a>`type rect`
+[`rect`](#rect)
+<p>
+#### <a id="mattype"></a>`enum mattype`
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="mattype.cv8u"></a><code>cv8u</code></li>
+<li><a id="mattype.cv8s"></a><code>cv8s</code></li>
+<li><a id="mattype.cv16u"></a><code>cv16u</code></li>
+<li><a id="mattype.cv16s"></a><code>cv16s</code></li>
+<li><a id="mattype.cv32s"></a><code>cv32s</code></li>
+<li><a id="mattype.cv32f"></a><code>cv32f</code></li>
+<li><a id="mattype.cv64f"></a><code>cv64f</code></li>
+</ul>
+<h4><a id="mat"></a><code>resource mat</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="constructor_mat"></a><code>[constructor]mat: func</code></h4>
+<p>Create a new Mat. id does not currently do anything.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_mat.id"></a><code>id</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_mat.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="static_mat_new_with_size"></a><code>[static]mat.new-with-size: func</code></h4>
+<p>Create a new Mat with the specified size and type.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="static_mat_new_with_size.cols"></a><code>cols</code>: <code>u32</code></li>
+<li><a id="static_mat_new_with_size.rows"></a><code>rows</code>: <code>u32</code></li>
+<li><a id="static_mat_new_with_size.mattype"></a><a href="#mattype"><code>mattype</code></a>: <a href="#mattype"><a href="#mattype"><code>mattype</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="static_mat_new_with_size.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_mat_clone"></a><code>[method]mat.clone: func</code></h4>
+<p>Clone returns a cloned full copy of the Mat.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_clone.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_clone.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_mat_close"></a><code>[method]mat.close: func</code></h4>
+<p>Close the Mat</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_close.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_mat_cols"></a><code>[method]mat.cols: func</code></h4>
+<p>Cols returns the number of columns for this Mat.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_cols.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_cols.0"></a> <code>u32</code></li>
+</ul>
+<h4><a id="method_mat_rows"></a><code>[method]mat.rows: func</code></h4>
+<p>Rows returns the number of rows for this Mat.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_rows.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_rows.0"></a> <code>u32</code></li>
+</ul>
+<h4><a id="method_mat_region"></a><code>[method]mat.region: func</code></h4>
+<p>Region returns a new Mat that points to a region of this Mat. Changes made to the
+region Mat will affect the original Mat, since they are pointers to the underlying
+OpenCV Mat object.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_region.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_region.rect"></a><a href="#rect"><code>rect</code></a>: <a href="#rect"><a href="#rect"><code>rect</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_region.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_mat_copy_to"></a><code>[method]mat.copy-to: func</code></h4>
+<p>CopyTo copies Mat into destination Mat.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_copy_to.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_copy_to.dst"></a><code>dst</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_mat_mattype"></a><code>[method]mat.mattype: func</code></h4>
+<p>MatType returns the type of the Mat.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_mattype.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_mattype.0"></a> <a href="#mattype"><a href="#mattype"><code>mattype</code></a></a></li>
+</ul>
+<h4><a id="method_mat_size"></a><code>[method]mat.size: func</code></h4>
+<p>Size returns an array with one element for each dimension containing the size of that dimension for the Mat.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_size.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_size.0"></a> list&lt;<code>u32</code>&gt;</li>
+</ul>
+<h4><a id="method_mat_empty"></a><code>[method]mat.empty: func</code></h4>
+<p>Empty returns true if the Mat is empty.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_empty.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_empty.0"></a> <code>bool</code></li>
+</ul>
+<h4><a id="method_mat_get_float_at"></a><code>[method]mat.get-float-at: func</code></h4>
+<p>GetFloatAt returns the value at the specified row and column as a f32.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_get_float_at.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_get_float_at.row"></a><code>row</code>: <code>u32</code></li>
+<li><a id="method_mat_get_float_at.col"></a><code>col</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_get_float_at.0"></a> <code>f32</code></li>
+</ul>
+<h4><a id="method_mat_set_float_at"></a><code>[method]mat.set-float-at: func</code></h4>
+<p>SetFloatAt sets the value at the specified row and column as a f32.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_set_float_at.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_set_float_at.row"></a><code>row</code>: <code>u32</code></li>
+<li><a id="method_mat_set_float_at.col"></a><code>col</code>: <code>u32</code></li>
+<li><a id="method_mat_set_float_at.val"></a><code>val</code>: <code>f32</code></li>
+</ul>
+<h4><a id="method_mat_get_uchar_at"></a><code>[method]mat.get-uchar-at: func</code></h4>
+<p>GetUCharAt returns the value at the specified row and column as a u8.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_get_uchar_at.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_get_uchar_at.row"></a><code>row</code>: <code>u32</code></li>
+<li><a id="method_mat_get_uchar_at.col"></a><code>col</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_get_uchar_at.0"></a> <code>u8</code></li>
+</ul>
+<h4><a id="method_mat_set_uchar_at"></a><code>[method]mat.set-uchar-at: func</code></h4>
+<p>SetUCharAt sets the value at the specified row and column as a u8.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_set_uchar_at.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_set_uchar_at.row"></a><code>row</code>: <code>u32</code></li>
+<li><a id="method_mat_set_uchar_at.col"></a><code>col</code>: <code>u32</code></li>
+<li><a id="method_mat_set_uchar_at.val"></a><code>val</code>: <code>u8</code></li>
+</ul>
+<h4><a id="method_mat_get_int_at"></a><code>[method]mat.get-int-at: func</code></h4>
+<p>GetIntAt returns the value at the specified row and column as a s32.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_get_int_at.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_get_int_at.row"></a><code>row</code>: <code>u32</code></li>
+<li><a id="method_mat_get_int_at.col"></a><code>col</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_get_int_at.0"></a> <code>s32</code></li>
+</ul>
+<h4><a id="method_mat_set_int_at"></a><code>[method]mat.set-int-at: func</code></h4>
+<p>SetIntAt sets the value at the specified row and column as a s32.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_set_int_at.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_set_int_at.row"></a><code>row</code>: <code>u32</code></li>
+<li><a id="method_mat_set_int_at.col"></a><code>col</code>: <code>u32</code></li>
+<li><a id="method_mat_set_int_at.val"></a><code>val</code>: <code>s32</code></li>
+</ul>
+<h4><a id="method_mat_get_float_at3"></a><code>[method]mat.get-float-at3: func</code></h4>
+<p>GetFloatAt3 returns the value at the specified x, y, z as a f32.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_get_float_at3.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_get_float_at3.x"></a><code>x</code>: <code>u32</code></li>
+<li><a id="method_mat_get_float_at3.y"></a><code>y</code>: <code>u32</code></li>
+<li><a id="method_mat_get_float_at3.z"></a><code>z</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_get_float_at3.0"></a> <code>f32</code></li>
+</ul>
+<h4><a id="method_mat_set_float_at3"></a><code>[method]mat.set-float-at3: func</code></h4>
+<p>SetFloatAt3 sets the value at the specified x, y, z as a f32.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_set_float_at3.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_set_float_at3.x"></a><code>x</code>: <code>u32</code></li>
+<li><a id="method_mat_set_float_at3.y"></a><code>y</code>: <code>u32</code></li>
+<li><a id="method_mat_set_float_at3.z"></a><code>z</code>: <code>u32</code></li>
+<li><a id="method_mat_set_float_at3.val"></a><code>val</code>: <code>f32</code></li>
+</ul>
+<h4><a id="method_mat_get_uchar_at3"></a><code>[method]mat.get-uchar-at3: func</code></h4>
+<p>GetUCharAt3 returns the value at the specified x, y, z as a u8.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_get_uchar_at3.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_get_uchar_at3.x"></a><code>x</code>: <code>u32</code></li>
+<li><a id="method_mat_get_uchar_at3.y"></a><code>y</code>: <code>u32</code></li>
+<li><a id="method_mat_get_uchar_at3.z"></a><code>z</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_get_uchar_at3.0"></a> <code>u8</code></li>
+</ul>
+<h4><a id="method_mat_set_uchar_at3"></a><code>[method]mat.set-uchar-at3: func</code></h4>
+<p>SetUCharAt3 sets the value at the specified x, y, z as a u8.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_set_uchar_at3.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_set_uchar_at3.x"></a><code>x</code>: <code>u32</code></li>
+<li><a id="method_mat_set_uchar_at3.y"></a><code>y</code>: <code>u32</code></li>
+<li><a id="method_mat_set_uchar_at3.z"></a><code>z</code>: <code>u32</code></li>
+<li><a id="method_mat_set_uchar_at3.val"></a><code>val</code>: <code>u8</code></li>
+</ul>
+<h4><a id="method_mat_get_int_at3"></a><code>[method]mat.get-int-at3: func</code></h4>
+<p>GetIntAt3 returns the value at the specified x, y, z as a s32.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_get_int_at3.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_get_int_at3.x"></a><code>x</code>: <code>u32</code></li>
+<li><a id="method_mat_get_int_at3.y"></a><code>y</code>: <code>u32</code></li>
+<li><a id="method_mat_get_int_at3.z"></a><code>z</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_get_int_at3.0"></a> <code>s32</code></li>
+</ul>
+<h4><a id="method_mat_set_int_at3"></a><code>[method]mat.set-int-at3: func</code></h4>
+<p>SetIntAt3 sets the value at the specified x, y, z as a s32.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_set_int_at3.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_set_int_at3.x"></a><code>x</code>: <code>u32</code></li>
+<li><a id="method_mat_set_int_at3.y"></a><code>y</code>: <code>u32</code></li>
+<li><a id="method_mat_set_int_at3.z"></a><code>z</code>: <code>u32</code></li>
+<li><a id="method_mat_set_int_at3.val"></a><code>val</code>: <code>s32</code></li>
+</ul>
+<h4><a id="method_mat_get_vecb_at"></a><code>[method]mat.get-vecb-at: func</code></h4>
+<p>GetVecbAt returns a vector of bytes. Its size corresponds to the number of channels of the Mat.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_get_vecb_at.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_get_vecb_at.row"></a><code>row</code>: <code>u32</code></li>
+<li><a id="method_mat_get_vecb_at.col"></a><code>col</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_get_vecb_at.0"></a> list&lt;<code>u8</code>&gt;</li>
+</ul>
+<h4><a id="method_mat_get_vecf_at"></a><code>[method]mat.get-vecf-at: func</code></h4>
+<p>GetVecfAt returns a vector of floats. Its size corresponds to the number of channels of the Mat.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_get_vecf_at.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_get_vecf_at.row"></a><code>row</code>: <code>u32</code></li>
+<li><a id="method_mat_get_vecf_at.col"></a><code>col</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_get_vecf_at.0"></a> list&lt;<code>f32</code>&gt;</li>
+</ul>
+<h4><a id="method_mat_get_veci_at"></a><code>[method]mat.get-veci-at: func</code></h4>
+<p>GetVeciAt returns a vector of s32. Its size corresponds to the number of channels of the Mat.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_get_veci_at.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_get_veci_at.row"></a><code>row</code>: <code>u32</code></li>
+<li><a id="method_mat_get_veci_at.col"></a><code>col</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_get_veci_at.0"></a> list&lt;<code>s32</code>&gt;</li>
+</ul>
+<h4><a id="method_mat_reshape"></a><code>[method]mat.reshape: func</code></h4>
+<p>Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a4eb96e3251417fa88b78e2abd6cfd7d8</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_reshape.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_reshape.channels"></a><code>channels</code>: <code>u32</code></li>
+<li><a id="method_mat_reshape.rows"></a><code>rows</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_reshape.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_mat_row_range"></a><code>[method]mat.row-range: func</code></h4>
+<p>RowRange creates a matrix header for the specified row span.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aa6542193430356ad631a9beabc624107</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_row_range.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_row_range.start"></a><code>start</code>: <code>u32</code></li>
+<li><a id="method_mat_row_range.end"></a><code>end</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_row_range.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_mat_col_range"></a><code>[method]mat.col-range: func</code></h4>
+<p>ColRange creates a matrix header for the specified column span.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aadc8f9210fe4dec50513746c246fa8d9</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_col_range.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_col_range.start"></a><code>start</code>: <code>u32</code></li>
+<li><a id="method_mat_col_range.end"></a><code>end</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_col_range.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_mat_min_max_loc"></a><code>[method]mat.min-max-loc: func</code></h4>
+<p>MinMaxLoc finds the global minimum and maximum in an array.</p>
+<p>For further details, please see:
+https://docs.opencv.org/trunk/d2/de8/group__core__array.html#gab473bf2eb6d14ff97e89b355dac20707</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_min_max_loc.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_min_max_loc.0"></a> <a href="#mix_max_loc_result"><a href="#mix_max_loc_result"><code>mix-max-loc-result</code></a></a></li>
+</ul>
+<h2><a id="wasm_cv_cv"></a>Import interface wasm:cv/cv</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="border_type"></a><code>type border-type</code></h4>
+<p><a href="#border_type"><a href="#border_type"><code>border-type</code></a></a></p>
+<p>
+#### <a id="size"></a>`type size`
+[`size`](#size)
+<p>
+#### <a id="point"></a>`type point`
+[`point`](#point)
+<p>
+#### <a id="adaptive_threshold_type"></a>`type adaptive-threshold-type`
+[`adaptive-threshold-type`](#adaptive_threshold_type)
+<p>
+#### <a id="threshold_type"></a>`type threshold-type`
+[`threshold-type`](#threshold_type)
+<p>
+#### <a id="scalar"></a>`type scalar`
+[`scalar`](#scalar)
+<p>
+#### <a id="rect"></a>`type rect`
+[`rect`](#rect)
+<p>
+#### <a id="rgba"></a>`type RGBA`
+[`RGBA`](#rgba)
+<p>
+#### <a id="hershey_font_type"></a>`type hershey-font-type`
+[`hershey-font-type`](#hershey_font_type)
+<p>
+#### <a id="interpolation_type"></a>`type interpolation-type`
+[`interpolation-type`](#interpolation_type)
+<p>
+#### <a id="color_coversion_type"></a>`type color-coversion-type`
+[`color-coversion-type`](#color_coversion_type)
+<p>
+#### <a id="morph_shape"></a>`type morph-shape`
+[`morph-shape`](#morph_shape)
+<p>
+#### <a id="mat"></a>`type mat`
+[`mat`](#mat)
+<p>
+#### <a id="mattype"></a>`type mattype`
+[`mattype`](#mattype)
+<p>
+----
+<h3>Functions</h3>
+<h4><a id="arrowed_line"></a><code>arrowed-line: func</code></h4>
+<p>drawing functions
+ArrowedLine draws a arrow segment pointing from the first point to the second one.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd488ac709fdf10c05b2</p>
+<h5>Params</h5>
+<ul>
+<li><a id="arrowed_line.img"></a><code>img</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="arrowed_line.point1"></a><code>point1</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
+<li><a id="arrowed_line.point2"></a><code>point2</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
+<li><a id="arrowed_line.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
+<li><a id="arrowed_line.thickness"></a><code>thickness</code>: <code>u8</code></li>
+</ul>
+<h4><a id="rectangle"></a><code>rectangle: func</code></h4>
+<p>Rectangle draws a simple, thick, or filled up-right rectangle.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8f3d1e1b7</p>
+<h5>Params</h5>
+<ul>
+<li><a id="rectangle.img"></a><code>img</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="rectangle.r"></a><code>r</code>: <a href="#rect"><a href="#rect"><code>rect</code></a></a></li>
+<li><a id="rectangle.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
+<li><a id="rectangle.thickness"></a><code>thickness</code>: <code>u8</code></li>
+</ul>
+<h4><a id="circle"></a><code>circle: func</code></h4>
+<p>Circle draws a circle.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b069374903dbd0f0488cb43670</p>
+<h5>Params</h5>
+<ul>
+<li><a id="circle.img"></a><code>img</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="circle.center"></a><code>center</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
+<li><a id="circle.radius"></a><code>radius</code>: <code>u32</code></li>
+<li><a id="circle.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
+<li><a id="circle.thickness"></a><code>thickness</code>: <code>u8</code></li>
+</ul>
+<h4><a id="line"></a><code>line: func</code></h4>
+<p>Line draws a line segment connecting two points.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga7078a9fae8c7e7d13d24dac2520ae4a2</p>
+<h5>Params</h5>
+<ul>
+<li><a id="line.img"></a><code>img</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="line.point1"></a><code>point1</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
+<li><a id="line.point2"></a><code>point2</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
+<li><a id="line.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
+<li><a id="line.thickness"></a><code>thickness</code>: <code>u8</code></li>
+</ul>
+<h4><a id="put_text"></a><code>put-text: func</code></h4>
+<p>PutText draws a text string.
+It renders the specified text string into the img Mat at the location
+passed in the &quot;org&quot; param, using the desired font face, font scale,
+color, and line thinkness.</p>
+<p>For further details, please see:
+http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576</p>
+<h5>Params</h5>
+<ul>
+<li><a id="put_text.img"></a><code>img</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="put_text.text"></a><code>text</code>: <code>string</code></li>
+<li><a id="put_text.org"></a><code>org</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
+<li><a id="put_text.font_face"></a><code>font-face</code>: <a href="#hershey_font_type"><a href="#hershey_font_type"><code>hershey-font-type</code></a></a></li>
+<li><a id="put_text.font_scale"></a><code>font-scale</code>: <code>f64</code></li>
+<li><a id="put_text.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
+<li><a id="put_text.thickness"></a><code>thickness</code>: <code>s32</code></li>
+</ul>
+<h4><a id="adaptive_threshold"></a><code>adaptive-threshold: func</code></h4>
+<p>imgproc functions
+AdaptiveThreshold applies a fixed-level threshold to each array element.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1b1b397736707afcde3</p>
+<h5>Params</h5>
+<ul>
+<li><a id="adaptive_threshold.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="adaptive_threshold.max_value"></a><code>max-value</code>: <code>f32</code></li>
+<li><a id="adaptive_threshold.adaptive_type"></a><code>adaptive-type</code>: <a href="#adaptive_threshold_type"><a href="#adaptive_threshold_type"><code>adaptive-threshold-type</code></a></a></li>
+<li><a id="adaptive_threshold.threshold_type"></a><a href="#threshold_type"><code>threshold-type</code></a>: <a href="#threshold_type"><a href="#threshold_type"><code>threshold-type</code></a></a></li>
+<li><a id="adaptive_threshold.block_size"></a><code>block-size</code>: <code>u32</code></li>
+<li><a id="adaptive_threshold.c"></a><code>c</code>: <code>f32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="adaptive_threshold.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="blur"></a><code>blur: func</code></h4>
+<p>Blur blurs an image Mat using a normalized box filter.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga8c45db9afe636703801b0b2e440fce37</p>
+<h5>Params</h5>
+<ul>
+<li><a id="blur.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="blur.k_size"></a><code>k-size</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="blur.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="box_filter"></a><code>box-filter: func</code></h4>
+<p>BoxFilter blurs an image using the box filter.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gad533230ebf2d42509547d514f7d3fbc3</p>
+<h5>Params</h5>
+<ul>
+<li><a id="box_filter.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="box_filter.depth"></a><code>depth</code>: <code>u32</code></li>
+<li><a id="box_filter.k_size"></a><code>k-size</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="box_filter.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="canny"></a><code>canny: func</code></h4>
+<p>Canny finds edges in an image using the Canny algorithm.
+The function finds edges in the input image image and marks
+them in the output map edges using the Canny algorithm.
+The smallest value between threshold1 and threshold2 is used
+for edge linking. The largest value is used to
+find initial segments of strong edges.
+See http://en.wikipedia.org/wiki/Canny_edge_detector</p>
+<p>For further details, please see:
+http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga04723e007ed888ddf11d9ba04e2232de</p>
+<h5>Params</h5>
+<ul>
+<li><a id="canny.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="canny.threshold1"></a><code>threshold1</code>: <code>f32</code></li>
+<li><a id="canny.threshold2"></a><code>threshold2</code>: <code>f32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="canny.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="cvt_color"></a><code>cvt-color: func</code></h4>
+<p>CvtColor converts an image from one color space to another.</p>
+<p>For further details, please see:
+http://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga4e0972be5de079fed4e3a10e24ef5ef0</p>
+<h5>Params</h5>
+<ul>
+<li><a id="cvt_color.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="cvt_color.code"></a><code>code</code>: <a href="#color_coversion_type"><a href="#color_coversion_type"><code>color-coversion-type</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="cvt_color.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="dilate"></a><code>dilate: func</code></h4>
+<p>Dilate dilates an image by using a specific structuring element.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga4ff0f3318642c4f469d0e11f242f3b6c</p>
+<h5>Params</h5>
+<ul>
+<li><a id="dilate.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="dilate.kernel"></a><code>kernel</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="dilate.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="erode"></a><code>erode: func</code></h4>
+<p>Erode erodes an image by using a specific structuring element.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gaeb1e0c1033e3f6b891a25d0511362aeb</p>
+<h5>Params</h5>
+<ul>
+<li><a id="erode.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="erode.kernel"></a><code>kernel</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="erode.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="equalize_hist"></a><code>equalize-hist: func</code></h4>
+<p>EqualizeHist normalizes the brightness and increases the contrast of the image.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/d6/dc7/group__imgproc__hist.html#ga7e54091f0c937d49bf84152a16f76d6e</p>
+<h5>Params</h5>
+<ul>
+<li><a id="equalize_hist.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="equalize_hist.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="gaussian_blur"></a><code>gaussian-blur: func</code></h4>
+<p>GaussianBlur blurs an image using a Gaussian filter.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1</p>
+<h5>Params</h5>
+<ul>
+<li><a id="gaussian_blur.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="gaussian_blur.size"></a><a href="#size"><code>size</code></a>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+<li><a id="gaussian_blur.sigma_x"></a><code>sigma-x</code>: <code>f32</code></li>
+<li><a id="gaussian_blur.sigma_y"></a><code>sigma-y</code>: <code>f32</code></li>
+<li><a id="gaussian_blur.border"></a><code>border</code>: <a href="#border_type"><a href="#border_type"><code>border-type</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="gaussian_blur.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="get_structuring_element"></a><code>get-structuring-element: func</code></h4>
+<p>GetStructuringElement returns a structuring element of the specified size
+and shape for morphological operations.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gac342a1bb6eabf6f55c803b09268e36dc</p>
+<h5>Params</h5>
+<ul>
+<li><a id="get_structuring_element.shape"></a><code>shape</code>: <a href="#morph_shape"><a href="#morph_shape"><code>morph-shape</code></a></a></li>
+<li><a id="get_structuring_element.size"></a><a href="#size"><code>size</code></a>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="get_structuring_element.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="hough_lines"></a><code>hough-lines: func</code></h4>
+<p>HoughLines implements the standard or standard multi-scale Hough transform
+algorithm for line detection. For a good explanation of Hough transform, see:
+http://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm</p>
+<p>For further details, please see:
+http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga46b4e588934f6c8dfd509cc6e0e4545a</p>
+<h5>Params</h5>
+<ul>
+<li><a id="hough_lines.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="hough_lines.rho"></a><code>rho</code>: <code>f64</code></li>
+<li><a id="hough_lines.theta"></a><code>theta</code>: <code>f64</code></li>
+<li><a id="hough_lines.threshold"></a><a href="#threshold"><code>threshold</code></a>: <code>s32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="hough_lines.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="hough_lines_p"></a><code>hough-lines-p: func</code></h4>
+<p>HoughLinesP implements the probabilistic Hough transform
+algorithm for line detection. For a good explanation of Hough transform, see:
+http://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm</p>
+<p>For further details, please see:
+http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga8618180a5948286384e3b7ca02f6feeb</p>
+<h5>Params</h5>
+<ul>
+<li><a id="hough_lines_p.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="hough_lines_p.rho"></a><code>rho</code>: <code>f64</code></li>
+<li><a id="hough_lines_p.theta"></a><code>theta</code>: <code>f64</code></li>
+<li><a id="hough_lines_p.threshold"></a><a href="#threshold"><code>threshold</code></a>: <code>s32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="hough_lines_p.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="median_blur"></a><code>median-blur: func</code></h4>
+<p>MedianBlur blurs an image using the median filter.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga564869aa33e58769b4469101aac458f9</p>
+<h5>Params</h5>
+<ul>
+<li><a id="median_blur.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="median_blur.k_size"></a><code>k-size</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="median_blur.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="resize"></a><code>resize: func</code></h4>
+<p>Resize resizes an image.
+It resizes the image src down to or up to the specified size, storing the
+result in dst. Note that src and dst may be the same image. If you wish to
+scale by factor, an empty sz may be passed and non-zero fx and fy. Likewise,
+if you wish to scale to an explicit size, a non-empty sz may be passed with
+zero for both fx and fy.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/da/d54/group__imgproc__transform.html#ga47a974309e9102f5f08231edc7e7529d</p>
+<h5>Params</h5>
+<ul>
+<li><a id="resize.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="resize.size"></a><a href="#size"><code>size</code></a>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+<li><a id="resize.fx"></a><code>fx</code>: <code>f32</code></li>
+<li><a id="resize.fy"></a><code>fy</code>: <code>f32</code></li>
+<li><a id="resize.interp"></a><code>interp</code>: <a href="#interpolation_type"><a href="#interpolation_type"><code>interpolation-type</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="resize.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="threshold"></a><code>threshold: func</code></h4>
+<p>Threshold applies a fixed-level threshold to each array element.</p>
+<p>For further details, please see:
+https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57</p>
+<h5>Params</h5>
+<ul>
+<li><a id="threshold.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="threshold.thresh"></a><code>thresh</code>: <code>f32</code></li>
+<li><a id="threshold.max_value"></a><code>max-value</code>: <code>f32</code></li>
+<li><a id="threshold.threshold_type"></a><a href="#threshold_type"><code>threshold-type</code></a>: <a href="#threshold_type"><a href="#threshold_type"><code>threshold-type</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="threshold.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="transpose_nd"></a><code>transpose-ND: func</code></h4>
+<p>Transpose for n-dimensional matrices.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec</p>
+<h5>Params</h5>
+<ul>
+<li><a id="transpose_nd.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="transpose_nd.order"></a><code>order</code>: list&lt;<code>s32</code>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="transpose_nd.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h2><a id="wasm_cv_dnn"></a>Import interface wasm:cv/dnn</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="mat"></a><code>type mat</code></h4>
+<p><a href="#mat"><a href="#mat"><code>mat</code></a></a></p>
+<p>
+#### <a id="size"></a>`type size`
+[`size`](#size)
+<p>
+#### <a id="scalar"></a>`type scalar`
+[`scalar`](#scalar)
+<p>
+#### <a id="rect"></a>`type rect`
+[`rect`](#rect)
+<p>
+#### <a id="blob_params"></a>`type blob-params`
+[`blob-params`](#blob_params)
+<p>
+#### <a id="data_layout_type"></a>`type data-layout-type`
+[`data-layout-type`](#data_layout_type)
+<p>
+#### <a id="padding_mode_type"></a>`type padding-mode-type`
+[`padding-mode-type`](#padding_mode_type)
+<p>
+#### <a id="net_backend_type"></a>`enum net-backend-type`
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="net_backend_type.net_backend_default"></a><code>net-backend-default</code></li>
+<li><a id="net_backend_type.net_backend_halide"></a><code>net-backend-halide</code></li>
+<li><a id="net_backend_type.net_backend_openvino"></a><code>net-backend-openvino</code></li>
+<li><a id="net_backend_type.net_backend_opencv"></a><code>net-backend-opencv</code></li>
+<li><a id="net_backend_type.net_backend_vkcom"></a><code>net-backend-vkcom</code></li>
+<li><a id="net_backend_type.net_backend_cuda"></a><code>net-backend-cuda</code></li>
+</ul>
+<h4><a id="net_target_type"></a><code>enum net-target-type</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="net_target_type.net_target_cpu"></a><code>net-target-cpu</code></li>
+<li><a id="net_target_type.net_target_fp32"></a><code>net-target-fp32</code></li>
+<li><a id="net_target_type.net_target_fp16"></a><code>net-target-fp16</code></li>
+<li><a id="net_target_type.net_target_vpu"></a><code>net-target-vpu</code></li>
+<li><a id="net_target_type.net_target_vulkan"></a><code>net-target-vulkan</code></li>
+<li><a id="net_target_type.net_target_fpga"></a><code>net-target-fpga</code></li>
+<li><a id="net_target_type.net_target_cuda"></a><code>net-target-cuda</code></li>
+<li><a id="net_target_type.net_target_cuda_fp16"></a><code>net-target-cuda-fp16</code></li>
+</ul>
+<h4><a id="layer"></a><code>resource layer</code></h4>
+<h4><a id="net"></a><code>resource net</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="constructor_layer"></a><code>[constructor]layer: func</code></h4>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_layer.0"></a> own&lt;<a href="#layer"><a href="#layer"><code>layer</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_layer_get_name"></a><code>[method]layer.get-name: func</code></h4>
+<p>GetName returns the name of the layer.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_layer_get_name.self"></a><code>self</code>: borrow&lt;<a href="#layer"><a href="#layer"><code>layer</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_layer_get_name.0"></a> <code>string</code></li>
+</ul>
+<h4><a id="static_net_read"></a><code>[static]net.read: func</code></h4>
+<p>ReadNet read deep learning network represented in one of the supported formats.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga138439da76f26266fdefec9723f6c5cd</p>
+<h5>Params</h5>
+<ul>
+<li><a id="static_net_read.model"></a><code>model</code>: <code>string</code></li>
+<li><a id="static_net_read.config"></a><code>config</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="static_net_read.0"></a> own&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;</li>
+</ul>
+<h4><a id="static_net_read_from_onnx"></a><code>[static]net.read-from-ONNX: func</code></h4>
+<p>ReadNetFromONNX reads a network model stored in ONNX framework's format.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd359567</p>
+<h5>Params</h5>
+<ul>
+<li><a id="static_net_read_from_onnx.model"></a><code>model</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="static_net_read_from_onnx.0"></a> own&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_net_close"></a><code>[method]net.close: func</code></h4>
+<p>Close the network</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_net_close.self"></a><code>self</code>: borrow&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_net_empty"></a><code>[method]net.empty: func</code></h4>
+<p>Empty returns true if there are no layers in the network.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/db/d30/classcv_1_1dnn_1_1Net.html#a6a5778787d5b8770deab5eda6968e66c</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_net_empty.self"></a><code>self</code>: borrow&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_net_empty.0"></a> <code>bool</code></li>
+</ul>
+<h4><a id="method_net_set_input"></a><code>[method]net.set-input: func</code></h4>
+<p>SetInput sets the new input value for the network.</p>
+<p>For further details, please see:
+https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a672a08ae76444d75d05d7bfea3e4a328</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_net_set_input.self"></a><code>self</code>: borrow&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;</li>
+<li><a id="method_net_set_input.input"></a><code>input</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_net_set_input.name"></a><code>name</code>: <code>string</code></li>
+</ul>
+<h4><a id="method_net_forward"></a><code>[method]net.forward: func</code></h4>
+<p>Forward runs forward pass to compute output of layer with name outputName.</p>
+<p>For further details, please see:
+https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a98ed94cb6ef7063d3697259566da310b</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_net_forward.self"></a><code>self</code>: borrow&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;</li>
+<li><a id="method_net_forward.output_name"></a><code>output-name</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_net_forward.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_net_forward_layers"></a><code>[method]net.forward-layers: func</code></h4>
+<p>ForwardLayers forward pass to compute outputs of layers listed in outBlobNames.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#afe22e099b60a2883e220645391f68d4c</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_net_forward_layers.self"></a><code>self</code>: borrow&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;</li>
+<li><a id="method_net_forward_layers.output_names"></a><code>output-names</code>: list&lt;<code>string</code>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_net_forward_layers.0"></a> list&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="method_net_get_unconnected_out_layers"></a><code>[method]net.get-unconnected-out-layers: func</code></h4>
+<p>GetUnconnectedOutLayers returns indexes of layers with unconnected outputs.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ae26f0c29b3733d15d0482098ef9053e3</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_net_get_unconnected_out_layers.self"></a><code>self</code>: borrow&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_net_get_unconnected_out_layers.0"></a> list&lt;<code>u32</code>&gt;</li>
+</ul>
+<h4><a id="method_net_get_layer_names"></a><code>[method]net.get-layer-names: func</code></h4>
+<p>GetLayerNames returns names of layers in the network.</p>
+<p>For further details, please see:
+hhttps://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#a38e67098ae4ae5906bf8d8ea72199c2e</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_net_get_layer_names.self"></a><code>self</code>: borrow&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_net_get_layer_names.0"></a> list&lt;<code>string</code>&gt;</li>
+</ul>
+<h4><a id="method_net_get_layer"></a><code>[method]net.get-layer: func</code></h4>
+<p>GetLayer returns layer with specified id.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ac944d7f2d3ead5ef9b1b2fa3885f3ff1</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_net_get_layer.self"></a><code>self</code>: borrow&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;</li>
+<li><a id="method_net_get_layer.id"></a><code>id</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_net_get_layer.0"></a> own&lt;<a href="#layer"><a href="#layer"><code>layer</code></a></a>&gt;</li>
+</ul>
+<h4><a id="blob_from_image"></a><code>blob-from-image: func</code></h4>
+<p>BlobFromImage creates 4-dimensional blob from image. Optionally resizes and crops image from center,
+subtract mean values, scales values by scalefactor, swap Blue and Red channels.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581ac8d7</p>
+<h5>Params</h5>
+<ul>
+<li><a id="blob_from_image.image"></a><code>image</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="blob_from_image.scale_factor"></a><code>scale-factor</code>: <code>f32</code></li>
+<li><a id="blob_from_image.size"></a><a href="#size"><code>size</code></a>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+<li><a id="blob_from_image.mean"></a><code>mean</code>: <a href="#scalar"><a href="#scalar"><code>scalar</code></a></a></li>
+<li><a id="blob_from_image.swap_rb"></a><code>swap-rb</code>: <code>bool</code></li>
+<li><a id="blob_from_image.crop"></a><code>crop</code>: <code>bool</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="blob_from_image.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="blob_from_image_with_params"></a><code>blob-from-image-with-params: func</code></h4>
+<p>BlobFromImageWithParams creates 4-dimensional blob from image. Optionally resizes and crops image from center,
+subtract mean values, scales values by scalefactor, swap Blue and Red channels.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581ac8d7</p>
+<h5>Params</h5>
+<ul>
+<li><a id="blob_from_image_with_params.image"></a><code>image</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="blob_from_image_with_params.params"></a><code>params</code>: <a href="#blob_params"><a href="#blob_params"><code>blob-params</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="blob_from_image_with_params.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="blob_rects_to_image_rects"></a><code>blob-rects-to-image-rects: func</code></h4>
+<p>BlobRectsToImageRects converts blob rects to image rects.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee</p>
+<h5>Params</h5>
+<ul>
+<li><a id="blob_rects_to_image_rects.params"></a><code>params</code>: <a href="#blob_params"><a href="#blob_params"><code>blob-params</code></a></a></li>
+<li><a id="blob_rects_to_image_rects.blob_rects"></a><code>blob-rects</code>: list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;</li>
+<li><a id="blob_rects_to_image_rects.image_size"></a><code>image-size</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="blob_rects_to_image_rects.0"></a> list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;</li>
+</ul>
+<h4><a id="nms_boxes"></a><code>NMS-boxes: func</code></h4>
+<p>NMSBoxes performs non maximum suppression given boxes and corresponding scores.</p>
+<p>For futher details, please see:
+https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b10233213ee</p>
+<h5>Params</h5>
+<ul>
+<li><a id="nms_boxes.bboxes"></a><code>bboxes</code>: list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;</li>
+<li><a id="nms_boxes.scores"></a><code>scores</code>: list&lt;<code>f32</code>&gt;</li>
+<li><a id="nms_boxes.score_threshold"></a><code>score-threshold</code>: <code>f32</code></li>
+<li><a id="nms_boxes.nms_threshold"></a><code>nms-threshold</code>: <code>f32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="nms_boxes.0"></a> list&lt;<code>s32</code>&gt;</li>
+</ul>
+<h2><a id="wasm_cv_objdetect"></a>Import interface wasm:cv/objdetect</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="mat"></a><code>type mat</code></h4>
+<p><a href="#mat"><a href="#mat"><code>mat</code></a></a></p>
+<p>
+#### <a id="size"></a>`type size`
+[`size`](#size)
+<p>
+#### <a id="rect"></a>`type rect`
+[`rect`](#rect)
+<p>
+#### <a id="cascade_classifier"></a>`resource cascade-classifier`
+<p>CascadeClassifier is a cascade classifier class for object detection.</p>
+<h4><a id="hog_descriptor"></a><code>resource HOG-descriptor</code></h4>
+<p>HOGDescriptor is a Histogram Of Gradiants (HOG) for object detection.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a723b95b709cfd3f95cf9e616de988fc8</p>
+<h4><a id="face_detector_yn"></a><code>resource face-detector-YN</code></h4>
+<h4><a id="face_distance_type"></a><code>enum face-distance-type</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="face_distance_type.face_distance_type_cosine"></a><code>face-distance-type-cosine</code></li>
+<li><a id="face_distance_type.face_distance_norm_l2"></a><code>face-distance-norm-l2</code></li>
+</ul>
+<h4><a id="face_recognizer_sf"></a><code>resource face-recognizer-SF</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="constructor_cascade_classifier"></a><code>[constructor]cascade-classifier: func</code></h4>
+<p>NewCascadeClassifier returns a new CascadeClassifier.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516</p>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_cascade_classifier.name"></a><code>name</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_cascade_classifier.0"></a> own&lt;<a href="#cascade_classifier"><a href="#cascade_classifier"><code>cascade-classifier</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_cascade_classifier_close"></a><code>[method]cascade-classifier.close: func</code></h4>
+<p>Close the CascadeClassifier</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_cascade_classifier_close.self"></a><code>self</code>: borrow&lt;<a href="#cascade_classifier"><a href="#cascade_classifier"><code>cascade-classifier</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_cascade_classifier_load"></a><code>[method]cascade-classifier.load: func</code></h4>
+<p>Load cascade classifier from a file.</p>
+<p>For further details, please see:
+http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#a1a5884c8cc749422f9eb77c2471958bc</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_cascade_classifier_load.self"></a><code>self</code>: borrow&lt;<a href="#cascade_classifier"><a href="#cascade_classifier"><code>cascade-classifier</code></a></a>&gt;</li>
+<li><a id="method_cascade_classifier_load.file"></a><code>file</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_cascade_classifier_load.0"></a> <code>bool</code></li>
+</ul>
+<h4><a id="method_cascade_classifier_detect_multi_scale"></a><code>[method]cascade-classifier.detect-multi-scale: func</code></h4>
+<p>DetectMultiScale detects objects of different sizes in the input Mat image.
+The detected objects are returned as a slice of image.Rectangle structs.</p>
+<p>For further details, please see:
+http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb63968136476ec4204ffca498</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_cascade_classifier_detect_multi_scale.self"></a><code>self</code>: borrow&lt;<a href="#cascade_classifier"><a href="#cascade_classifier"><code>cascade-classifier</code></a></a>&gt;</li>
+<li><a id="method_cascade_classifier_detect_multi_scale.image"></a><code>image</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_cascade_classifier_detect_multi_scale.0"></a> list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_cascade_classifier_detect_multi_scale_with_params"></a><code>[method]cascade-classifier.detect-multi-scale-with-params: func</code></h4>
+<p>DetectMultiScaleWithParams detects objects of different sizes in the input Mat image.
+The detected objects are returned as a slice of image.Rectangle structs.</p>
+<p>For further details, please see:
+http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb63968136476ec4204ffca498</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_cascade_classifier_detect_multi_scale_with_params.self"></a><code>self</code>: borrow&lt;<a href="#cascade_classifier"><a href="#cascade_classifier"><code>cascade-classifier</code></a></a>&gt;</li>
+<li><a id="method_cascade_classifier_detect_multi_scale_with_params.image"></a><code>image</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_cascade_classifier_detect_multi_scale_with_params.scale"></a><code>scale</code>: <code>f64</code></li>
+<li><a id="method_cascade_classifier_detect_multi_scale_with_params.min_neighbors"></a><code>min-neighbors</code>: <code>u32</code></li>
+<li><a id="method_cascade_classifier_detect_multi_scale_with_params.flags"></a><code>flags</code>: <code>u32</code></li>
+<li><a id="method_cascade_classifier_detect_multi_scale_with_params.min_size"></a><code>min-size</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+<li><a id="method_cascade_classifier_detect_multi_scale_with_params.max_size"></a><code>max-size</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_cascade_classifier_detect_multi_scale_with_params.0"></a> list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;</li>
+</ul>
+<h4><a id="constructor_hog_descriptor"></a><code>[constructor]HOG-descriptor: func</code></h4>
+<p>NewHOGDescriptor returns a new HOGDescriptor.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_hog_descriptor.name"></a><code>name</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_hog_descriptor.0"></a> own&lt;<a href="#hog_descriptor"><a href="#hog_descriptor"><code>HOG-descriptor</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_hog_descriptor_close"></a><code>[method]HOG-descriptor.close: func</code></h4>
+<p>Close the HOGDescriptor</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_hog_descriptor_close.self"></a><code>self</code>: borrow&lt;<a href="#hog_descriptor"><a href="#hog_descriptor"><code>HOG-descriptor</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_hog_descriptor_detect_multi_scale"></a><code>[method]HOG-descriptor.detect-multi-scale: func</code></h4>
+<p>DetectMultiScale detects objects of different sizes in the input Mat image.
+The detected objects are returned as a slice of image.Rectangle structs.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036fd5ddf0f5767b352acd948</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_hog_descriptor_detect_multi_scale.self"></a><code>self</code>: borrow&lt;<a href="#hog_descriptor"><a href="#hog_descriptor"><code>HOG-descriptor</code></a></a>&gt;</li>
+<li><a id="method_hog_descriptor_detect_multi_scale.image"></a><code>image</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_hog_descriptor_detect_multi_scale.0"></a> list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_hog_descriptor_detect_multi_scale_with_params"></a><code>[method]HOG-descriptor.detect-multi-scale-with-params: func</code></h4>
+<p>DetectMultiScaleWithParams detects objects of different sizes in the input Mat image.
+The detected objects are returned as a slice of image.Rectangle structs.</p>
+<p>For further details, please see:
+https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036fd5ddf0f5767b352acd948</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_hog_descriptor_detect_multi_scale_with_params.self"></a><code>self</code>: borrow&lt;<a href="#hog_descriptor"><a href="#hog_descriptor"><code>HOG-descriptor</code></a></a>&gt;</li>
+<li><a id="method_hog_descriptor_detect_multi_scale_with_params.image"></a><code>image</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_hog_descriptor_detect_multi_scale_with_params.hit_threshold"></a><code>hit-threshold</code>: <code>f64</code></li>
+<li><a id="method_hog_descriptor_detect_multi_scale_with_params.win_stride"></a><code>win-stride</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+<li><a id="method_hog_descriptor_detect_multi_scale_with_params.padding"></a><code>padding</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+<li><a id="method_hog_descriptor_detect_multi_scale_with_params.scale"></a><code>scale</code>: <code>f64</code></li>
+<li><a id="method_hog_descriptor_detect_multi_scale_with_params.final_threshold"></a><code>final-threshold</code>: <code>f64</code></li>
+<li><a id="method_hog_descriptor_detect_multi_scale_with_params.use_meanshift_grouping"></a><code>use-meanshift-grouping</code>: <code>bool</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_hog_descriptor_detect_multi_scale_with_params.0"></a> list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;</li>
+</ul>
+<h4><a id="constructor_face_detector_yn"></a><code>[constructor]face-detector-YN: func</code></h4>
+<p>Creates an instance of face detector YN with given parameters.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516</p>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_face_detector_yn.model"></a><code>model</code>: <code>string</code></li>
+<li><a id="constructor_face_detector_yn.config"></a><code>config</code>: <code>string</code></li>
+<li><a id="constructor_face_detector_yn.input_size"></a><code>input-size</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_face_detector_yn.0"></a> own&lt;<a href="#face_detector_yn"><a href="#face_detector_yn"><code>face-detector-YN</code></a></a>&gt;</li>
+</ul>
+<h4><a id="static_face_detector_yn_new_with_params"></a><code>[static]face-detector-YN.new-with-params: func</code></h4>
+<p>Creates an instance of face detector YN with given parameters.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#a5f7fb43c60c95ca5ebab78483de02516</p>
+<h5>Params</h5>
+<ul>
+<li><a id="static_face_detector_yn_new_with_params.model"></a><code>model</code>: <code>string</code></li>
+<li><a id="static_face_detector_yn_new_with_params.config"></a><code>config</code>: <code>string</code></li>
+<li><a id="static_face_detector_yn_new_with_params.input_size"></a><code>input-size</code>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+<li><a id="static_face_detector_yn_new_with_params.score_threshold"></a><code>score-threshold</code>: <code>f32</code></li>
+<li><a id="static_face_detector_yn_new_with_params.nms_threshold"></a><code>nms-threshold</code>: <code>f32</code></li>
+<li><a id="static_face_detector_yn_new_with_params.top_k"></a><code>top-k</code>: <code>u32</code></li>
+<li><a id="static_face_detector_yn_new_with_params.backend_id"></a><code>backend-id</code>: <code>u32</code></li>
+<li><a id="static_face_detector_yn_new_with_params.target_id"></a><code>target-id</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="static_face_detector_yn_new_with_params.0"></a> own&lt;<a href="#face_detector_yn"><a href="#face_detector_yn"><code>face-detector-YN</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_face_detector_yn_close"></a><code>[method]face-detector-YN.close: func</code></h4>
+<p>Close the face detector</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_detector_yn_close.self"></a><code>self</code>: borrow&lt;<a href="#face_detector_yn"><a href="#face_detector_yn"><code>face-detector-YN</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_face_detector_yn_detect"></a><code>[method]face-detector-YN.detect: func</code></h4>
+<p>Detects faces in the input image.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#ac05bd075ca3e6edc0e328927aae6f45b</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_detector_yn_detect.self"></a><code>self</code>: borrow&lt;<a href="#face_detector_yn"><a href="#face_detector_yn"><code>face-detector-YN</code></a></a>&gt;</li>
+<li><a id="method_face_detector_yn_detect.input"></a><code>input</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_face_detector_yn_detect.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_face_detector_yn_get_input_size"></a><code>[method]face-detector-YN.get-input-size: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_detector_yn_get_input_size.self"></a><code>self</code>: borrow&lt;<a href="#face_detector_yn"><a href="#face_detector_yn"><code>face-detector-YN</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_face_detector_yn_get_input_size.0"></a> <a href="#size"><a href="#size"><code>size</code></a></a></li>
+</ul>
+<h4><a id="method_face_detector_yn_get_nms_threshold"></a><code>[method]face-detector-YN.get-nms-threshold: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_detector_yn_get_nms_threshold.self"></a><code>self</code>: borrow&lt;<a href="#face_detector_yn"><a href="#face_detector_yn"><code>face-detector-YN</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_face_detector_yn_get_nms_threshold.0"></a> <code>f32</code></li>
+</ul>
+<h4><a id="method_face_detector_yn_get_score_threshold"></a><code>[method]face-detector-YN.get-score-threshold: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_detector_yn_get_score_threshold.self"></a><code>self</code>: borrow&lt;<a href="#face_detector_yn"><a href="#face_detector_yn"><code>face-detector-YN</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_face_detector_yn_get_score_threshold.0"></a> <code>f32</code></li>
+</ul>
+<h4><a id="method_face_detector_yn_get_topk"></a><code>[method]face-detector-YN.get-topk: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_detector_yn_get_topk.self"></a><code>self</code>: borrow&lt;<a href="#face_detector_yn"><a href="#face_detector_yn"><code>face-detector-YN</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_face_detector_yn_get_topk.0"></a> <code>u32</code></li>
+</ul>
+<h4><a id="method_face_detector_yn_set_input_size"></a><code>[method]face-detector-YN.set-input-size: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_detector_yn_set_input_size.self"></a><code>self</code>: borrow&lt;<a href="#face_detector_yn"><a href="#face_detector_yn"><code>face-detector-YN</code></a></a>&gt;</li>
+<li><a id="method_face_detector_yn_set_input_size.size"></a><a href="#size"><code>size</code></a>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+</ul>
+<h4><a id="method_face_detector_yn_set_nms_threshold"></a><code>[method]face-detector-YN.set-nms-threshold: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_detector_yn_set_nms_threshold.self"></a><code>self</code>: borrow&lt;<a href="#face_detector_yn"><a href="#face_detector_yn"><code>face-detector-YN</code></a></a>&gt;</li>
+<li><a id="method_face_detector_yn_set_nms_threshold.threshold"></a><a href="#threshold"><code>threshold</code></a>: <code>f32</code></li>
+</ul>
+<h4><a id="method_face_detector_yn_set_score_threshold"></a><code>[method]face-detector-YN.set-score-threshold: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_detector_yn_set_score_threshold.self"></a><code>self</code>: borrow&lt;<a href="#face_detector_yn"><a href="#face_detector_yn"><code>face-detector-YN</code></a></a>&gt;</li>
+<li><a id="method_face_detector_yn_set_score_threshold.threshold"></a><a href="#threshold"><code>threshold</code></a>: <code>f32</code></li>
+</ul>
+<h4><a id="method_face_detector_yn_set_topk"></a><code>[method]face-detector-YN.set-topk: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_detector_yn_set_topk.self"></a><code>self</code>: borrow&lt;<a href="#face_detector_yn"><a href="#face_detector_yn"><code>face-detector-YN</code></a></a>&gt;</li>
+<li><a id="method_face_detector_yn_set_topk.topk"></a><code>topk</code>: <code>u32</code></li>
+</ul>
+<h4><a id="constructor_face_recognizer_sf"></a><code>[constructor]face-recognizer-SF: func</code></h4>
+<p>Creates an instance of FaceRecognizerSF with given parameters.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a04df90b0cd7d26d350acd92621a35743</p>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_face_recognizer_sf.model"></a><code>model</code>: <code>string</code></li>
+<li><a id="constructor_face_recognizer_sf.config"></a><code>config</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_face_recognizer_sf.0"></a> own&lt;<a href="#face_recognizer_sf"><a href="#face_recognizer_sf"><code>face-recognizer-SF</code></a></a>&gt;</li>
+</ul>
+<h4><a id="static_face_recognizer_sf_new_with_params"></a><code>[static]face-recognizer-SF.new-with-params: func</code></h4>
+<p>Creates an instance of FaceRecognizerSF with given parameters.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a04df90b0cd7d26d350acd92621a35743</p>
+<h5>Params</h5>
+<ul>
+<li><a id="static_face_recognizer_sf_new_with_params.model"></a><code>model</code>: <code>string</code></li>
+<li><a id="static_face_recognizer_sf_new_with_params.config"></a><code>config</code>: <code>string</code></li>
+<li><a id="static_face_recognizer_sf_new_with_params.backend_id"></a><code>backend-id</code>: <code>u32</code></li>
+<li><a id="static_face_recognizer_sf_new_with_params.target_id"></a><code>target-id</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="static_face_recognizer_sf_new_with_params.0"></a> own&lt;<a href="#face_recognizer_sf"><a href="#face_recognizer_sf"><code>face-recognizer-SF</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_face_recognizer_sf_close"></a><code>[method]face-recognizer-SF.close: func</code></h4>
+<p>Close the face FaceRecognizerSF</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_recognizer_sf_close.self"></a><code>self</code>: borrow&lt;<a href="#face_recognizer_sf"><a href="#face_recognizer_sf"><code>face-recognizer-SF</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_face_recognizer_sf_align_crop"></a><code>[method]face-recognizer-SF.align-crop: func</code></h4>
+<p>Aligns detected face with the source input image and crops it.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a84492908abecbc9362b4ddc8d46b8345</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_recognizer_sf_align_crop.self"></a><code>self</code>: borrow&lt;<a href="#face_recognizer_sf"><a href="#face_recognizer_sf"><code>face-recognizer-SF</code></a></a>&gt;</li>
+<li><a id="method_face_recognizer_sf_align_crop.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_face_recognizer_sf_align_crop.face_box"></a><code>face-box</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_face_recognizer_sf_align_crop.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_face_recognizer_sf_feature"></a><code>[method]face-recognizer-SF.feature: func</code></h4>
+<p>Feature extracts face feature from aligned image.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#ab1b4a3c12213e89091a490c573dc5aba</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_recognizer_sf_feature.self"></a><code>self</code>: borrow&lt;<a href="#face_recognizer_sf"><a href="#face_recognizer_sf"><code>face-recognizer-SF</code></a></a>&gt;</li>
+<li><a id="method_face_recognizer_sf_feature.aligned"></a><code>aligned</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_face_recognizer_sf_feature.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_face_recognizer_sf_match"></a><code>[method]face-recognizer-SF.match: func</code></h4>
+<p>Match calculates the distance between two face features.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e64320a1f3ba7e1386d0219</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_recognizer_sf_match.self"></a><code>self</code>: borrow&lt;<a href="#face_recognizer_sf"><a href="#face_recognizer_sf"><code>face-recognizer-SF</code></a></a>&gt;</li>
+<li><a id="method_face_recognizer_sf_match.face1"></a><code>face1</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_face_recognizer_sf_match.face2"></a><code>face2</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_face_recognizer_sf_match.0"></a> <code>f32</code></li>
+</ul>
+<h4><a id="method_face_recognizer_sf_match_with_params"></a><code>[method]face-recognizer-SF.match-with-params: func</code></h4>
+<p>Match calculates the distance between two face features.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e64320a1f3ba7e1386d0219</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_face_recognizer_sf_match_with_params.self"></a><code>self</code>: borrow&lt;<a href="#face_recognizer_sf"><a href="#face_recognizer_sf"><code>face-recognizer-SF</code></a></a>&gt;</li>
+<li><a id="method_face_recognizer_sf_match_with_params.face1"></a><code>face1</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_face_recognizer_sf_match_with_params.face2"></a><code>face2</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_face_recognizer_sf_match_with_params.distance"></a><code>distance</code>: <a href="#face_distance_type"><a href="#face_distance_type"><code>face-distance-type</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_face_recognizer_sf_match_with_params.0"></a> <code>f32</code></li>
+</ul>
+<h2><a id="wasm_cv_request"></a>Export interface wasm:cv/request</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="mat"></a><code>type mat</code></h4>
+<p><a href="#mat"><a href="#mat"><code>mat</code></a></a></p>
+<p>
+----
+<h3>Functions</h3>
+<h4><a id="process"></a><code>process: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="process.image"></a><code>image</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="process.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
