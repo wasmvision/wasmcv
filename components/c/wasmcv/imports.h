@@ -14,11 +14,18 @@ typedef struct imports_string_t {
   size_t len;
 } imports_string_t;
 
+// size is a 2-element integer vector.
+// It represents a width and height.
 typedef struct wasm_cv_types_size_t {
   int32_t   x;
   int32_t   y;
 } wasm_cv_types_size_t;
 
+// point is a 2-element integer vector.
+// It represents a x and y coordinate.
+typedef wasm_cv_types_size_t wasm_cv_types_point_t;
+
+// scalar is a 4-element floating point vector.
 typedef struct wasm_cv_types_scalar_t {
   float   val1;
   float   val2;
@@ -26,11 +33,14 @@ typedef struct wasm_cv_types_scalar_t {
   float   val4;
 } wasm_cv_types_scalar_t;
 
+// rect is a rectangle with integer coordinates.
+// It is represented by the top-left corner and the bottom-right corner.
 typedef struct wasm_cv_types_rect_t {
   wasm_cv_types_size_t   min;
   wasm_cv_types_size_t   max;
 } wasm_cv_types_rect_t;
 
+// RGBA is a color with red, green, blue, and alpha channels.
 typedef struct wasm_cv_types_rgba_t {
   uint8_t   r;
   uint8_t   g;
@@ -38,6 +48,7 @@ typedef struct wasm_cv_types_rgba_t {
   uint8_t   a;
 } wasm_cv_types_rgba_t;
 
+// border-type is a type of border to add to an image.
 typedef uint8_t wasm_cv_types_border_type_t;
 
 #define WASM_CV_TYPES_BORDER_TYPE_BORDER_CONSTANT 0
@@ -49,11 +60,13 @@ typedef uint8_t wasm_cv_types_border_type_t;
 #define WASM_CV_TYPES_BORDER_TYPE_BORDER_DEFAULT 6
 #define WASM_CV_TYPES_BORDER_TYPE_BORDER_ISOLATED 7
 
+// adaptive-threshold-type is a type of adaptive thresholding.
 typedef uint8_t wasm_cv_types_adaptive_threshold_type_t;
 
 #define WASM_CV_TYPES_ADAPTIVE_THRESHOLD_TYPE_ADAPTIVE_THRESHOLD_MEAN 0
 #define WASM_CV_TYPES_ADAPTIVE_THRESHOLD_TYPE_ADAPTIVE_THRESHOLD_GAUSSIAN 1
 
+// threshold-type is a type of thresholding.
 typedef uint8_t wasm_cv_types_threshold_type_t;
 
 #define WASM_CV_TYPES_THRESHOLD_TYPE_THRESHOLD_BINARY 0
@@ -65,6 +78,7 @@ typedef uint8_t wasm_cv_types_threshold_type_t;
 #define WASM_CV_TYPES_THRESHOLD_TYPE_THRESHOLD_OTSU 6
 #define WASM_CV_TYPES_THRESHOLD_TYPE_TTHRESHOLD_TRIANGLE 7
 
+// data-layout-type is a type of data layout.
 typedef uint8_t wasm_cv_types_data_layout_type_t;
 
 #define WASM_CV_TYPES_DATA_LAYOUT_TYPE_DATA_LAYOUT_UNKNOWN 0
@@ -142,6 +156,12 @@ typedef uint8_t wasm_cv_types_color_coversion_type_t;
 #define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_BGRA_TO_GRAY 18
 #define WASM_CV_TYPES_COLOR_COVERSION_TYPE_COLOR_RGBA_TO_GRAY 19
 
+typedef uint8_t wasm_cv_types_morph_shape_t;
+
+#define WASM_CV_TYPES_MORPH_SHAPE_MORPH_RECT 0
+#define WASM_CV_TYPES_MORPH_SHAPE_MORPH_CROSS 1
+#define WASM_CV_TYPES_MORPH_SHAPE_MORPH_ELLIPSE 2
+
 typedef wasm_cv_types_mix_max_loc_result_t wasm_cv_mat_mix_max_loc_result_t;
 
 typedef wasm_cv_types_rect_t wasm_cv_mat_rect_t;
@@ -188,6 +208,8 @@ typedef wasm_cv_types_border_type_t wasm_cv_cv_border_type_t;
 
 typedef wasm_cv_types_size_t wasm_cv_cv_size_t;
 
+typedef wasm_cv_types_point_t wasm_cv_cv_point_t;
+
 typedef wasm_cv_types_adaptive_threshold_type_t wasm_cv_cv_adaptive_threshold_type_t;
 
 typedef wasm_cv_types_threshold_type_t wasm_cv_cv_threshold_type_t;
@@ -204,6 +226,8 @@ typedef wasm_cv_types_interpolation_type_t wasm_cv_cv_interpolation_type_t;
 
 typedef wasm_cv_types_color_coversion_type_t wasm_cv_cv_color_coversion_type_t;
 
+typedef wasm_cv_types_morph_shape_t wasm_cv_cv_morph_shape_t;
+
 typedef wasm_cv_mat_mattype_t wasm_cv_cv_mattype_t;
 
 typedef wasm_cv_mat_own_mat_t wasm_cv_cv_own_mat_t;
@@ -215,6 +239,10 @@ typedef wasm_cv_types_scalar_t wasm_cv_dnn_scalar_t;
 typedef wasm_cv_types_rect_t wasm_cv_dnn_rect_t;
 
 typedef wasm_cv_types_blob_params_t wasm_cv_dnn_blob_params_t;
+
+typedef wasm_cv_types_data_layout_type_t wasm_cv_dnn_data_layout_type_t;
+
+typedef wasm_cv_types_padding_mode_type_t wasm_cv_dnn_padding_mode_type_t;
 
 typedef uint8_t wasm_cv_dnn_net_backend_type_t;
 
@@ -235,21 +263,6 @@ typedef uint8_t wasm_cv_dnn_net_target_type_t;
 #define WASM_CV_DNN_NET_TARGET_TYPE_NET_TARGET_FPGA 5
 #define WASM_CV_DNN_NET_TARGET_TYPE_NET_TARGET_CUDA 6
 #define WASM_CV_DNN_NET_TARGET_TYPE_NET_TARGET_CUDA_FP16 7
-
-typedef uint8_t wasm_cv_dnn_data_layout_type_t;
-
-#define WASM_CV_DNN_DATA_LAYOUT_TYPE_DATA_LAYOUT_UNKNOWN 0
-#define WASM_CV_DNN_DATA_LAYOUT_TYPE_DATA_LAYOUT_ND 1
-#define WASM_CV_DNN_DATA_LAYOUT_TYPE_DATA_LAYOUT_NCHW 2
-#define WASM_CV_DNN_DATA_LAYOUT_TYPE_DATA_LAYOUT_NHWC 3
-#define WASM_CV_DNN_DATA_LAYOUT_TYPE_DATA_LAYOUT_NDHWC 4
-#define WASM_CV_DNN_DATA_LAYOUT_TYPE_DATA_LAYOUT_PLANAR 5
-
-typedef uint8_t wasm_cv_dnn_padding_mode_type_t;
-
-#define WASM_CV_DNN_PADDING_MODE_TYPE_PADDING_MODE_NULL 0
-#define WASM_CV_DNN_PADDING_MODE_TYPE_PADDING_MODE_CROP_CENTER 1
-#define WASM_CV_DNN_PADDING_MODE_TYPE_PADDING_MODE_LETTERBOX 2
 
 typedef struct wasm_cv_dnn_own_layer_t {
   int32_t __handle;
@@ -335,8 +348,8 @@ typedef struct {
 typedef wasm_cv_mat_own_mat_t exports_wasm_cv_request_own_mat_t;
 
 // Imported Functions from `wasm:cv/mat`
-// Create a new Mat.
-extern wasm_cv_mat_own_mat_t wasm_cv_mat_constructor_mat(void);
+// Create a new Mat. id does not currently do anything.
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_constructor_mat(uint32_t id);
 // Create a new Mat with the specified size and type.
 extern wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_new_with_size(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t mattype);
 // Clone returns a cloned full copy of the Mat.
@@ -416,7 +429,7 @@ extern void wasm_cv_mat_method_mat_min_max_loc(wasm_cv_mat_borrow_mat_t self, wa
 // 
 // For further details, please see:
 // https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd488ac709fdf10c05b2
-extern void wasm_cv_cv_arrowed_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_size_t *point1, wasm_cv_cv_size_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness);
+extern void wasm_cv_cv_arrowed_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness);
 // Rectangle draws a simple, thick, or filled up-right rectangle.
 // 
 // For further details, please see:
@@ -426,12 +439,12 @@ extern void wasm_cv_cv_rectangle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_rect_t *r,
 // 
 // For further details, please see:
 // https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b069374903dbd0f0488cb43670
-extern void wasm_cv_cv_circle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_size_t *center, uint32_t radius, wasm_cv_cv_rgba_t *c, uint8_t thickness);
+extern void wasm_cv_cv_circle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_point_t *center, uint32_t radius, wasm_cv_cv_rgba_t *c, uint8_t thickness);
 // Line draws a line segment connecting two points.
 // 
 // For further details, please see:
 // https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga7078a9fae8c7e7d13d24dac2520ae4a2
-extern void wasm_cv_cv_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_size_t *point1, wasm_cv_cv_size_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness);
+extern void wasm_cv_cv_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness);
 // PutText draws a text string.
 // It renders the specified text string into the img Mat at the location
 // passed in the "org" param, using the desired font face, font scale,
@@ -439,7 +452,7 @@ extern void wasm_cv_cv_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_size_t *point1,
 // 
 // For further details, please see:
 // http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576
-extern void wasm_cv_cv_put_text(wasm_cv_cv_own_mat_t img, imports_string_t *text, wasm_cv_cv_size_t *org, wasm_cv_cv_hershey_font_type_t font_face, double font_scale, wasm_cv_cv_rgba_t *c, int32_t thickness);
+extern void wasm_cv_cv_put_text(wasm_cv_cv_own_mat_t img, imports_string_t *text, wasm_cv_cv_point_t *org, wasm_cv_cv_hershey_font_type_t font_face, double font_scale, wasm_cv_cv_rgba_t *c, int32_t thickness);
 // imgproc functions
 // AdaptiveThreshold applies a fixed-level threshold to each array element.
 // 
@@ -456,31 +469,67 @@ extern wasm_cv_cv_own_mat_t wasm_cv_cv_blur(wasm_cv_cv_own_mat_t src, wasm_cv_cv
 // For further details, please see:
 // https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gad533230ebf2d42509547d514f7d3fbc3
 extern wasm_cv_cv_own_mat_t wasm_cv_cv_box_filter(wasm_cv_cv_own_mat_t src, uint32_t depth, wasm_cv_cv_size_t *k_size);
-// GaussianBlur blurs an image using a Gaussian filter.
+// Canny finds edges in an image using the Canny algorithm.
+// The function finds edges in the input image image and marks
+// them in the output map edges using the Canny algorithm.
+// The smallest value between threshold1 and threshold2 is used
+// for edge linking. The largest value is used to
+// find initial segments of strong edges.
+// See http://en.wikipedia.org/wiki/Canny_edge_detector
 // 
 // For further details, please see:
-// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
-extern wasm_cv_cv_own_mat_t wasm_cv_cv_gaussian_blur(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *size, float sigma_x, float sigma_y, wasm_cv_cv_border_type_t border);
-// MedianBlur blurs an image using the median filter.
-// 
-// For further details, please see:
-// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga564869aa33e58769b4469101aac458f9
-extern wasm_cv_cv_own_mat_t wasm_cv_cv_median_blur(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *k_size);
-// Threshold applies a fixed-level threshold to each array element.
-// 
-// For further details, please see:
-// https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57
-extern wasm_cv_cv_own_mat_t wasm_cv_cv_threshold(wasm_cv_cv_own_mat_t src, float thresh, float max_value, wasm_cv_cv_threshold_type_t threshold_type);
+// http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga04723e007ed888ddf11d9ba04e2232de
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_canny(wasm_cv_cv_own_mat_t src, float threshold1, float threshold2);
 // CvtColor converts an image from one color space to another.
 // 
 // For further details, please see:
 // http://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga4e0972be5de079fed4e3a10e24ef5ef0
 extern wasm_cv_cv_own_mat_t wasm_cv_cv_cvt_color(wasm_cv_cv_own_mat_t src, wasm_cv_cv_color_coversion_type_t code);
-// Transpose for n-dimensional matrices.
+// Dilate dilates an image by using a specific structuring element.
 // 
 // For further details, please see:
-// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
-extern wasm_cv_cv_own_mat_t wasm_cv_cv_transpose_nd(wasm_cv_cv_own_mat_t src, imports_list_s32_t *order);
+// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga4ff0f3318642c4f469d0e11f242f3b6c
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_dilate(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t kernel);
+// Erode erodes an image by using a specific structuring element.
+// 
+// For further details, please see:
+// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gaeb1e0c1033e3f6b891a25d0511362aeb
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_erode(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t kernel);
+// EqualizeHist normalizes the brightness and increases the contrast of the image.
+// 
+// For further details, please see:
+// https://docs.opencv.org/master/d6/dc7/group__imgproc__hist.html#ga7e54091f0c937d49bf84152a16f76d6e
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_equalize_hist(wasm_cv_cv_own_mat_t src);
+// GaussianBlur blurs an image using a Gaussian filter.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_gaussian_blur(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *size, float sigma_x, float sigma_y, wasm_cv_cv_border_type_t border);
+// GetStructuringElement returns a structuring element of the specified size
+// and shape for morphological operations.
+// 
+// For further details, please see:
+// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gac342a1bb6eabf6f55c803b09268e36dc
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_get_structuring_element(wasm_cv_cv_morph_shape_t shape, wasm_cv_cv_size_t *size);
+// HoughLines implements the standard or standard multi-scale Hough transform
+// algorithm for line detection. For a good explanation of Hough transform, see:
+// http://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm
+// 
+// For further details, please see:
+// http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga46b4e588934f6c8dfd509cc6e0e4545a
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_hough_lines(wasm_cv_cv_own_mat_t src, double rho, double theta, int32_t threshold);
+// HoughLinesP implements the probabilistic Hough transform
+// algorithm for line detection. For a good explanation of Hough transform, see:
+// http://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm
+// 
+// For further details, please see:
+// http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga8618180a5948286384e3b7ca02f6feeb
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_hough_lines_p(wasm_cv_cv_own_mat_t src, double rho, double theta, int32_t threshold);
+// MedianBlur blurs an image using the median filter.
+// 
+// For further details, please see:
+// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga564869aa33e58769b4469101aac458f9
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_median_blur(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *k_size);
 // Resize resizes an image.
 // It resizes the image src down to or up to the specified size, storing the
 // result in dst. Note that src and dst may be the same image. If you wish to
@@ -491,6 +540,16 @@ extern wasm_cv_cv_own_mat_t wasm_cv_cv_transpose_nd(wasm_cv_cv_own_mat_t src, im
 // For further details, please see:
 // https://docs.opencv.org/master/da/d54/group__imgproc__transform.html#ga47a974309e9102f5f08231edc7e7529d
 extern wasm_cv_cv_own_mat_t wasm_cv_cv_resize(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *size, float fx, float fy, wasm_cv_cv_interpolation_type_t interp);
+// Threshold applies a fixed-level threshold to each array element.
+// 
+// For further details, please see:
+// https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_threshold(wasm_cv_cv_own_mat_t src, float thresh, float max_value, wasm_cv_cv_threshold_type_t threshold_type);
+// Transpose for n-dimensional matrices.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_transpose_nd(wasm_cv_cv_own_mat_t src, imports_list_s32_t *order);
 
 // Imported Functions from `wasm:cv/dnn`
 extern wasm_cv_dnn_own_layer_t wasm_cv_dnn_constructor_layer(void);

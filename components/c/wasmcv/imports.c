@@ -6,7 +6,7 @@
 // Imported Functions from `wasm:cv/mat`
 
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[constructor]mat")))
-extern int32_t __wasm_import_wasm_cv_mat_constructor_mat(void);
+extern int32_t __wasm_import_wasm_cv_mat_constructor_mat(int32_t);
 
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[static]mat.new-with-size")))
 extern int32_t __wasm_import_wasm_cv_mat_static_mat_new_with_size(int32_t, int32_t, int32_t);
@@ -121,23 +121,44 @@ extern int32_t __wasm_import_wasm_cv_cv_blur(int32_t, int32_t, int32_t);
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("box-filter")))
 extern int32_t __wasm_import_wasm_cv_cv_box_filter(int32_t, int32_t, int32_t, int32_t);
 
-__attribute__((__import_module__("wasm:cv/cv"), __import_name__("gaussian-blur")))
-extern int32_t __wasm_import_wasm_cv_cv_gaussian_blur(int32_t, int32_t, int32_t, float, float, int32_t);
-
-__attribute__((__import_module__("wasm:cv/cv"), __import_name__("median-blur")))
-extern int32_t __wasm_import_wasm_cv_cv_median_blur(int32_t, int32_t, int32_t);
-
-__attribute__((__import_module__("wasm:cv/cv"), __import_name__("threshold")))
-extern int32_t __wasm_import_wasm_cv_cv_threshold(int32_t, float, float, int32_t);
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("canny")))
+extern int32_t __wasm_import_wasm_cv_cv_canny(int32_t, float, float);
 
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("cvt-color")))
 extern int32_t __wasm_import_wasm_cv_cv_cvt_color(int32_t, int32_t);
 
-__attribute__((__import_module__("wasm:cv/cv"), __import_name__("transpose-ND")))
-extern int32_t __wasm_import_wasm_cv_cv_transpose_nd(int32_t, uint8_t *, size_t);
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("dilate")))
+extern int32_t __wasm_import_wasm_cv_cv_dilate(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("erode")))
+extern int32_t __wasm_import_wasm_cv_cv_erode(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("equalize-hist")))
+extern int32_t __wasm_import_wasm_cv_cv_equalize_hist(int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("gaussian-blur")))
+extern int32_t __wasm_import_wasm_cv_cv_gaussian_blur(int32_t, int32_t, int32_t, float, float, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("get-structuring-element")))
+extern int32_t __wasm_import_wasm_cv_cv_get_structuring_element(int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("hough-lines")))
+extern int32_t __wasm_import_wasm_cv_cv_hough_lines(int32_t, double, double, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("hough-lines-p")))
+extern int32_t __wasm_import_wasm_cv_cv_hough_lines_p(int32_t, double, double, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("median-blur")))
+extern int32_t __wasm_import_wasm_cv_cv_median_blur(int32_t, int32_t, int32_t);
 
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("resize")))
 extern int32_t __wasm_import_wasm_cv_cv_resize(int32_t, int32_t, int32_t, float, float, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("threshold")))
+extern int32_t __wasm_import_wasm_cv_cv_threshold(int32_t, float, float, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("transpose-ND")))
+extern int32_t __wasm_import_wasm_cv_cv_transpose_nd(int32_t, uint8_t *, size_t);
 
 // Imported Functions from `wasm:cv/dnn`
 
@@ -470,8 +491,8 @@ void imports_string_free(imports_string_t *ret) {
 
 // Component Adapters
 
-wasm_cv_mat_own_mat_t wasm_cv_mat_constructor_mat(void) {
-  int32_t ret = __wasm_import_wasm_cv_mat_constructor_mat();
+wasm_cv_mat_own_mat_t wasm_cv_mat_constructor_mat(uint32_t id) {
+  int32_t ret = __wasm_import_wasm_cv_mat_constructor_mat((int32_t) (id));
   return (wasm_cv_mat_own_mat_t) { ret };
 }
 
@@ -638,7 +659,7 @@ void wasm_cv_mat_method_mat_min_max_loc(wasm_cv_mat_borrow_mat_t self, wasm_cv_m
   };
 }
 
-void wasm_cv_cv_arrowed_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_size_t *point1, wasm_cv_cv_size_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
+void wasm_cv_cv_arrowed_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
   __wasm_import_wasm_cv_cv_arrowed_line((img).__handle, (*point1).x, (*point1).y, (*point2).x, (*point2).y, (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), (int32_t) (thickness));
 }
 
@@ -646,15 +667,15 @@ void wasm_cv_cv_rectangle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_rect_t *r, wasm_c
   __wasm_import_wasm_cv_cv_rectangle((img).__handle, ((*r).min).x, ((*r).min).y, ((*r).max).x, ((*r).max).y, (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), (int32_t) (thickness));
 }
 
-void wasm_cv_cv_circle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_size_t *center, uint32_t radius, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
+void wasm_cv_cv_circle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_point_t *center, uint32_t radius, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
   __wasm_import_wasm_cv_cv_circle((img).__handle, (*center).x, (*center).y, (int32_t) (radius), (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), (int32_t) (thickness));
 }
 
-void wasm_cv_cv_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_size_t *point1, wasm_cv_cv_size_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
+void wasm_cv_cv_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
   __wasm_import_wasm_cv_cv_line((img).__handle, (*point1).x, (*point1).y, (*point2).x, (*point2).y, (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), (int32_t) (thickness));
 }
 
-void wasm_cv_cv_put_text(wasm_cv_cv_own_mat_t img, imports_string_t *text, wasm_cv_cv_size_t *org, wasm_cv_cv_hershey_font_type_t font_face, double font_scale, wasm_cv_cv_rgba_t *c, int32_t thickness) {
+void wasm_cv_cv_put_text(wasm_cv_cv_own_mat_t img, imports_string_t *text, wasm_cv_cv_point_t *org, wasm_cv_cv_hershey_font_type_t font_face, double font_scale, wasm_cv_cv_rgba_t *c, int32_t thickness) {
   __wasm_import_wasm_cv_cv_put_text((img).__handle, (uint8_t *) (*text).ptr, (*text).len, (*org).x, (*org).y, (int32_t) font_face, font_scale, (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), thickness);
 }
 
@@ -673,18 +694,8 @@ wasm_cv_cv_own_mat_t wasm_cv_cv_box_filter(wasm_cv_cv_own_mat_t src, uint32_t de
   return (wasm_cv_cv_own_mat_t) { ret };
 }
 
-wasm_cv_cv_own_mat_t wasm_cv_cv_gaussian_blur(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *size, float sigma_x, float sigma_y, wasm_cv_cv_border_type_t border) {
-  int32_t ret = __wasm_import_wasm_cv_cv_gaussian_blur((src).__handle, (*size).x, (*size).y, sigma_x, sigma_y, (int32_t) border);
-  return (wasm_cv_cv_own_mat_t) { ret };
-}
-
-wasm_cv_cv_own_mat_t wasm_cv_cv_median_blur(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *k_size) {
-  int32_t ret = __wasm_import_wasm_cv_cv_median_blur((src).__handle, (*k_size).x, (*k_size).y);
-  return (wasm_cv_cv_own_mat_t) { ret };
-}
-
-wasm_cv_cv_own_mat_t wasm_cv_cv_threshold(wasm_cv_cv_own_mat_t src, float thresh, float max_value, wasm_cv_cv_threshold_type_t threshold_type) {
-  int32_t ret = __wasm_import_wasm_cv_cv_threshold((src).__handle, thresh, max_value, (int32_t) threshold_type);
+wasm_cv_cv_own_mat_t wasm_cv_cv_canny(wasm_cv_cv_own_mat_t src, float threshold1, float threshold2) {
+  int32_t ret = __wasm_import_wasm_cv_cv_canny((src).__handle, threshold1, threshold2);
   return (wasm_cv_cv_own_mat_t) { ret };
 }
 
@@ -693,13 +704,58 @@ wasm_cv_cv_own_mat_t wasm_cv_cv_cvt_color(wasm_cv_cv_own_mat_t src, wasm_cv_cv_c
   return (wasm_cv_cv_own_mat_t) { ret };
 }
 
-wasm_cv_cv_own_mat_t wasm_cv_cv_transpose_nd(wasm_cv_cv_own_mat_t src, imports_list_s32_t *order) {
-  int32_t ret = __wasm_import_wasm_cv_cv_transpose_nd((src).__handle, (uint8_t *) (*order).ptr, (*order).len);
+wasm_cv_cv_own_mat_t wasm_cv_cv_dilate(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t kernel) {
+  int32_t ret = __wasm_import_wasm_cv_cv_dilate((src).__handle, (kernel).__handle);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_erode(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t kernel) {
+  int32_t ret = __wasm_import_wasm_cv_cv_erode((src).__handle, (kernel).__handle);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_equalize_hist(wasm_cv_cv_own_mat_t src) {
+  int32_t ret = __wasm_import_wasm_cv_cv_equalize_hist((src).__handle);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_gaussian_blur(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *size, float sigma_x, float sigma_y, wasm_cv_cv_border_type_t border) {
+  int32_t ret = __wasm_import_wasm_cv_cv_gaussian_blur((src).__handle, (*size).x, (*size).y, sigma_x, sigma_y, (int32_t) border);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_get_structuring_element(wasm_cv_cv_morph_shape_t shape, wasm_cv_cv_size_t *size) {
+  int32_t ret = __wasm_import_wasm_cv_cv_get_structuring_element((int32_t) shape, (*size).x, (*size).y);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_hough_lines(wasm_cv_cv_own_mat_t src, double rho, double theta, int32_t threshold) {
+  int32_t ret = __wasm_import_wasm_cv_cv_hough_lines((src).__handle, rho, theta, threshold);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_hough_lines_p(wasm_cv_cv_own_mat_t src, double rho, double theta, int32_t threshold) {
+  int32_t ret = __wasm_import_wasm_cv_cv_hough_lines_p((src).__handle, rho, theta, threshold);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_median_blur(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *k_size) {
+  int32_t ret = __wasm_import_wasm_cv_cv_median_blur((src).__handle, (*k_size).x, (*k_size).y);
   return (wasm_cv_cv_own_mat_t) { ret };
 }
 
 wasm_cv_cv_own_mat_t wasm_cv_cv_resize(wasm_cv_cv_own_mat_t src, wasm_cv_cv_size_t *size, float fx, float fy, wasm_cv_cv_interpolation_type_t interp) {
   int32_t ret = __wasm_import_wasm_cv_cv_resize((src).__handle, (*size).x, (*size).y, fx, fy, (int32_t) interp);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_threshold(wasm_cv_cv_own_mat_t src, float thresh, float max_value, wasm_cv_cv_threshold_type_t threshold_type) {
+  int32_t ret = __wasm_import_wasm_cv_cv_threshold((src).__handle, thresh, max_value, (int32_t) threshold_type);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_transpose_nd(wasm_cv_cv_own_mat_t src, imports_list_s32_t *order) {
+  int32_t ret = __wasm_import_wasm_cv_cv_transpose_nd((src).__handle, (uint8_t *) (*order).ptr, (*order).len);
   return (wasm_cv_cv_own_mat_t) { ret };
 }
 
