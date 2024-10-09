@@ -25,6 +25,8 @@ var (
 	processor = flag.String("processor", "tinygo", "which wasmCV processor to use (tinygo|rust|c)")
 
 	frame gocv.Mat
+
+	guestDataPtr uint32
 )
 
 func main() {
@@ -55,6 +57,7 @@ func main() {
 			"[method]mat.cols":    wypes.H1(matColsFunc),
 			"[method]mat.rows":    wypes.H1(matRowsFunc),
 			"[method]mat.mattype": wypes.H1(matTypeFunc),
+			"[method]mat.size":    wypes.H3(matSizeFunc),
 		},
 	}
 
@@ -70,6 +73,13 @@ func main() {
 		log.Panicf("failed to instantiate module: %v", err)
 	}
 	process := mod.ExportedFunction("process")
+	malloc := mod.ExportedFunction("malloc")
+	res, err := malloc.Call(ctx, 256)
+	if err != nil {
+		log.Panicf("failed to call malloc: %v", err)
+	}
+
+	guestDataPtr = uint32(res[0])
 
 	// Open the webcam.
 	deviceID := "0"
@@ -124,4 +134,19 @@ func matRowsFunc(matref wypes.UInt32) wypes.UInt32 {
 
 func matTypeFunc(matref wypes.UInt32) wypes.UInt32 {
 	return wypes.UInt32(frame.Type())
+}
+
+func matSizeFunc(s *wypes.Store, matref wypes.UInt32, list wypes.ReturnedList[wypes.UInt32]) wypes.Void {
+	dims := frame.Size()
+
+	result := make([]wypes.UInt32, len(dims))
+	for i, dim := range dims {
+		result[i] = wypes.UInt32(dim)
+	}
+
+	list.Raw = result
+	list.DataPtr = guestDataPtr
+	list.Lower(s)
+
+	return wypes.Void{}
 }
