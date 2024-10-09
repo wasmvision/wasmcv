@@ -1,9 +1,16 @@
 interface types {
+    /// size is a 2-element integer vector.
+    /// It represents a width and height.
     record size {
         x: s32,
         y: s32,
     }
 
+    /// point is a 2-element integer vector.
+    /// It represents a x and y coordinate.
+    type point = size;
+
+    /// scalar is a 4-element floating point vector.
     record scalar {
         val1: f32,
         val2: f32,
@@ -11,11 +18,14 @@ interface types {
         val4: f32,
     }
 
+    /// rect is a rectangle with integer coordinates.
+    /// It is represented by the top-left corner and the bottom-right corner.
     record rect {
         min: size,
         max: size,
     }
 
+    /// RGBA is a color with red, green, blue, and alpha channels.
     record RGBA {
         r: u8,
         g: u8,
@@ -23,6 +33,7 @@ interface types {
         a: u8,
     }
 
+    /// border-type is a type of border to add to an image.
     enum border-type {
         border-constant,
         border-replicate,
@@ -34,11 +45,13 @@ interface types {
         border-isolated,
     }
 
+    /// adaptive-threshold-type is a type of adaptive thresholding.
     enum adaptive-threshold-type {
         adaptive-threshold-mean,
         adaptive-threshold-gaussian,
     }
     
+    /// threshold-type is a type of thresholding.
     enum threshold-type {
         threshold-binary,
         threshold-binary-inv,
@@ -50,6 +63,7 @@ interface types {
         tthreshold-triangle,
     }
 
+    /// data-layout-type is a type of data layout.
     enum data-layout-type {
         data-layout-unknown,
         data-layout-nd,
@@ -125,5 +139,11 @@ interface types {
         color-gray-to-RGBA,
         color-BGRA-to-gray,
         color-RGBA-to-gray,
+    }
+
+    enum morph-shape {
+        morph-rect,
+        morph-cross,
+        morph-ellipse,
     }
 }

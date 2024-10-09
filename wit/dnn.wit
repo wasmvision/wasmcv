@@ -1,6 +1,6 @@
 interface dnn {
     use mat.{mat};
-    use types.{size, scalar, rect, blob-params};
+    use types.{size, scalar, rect, blob-params, data-layout-type, padding-mode-type};
 
 	enum net-backend-type {
 		net-backend-default,
@@ -20,21 +20,6 @@ interface dnn {
 		net-target-fpga,
 		net-target-cuda,
 		net-target-cuda-fp16,
-	}
-
-	enum data-layout-type {
-		data-layout-unknown,
-		data-layout-nd,
-		data-layout-nchw,
-		data-layout-nhwc,
-		data-layout-ndhwc,
-		data-layout-planar,	
-	}
-
-	enum padding-mode-type {
-		padding-mode-null,
-		padding-mode-crop-center,
-		padding-mode-letterbox,
 	}
 
 	resource layer {

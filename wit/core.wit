@@ -1,6 +1,6 @@
 
 interface cv {
-    use types.{border-type, size, adaptive-threshold-type, threshold-type, scalar, rect, RGBA, hershey-font-type, interpolation-type, color-coversion-type};
+    use types.{border-type, size, point, adaptive-threshold-type, threshold-type, scalar, rect, RGBA, hershey-font-type, interpolation-type, color-coversion-type, morph-shape};
     use mat.{mat, mattype};
 
     // drawing functions
@@ -9,7 +9,7 @@ interface cv {
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd488ac709fdf10c05b2
-    arrowed-line: func(img: mat, point1: size, point2: size, c: RGBA, thickness: u8);
+    arrowed-line: func(img: mat, point1: point, point2: point, c: RGBA, thickness: u8);
 
     /// Rectangle draws a simple, thick, or filled up-right rectangle.
     ///
@@ -21,13 +21,13 @@ interface cv {
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b069374903dbd0f0488cb43670
-    circle: func(img: mat, center: size, radius: u32, c: RGBA, thickness: u8);
+    circle: func(img: mat, center: point, radius: u32, c: RGBA, thickness: u8);
 
     /// Line draws a line segment connecting two points.
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga7078a9fae8c7e7d13d24dac2520ae4a2
-    line: func(img: mat, point1: size, point2: size, c: RGBA, thickness: u8);
+    line: func(img: mat, point1: point, point2: point, c: RGBA, thickness: u8);
 
     /// PutText draws a text string.
     /// It renders the specified text string into the img Mat at the location
@@ -36,7 +36,7 @@ interface cv {
     ///
     /// For further details, please see:
     /// http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576
-    put-text: func(img: mat, text: string, org: size, font-face: hershey-font-type, font-scale: f64, c: RGBA, thickness: s32);
+    put-text: func(img: mat, text: string, org: point, font-face: hershey-font-type, font-scale: f64, c: RGBA, thickness: s32);
 
     // imgproc functions
 
@@ -58,23 +58,17 @@ interface cv {
     /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gad533230ebf2d42509547d514f7d3fbc3
     box-filter: func(src: mat, depth: u32, k-size: size) -> mat;
 
-    /// GaussianBlur blurs an image using a Gaussian filter.
+    /// Canny finds edges in an image using the Canny algorithm.
+    /// The function finds edges in the input image image and marks
+    /// them in the output map edges using the Canny algorithm.
+    /// The smallest value between threshold1 and threshold2 is used
+    /// for edge linking. The largest value is used to
+    /// find initial segments of strong edges.
+    /// See http://en.wikipedia.org/wiki/Canny_edge_detector
     ///
     /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
-    gaussian-blur: func(src: mat, size: size, sigma-x: f32, sigma-y: f32, border: border-type) -> mat;
-
-    /// MedianBlur blurs an image using the median filter.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga564869aa33e58769b4469101aac458f9
-    median-blur: func(src: mat, k-size: size) -> mat;
-
-    /// Threshold applies a fixed-level threshold to each array element.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57
-    threshold: func(src: mat, thresh: f32, max-value: f32, threshold-type: threshold-type) -> mat;
+    /// http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga04723e007ed888ddf11d9ba04e2232de
+    canny: func(src: mat, threshold1: f32, threshold2: f32) -> mat;
 
     /// CvtColor converts an image from one color space to another.
     ///
@@ -82,11 +76,58 @@ interface cv {
     /// http://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga4e0972be5de079fed4e3a10e24ef5ef0
     cvt-color: func(src: mat, code: color-coversion-type) -> mat;
 
-    /// Transpose for n-dimensional matrices.
+    /// Dilate dilates an image by using a specific structuring element.
     ///
     /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
-    transpose-ND: func(src: mat, order: list<s32>) -> mat;
+    /// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga4ff0f3318642c4f469d0e11f242f3b6c
+    dilate: func(src: mat, kernel: mat) -> mat;
+
+    /// Erode erodes an image by using a specific structuring element.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gaeb1e0c1033e3f6b891a25d0511362aeb
+    erode: func(src: mat, kernel: mat) -> mat;
+
+    /// EqualizeHist normalizes the brightness and increases the contrast of the image.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/master/d6/dc7/group__imgproc__hist.html#ga7e54091f0c937d49bf84152a16f76d6e
+    equalize-hist: func(src: mat) -> mat;
+
+    /// GaussianBlur blurs an image using a Gaussian filter.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
+    gaussian-blur: func(src: mat, size: size, sigma-x: f32, sigma-y: f32, border: border-type) -> mat;
+
+    /// GetStructuringElement returns a structuring element of the specified size
+    /// and shape for morphological operations.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gac342a1bb6eabf6f55c803b09268e36dc
+    get-structuring-element: func(shape: morph-shape, size: size) -> mat;
+
+    /// HoughLines implements the standard or standard multi-scale Hough transform
+    /// algorithm for line detection. For a good explanation of Hough transform, see:
+    /// http://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm
+    ///
+    /// For further details, please see:
+    /// http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga46b4e588934f6c8dfd509cc6e0e4545a
+    hough-lines: func(src: mat, rho: f64, theta: f64, threshold: s32) -> mat;
+
+    /// HoughLinesP implements the probabilistic Hough transform
+    /// algorithm for line detection. For a good explanation of Hough transform, see:
+    /// http://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm
+    ///
+    /// For further details, please see:
+    /// http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga8618180a5948286384e3b7ca02f6feeb
+    hough-lines-p: func(src: mat, rho: f64, theta: f64, threshold: s32) -> mat;
+
+    /// MedianBlur blurs an image using the median filter.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga564869aa33e58769b4469101aac458f9
+    median-blur: func(src: mat, k-size: size) -> mat;
 
     /// Resize resizes an image.
     /// It resizes the image src down to or up to the specified size, storing the
@@ -98,4 +139,16 @@ interface cv {
     /// For further details, please see:
     /// https://docs.opencv.org/master/da/d54/group__imgproc__transform.html#ga47a974309e9102f5f08231edc7e7529d
     resize: func(src: mat, size: size, fx: f32, fy: f32, interp: interpolation-type) -> mat;
+
+    /// Threshold applies a fixed-level threshold to each array element.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57
+    threshold: func(src: mat, thresh: f32, max-value: f32, threshold-type: threshold-type) -> mat;
+
+    /// Transpose for n-dimensional matrices.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
+    transpose-ND: func(src: mat, order: list<s32>) -> mat;
 }
