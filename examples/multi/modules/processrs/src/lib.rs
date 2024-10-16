@@ -1,9 +1,7 @@
 #![no_std]
 
 extern crate core;
-extern crate wee_alloc;
 extern crate alloc;
-extern crate wasmcv;
 
 use alloc::string::String;
 use alloc::string::ToString;
@@ -33,10 +31,6 @@ extern "C" {
 unsafe fn string_to_ptr(s: &String) -> (u32, u32) {
     return (s.as_ptr() as u32, s.len() as u32);
 }
-
-// Use `wee_alloc` as the global allocator...for now.
-#[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[no_mangle]
 pub extern fn malloc(size: usize) -> *mut u8 {
