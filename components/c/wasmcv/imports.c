@@ -525,7 +525,7 @@ wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_region(wasm_cv_mat_borrow_mat_t sel
   return (wasm_cv_mat_own_mat_t) { ret };
 }
 
-void wasm_cv_mat_method_mat_copy_to(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_own_mat_t dst) {
+void wasm_cv_mat_method_mat_copy_to(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_borrow_mat_t dst) {
   __wasm_import_wasm_cv_mat_method_mat_copy_to((self).__handle, (dst).__handle);
 }
 
@@ -659,23 +659,23 @@ void wasm_cv_mat_method_mat_min_max_loc(wasm_cv_mat_borrow_mat_t self, wasm_cv_m
   };
 }
 
-void wasm_cv_cv_arrowed_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
+void wasm_cv_cv_arrowed_line(wasm_cv_cv_borrow_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
   __wasm_import_wasm_cv_cv_arrowed_line((img).__handle, (*point1).x, (*point1).y, (*point2).x, (*point2).y, (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), (int32_t) (thickness));
 }
 
-void wasm_cv_cv_rectangle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_rect_t *r, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
+void wasm_cv_cv_rectangle(wasm_cv_cv_borrow_mat_t img, wasm_cv_cv_rect_t *r, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
   __wasm_import_wasm_cv_cv_rectangle((img).__handle, ((*r).min).x, ((*r).min).y, ((*r).max).x, ((*r).max).y, (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), (int32_t) (thickness));
 }
 
-void wasm_cv_cv_circle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_point_t *center, uint32_t radius, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
+void wasm_cv_cv_circle(wasm_cv_cv_borrow_mat_t img, wasm_cv_cv_point_t *center, uint32_t radius, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
   __wasm_import_wasm_cv_cv_circle((img).__handle, (*center).x, (*center).y, (int32_t) (radius), (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), (int32_t) (thickness));
 }
 
-void wasm_cv_cv_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
+void wasm_cv_cv_line(wasm_cv_cv_borrow_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
   __wasm_import_wasm_cv_cv_line((img).__handle, (*point1).x, (*point1).y, (*point2).x, (*point2).y, (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), (int32_t) (thickness));
 }
 
-void wasm_cv_cv_put_text(wasm_cv_cv_own_mat_t img, imports_string_t *text, wasm_cv_cv_point_t *org, wasm_cv_cv_hershey_font_type_t font_face, double font_scale, wasm_cv_cv_rgba_t *c, int32_t thickness) {
+void wasm_cv_cv_put_text(wasm_cv_cv_borrow_mat_t img, imports_string_t *text, wasm_cv_cv_point_t *org, wasm_cv_cv_hershey_font_type_t font_face, double font_scale, wasm_cv_cv_rgba_t *c, int32_t thickness) {
   __wasm_import_wasm_cv_cv_put_text((img).__handle, (uint8_t *) (*text).ptr, (*text).len, (*org).x, (*org).y, (int32_t) font_face, font_scale, (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), thickness);
 }
 
