@@ -7,7 +7,6 @@ edition = "2021"
 
 [dependencies]
 wasmcv = { version = "0.5.0", path = "../../../../components/rust/wasmcv" }
-wee_alloc = "0.4.5"
 wit-bindgen = "0.32.0"
 
 [lib]
