@@ -230,6 +230,8 @@ typedef wasm_cv_types_morph_shape_t wasm_cv_cv_morph_shape_t;
 
 typedef wasm_cv_mat_mattype_t wasm_cv_cv_mattype_t;
 
+typedef wasm_cv_mat_borrow_mat_t wasm_cv_cv_borrow_mat_t;
+
 typedef wasm_cv_mat_own_mat_t wasm_cv_cv_own_mat_t;
 
 typedef wasm_cv_types_size_t wasm_cv_dnn_size_t;
@@ -365,7 +367,7 @@ extern uint32_t wasm_cv_mat_method_mat_rows(wasm_cv_mat_borrow_mat_t self);
 // OpenCV Mat object.
 extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_region(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_rect_t *rect);
 // CopyTo copies Mat into destination Mat.
-extern void wasm_cv_mat_method_mat_copy_to(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_own_mat_t dst);
+extern void wasm_cv_mat_method_mat_copy_to(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_borrow_mat_t dst);
 // MatType returns the type of the Mat.
 extern wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_mattype(wasm_cv_mat_borrow_mat_t self);
 // Size returns an array with one element for each dimension containing the size of that dimension for the Mat.
@@ -429,22 +431,22 @@ extern void wasm_cv_mat_method_mat_min_max_loc(wasm_cv_mat_borrow_mat_t self, wa
 // 
 // For further details, please see:
 // https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd488ac709fdf10c05b2
-extern void wasm_cv_cv_arrowed_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness);
+extern void wasm_cv_cv_arrowed_line(wasm_cv_cv_borrow_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness);
 // Rectangle draws a simple, thick, or filled up-right rectangle.
 // 
 // For further details, please see:
 // https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8f3d1e1b7
-extern void wasm_cv_cv_rectangle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_rect_t *r, wasm_cv_cv_rgba_t *c, uint8_t thickness);
+extern void wasm_cv_cv_rectangle(wasm_cv_cv_borrow_mat_t img, wasm_cv_cv_rect_t *r, wasm_cv_cv_rgba_t *c, uint8_t thickness);
 // Circle draws a circle.
 // 
 // For further details, please see:
 // https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b069374903dbd0f0488cb43670
-extern void wasm_cv_cv_circle(wasm_cv_cv_own_mat_t img, wasm_cv_cv_point_t *center, uint32_t radius, wasm_cv_cv_rgba_t *c, uint8_t thickness);
+extern void wasm_cv_cv_circle(wasm_cv_cv_borrow_mat_t img, wasm_cv_cv_point_t *center, uint32_t radius, wasm_cv_cv_rgba_t *c, uint8_t thickness);
 // Line draws a line segment connecting two points.
 // 
 // For further details, please see:
 // https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga7078a9fae8c7e7d13d24dac2520ae4a2
-extern void wasm_cv_cv_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness);
+extern void wasm_cv_cv_line(wasm_cv_cv_borrow_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness);
 // PutText draws a text string.
 // It renders the specified text string into the img Mat at the location
 // passed in the "org" param, using the desired font face, font scale,
@@ -452,7 +454,7 @@ extern void wasm_cv_cv_line(wasm_cv_cv_own_mat_t img, wasm_cv_cv_point_t *point1
 // 
 // For further details, please see:
 // http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576
-extern void wasm_cv_cv_put_text(wasm_cv_cv_own_mat_t img, imports_string_t *text, wasm_cv_cv_point_t *org, wasm_cv_cv_hershey_font_type_t font_face, double font_scale, wasm_cv_cv_rgba_t *c, int32_t thickness);
+extern void wasm_cv_cv_put_text(wasm_cv_cv_borrow_mat_t img, imports_string_t *text, wasm_cv_cv_point_t *org, wasm_cv_cv_hershey_font_type_t font_face, double font_scale, wasm_cv_cv_rgba_t *c, int32_t thickness);
 // imgproc functions
 // AdaptiveThreshold applies a fixed-level threshold to each array element.
 // 
