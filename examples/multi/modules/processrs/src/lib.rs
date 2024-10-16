@@ -9,7 +9,7 @@ use wasmcv::wasm::cv;
 
 #[no_mangle]
 pub extern fn process(mat: cv::mat::Mat) -> cv::mat::Mat {
-    println(&["Cols: ", &mat.cols().to_string(), " Rows: ", &mat.rows().to_string(), " Size: ", &mat.size().len().to_string()].concat());
+    println(&["Cols: ", &mat.cols().to_string(), " Rows: ", &mat.rows().to_string()].concat());
 
     return mat;
 }
@@ -30,10 +30,4 @@ extern "C" {
 
 unsafe fn string_to_ptr(s: &String) -> (u32, u32) {
     return (s.as_ptr() as u32, s.len() as u32);
-}
-
-#[no_mangle]
-pub extern fn malloc(size: usize) -> *mut u8 {
-    let layout = core::alloc::Layout::from_size_align(size, 1).unwrap();
-    unsafe { alloc::alloc::alloc(layout) }
 }

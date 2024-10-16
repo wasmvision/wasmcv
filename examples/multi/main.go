@@ -73,13 +73,6 @@ func main() {
 		log.Panicf("failed to instantiate module: %v", err)
 	}
 	process := mod.ExportedFunction("process")
-	malloc := mod.ExportedFunction("malloc")
-	res, err := malloc.Call(ctx, 256)
-	if err != nil {
-		log.Panicf("failed to call malloc: %v", err)
-	}
-
-	guestDataPtr = uint32(res[0])
 
 	// Open the webcam.
 	deviceID := "0"
@@ -104,11 +97,6 @@ func main() {
 		if frame.Empty() {
 			continue
 		}
-
-		// clear screen
-		fmt.Print("\033[H\033[2J")
-
-		fmt.Printf("Running %s wasmCV module\n", *processor)
 
 		i++
 		fmt.Printf("Read frame %d\n", i+1)
