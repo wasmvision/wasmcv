@@ -3,9 +3,9 @@ module github.com/wasmvision/wasmcv/examples/wasmcam
 go 1.23.0
 
 require (
-	github.com/orsinium-labs/wypes v0.1.4
+	github.com/orsinium-labs/wypes v0.2.0
 	github.com/subeshb1/wasm-go-image-to-ascii v0.0.0-20200725121413-d828986df340
-	github.com/tetratelabs/wazero v1.8.0
+	github.com/tetratelabs/wazero v1.8.1
 	gocv.io/x/gocv v0.37.0
 )
 
