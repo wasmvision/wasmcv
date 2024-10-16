@@ -282,7 +282,7 @@ OpenCV Mat object.</p>
 <h5>Params</h5>
 <ul>
 <li><a id="method_mat_copy_to.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
-<li><a id="method_mat_copy_to.dst"></a><code>dst</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_copy_to.dst"></a><code>dst</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_mat_mattype"></a><code>[method]mat.mattype: func</code></h4>
 <p>MatType returns the type of the Mat.</p>
@@ -590,7 +590,7 @@ ArrowedLine draws a arrow segment pointing from the first point to the second on
 https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd488ac709fdf10c05b2</p>
 <h5>Params</h5>
 <ul>
-<li><a id="arrowed_line.img"></a><code>img</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="arrowed_line.img"></a><code>img</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
 <li><a id="arrowed_line.point1"></a><code>point1</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
 <li><a id="arrowed_line.point2"></a><code>point2</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
 <li><a id="arrowed_line.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
@@ -602,7 +602,7 @@ https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd
 https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8f3d1e1b7</p>
 <h5>Params</h5>
 <ul>
-<li><a id="rectangle.img"></a><code>img</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="rectangle.img"></a><code>img</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
 <li><a id="rectangle.r"></a><code>r</code>: <a href="#rect"><a href="#rect"><code>rect</code></a></a></li>
 <li><a id="rectangle.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
 <li><a id="rectangle.thickness"></a><code>thickness</code>: <code>u8</code></li>
@@ -613,7 +613,7 @@ https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305
 https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b069374903dbd0f0488cb43670</p>
 <h5>Params</h5>
 <ul>
-<li><a id="circle.img"></a><code>img</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="circle.img"></a><code>img</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
 <li><a id="circle.center"></a><code>center</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
 <li><a id="circle.radius"></a><code>radius</code>: <code>u32</code></li>
 <li><a id="circle.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
@@ -625,7 +625,7 @@ https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b0693749
 https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga7078a9fae8c7e7d13d24dac2520ae4a2</p>
 <h5>Params</h5>
 <ul>
-<li><a id="line.img"></a><code>img</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="line.img"></a><code>img</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
 <li><a id="line.point1"></a><code>point1</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
 <li><a id="line.point2"></a><code>point2</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
 <li><a id="line.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
@@ -640,7 +640,7 @@ color, and line thinkness.</p>
 http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576</p>
 <h5>Params</h5>
 <ul>
-<li><a id="put_text.img"></a><code>img</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="put_text.img"></a><code>img</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
 <li><a id="put_text.text"></a><code>text</code>: <code>string</code></li>
 <li><a id="put_text.org"></a><code>org</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
 <li><a id="put_text.font_face"></a><code>font-face</code>: <a href="#hershey_font_type"><a href="#hershey_font_type"><code>hershey-font-type</code></a></a></li>

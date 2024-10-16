@@ -321,7 +321,7 @@ CopyTo copies Mat into destination Mat.
 ##### Params
 
 - <a id="method_mat_copy_to.self"></a>`self`: borrow<[`mat`](#mat)>
-- <a id="method_mat_copy_to.dst"></a>`dst`: own<[`mat`](#mat)>
+- <a id="method_mat_copy_to.dst"></a>`dst`: borrow<[`mat`](#mat)>
 
 #### <a id="method_mat_mattype"></a>`[method]mat.mattype: func`
 
@@ -686,7 +686,7 @@ https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd
 
 ##### Params
 
-- <a id="arrowed_line.img"></a>`img`: own<[`mat`](#mat)>
+- <a id="arrowed_line.img"></a>`img`: borrow<[`mat`](#mat)>
 - <a id="arrowed_line.point1"></a>`point1`: [`point`](#point)
 - <a id="arrowed_line.point2"></a>`point2`: [`point`](#point)
 - <a id="arrowed_line.c"></a>`c`: [`RGBA`](#rgba)
@@ -701,7 +701,7 @@ https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305
 
 ##### Params
 
-- <a id="rectangle.img"></a>`img`: own<[`mat`](#mat)>
+- <a id="rectangle.img"></a>`img`: borrow<[`mat`](#mat)>
 - <a id="rectangle.r"></a>`r`: [`rect`](#rect)
 - <a id="rectangle.c"></a>`c`: [`RGBA`](#rgba)
 - <a id="rectangle.thickness"></a>`thickness`: `u8`
@@ -715,7 +715,7 @@ https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b0693749
 
 ##### Params
 
-- <a id="circle.img"></a>`img`: own<[`mat`](#mat)>
+- <a id="circle.img"></a>`img`: borrow<[`mat`](#mat)>
 - <a id="circle.center"></a>`center`: [`point`](#point)
 - <a id="circle.radius"></a>`radius`: `u32`
 - <a id="circle.c"></a>`c`: [`RGBA`](#rgba)
@@ -730,7 +730,7 @@ https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga7078a9fae8c7e7
 
 ##### Params
 
-- <a id="line.img"></a>`img`: own<[`mat`](#mat)>
+- <a id="line.img"></a>`img`: borrow<[`mat`](#mat)>
 - <a id="line.point1"></a>`point1`: [`point`](#point)
 - <a id="line.point2"></a>`point2`: [`point`](#point)
 - <a id="line.c"></a>`c`: [`RGBA`](#rgba)
@@ -748,7 +748,7 @@ http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730
 
 ##### Params
 
-- <a id="put_text.img"></a>`img`: own<[`mat`](#mat)>
+- <a id="put_text.img"></a>`img`: borrow<[`mat`](#mat)>
 - <a id="put_text.text"></a>`text`: `string`
 - <a id="put_text.org"></a>`org`: [`point`](#point)
 - <a id="put_text.font_face"></a>`font-face`: [`hershey-font-type`](#hershey_font_type)
