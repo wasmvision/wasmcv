@@ -38,7 +38,7 @@ interface mat {
         region: func(rect: rect) -> mat;
 
         /// CopyTo copies Mat into destination Mat.
-        copy-to: func(dst: mat);
+        copy-to: func(dst: borrow<mat>);
 
         /// MatType returns the type of the Mat.
         mattype: func() -> mattype;

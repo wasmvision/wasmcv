@@ -9,25 +9,25 @@ interface cv {
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd488ac709fdf10c05b2
-    arrowed-line: func(img: mat, point1: point, point2: point, c: RGBA, thickness: u8);
+    arrowed-line: func(img: borrow<mat>, point1: point, point2: point, c: RGBA, thickness: u8);
 
     /// Rectangle draws a simple, thick, or filled up-right rectangle.
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8f3d1e1b7
-    rectangle: func(img: mat, r: rect, c: RGBA, thickness: u8);
+    rectangle: func(img: borrow<mat>, r: rect, c: RGBA, thickness: u8);
 
     /// Circle draws a circle.
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b069374903dbd0f0488cb43670
-    circle: func(img: mat, center: point, radius: u32, c: RGBA, thickness: u8);
+    circle: func(img: borrow<mat>, center: point, radius: u32, c: RGBA, thickness: u8);
 
     /// Line draws a line segment connecting two points.
     ///
     /// For further details, please see:
     /// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga7078a9fae8c7e7d13d24dac2520ae4a2
-    line: func(img: mat, point1: point, point2: point, c: RGBA, thickness: u8);
+    line: func(img: borrow<mat>, point1: point, point2: point, c: RGBA, thickness: u8);
 
     /// PutText draws a text string.
     /// It renders the specified text string into the img Mat at the location
@@ -36,7 +36,7 @@ interface cv {
     ///
     /// For further details, please see:
     /// http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576
-    put-text: func(img: mat, text: string, org: point, font-face: hershey-font-type, font-scale: f64, c: RGBA, thickness: s32);
+    put-text: func(img: borrow<mat>, text: string, org: point, font-face: hershey-font-type, font-scale: f64, c: RGBA, thickness: s32);
 
     // imgproc functions
 
