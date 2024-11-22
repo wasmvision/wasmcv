@@ -151,4 +151,16 @@ interface cv {
     /// For further details, please see:
     /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
     transpose-ND: func(src: mat, order: list<s32>) -> mat;
+
+    /// estimate-affine2d computes an optimal affine transformation between two 2D point sets.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/4.0.0/d9/d0c/group__calib3d.html#ga27865b1d26bac9ce91efaee83e94d4dd
+    estimate-affine2d: func(frm: mat, to: mat) -> mat;
+
+    /// warp-affine applies an affine transformation to an image.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#ga0203d9ee5fcd28d40dbc4a1ea4451983
+    warp-affine: func(src: mat, m: mat, size: size) -> mat;
 }

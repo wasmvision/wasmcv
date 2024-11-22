@@ -40,6 +40,9 @@ interface mat {
         /// CopyTo copies Mat into destination Mat.
         copy-to: func(dst: borrow<mat>);
 
+        /// ConvertTo converts Mat into destination Mat.
+        convert-to: func(mattype: mattype) -> mat;
+
         /// MatType returns the type of the Mat.
         mattype: func() -> mattype;
 
