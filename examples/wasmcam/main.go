@@ -57,7 +57,7 @@ func main() {
 		return
 	}
 
-	mod, err := r.Instantiate(ctx, processFrameWasm)
+	mod, err := r.InstantiateWithConfig(ctx, processFrameWasm, wazero.NewModuleConfig().WithName("processor").WithStartFunctions("_initialize", "_start"))
 	if err != nil {
 		log.Panicf("failed to instantiate module: %v", err)
 	}
