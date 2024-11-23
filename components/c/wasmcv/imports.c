@@ -29,6 +29,9 @@ extern int32_t __wasm_import_wasm_cv_mat_method_mat_region(int32_t, int32_t, int
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.copy-to")))
 extern void __wasm_import_wasm_cv_mat_method_mat_copy_to(int32_t, int32_t);
 
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.convert-to")))
+extern int32_t __wasm_import_wasm_cv_mat_method_mat_convert_to(int32_t, int32_t);
+
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.mattype")))
 extern int32_t __wasm_import_wasm_cv_mat_method_mat_mattype(int32_t);
 
@@ -159,6 +162,12 @@ extern int32_t __wasm_import_wasm_cv_cv_threshold(int32_t, float, float, int32_t
 
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("transpose-ND")))
 extern int32_t __wasm_import_wasm_cv_cv_transpose_nd(int32_t, uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("estimate-affine2d")))
+extern int32_t __wasm_import_wasm_cv_cv_estimate_affine2d(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("warp-affine")))
+extern int32_t __wasm_import_wasm_cv_cv_warp_affine(int32_t, int32_t, int32_t, int32_t);
 
 // Imported Functions from `wasm:cv/dnn`
 
@@ -529,6 +538,11 @@ void wasm_cv_mat_method_mat_copy_to(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_b
   __wasm_import_wasm_cv_mat_method_mat_copy_to((self).__handle, (dst).__handle);
 }
 
+wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_convert_to(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_mattype_t mattype) {
+  int32_t ret = __wasm_import_wasm_cv_mat_method_mat_convert_to((self).__handle, (int32_t) mattype);
+  return (wasm_cv_mat_own_mat_t) { ret };
+}
+
 wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_mattype(wasm_cv_mat_borrow_mat_t self) {
   int32_t ret = __wasm_import_wasm_cv_mat_method_mat_mattype((self).__handle);
   return ret;
@@ -756,6 +770,16 @@ wasm_cv_cv_own_mat_t wasm_cv_cv_threshold(wasm_cv_cv_own_mat_t src, float thresh
 
 wasm_cv_cv_own_mat_t wasm_cv_cv_transpose_nd(wasm_cv_cv_own_mat_t src, imports_list_s32_t *order) {
   int32_t ret = __wasm_import_wasm_cv_cv_transpose_nd((src).__handle, (uint8_t *) (*order).ptr, (*order).len);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_estimate_affine2d(wasm_cv_cv_own_mat_t frm, wasm_cv_cv_own_mat_t to) {
+  int32_t ret = __wasm_import_wasm_cv_cv_estimate_affine2d((frm).__handle, (to).__handle);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_warp_affine(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t m, wasm_cv_cv_size_t *size) {
+  int32_t ret = __wasm_import_wasm_cv_cv_warp_affine((src).__handle, (m).__handle, (*size).x, (*size).y);
   return (wasm_cv_cv_own_mat_t) { ret };
 }
 

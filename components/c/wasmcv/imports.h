@@ -368,6 +368,8 @@ extern uint32_t wasm_cv_mat_method_mat_rows(wasm_cv_mat_borrow_mat_t self);
 extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_region(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_rect_t *rect);
 // CopyTo copies Mat into destination Mat.
 extern void wasm_cv_mat_method_mat_copy_to(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_borrow_mat_t dst);
+// ConvertTo converts Mat into destination Mat.
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_convert_to(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_mattype_t mattype);
 // MatType returns the type of the Mat.
 extern wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_mattype(wasm_cv_mat_borrow_mat_t self);
 // Size returns an array with one element for each dimension containing the size of that dimension for the Mat.
@@ -552,6 +554,16 @@ extern wasm_cv_cv_own_mat_t wasm_cv_cv_threshold(wasm_cv_cv_own_mat_t src, float
 // For further details, please see:
 // https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
 extern wasm_cv_cv_own_mat_t wasm_cv_cv_transpose_nd(wasm_cv_cv_own_mat_t src, imports_list_s32_t *order);
+// estimate-affine2d computes an optimal affine transformation between two 2D point sets.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.0.0/d9/d0c/group__calib3d.html#ga27865b1d26bac9ce91efaee83e94d4dd
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_estimate_affine2d(wasm_cv_cv_own_mat_t frm, wasm_cv_cv_own_mat_t to);
+// warp-affine applies an affine transformation to an image.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#ga0203d9ee5fcd28d40dbc4a1ea4451983
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_warp_affine(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t m, wasm_cv_cv_size_t *size);
 
 // Imported Functions from `wasm:cv/dnn`
 extern wasm_cv_dnn_own_layer_t wasm_cv_dnn_constructor_layer(void);
