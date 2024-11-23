@@ -49,7 +49,7 @@ func main() {
 		return
 	}
 
-	mod, err := r.Instantiate(ctx, processFrameWasm)
+	mod, err := r.InstantiateWithConfig(ctx, processFrameWasm, wazero.NewModuleConfig().WithName("processor").WithStartFunctions("_initialize", "_start"))
 	if err != nil {
 		log.Panicf("failed to instantiate module: %v", err)
 	}
@@ -86,9 +86,6 @@ func main() {
 			continue
 		}
 
-		// clear screen
-		//fmt.Print("\033[H\033[2J")
-
 		i++
 		fmt.Printf("Read frame %d\n", i+1)
 		_, err := process.Call(ctx, 1)
@@ -115,12 +112,12 @@ func matTypeFunc(matref wypes.UInt32) wypes.UInt32 {
 	return wypes.UInt32(frame.Type())
 }
 
-func matSizeFunc(s wypes.Store, matref wypes.UInt32, list wypes.List[uint32]) wypes.Void {
+func matSizeFunc(s *wypes.Store, f wypes.UInt32, list wypes.ReturnedList[wypes.UInt32]) wypes.Void {
 	dims := frame.Size()
 
-	result := make([]uint32, len(dims))
+	result := make([]wypes.UInt32, len(dims))
 	for i, dim := range dims {
-		result[i] = uint32(dim)
+		result[i] = wypes.UInt32(dim)
 	}
 
 	list.Raw = result

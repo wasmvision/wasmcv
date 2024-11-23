@@ -68,7 +68,7 @@ func main() {
 	}
 
 	fmt.Printf("Loading %s wasmCV guest module...\n", *processor)
-	mod, err := r.Instantiate(ctx, module)
+	mod, err := r.InstantiateWithConfig(ctx, module, wazero.NewModuleConfig().WithName("processor").WithStartFunctions("_initialize", "_start"))
 	if err != nil {
 		log.Panicf("failed to instantiate module: %v", err)
 	}
