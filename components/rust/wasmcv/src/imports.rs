@@ -652,6 +652,39 @@ pub mod wasm {
         }
       }
 
+      #[repr(C)]
+      #[derive(Clone, Copy)]
+      pub struct KeyPoint {
+        pub x: f32,
+        pub y: f32,
+        pub size: f32,
+        pub angle: f32,
+        pub response: f32,
+        pub octave: i32,
+        pub class_id: i32,
+      }
+      impl ::core::fmt::Debug for KeyPoint {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          f.debug_struct("KeyPoint").field("x", &self.x).field("y", &self.y).field("size", &self.size).field("angle", &self.angle).field("response", &self.response).field("octave", &self.octave).field("class-id", &self.class_id).finish()
+        }
+      }
+      /// DMatch is data structure for matching keypoint descriptors.
+      ///
+      /// For further details, please see:
+      /// https://docs.opencv.org/4.x/d4/de0/classcv_1_1DMatch.html#a546ddb9a87898f06e510e015a6de596e
+      #[repr(C)]
+      #[derive(Clone, Copy)]
+      pub struct DMatch {
+        pub query_idx: u32,
+        pub train_idx: u32,
+        pub img_idx: u32,
+        pub distance: f64,
+      }
+      impl ::core::fmt::Debug for DMatch {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          f.debug_struct("DMatch").field("query-idx", &self.query_idx).field("train-idx", &self.train_idx).field("img-idx", &self.img_idx).field("distance", &self.distance).finish()
+        }
+      }
 
     }
 
@@ -3940,6 +3973,1280 @@ pub mod wasm {
 
     }
 
+    #[allow(dead_code, clippy::all)]
+    pub mod features2d {
+      #[used]
+      #[doc(hidden)]
+      static __FORCE_SECTION_REF: fn() =
+      super::super::super::__link_custom_section_describing_imports;
+      
+      use super::super::super::_rt;
+      pub type Mat = super::super::super::wasm::cv::mat::Mat;
+      pub type KeyPoint = super::super::super::wasm::cv::types::KeyPoint;
+      pub type DMatch = super::super::super::wasm::cv::types::DMatch;
+      /// rect is a rectangle with integer coordinates.
+      /// It is represented by the top-left corner and the bottom-right corner.
+      pub struct DetectorResult {
+        pub kps: _rt::Vec::<KeyPoint>,
+        pub desc: Mat,
+      }
+      impl ::core::fmt::Debug for DetectorResult {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          f.debug_struct("DetectorResult").field("kps", &self.kps).field("desc", &self.desc).finish()
+        }
+      }
+      /// AKAZE-detector is a wrapper around the cv::AKAZE algorithm.
+
+      #[derive(Debug)]
+      #[repr(transparent)]
+      pub struct AkazeDetector{
+        handle: _rt::Resource<AkazeDetector>,
+      }
+
+      impl AkazeDetector{
+        #[doc(hidden)]
+        pub unsafe fn from_handle(handle: u32) -> Self {
+          Self {
+            handle: _rt::Resource::from_handle(handle),
+          }
+        }
+
+        #[doc(hidden)]
+        pub fn take_handle(&self) -> u32 {
+          _rt::Resource::take_handle(&self.handle)
+        }
+
+        #[doc(hidden)]
+        pub fn handle(&self) -> u32 {
+          _rt::Resource::handle(&self.handle)
+        }
+      }
+
+
+      unsafe impl _rt::WasmResource for AkazeDetector{
+        #[inline]
+        unsafe fn drop(_handle: u32) {
+          #[cfg(not(target_arch = "wasm32"))]
+          unreachable!();
+
+          #[cfg(target_arch = "wasm32")]
+          {
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[resource-drop]AKAZE-detector"]
+              fn drop(_: u32);
+            }
+
+            drop(_handle);
+          }
+        }
+      }
+
+      /// BRISK-detector is a wrapper around the cv::BRISK algorithm.
+
+      #[derive(Debug)]
+      #[repr(transparent)]
+      pub struct BriskDetector{
+        handle: _rt::Resource<BriskDetector>,
+      }
+
+      impl BriskDetector{
+        #[doc(hidden)]
+        pub unsafe fn from_handle(handle: u32) -> Self {
+          Self {
+            handle: _rt::Resource::from_handle(handle),
+          }
+        }
+
+        #[doc(hidden)]
+        pub fn take_handle(&self) -> u32 {
+          _rt::Resource::take_handle(&self.handle)
+        }
+
+        #[doc(hidden)]
+        pub fn handle(&self) -> u32 {
+          _rt::Resource::handle(&self.handle)
+        }
+      }
+
+
+      unsafe impl _rt::WasmResource for BriskDetector{
+        #[inline]
+        unsafe fn drop(_handle: u32) {
+          #[cfg(not(target_arch = "wasm32"))]
+          unreachable!();
+
+          #[cfg(target_arch = "wasm32")]
+          {
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[resource-drop]BRISK-detector"]
+              fn drop(_: u32);
+            }
+
+            drop(_handle);
+          }
+        }
+      }
+
+      /// KAZE-detector is a wrapper around the cv::KAZE algorithm.
+
+      #[derive(Debug)]
+      #[repr(transparent)]
+      pub struct KazeDetector{
+        handle: _rt::Resource<KazeDetector>,
+      }
+
+      impl KazeDetector{
+        #[doc(hidden)]
+        pub unsafe fn from_handle(handle: u32) -> Self {
+          Self {
+            handle: _rt::Resource::from_handle(handle),
+          }
+        }
+
+        #[doc(hidden)]
+        pub fn take_handle(&self) -> u32 {
+          _rt::Resource::take_handle(&self.handle)
+        }
+
+        #[doc(hidden)]
+        pub fn handle(&self) -> u32 {
+          _rt::Resource::handle(&self.handle)
+        }
+      }
+
+
+      unsafe impl _rt::WasmResource for KazeDetector{
+        #[inline]
+        unsafe fn drop(_handle: u32) {
+          #[cfg(not(target_arch = "wasm32"))]
+          unreachable!();
+
+          #[cfg(target_arch = "wasm32")]
+          {
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[resource-drop]KAZE-detector"]
+              fn drop(_: u32);
+            }
+
+            drop(_handle);
+          }
+        }
+      }
+
+      /// ORB-detector is a wrapper around the cv::ORB algorithm.
+
+      #[derive(Debug)]
+      #[repr(transparent)]
+      pub struct OrbDetector{
+        handle: _rt::Resource<OrbDetector>,
+      }
+
+      impl OrbDetector{
+        #[doc(hidden)]
+        pub unsafe fn from_handle(handle: u32) -> Self {
+          Self {
+            handle: _rt::Resource::from_handle(handle),
+          }
+        }
+
+        #[doc(hidden)]
+        pub fn take_handle(&self) -> u32 {
+          _rt::Resource::take_handle(&self.handle)
+        }
+
+        #[doc(hidden)]
+        pub fn handle(&self) -> u32 {
+          _rt::Resource::handle(&self.handle)
+        }
+      }
+
+
+      unsafe impl _rt::WasmResource for OrbDetector{
+        #[inline]
+        unsafe fn drop(_handle: u32) {
+          #[cfg(not(target_arch = "wasm32"))]
+          unreachable!();
+
+          #[cfg(target_arch = "wasm32")]
+          {
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[resource-drop]ORB-detector"]
+              fn drop(_: u32);
+            }
+
+            drop(_handle);
+          }
+        }
+      }
+
+      /// SIFT-detector is a wrapper around the cv::SIFT algorithm.
+
+      #[derive(Debug)]
+      #[repr(transparent)]
+      pub struct SiftDetector{
+        handle: _rt::Resource<SiftDetector>,
+      }
+
+      impl SiftDetector{
+        #[doc(hidden)]
+        pub unsafe fn from_handle(handle: u32) -> Self {
+          Self {
+            handle: _rt::Resource::from_handle(handle),
+          }
+        }
+
+        #[doc(hidden)]
+        pub fn take_handle(&self) -> u32 {
+          _rt::Resource::take_handle(&self.handle)
+        }
+
+        #[doc(hidden)]
+        pub fn handle(&self) -> u32 {
+          _rt::Resource::handle(&self.handle)
+        }
+      }
+
+
+      unsafe impl _rt::WasmResource for SiftDetector{
+        #[inline]
+        unsafe fn drop(_handle: u32) {
+          #[cfg(not(target_arch = "wasm32"))]
+          unreachable!();
+
+          #[cfg(target_arch = "wasm32")]
+          {
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[resource-drop]SIFT-detector"]
+              fn drop(_: u32);
+            }
+
+            drop(_handle);
+          }
+        }
+      }
+
+      /// BF-matcher is a wrapper around the cv::BFMatcher algorithm.
+
+      #[derive(Debug)]
+      #[repr(transparent)]
+      pub struct BfMatcher{
+        handle: _rt::Resource<BfMatcher>,
+      }
+
+      impl BfMatcher{
+        #[doc(hidden)]
+        pub unsafe fn from_handle(handle: u32) -> Self {
+          Self {
+            handle: _rt::Resource::from_handle(handle),
+          }
+        }
+
+        #[doc(hidden)]
+        pub fn take_handle(&self) -> u32 {
+          _rt::Resource::take_handle(&self.handle)
+        }
+
+        #[doc(hidden)]
+        pub fn handle(&self) -> u32 {
+          _rt::Resource::handle(&self.handle)
+        }
+      }
+
+
+      unsafe impl _rt::WasmResource for BfMatcher{
+        #[inline]
+        unsafe fn drop(_handle: u32) {
+          #[cfg(not(target_arch = "wasm32"))]
+          unreachable!();
+
+          #[cfg(target_arch = "wasm32")]
+          {
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[resource-drop]BF-matcher"]
+              fn drop(_: u32);
+            }
+
+            drop(_handle);
+          }
+        }
+      }
+
+      /// Flann-based-matcher is a wrapper around the cv::BFMatcher algorithm.
+
+      #[derive(Debug)]
+      #[repr(transparent)]
+      pub struct FlannBasedMatcher{
+        handle: _rt::Resource<FlannBasedMatcher>,
+      }
+
+      impl FlannBasedMatcher{
+        #[doc(hidden)]
+        pub unsafe fn from_handle(handle: u32) -> Self {
+          Self {
+            handle: _rt::Resource::from_handle(handle),
+          }
+        }
+
+        #[doc(hidden)]
+        pub fn take_handle(&self) -> u32 {
+          _rt::Resource::take_handle(&self.handle)
+        }
+
+        #[doc(hidden)]
+        pub fn handle(&self) -> u32 {
+          _rt::Resource::handle(&self.handle)
+        }
+      }
+
+
+      unsafe impl _rt::WasmResource for FlannBasedMatcher{
+        #[inline]
+        unsafe fn drop(_handle: u32) {
+          #[cfg(not(target_arch = "wasm32"))]
+          unreachable!();
+
+          #[cfg(target_arch = "wasm32")]
+          {
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[resource-drop]flann-based-matcher"]
+              fn drop(_: u32);
+            }
+
+            drop(_handle);
+          }
+        }
+      }
+
+      impl AkazeDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Returns a new akaze-detector.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d8/d30/classcv_1_1AKAZE.html
+        pub fn new(name: &str,) -> Self{
+          unsafe {
+            let vec0 = name;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[constructor]AKAZE-detector"]
+              fn wit_import(_: *mut u8, _: usize, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0);
+            AkazeDetector::from_handle(ret as u32)
+          }
+        }
+      }
+      impl AkazeDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Close the akaze-detector
+        pub fn close(&self,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]AKAZE-detector.close"]
+              fn wit_import(_: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32);
+          }
+        }
+      }
+      impl AkazeDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Detect keypoints in an image using AKAZE.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887
+        pub fn detect(&self,src: Mat,) -> _rt::Vec::<KeyPoint>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]AKAZE-detector.detect"]
+              fn wit_import(_: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            _rt::Vec::from_raw_parts(l1.cast(), len3, len3)
+          }
+        }
+      }
+      impl AkazeDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Compute keypoints in an image using AKAZE.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0
+        pub fn compute(&self,src: Mat,mask: Mat,kps: &[KeyPoint],) -> DetectorResult{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 12]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 12]);
+            let vec0 = kps;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+            let ptr1 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]AKAZE-detector.compute"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, _: usize, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, _: usize, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, (&mask).take_handle() as i32, ptr0.cast_mut(), len0, ptr1);
+            let l2 = *ptr1.add(0).cast::<*mut u8>();
+            let l3 = *ptr1.add(4).cast::<usize>();
+            let len4 = l3;
+            let l5 = *ptr1.add(8).cast::<i32>();
+            DetectorResult{
+              kps: _rt::Vec::from_raw_parts(l2.cast(), len4, len4),
+              desc: super::super::super::wasm::cv::mat::Mat::from_handle(l5 as u32),
+            }
+          }
+        }
+      }
+      impl AkazeDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// DetectAndCompute keypoints and compute in an image using AKAZE.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677
+        pub fn detect_and_compute(&self,src: Mat,mask: Mat,) -> DetectorResult{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 12]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 12]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]AKAZE-detector.detect-and-compute"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, (&mask).take_handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            let l4 = *ptr0.add(8).cast::<i32>();
+            DetectorResult{
+              kps: _rt::Vec::from_raw_parts(l1.cast(), len3, len3),
+              desc: super::super::super::wasm::cv::mat::Mat::from_handle(l4 as u32),
+            }
+          }
+        }
+      }
+      impl BriskDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Returns a new BRISK-detector.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/de/dbf/classcv_1_1BRISK.html
+        pub fn new(name: &str,) -> Self{
+          unsafe {
+            let vec0 = name;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[constructor]BRISK-detector"]
+              fn wit_import(_: *mut u8, _: usize, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0);
+            BriskDetector::from_handle(ret as u32)
+          }
+        }
+      }
+      impl BriskDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Close the BRISK-detector
+        pub fn close(&self,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]BRISK-detector.close"]
+              fn wit_import(_: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32);
+          }
+        }
+      }
+      impl BriskDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Detect keypoints in an image using BRISK.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887
+        pub fn detect(&self,src: Mat,) -> _rt::Vec::<KeyPoint>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]BRISK-detector.detect"]
+              fn wit_import(_: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            _rt::Vec::from_raw_parts(l1.cast(), len3, len3)
+          }
+        }
+      }
+      impl BriskDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Compute keypoints in an image using BRISK.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0
+        pub fn compute(&self,src: Mat,mask: Mat,kps: &[KeyPoint],) -> DetectorResult{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 12]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 12]);
+            let vec0 = kps;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+            let ptr1 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]BRISK-detector.compute"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, _: usize, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, _: usize, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, (&mask).take_handle() as i32, ptr0.cast_mut(), len0, ptr1);
+            let l2 = *ptr1.add(0).cast::<*mut u8>();
+            let l3 = *ptr1.add(4).cast::<usize>();
+            let len4 = l3;
+            let l5 = *ptr1.add(8).cast::<i32>();
+            DetectorResult{
+              kps: _rt::Vec::from_raw_parts(l2.cast(), len4, len4),
+              desc: super::super::super::wasm::cv::mat::Mat::from_handle(l5 as u32),
+            }
+          }
+        }
+      }
+      impl BriskDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// DetectAndCompute keypoints and compute in an image using BRISK.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677
+        pub fn detect_and_compute(&self,src: Mat,mask: Mat,) -> DetectorResult{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 12]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 12]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]BRISK-detector.detect-and-compute"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, (&mask).take_handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            let l4 = *ptr0.add(8).cast::<i32>();
+            DetectorResult{
+              kps: _rt::Vec::from_raw_parts(l1.cast(), len3, len3),
+              desc: super::super::super::wasm::cv::mat::Mat::from_handle(l4 as u32),
+            }
+          }
+        }
+      }
+      impl KazeDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Returns a new KAZE-detector.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d3/d61/classcv_1_1KAZE.html
+        pub fn new(name: &str,) -> Self{
+          unsafe {
+            let vec0 = name;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[constructor]KAZE-detector"]
+              fn wit_import(_: *mut u8, _: usize, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0);
+            KazeDetector::from_handle(ret as u32)
+          }
+        }
+      }
+      impl KazeDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Close the KAZE-detector
+        pub fn close(&self,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]KAZE-detector.close"]
+              fn wit_import(_: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32);
+          }
+        }
+      }
+      impl KazeDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Detect keypoints in an image using KAZE.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887
+        pub fn detect(&self,src: Mat,) -> _rt::Vec::<KeyPoint>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]KAZE-detector.detect"]
+              fn wit_import(_: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            _rt::Vec::from_raw_parts(l1.cast(), len3, len3)
+          }
+        }
+      }
+      impl KazeDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Compute keypoints in an image using KAZE.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0
+        pub fn compute(&self,src: Mat,mask: Mat,kps: &[KeyPoint],) -> DetectorResult{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 12]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 12]);
+            let vec0 = kps;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+            let ptr1 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]KAZE-detector.compute"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, _: usize, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, _: usize, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, (&mask).take_handle() as i32, ptr0.cast_mut(), len0, ptr1);
+            let l2 = *ptr1.add(0).cast::<*mut u8>();
+            let l3 = *ptr1.add(4).cast::<usize>();
+            let len4 = l3;
+            let l5 = *ptr1.add(8).cast::<i32>();
+            DetectorResult{
+              kps: _rt::Vec::from_raw_parts(l2.cast(), len4, len4),
+              desc: super::super::super::wasm::cv::mat::Mat::from_handle(l5 as u32),
+            }
+          }
+        }
+      }
+      impl KazeDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// DetectAndCompute keypoints and compute in an image using KAZE.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677
+        pub fn detect_and_compute(&self,src: Mat,mask: Mat,) -> DetectorResult{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 12]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 12]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]KAZE-detector.detect-and-compute"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, (&mask).take_handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            let l4 = *ptr0.add(8).cast::<i32>();
+            DetectorResult{
+              kps: _rt::Vec::from_raw_parts(l1.cast(), len3, len3),
+              desc: super::super::super::wasm::cv::mat::Mat::from_handle(l4 as u32),
+            }
+          }
+        }
+      }
+      impl OrbDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Returns a new ORB-detector.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/db/d95/classcv_1_1ORB.html
+        pub fn new(name: &str,) -> Self{
+          unsafe {
+            let vec0 = name;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[constructor]ORB-detector"]
+              fn wit_import(_: *mut u8, _: usize, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0);
+            OrbDetector::from_handle(ret as u32)
+          }
+        }
+      }
+      impl OrbDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Close the ORB-detector
+        pub fn close(&self,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]ORB-detector.close"]
+              fn wit_import(_: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32);
+          }
+        }
+      }
+      impl OrbDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Detect keypoints in an image using ORB.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887
+        pub fn detect(&self,src: Mat,) -> _rt::Vec::<KeyPoint>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]ORB-detector.detect"]
+              fn wit_import(_: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            _rt::Vec::from_raw_parts(l1.cast(), len3, len3)
+          }
+        }
+      }
+      impl OrbDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Compute keypoints in an image using ORB.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0
+        pub fn compute(&self,src: Mat,mask: Mat,kps: &[KeyPoint],) -> DetectorResult{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 12]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 12]);
+            let vec0 = kps;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+            let ptr1 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]ORB-detector.compute"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, _: usize, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, _: usize, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, (&mask).take_handle() as i32, ptr0.cast_mut(), len0, ptr1);
+            let l2 = *ptr1.add(0).cast::<*mut u8>();
+            let l3 = *ptr1.add(4).cast::<usize>();
+            let len4 = l3;
+            let l5 = *ptr1.add(8).cast::<i32>();
+            DetectorResult{
+              kps: _rt::Vec::from_raw_parts(l2.cast(), len4, len4),
+              desc: super::super::super::wasm::cv::mat::Mat::from_handle(l5 as u32),
+            }
+          }
+        }
+      }
+      impl OrbDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// DetectAndCompute keypoints and compute in an image using ORB.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677
+        pub fn detect_and_compute(&self,src: Mat,mask: Mat,) -> DetectorResult{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 12]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 12]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]ORB-detector.detect-and-compute"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, (&mask).take_handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            let l4 = *ptr0.add(8).cast::<i32>();
+            DetectorResult{
+              kps: _rt::Vec::from_raw_parts(l1.cast(), len3, len3),
+              desc: super::super::super::wasm::cv::mat::Mat::from_handle(l4 as u32),
+            }
+          }
+        }
+      }
+      impl SiftDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Returns a new SIFT-detector.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d7/d60/classcv_1_1SIFT.html
+        pub fn new(name: &str,) -> Self{
+          unsafe {
+            let vec0 = name;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[constructor]SIFT-detector"]
+              fn wit_import(_: *mut u8, _: usize, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0);
+            SiftDetector::from_handle(ret as u32)
+          }
+        }
+      }
+      impl SiftDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Close the SIFT-detector
+        pub fn close(&self,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]SIFT-detector.close"]
+              fn wit_import(_: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32);
+          }
+        }
+      }
+      impl SiftDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Detect keypoints in an image using SIFT.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887
+        pub fn detect(&self,src: Mat,) -> _rt::Vec::<KeyPoint>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]SIFT-detector.detect"]
+              fn wit_import(_: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            _rt::Vec::from_raw_parts(l1.cast(), len3, len3)
+          }
+        }
+      }
+      impl SiftDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Compute keypoints in an image using SIFT.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0
+        pub fn compute(&self,src: Mat,mask: Mat,kps: &[KeyPoint],) -> DetectorResult{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 12]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 12]);
+            let vec0 = kps;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+            let ptr1 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]SIFT-detector.compute"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, _: usize, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, _: usize, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, (&mask).take_handle() as i32, ptr0.cast_mut(), len0, ptr1);
+            let l2 = *ptr1.add(0).cast::<*mut u8>();
+            let l3 = *ptr1.add(4).cast::<usize>();
+            let len4 = l3;
+            let l5 = *ptr1.add(8).cast::<i32>();
+            DetectorResult{
+              kps: _rt::Vec::from_raw_parts(l2.cast(), len4, len4),
+              desc: super::super::super::wasm::cv::mat::Mat::from_handle(l5 as u32),
+            }
+          }
+        }
+      }
+      impl SiftDetector {
+        #[allow(unused_unsafe, clippy::all)]
+        /// DetectAndCompute keypoints and compute in an image using SIFT.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677
+        pub fn detect_and_compute(&self,src: Mat,mask: Mat,) -> DetectorResult{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 12]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 12]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]SIFT-detector.detect-and-compute"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&src).take_handle() as i32, (&mask).take_handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            let l4 = *ptr0.add(8).cast::<i32>();
+            DetectorResult{
+              kps: _rt::Vec::from_raw_parts(l1.cast(), len3, len3),
+              desc: super::super::super::wasm::cv::mat::Mat::from_handle(l4 as u32),
+            }
+          }
+        }
+      }
+      impl BfMatcher {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Returns a new BF-matcher.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d3/da1/classcv_1_1BFMatcher.html#abe0bb11749b30d97f60d6ade665617bd
+        pub fn new(name: &str,) -> Self{
+          unsafe {
+            let vec0 = name;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[constructor]BF-matcher"]
+              fn wit_import(_: *mut u8, _: usize, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0);
+            BfMatcher::from_handle(ret as u32)
+          }
+        }
+      }
+      impl BfMatcher {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Close the BF-matcher
+        pub fn close(&self,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]BF-matcher.close"]
+              fn wit_import(_: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32);
+          }
+        }
+      }
+      impl BfMatcher {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Match Finds the best match for each descriptor from a query set.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#a0f046f47b68ec7074391e1e85c750cba
+        pub fn match_(&self,query: Mat,train: Mat,) -> _rt::Vec::<DMatch>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]BF-matcher.match"]
+              fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&query).take_handle() as i32, (&train).take_handle() as i32, ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let len3 = l2;
+            _rt::Vec::from_raw_parts(l1.cast(), len3, len3)
+          }
+        }
+      }
+      impl BfMatcher {
+        #[allow(unused_unsafe, clippy::all)]
+        /// KNNMatch finds the k best matches for each descriptor from a query set.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#aa880f9353cdf185ccf3013e08210483a
+        pub fn knn_match(&self,query: Mat,train: Mat,k: u32,) -> _rt::Vec::<_rt::Vec::<DMatch>>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]BF-matcher.KNN-match"]
+              fn wit_import(_: i32, _: i32, _: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&query).take_handle() as i32, (&train).take_handle() as i32, _rt::as_i32(&k), ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let base6 = l1;
+            let len6 = l2;
+            let mut result6 = _rt::Vec::with_capacity(len6);
+            for i in 0..len6 {
+              let base = base6.add(i * 8);
+              let e6 = {
+                let l3 = *base.add(0).cast::<*mut u8>();
+                let l4 = *base.add(4).cast::<usize>();
+                let len5 = l4;
+
+                _rt::Vec::from_raw_parts(l3.cast(), len5, len5)
+              };
+              result6.push(e6);
+            }
+            _rt::cabi_dealloc(base6, len6 * 8, 4);
+            result6
+          }
+        }
+      }
+      impl FlannBasedMatcher {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Returns a new flann-based-matcher.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/dc/de2/classcv_1_1FlannBasedMatcher.html#ab9114a6471e364ad221f89068ca21382
+        pub fn new(name: &str,) -> Self{
+          unsafe {
+            let vec0 = name;
+            let ptr0 = vec0.as_ptr().cast::<u8>();
+            let len0 = vec0.len();
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[constructor]flann-based-matcher"]
+              fn wit_import(_: *mut u8, _: usize, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: *mut u8, _: usize, ) -> i32{ unreachable!() }
+            let ret = wit_import(ptr0.cast_mut(), len0);
+            FlannBasedMatcher::from_handle(ret as u32)
+          }
+        }
+      }
+      impl FlannBasedMatcher {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Close the flann-based-matcher
+        pub fn close(&self,){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]flann-based-matcher.close"]
+              fn wit_import(_: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, ){ unreachable!() }
+            wit_import((self).handle() as i32);
+          }
+        }
+      }
+      impl FlannBasedMatcher {
+        #[allow(unused_unsafe, clippy::all)]
+        /// KNNMatch finds the k best matches for each descriptor from a query set.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#aa880f9353cdf185ccf3013e08210483a
+        pub fn knn_match(&self,query: Mat,train: Mat,k: u32,) -> _rt::Vec::<_rt::Vec::<DMatch>>{
+          unsafe {
+            #[repr(align(4))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 8]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 8]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[method]flann-based-matcher.KNN-match"]
+              fn wit_import(_: i32, _: i32, _: i32, _: i32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, _: i32, _: i32, _: *mut u8, ){ unreachable!() }
+            wit_import((self).handle() as i32, (&query).take_handle() as i32, (&train).take_handle() as i32, _rt::as_i32(&k), ptr0);
+            let l1 = *ptr0.add(0).cast::<*mut u8>();
+            let l2 = *ptr0.add(4).cast::<usize>();
+            let base6 = l1;
+            let len6 = l2;
+            let mut result6 = _rt::Vec::with_capacity(len6);
+            for i in 0..len6 {
+              let base = base6.add(i * 8);
+              let e6 = {
+                let l3 = *base.add(0).cast::<*mut u8>();
+                let l4 = *base.add(4).cast::<usize>();
+                let len5 = l4;
+
+                _rt::Vec::from_raw_parts(l3.cast(), len5, len5)
+              };
+              result6.push(e6);
+            }
+            _rt::cabi_dealloc(base6, len6 * 8, 4);
+            result6
+          }
+        }
+      }
+
+    }
+
   }
 }
 #[allow(dead_code)]
@@ -4261,159 +5568,161 @@ pub(crate) use __export_imports_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.32.0:wasm:cv:imports:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 8843] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\x8dD\x01A\x02\x01A\x1e\
-\x01B\x1f\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x04\0\x05point\x03\0\x01\x01\
-r\x04\x04val1v\x04val2v\x04val3v\x04val4v\x04\0\x06scalar\x03\0\x03\x01r\x02\x03\
-min\x01\x03max\x01\x04\0\x04rect\x03\0\x05\x01r\x04\x01r}\x01g}\x01b}\x01a}\x04\0\
-\x04RGBA\x03\0\x07\x01m\x08\x0fborder-constant\x10border-replicate\x0eborder-ref\
-lect\x0bborder-wrap\x11border-reflect101\x12border-transparent\x0eborder-default\
-\x0fborder-isolated\x04\0\x0bborder-type\x03\0\x09\x01m\x02\x17adaptive-threshol\
-d-mean\x1badaptive-threshold-gaussian\x04\0\x17adaptive-threshold-type\x03\0\x0b\
-\x01m\x08\x10threshold-binary\x14threshold-binary-inv\x0fthreshold-trunc\x11thre\
-shold-to-zero\x15threshold-to-zero-inv\x0ethreshold-mask\x0ethreshold-otsu\x13tt\
-hreshold-triangle\x04\0\x0ethreshold-type\x03\0\x0d\x01m\x07\x13data-layout-unkn\
-own\x0edata-layout-nd\x10data-layout-nchw\x11data-layout-ncdhw\x10data-layout-nh\
-wc\x11data-layout-ndhwc\x12data-layout-planar\x04\0\x10data-layout-type\x03\0\x0f\
-\x01m\x03\x11padding-mode-null\x18padding-mode-crop-center\x16padding-mode-lette\
-rbox\x04\0\x11padding-mode-type\x03\0\x11\x01r\x08\x0cscale-factorv\x04size\x01\x04\
-mean\x04\x07swap-RB\x7f\x06ddepth}\x0bdata-layout\x10\x0cpadding-mode\x12\x06bor\
-der\x04\x04\0\x0bblob-params\x03\0\x13\x01r\x04\x07min-valv\x07max-valv\x07min-l\
-oc\x01\x07max-loc\x01\x04\0\x12mix-max-loc-result\x03\0\x15\x01m\x09\x14hershey-\
-font-simplex\x12hershey-font-plain\x13hershey-font-duplex\x14hershey-font-comple\
-x\x14hershey-font-triplex\x1ahershey-font-complex-small\x1bhershey-font-script-s\
-implex\x1bhershey-font-script-complex\x13hershey-font-italic\x04\0\x11hershey-fo\
-nt-type\x03\0\x17\x01m\x05\x15interpolation-nearest\x14interpolation-linear\x13i\
-nterpolation-cubic\x12interpolation-area\x16interpolation-lanczos4\x04\0\x12inte\
-rpolation-type\x03\0\x19\x01m\x14\x11color-BGR-to-BGRA\x11color-RGB-to-RGBA\x11c\
-olor-BGRA-to-BGR\x11color-RGBA-to-RGB\x11color-BGR-to-RGBA\x11color-RGB-to-BGRA\x11\
-color-RGBA-to-BGR\x11color-BGRA-to-RGB\x10color-BGR-to-RGB\x10color-RGB-to-BGR\x12\
-color-BGRA-to-RGBA\x12color-RGBA-to-BGRA\x11color-BGR-to-gray\x11color-RGB-to-gr\
-ay\x11color-gray-to-BGR\x11color-gray-to-RGB\x12color-gray-to-BGRA\x12color-gray\
--to-RGBA\x12color-BGRA-to-gray\x12color-RGBA-to-gray\x04\0\x14color-coversion-ty\
-pe\x03\0\x1b\x01m\x03\x0amorph-rect\x0bmorph-cross\x0dmorph-ellipse\x04\0\x0bmor\
-ph-shape\x03\0\x1d\x03\0\x0dwasm:cv/types\x05\0\x02\x03\0\0\x12mix-max-loc-resul\
-t\x02\x03\0\0\x04rect\x01BS\x02\x03\x02\x01\x01\x04\0\x12mix-max-loc-result\x03\0\
-\0\x02\x03\x02\x01\x02\x04\0\x04rect\x03\0\x02\x01m\x07\x04cv8u\x04cv8s\x05cv16u\
-\x05cv16s\x05cv32s\x05cv32f\x05cv64f\x04\0\x07mattype\x03\0\x04\x04\0\x03mat\x03\
-\x01\x01i\x06\x01@\x01\x02idy\0\x07\x04\0\x10[constructor]mat\x01\x08\x01@\x03\x04\
-colsy\x04rowsy\x07mattype\x05\0\x07\x04\0\x19[static]mat.new-with-size\x01\x09\x01\
-h\x06\x01@\x01\x04self\x0a\0\x07\x04\0\x11[method]mat.clone\x01\x0b\x01@\x01\x04\
-self\x0a\x01\0\x04\0\x11[method]mat.close\x01\x0c\x01@\x01\x04self\x0a\0y\x04\0\x10\
-[method]mat.cols\x01\x0d\x04\0\x10[method]mat.rows\x01\x0d\x01@\x02\x04self\x0a\x04\
-rect\x03\0\x07\x04\0\x12[method]mat.region\x01\x0e\x01@\x02\x04self\x0a\x03dst\x0a\
-\x01\0\x04\0\x13[method]mat.copy-to\x01\x0f\x01@\x02\x04self\x0a\x07mattype\x05\0\
-\x07\x04\0\x16[method]mat.convert-to\x01\x10\x01@\x01\x04self\x0a\0\x05\x04\0\x13\
-[method]mat.mattype\x01\x11\x01py\x01@\x01\x04self\x0a\0\x12\x04\0\x10[method]ma\
-t.size\x01\x13\x04\0\x10[method]mat.step\x01\x0d\x04\0\x14[method]mat.elemsize\x01\
-\x0d\x01@\x01\x04self\x0a\0\x7f\x04\0\x11[method]mat.empty\x01\x14\x01@\x03\x04s\
-elf\x0a\x03rowy\x03coly\0v\x04\0\x18[method]mat.get-float-at\x01\x15\x01@\x04\x04\
-self\x0a\x03rowy\x03coly\x03valv\x01\0\x04\0\x18[method]mat.set-float-at\x01\x16\
-\x01@\x03\x04self\x0a\x03rowy\x03coly\0}\x04\0\x18[method]mat.get-uchar-at\x01\x17\
-\x01@\x04\x04self\x0a\x03rowy\x03coly\x03val}\x01\0\x04\0\x18[method]mat.set-uch\
-ar-at\x01\x18\x01@\x03\x04self\x0a\x03rowy\x03coly\0z\x04\0\x16[method]mat.get-i\
-nt-at\x01\x19\x01@\x04\x04self\x0a\x03rowy\x03coly\x03valz\x01\0\x04\0\x16[metho\
-d]mat.set-int-at\x01\x1a\x01@\x04\x04self\x0a\x01xy\x01yy\x01zy\0v\x04\0\x19[met\
-hod]mat.get-float-at3\x01\x1b\x01@\x05\x04self\x0a\x01xy\x01yy\x01zy\x03valv\x01\
-\0\x04\0\x19[method]mat.set-float-at3\x01\x1c\x01@\x04\x04self\x0a\x01xy\x01yy\x01\
-zy\0}\x04\0\x19[method]mat.get-uchar-at3\x01\x1d\x01@\x05\x04self\x0a\x01xy\x01y\
-y\x01zy\x03val}\x01\0\x04\0\x19[method]mat.set-uchar-at3\x01\x1e\x01@\x04\x04sel\
-f\x0a\x01xy\x01yy\x01zy\0z\x04\0\x17[method]mat.get-int-at3\x01\x1f\x01@\x05\x04\
-self\x0a\x01xy\x01yy\x01zy\x03valz\x01\0\x04\0\x17[method]mat.set-int-at3\x01\x20\
-\x01p}\x01@\x03\x04self\x0a\x03rowy\x03coly\0!\x04\0\x17[method]mat.get-vecb-at\x01\
-\"\x01pv\x01@\x03\x04self\x0a\x03rowy\x03coly\0#\x04\0\x17[method]mat.get-vecf-a\
-t\x01$\x01pz\x01@\x03\x04self\x0a\x03rowy\x03coly\0%\x04\0\x17[method]mat.get-ve\
-ci-at\x01&\x01@\x03\x04self\x0a\x08channelsy\x04rowsy\0\x07\x04\0\x13[method]mat\
-.reshape\x01'\x01@\x03\x04self\x0a\x05starty\x03endy\0\x07\x04\0\x15[method]mat.\
-row-range\x01(\x04\0\x15[method]mat.col-range\x01(\x01@\x01\x04self\x0a\0\x01\x04\
-\0\x17[method]mat.min-max-loc\x01)\x01@\x02\x04self\x0a\x03coly\0\x07\x04\0\x0f[\
-method]mat.col\x01*\x01@\x02\x04self\x0a\x03rowy\0\x07\x04\0\x0f[method]mat.row\x01\
-+\x01p\x07\x01@\x01\x02mv,\0\x07\x04\0\x11[static]mat.merge\x01-\x04\0\x11[stati\
-c]mat.zeros\x01\x09\x03\0\x0bwasm:cv/mat\x05\x03\x02\x03\0\0\x0bborder-type\x02\x03\
-\0\0\x04size\x02\x03\0\0\x05point\x02\x03\0\0\x17adaptive-threshold-type\x02\x03\
-\0\0\x0ethreshold-type\x02\x03\0\0\x06scalar\x02\x03\0\0\x04RGBA\x02\x03\0\0\x11\
-hershey-font-type\x02\x03\0\0\x12interpolation-type\x02\x03\0\0\x14color-coversi\
-on-type\x02\x03\0\0\x0bmorph-shape\x02\x03\0\x01\x03mat\x02\x03\0\x01\x07mattype\
-\x01BV\x02\x03\x02\x01\x04\x04\0\x0bborder-type\x03\0\0\x02\x03\x02\x01\x05\x04\0\
-\x04size\x03\0\x02\x02\x03\x02\x01\x06\x04\0\x05point\x03\0\x04\x02\x03\x02\x01\x07\
-\x04\0\x17adaptive-threshold-type\x03\0\x06\x02\x03\x02\x01\x08\x04\0\x0ethresho\
-ld-type\x03\0\x08\x02\x03\x02\x01\x09\x04\0\x06scalar\x03\0\x0a\x02\x03\x02\x01\x02\
-\x04\0\x04rect\x03\0\x0c\x02\x03\x02\x01\x0a\x04\0\x04RGBA\x03\0\x0e\x02\x03\x02\
-\x01\x0b\x04\0\x11hershey-font-type\x03\0\x10\x02\x03\x02\x01\x0c\x04\0\x12inter\
-polation-type\x03\0\x12\x02\x03\x02\x01\x0d\x04\0\x14color-coversion-type\x03\0\x14\
-\x02\x03\x02\x01\x0e\x04\0\x0bmorph-shape\x03\0\x16\x02\x03\x02\x01\x0f\x04\0\x03\
-mat\x03\0\x18\x02\x03\x02\x01\x10\x04\0\x07mattype\x03\0\x1a\x01h\x19\x01@\x05\x03\
-img\x1c\x06point1\x05\x06point2\x05\x01c\x0f\x09thickness}\x01\0\x04\0\x0carrowe\
-d-line\x01\x1d\x01@\x04\x03img\x1c\x01r\x0d\x01c\x0f\x09thickness}\x01\0\x04\0\x09\
-rectangle\x01\x1e\x01@\x05\x03img\x1c\x06center\x05\x06radiusy\x01c\x0f\x09thick\
-ness}\x01\0\x04\0\x06circle\x01\x1f\x04\0\x04line\x01\x1d\x01@\x07\x03img\x1c\x04\
-texts\x03org\x05\x09font-face\x11\x0afont-scaleu\x01c\x0f\x09thicknessz\x01\0\x04\
-\0\x08put-text\x01\x20\x01i\x19\x01@\x06\x03src!\x09max-valuev\x0dadaptive-type\x07\
-\x0ethreshold-type\x09\x0ablock-sizey\x01cv\0!\x04\0\x12adaptive-threshold\x01\"\
-\x01@\x02\x03src!\x06k-size\x03\0!\x04\0\x04blur\x01#\x01@\x03\x03src!\x05depthy\
-\x06k-size\x03\0!\x04\0\x0abox-filter\x01$\x01@\x03\x03src!\x0athreshold1v\x0ath\
-reshold2v\0!\x04\0\x05canny\x01%\x01@\x02\x03src!\x04code\x15\0!\x04\0\x09cvt-co\
-lor\x01&\x01@\x02\x03src!\x06kernel!\0!\x04\0\x06dilate\x01'\x04\0\x05erode\x01'\
-\x01@\x01\x03src!\0!\x04\0\x0dequalize-hist\x01(\x01@\x05\x03src!\x04size\x03\x07\
-sigma-xv\x07sigma-yv\x06border\x01\0!\x04\0\x0dgaussian-blur\x01)\x01@\x02\x05sh\
-ape\x17\x04size\x03\0!\x04\0\x17get-structuring-element\x01*\x01@\x04\x03src!\x03\
-rhou\x05thetau\x09thresholdz\0!\x04\0\x0bhough-lines\x01+\x04\0\x0dhough-lines-p\
-\x01+\x04\0\x0bmedian-blur\x01#\x01@\x05\x03src!\x04size\x03\x02fxv\x02fyv\x06in\
-terp\x13\0!\x04\0\x06resize\x01,\x01@\x04\x03src!\x06threshv\x09max-valuev\x0eth\
-reshold-type\x09\0!\x04\0\x09threshold\x01-\x01pz\x01@\x02\x03src!\x05order.\0!\x04\
-\0\x0ctranspose-ND\x01/\x01@\x02\x03frm!\x02to!\0!\x04\0\x11estimate-affine2d\x01\
-0\x01@\x03\x03src!\x01m!\x04size\x03\0!\x04\0\x0bwarp-affine\x011\x01@\x03\x06ce\
-nter\x05\x05angleu\x05scaleu\0!\x04\0\x15get-rotation-matrix2d\x012\x01@\x02\x04\
-src1!\x04src2!\0!\x04\0\x03add\x013\x01@\x05\x04src1!\x05alphau\x04src2!\x04beta\
-u\x05gammau\0!\x04\0\x0cadd-weighted\x014\x04\0\x03exp\x01(\x04\0\x07hconcat\x01\
-3\x04\0\x07vconcat\x013\x01@\x02\x03src!\x05wblut!\0!\x04\0\x03lut\x015\x01@\x03\
-\x03src!\x04axisy\x0alast-index\x7f\0!\x04\0\x0ereduce-arg-max\x016\x03\0\x0awas\
-m:cv/cv\x05\x11\x02\x03\0\0\x0bblob-params\x02\x03\0\0\x10data-layout-type\x02\x03\
-\0\0\x11padding-mode-type\x01B?\x02\x03\x02\x01\x0f\x04\0\x03mat\x03\0\0\x02\x03\
-\x02\x01\x05\x04\0\x04size\x03\0\x02\x02\x03\x02\x01\x09\x04\0\x06scalar\x03\0\x04\
-\x02\x03\x02\x01\x02\x04\0\x04rect\x03\0\x06\x02\x03\x02\x01\x12\x04\0\x0bblob-p\
-arams\x03\0\x08\x02\x03\x02\x01\x13\x04\0\x10data-layout-type\x03\0\x0a\x02\x03\x02\
-\x01\x14\x04\0\x11padding-mode-type\x03\0\x0c\x01m\x06\x13net-backend-default\x12\
-net-backend-halide\x14net-backend-openvino\x12net-backend-opencv\x11net-backend-\
-vkcom\x10net-backend-cuda\x04\0\x10net-backend-type\x03\0\x0e\x01m\x08\x0enet-ta\
-rget-cpu\x0fnet-target-fp32\x0fnet-target-fp16\x0enet-target-vpu\x11net-target-v\
-ulkan\x0fnet-target-fpga\x0fnet-target-cuda\x14net-target-cuda-fp16\x04\0\x0fnet\
--target-type\x03\0\x10\x04\0\x05layer\x03\x01\x04\0\x03net\x03\x01\x01i\x12\x01@\
-\0\0\x14\x04\0\x12[constructor]layer\x01\x15\x01h\x12\x01@\x01\x04self\x16\0s\x04\
-\0\x16[method]layer.get-name\x01\x17\x01i\x13\x01@\x02\x05models\x06configs\0\x18\
-\x04\0\x10[static]net.read\x01\x19\x01@\x01\x05models\0\x18\x04\0\x1a[static]net\
-.read-from-ONNX\x01\x1a\x01h\x13\x01@\x01\x04self\x1b\x01\0\x04\0\x11[method]net\
-.close\x01\x1c\x01@\x01\x04self\x1b\0\x7f\x04\0\x11[method]net.empty\x01\x1d\x01\
-i\x01\x01@\x03\x04self\x1b\x05input\x1e\x04names\x01\0\x04\0\x15[method]net.set-\
-input\x01\x1f\x01@\x02\x04self\x1b\x0boutput-names\0\x1e\x04\0\x13[method]net.fo\
-rward\x01\x20\x01ps\x01p\x1e\x01@\x02\x04self\x1b\x0coutput-names!\0\"\x04\0\x1a\
-[method]net.forward-layers\x01#\x01py\x01@\x01\x04self\x1b\0$\x04\0&[method]net.\
-get-unconnected-out-layers\x01%\x01@\x01\x04self\x1b\0!\x04\0\x1b[method]net.get\
--layer-names\x01&\x01@\x02\x04self\x1b\x02idy\0\x14\x04\0\x15[method]net.get-lay\
-er\x01'\x01@\x06\x05image\x1e\x0cscale-factorv\x04size\x03\x04mean\x05\x07swap-r\
-b\x7f\x04crop\x7f\0\x1e\x04\0\x0fblob-from-image\x01(\x01@\x02\x05image\x1e\x06p\
-arams\x09\0\x1e\x04\0\x1bblob-from-image-with-params\x01)\x01p\x07\x01@\x03\x06p\
-arams\x09\x0ablob-rects*\x0aimage-size\x03\0*\x04\0\x19blob-rects-to-image-rects\
-\x01+\x01pv\x01pz\x01@\x04\x06bboxes*\x06scores,\x0fscore-thresholdv\x0dnms-thre\
-sholdv\0-\x04\0\x09NMS-boxes\x01.\x03\0\x0bwasm:cv/dnn\x05\x15\x01BL\x02\x03\x02\
-\x01\x0f\x04\0\x03mat\x03\0\0\x02\x03\x02\x01\x05\x04\0\x04size\x03\0\x02\x02\x03\
-\x02\x01\x02\x04\0\x04rect\x03\0\x04\x04\0\x12cascade-classifier\x03\x01\x04\0\x0e\
-HOG-descriptor\x03\x01\x04\0\x10face-detector-YN\x03\x01\x01m\x02\x19face-distan\
-ce-type-cosine\x15face-distance-norm-l2\x04\0\x12face-distance-type\x03\0\x09\x04\
-\0\x12face-recognizer-SF\x03\x01\x01i\x06\x01@\x01\x04names\0\x0c\x04\0\x1f[cons\
-tructor]cascade-classifier\x01\x0d\x01h\x06\x01@\x01\x04self\x0e\x01\0\x04\0\x20\
-[method]cascade-classifier.close\x01\x0f\x01@\x02\x04self\x0e\x04files\0\x7f\x04\
-\0\x1f[method]cascade-classifier.load\x01\x10\x01i\x01\x01p\x05\x01@\x02\x04self\
-\x0e\x05image\x11\0\x12\x04\0-[method]cascade-classifier.detect-multi-scale\x01\x13\
-\x01@\x07\x04self\x0e\x05image\x11\x05scaleu\x0dmin-neighborsy\x05flagsy\x08min-\
-size\x03\x08max-size\x03\0\x12\x04\09[method]cascade-classifier.detect-multi-sca\
-le-with-params\x01\x14\x01i\x07\x01@\x01\x04names\0\x15\x04\0\x1b[constructor]HO\
-G-descriptor\x01\x16\x01h\x07\x01@\x01\x04self\x17\x01\0\x04\0\x1c[method]HOG-de\
-scriptor.close\x01\x18\x01@\x02\x04self\x17\x05image\x11\0\x12\x04\0)[method]HOG\
--descriptor.detect-multi-scale\x01\x19\x01@\x08\x04self\x17\x05image\x11\x0dhit-\
-thresholdu\x0awin-stride\x03\x07padding\x03\x05scaleu\x0ffinal-thresholdu\x16use\
--meanshift-grouping\x7f\0\x12\x04\05[method]HOG-descriptor.detect-multi-scale-wi\
-th-params\x01\x1a\x01i\x08\x01@\x03\x05models\x06configs\x0ainput-size\x03\0\x1b\
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 10964] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xd6T\x01A\x02\x01A\"\
+\x01B#\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x04\0\x05point\x03\0\x01\x01r\x04\
+\x04val1v\x04val2v\x04val3v\x04val4v\x04\0\x06scalar\x03\0\x03\x01r\x02\x03min\x01\
+\x03max\x01\x04\0\x04rect\x03\0\x05\x01r\x04\x01r}\x01g}\x01b}\x01a}\x04\0\x04RG\
+BA\x03\0\x07\x01m\x08\x0fborder-constant\x10border-replicate\x0eborder-reflect\x0b\
+border-wrap\x11border-reflect101\x12border-transparent\x0eborder-default\x0fbord\
+er-isolated\x04\0\x0bborder-type\x03\0\x09\x01m\x02\x17adaptive-threshold-mean\x1b\
+adaptive-threshold-gaussian\x04\0\x17adaptive-threshold-type\x03\0\x0b\x01m\x08\x10\
+threshold-binary\x14threshold-binary-inv\x0fthreshold-trunc\x11threshold-to-zero\
+\x15threshold-to-zero-inv\x0ethreshold-mask\x0ethreshold-otsu\x13tthreshold-tria\
+ngle\x04\0\x0ethreshold-type\x03\0\x0d\x01m\x07\x13data-layout-unknown\x0edata-l\
+ayout-nd\x10data-layout-nchw\x11data-layout-ncdhw\x10data-layout-nhwc\x11data-la\
+yout-ndhwc\x12data-layout-planar\x04\0\x10data-layout-type\x03\0\x0f\x01m\x03\x11\
+padding-mode-null\x18padding-mode-crop-center\x16padding-mode-letterbox\x04\0\x11\
+padding-mode-type\x03\0\x11\x01r\x08\x0cscale-factorv\x04size\x01\x04mean\x04\x07\
+swap-RB\x7f\x06ddepth}\x0bdata-layout\x10\x0cpadding-mode\x12\x06border\x04\x04\0\
+\x0bblob-params\x03\0\x13\x01r\x04\x07min-valv\x07max-valv\x07min-loc\x01\x07max\
+-loc\x01\x04\0\x12mix-max-loc-result\x03\0\x15\x01m\x09\x14hershey-font-simplex\x12\
+hershey-font-plain\x13hershey-font-duplex\x14hershey-font-complex\x14hershey-fon\
+t-triplex\x1ahershey-font-complex-small\x1bhershey-font-script-simplex\x1bhershe\
+y-font-script-complex\x13hershey-font-italic\x04\0\x11hershey-font-type\x03\0\x17\
+\x01m\x05\x15interpolation-nearest\x14interpolation-linear\x13interpolation-cubi\
+c\x12interpolation-area\x16interpolation-lanczos4\x04\0\x12interpolation-type\x03\
+\0\x19\x01m\x14\x11color-BGR-to-BGRA\x11color-RGB-to-RGBA\x11color-BGRA-to-BGR\x11\
+color-RGBA-to-RGB\x11color-BGR-to-RGBA\x11color-RGB-to-BGRA\x11color-RGBA-to-BGR\
+\x11color-BGRA-to-RGB\x10color-BGR-to-RGB\x10color-RGB-to-BGR\x12color-BGRA-to-R\
+GBA\x12color-RGBA-to-BGRA\x11color-BGR-to-gray\x11color-RGB-to-gray\x11color-gra\
+y-to-BGR\x11color-gray-to-RGB\x12color-gray-to-BGRA\x12color-gray-to-RGBA\x12col\
+or-BGRA-to-gray\x12color-RGBA-to-gray\x04\0\x14color-coversion-type\x03\0\x1b\x01\
+m\x03\x0amorph-rect\x0bmorph-cross\x0dmorph-ellipse\x04\0\x0bmorph-shape\x03\0\x1d\
+\x01r\x07\x01xv\x01yv\x04sizev\x05anglev\x08responsev\x06octavez\x08class-idz\x04\
+\0\x09key-point\x03\0\x1f\x01r\x04\x09query-idxy\x09train-idxy\x07img-idxy\x08di\
+stanceu\x04\0\x07d-match\x03\0!\x03\0\x0dwasm:cv/types\x05\0\x02\x03\0\0\x12mix-\
+max-loc-result\x02\x03\0\0\x04rect\x01BS\x02\x03\x02\x01\x01\x04\0\x12mix-max-lo\
+c-result\x03\0\0\x02\x03\x02\x01\x02\x04\0\x04rect\x03\0\x02\x01m\x07\x04cv8u\x04\
+cv8s\x05cv16u\x05cv16s\x05cv32s\x05cv32f\x05cv64f\x04\0\x07mattype\x03\0\x04\x04\
+\0\x03mat\x03\x01\x01i\x06\x01@\x01\x02idy\0\x07\x04\0\x10[constructor]mat\x01\x08\
+\x01@\x03\x04colsy\x04rowsy\x07mattype\x05\0\x07\x04\0\x19[static]mat.new-with-s\
+ize\x01\x09\x01h\x06\x01@\x01\x04self\x0a\0\x07\x04\0\x11[method]mat.clone\x01\x0b\
+\x01@\x01\x04self\x0a\x01\0\x04\0\x11[method]mat.close\x01\x0c\x01@\x01\x04self\x0a\
+\0y\x04\0\x10[method]mat.cols\x01\x0d\x04\0\x10[method]mat.rows\x01\x0d\x01@\x02\
+\x04self\x0a\x04rect\x03\0\x07\x04\0\x12[method]mat.region\x01\x0e\x01@\x02\x04s\
+elf\x0a\x03dst\x0a\x01\0\x04\0\x13[method]mat.copy-to\x01\x0f\x01@\x02\x04self\x0a\
+\x07mattype\x05\0\x07\x04\0\x16[method]mat.convert-to\x01\x10\x01@\x01\x04self\x0a\
+\0\x05\x04\0\x13[method]mat.mattype\x01\x11\x01py\x01@\x01\x04self\x0a\0\x12\x04\
+\0\x10[method]mat.size\x01\x13\x04\0\x10[method]mat.step\x01\x0d\x04\0\x14[metho\
+d]mat.elemsize\x01\x0d\x01@\x01\x04self\x0a\0\x7f\x04\0\x11[method]mat.empty\x01\
+\x14\x01@\x03\x04self\x0a\x03rowy\x03coly\0v\x04\0\x18[method]mat.get-float-at\x01\
+\x15\x01@\x04\x04self\x0a\x03rowy\x03coly\x03valv\x01\0\x04\0\x18[method]mat.set\
+-float-at\x01\x16\x01@\x03\x04self\x0a\x03rowy\x03coly\0}\x04\0\x18[method]mat.g\
+et-uchar-at\x01\x17\x01@\x04\x04self\x0a\x03rowy\x03coly\x03val}\x01\0\x04\0\x18\
+[method]mat.set-uchar-at\x01\x18\x01@\x03\x04self\x0a\x03rowy\x03coly\0z\x04\0\x16\
+[method]mat.get-int-at\x01\x19\x01@\x04\x04self\x0a\x03rowy\x03coly\x03valz\x01\0\
+\x04\0\x16[method]mat.set-int-at\x01\x1a\x01@\x04\x04self\x0a\x01xy\x01yy\x01zy\0\
+v\x04\0\x19[method]mat.get-float-at3\x01\x1b\x01@\x05\x04self\x0a\x01xy\x01yy\x01\
+zy\x03valv\x01\0\x04\0\x19[method]mat.set-float-at3\x01\x1c\x01@\x04\x04self\x0a\
+\x01xy\x01yy\x01zy\0}\x04\0\x19[method]mat.get-uchar-at3\x01\x1d\x01@\x05\x04sel\
+f\x0a\x01xy\x01yy\x01zy\x03val}\x01\0\x04\0\x19[method]mat.set-uchar-at3\x01\x1e\
+\x01@\x04\x04self\x0a\x01xy\x01yy\x01zy\0z\x04\0\x17[method]mat.get-int-at3\x01\x1f\
+\x01@\x05\x04self\x0a\x01xy\x01yy\x01zy\x03valz\x01\0\x04\0\x17[method]mat.set-i\
+nt-at3\x01\x20\x01p}\x01@\x03\x04self\x0a\x03rowy\x03coly\0!\x04\0\x17[method]ma\
+t.get-vecb-at\x01\"\x01pv\x01@\x03\x04self\x0a\x03rowy\x03coly\0#\x04\0\x17[meth\
+od]mat.get-vecf-at\x01$\x01pz\x01@\x03\x04self\x0a\x03rowy\x03coly\0%\x04\0\x17[\
+method]mat.get-veci-at\x01&\x01@\x03\x04self\x0a\x08channelsy\x04rowsy\0\x07\x04\
+\0\x13[method]mat.reshape\x01'\x01@\x03\x04self\x0a\x05starty\x03endy\0\x07\x04\0\
+\x15[method]mat.row-range\x01(\x04\0\x15[method]mat.col-range\x01(\x01@\x01\x04s\
+elf\x0a\0\x01\x04\0\x17[method]mat.min-max-loc\x01)\x01@\x02\x04self\x0a\x03coly\
+\0\x07\x04\0\x0f[method]mat.col\x01*\x01@\x02\x04self\x0a\x03rowy\0\x07\x04\0\x0f\
+[method]mat.row\x01+\x01p\x07\x01@\x01\x02mv,\0\x07\x04\0\x11[static]mat.merge\x01\
+-\x04\0\x11[static]mat.zeros\x01\x09\x03\0\x0bwasm:cv/mat\x05\x03\x02\x03\0\0\x0b\
+border-type\x02\x03\0\0\x04size\x02\x03\0\0\x05point\x02\x03\0\0\x17adaptive-thr\
+eshold-type\x02\x03\0\0\x0ethreshold-type\x02\x03\0\0\x06scalar\x02\x03\0\0\x04R\
+GBA\x02\x03\0\0\x11hershey-font-type\x02\x03\0\0\x12interpolation-type\x02\x03\0\
+\0\x14color-coversion-type\x02\x03\0\0\x0bmorph-shape\x02\x03\0\x01\x03mat\x02\x03\
+\0\x01\x07mattype\x01BV\x02\x03\x02\x01\x04\x04\0\x0bborder-type\x03\0\0\x02\x03\
+\x02\x01\x05\x04\0\x04size\x03\0\x02\x02\x03\x02\x01\x06\x04\0\x05point\x03\0\x04\
+\x02\x03\x02\x01\x07\x04\0\x17adaptive-threshold-type\x03\0\x06\x02\x03\x02\x01\x08\
+\x04\0\x0ethreshold-type\x03\0\x08\x02\x03\x02\x01\x09\x04\0\x06scalar\x03\0\x0a\
+\x02\x03\x02\x01\x02\x04\0\x04rect\x03\0\x0c\x02\x03\x02\x01\x0a\x04\0\x04RGBA\x03\
+\0\x0e\x02\x03\x02\x01\x0b\x04\0\x11hershey-font-type\x03\0\x10\x02\x03\x02\x01\x0c\
+\x04\0\x12interpolation-type\x03\0\x12\x02\x03\x02\x01\x0d\x04\0\x14color-covers\
+ion-type\x03\0\x14\x02\x03\x02\x01\x0e\x04\0\x0bmorph-shape\x03\0\x16\x02\x03\x02\
+\x01\x0f\x04\0\x03mat\x03\0\x18\x02\x03\x02\x01\x10\x04\0\x07mattype\x03\0\x1a\x01\
+h\x19\x01@\x05\x03img\x1c\x06point1\x05\x06point2\x05\x01c\x0f\x09thickness}\x01\
+\0\x04\0\x0carrowed-line\x01\x1d\x01@\x04\x03img\x1c\x01r\x0d\x01c\x0f\x09thickn\
+ess}\x01\0\x04\0\x09rectangle\x01\x1e\x01@\x05\x03img\x1c\x06center\x05\x06radiu\
+sy\x01c\x0f\x09thickness}\x01\0\x04\0\x06circle\x01\x1f\x04\0\x04line\x01\x1d\x01\
+@\x07\x03img\x1c\x04texts\x03org\x05\x09font-face\x11\x0afont-scaleu\x01c\x0f\x09\
+thicknessz\x01\0\x04\0\x08put-text\x01\x20\x01i\x19\x01@\x06\x03src!\x09max-valu\
+ev\x0dadaptive-type\x07\x0ethreshold-type\x09\x0ablock-sizey\x01cv\0!\x04\0\x12a\
+daptive-threshold\x01\"\x01@\x02\x03src!\x06k-size\x03\0!\x04\0\x04blur\x01#\x01\
+@\x03\x03src!\x05depthy\x06k-size\x03\0!\x04\0\x0abox-filter\x01$\x01@\x03\x03sr\
+c!\x0athreshold1v\x0athreshold2v\0!\x04\0\x05canny\x01%\x01@\x02\x03src!\x04code\
+\x15\0!\x04\0\x09cvt-color\x01&\x01@\x02\x03src!\x06kernel!\0!\x04\0\x06dilate\x01\
+'\x04\0\x05erode\x01'\x01@\x01\x03src!\0!\x04\0\x0dequalize-hist\x01(\x01@\x05\x03\
+src!\x04size\x03\x07sigma-xv\x07sigma-yv\x06border\x01\0!\x04\0\x0dgaussian-blur\
+\x01)\x01@\x02\x05shape\x17\x04size\x03\0!\x04\0\x17get-structuring-element\x01*\
+\x01@\x04\x03src!\x03rhou\x05thetau\x09thresholdz\0!\x04\0\x0bhough-lines\x01+\x04\
+\0\x0dhough-lines-p\x01+\x04\0\x0bmedian-blur\x01#\x01@\x05\x03src!\x04size\x03\x02\
+fxv\x02fyv\x06interp\x13\0!\x04\0\x06resize\x01,\x01@\x04\x03src!\x06threshv\x09\
+max-valuev\x0ethreshold-type\x09\0!\x04\0\x09threshold\x01-\x01pz\x01@\x02\x03sr\
+c!\x05order.\0!\x04\0\x0ctranspose-ND\x01/\x01@\x02\x03frm!\x02to!\0!\x04\0\x11e\
+stimate-affine2d\x010\x01@\x03\x03src!\x01m!\x04size\x03\0!\x04\0\x0bwarp-affine\
+\x011\x01@\x03\x06center\x05\x05angleu\x05scaleu\0!\x04\0\x15get-rotation-matrix\
+2d\x012\x01@\x02\x04src1!\x04src2!\0!\x04\0\x03add\x013\x01@\x05\x04src1!\x05alp\
+hau\x04src2!\x04betau\x05gammau\0!\x04\0\x0cadd-weighted\x014\x04\0\x03exp\x01(\x04\
+\0\x07hconcat\x013\x04\0\x07vconcat\x013\x01@\x02\x03src!\x05wblut!\0!\x04\0\x03\
+lut\x015\x01@\x03\x03src!\x04axisy\x0alast-index\x7f\0!\x04\0\x0ereduce-arg-max\x01\
+6\x03\0\x0awasm:cv/cv\x05\x11\x02\x03\0\0\x0bblob-params\x02\x03\0\0\x10data-lay\
+out-type\x02\x03\0\0\x11padding-mode-type\x01B?\x02\x03\x02\x01\x0f\x04\0\x03mat\
+\x03\0\0\x02\x03\x02\x01\x05\x04\0\x04size\x03\0\x02\x02\x03\x02\x01\x09\x04\0\x06\
+scalar\x03\0\x04\x02\x03\x02\x01\x02\x04\0\x04rect\x03\0\x06\x02\x03\x02\x01\x12\
+\x04\0\x0bblob-params\x03\0\x08\x02\x03\x02\x01\x13\x04\0\x10data-layout-type\x03\
+\0\x0a\x02\x03\x02\x01\x14\x04\0\x11padding-mode-type\x03\0\x0c\x01m\x06\x13net-\
+backend-default\x12net-backend-halide\x14net-backend-openvino\x12net-backend-ope\
+ncv\x11net-backend-vkcom\x10net-backend-cuda\x04\0\x10net-backend-type\x03\0\x0e\
+\x01m\x08\x0enet-target-cpu\x0fnet-target-fp32\x0fnet-target-fp16\x0enet-target-\
+vpu\x11net-target-vulkan\x0fnet-target-fpga\x0fnet-target-cuda\x14net-target-cud\
+a-fp16\x04\0\x0fnet-target-type\x03\0\x10\x04\0\x05layer\x03\x01\x04\0\x03net\x03\
+\x01\x01i\x12\x01@\0\0\x14\x04\0\x12[constructor]layer\x01\x15\x01h\x12\x01@\x01\
+\x04self\x16\0s\x04\0\x16[method]layer.get-name\x01\x17\x01i\x13\x01@\x02\x05mod\
+els\x06configs\0\x18\x04\0\x10[static]net.read\x01\x19\x01@\x01\x05models\0\x18\x04\
+\0\x1a[static]net.read-from-ONNX\x01\x1a\x01h\x13\x01@\x01\x04self\x1b\x01\0\x04\
+\0\x11[method]net.close\x01\x1c\x01@\x01\x04self\x1b\0\x7f\x04\0\x11[method]net.\
+empty\x01\x1d\x01i\x01\x01@\x03\x04self\x1b\x05input\x1e\x04names\x01\0\x04\0\x15\
+[method]net.set-input\x01\x1f\x01@\x02\x04self\x1b\x0boutput-names\0\x1e\x04\0\x13\
+[method]net.forward\x01\x20\x01ps\x01p\x1e\x01@\x02\x04self\x1b\x0coutput-names!\
+\0\"\x04\0\x1a[method]net.forward-layers\x01#\x01py\x01@\x01\x04self\x1b\0$\x04\0\
+&[method]net.get-unconnected-out-layers\x01%\x01@\x01\x04self\x1b\0!\x04\0\x1b[m\
+ethod]net.get-layer-names\x01&\x01@\x02\x04self\x1b\x02idy\0\x14\x04\0\x15[metho\
+d]net.get-layer\x01'\x01@\x06\x05image\x1e\x0cscale-factorv\x04size\x03\x04mean\x05\
+\x07swap-rb\x7f\x04crop\x7f\0\x1e\x04\0\x0fblob-from-image\x01(\x01@\x02\x05imag\
+e\x1e\x06params\x09\0\x1e\x04\0\x1bblob-from-image-with-params\x01)\x01p\x07\x01\
+@\x03\x06params\x09\x0ablob-rects*\x0aimage-size\x03\0*\x04\0\x19blob-rects-to-i\
+mage-rects\x01+\x01pv\x01pz\x01@\x04\x06bboxes*\x06scores,\x0fscore-thresholdv\x0d\
+nms-thresholdv\0-\x04\0\x09NMS-boxes\x01.\x03\0\x0bwasm:cv/dnn\x05\x15\x01BL\x02\
+\x03\x02\x01\x0f\x04\0\x03mat\x03\0\0\x02\x03\x02\x01\x05\x04\0\x04size\x03\0\x02\
+\x02\x03\x02\x01\x02\x04\0\x04rect\x03\0\x04\x04\0\x12cascade-classifier\x03\x01\
+\x04\0\x0eHOG-descriptor\x03\x01\x04\0\x10face-detector-YN\x03\x01\x01m\x02\x19f\
+ace-distance-type-cosine\x15face-distance-norm-l2\x04\0\x12face-distance-type\x03\
+\0\x09\x04\0\x12face-recognizer-SF\x03\x01\x01i\x06\x01@\x01\x04names\0\x0c\x04\0\
+\x1f[constructor]cascade-classifier\x01\x0d\x01h\x06\x01@\x01\x04self\x0e\x01\0\x04\
+\0\x20[method]cascade-classifier.close\x01\x0f\x01@\x02\x04self\x0e\x04files\0\x7f\
+\x04\0\x1f[method]cascade-classifier.load\x01\x10\x01i\x01\x01p\x05\x01@\x02\x04\
+self\x0e\x05image\x11\0\x12\x04\0-[method]cascade-classifier.detect-multi-scale\x01\
+\x13\x01@\x07\x04self\x0e\x05image\x11\x05scaleu\x0dmin-neighborsy\x05flagsy\x08\
+min-size\x03\x08max-size\x03\0\x12\x04\09[method]cascade-classifier.detect-multi\
+-scale-with-params\x01\x14\x01i\x07\x01@\x01\x04names\0\x15\x04\0\x1b[constructo\
+r]HOG-descriptor\x01\x16\x01h\x07\x01@\x01\x04self\x17\x01\0\x04\0\x1c[method]HO\
+G-descriptor.close\x01\x18\x01@\x02\x04self\x17\x05image\x11\0\x12\x04\0)[method\
+]HOG-descriptor.detect-multi-scale\x01\x19\x01@\x08\x04self\x17\x05image\x11\x0d\
+hit-thresholdu\x0awin-stride\x03\x07padding\x03\x05scaleu\x0ffinal-thresholdu\x16\
+use-meanshift-grouping\x7f\0\x12\x04\05[method]HOG-descriptor.detect-multi-scale\
+-with-params\x01\x1a\x01i\x08\x01@\x03\x05models\x06configs\x0ainput-size\x03\0\x1b\
 \x04\0\x1d[constructor]face-detector-YN\x01\x1c\x01@\x08\x05models\x06configs\x0a\
 input-size\x03\x0fscore-thresholdv\x0dnms-thresholdv\x05top-ky\x0abackend-idy\x09\
 target-idy\0\x1b\x04\0([static]face-detector-YN.new-with-params\x01\x1d\x01h\x08\
@@ -4435,11 +5744,52 @@ recognizer-SF.align-crop\x01,\x01@\x02\x04self*\x07aligned\x11\0\x11\x04\0\"[met
 hod]face-recognizer-SF.feature\x01-\x01@\x03\x04self*\x05face1\x11\x05face2\x11\0\
 v\x04\0\x20[method]face-recognizer-SF.match\x01.\x01@\x04\x04self*\x05face1\x11\x05\
 face2\x11\x08distance\x0a\0v\x04\0,[method]face-recognizer-SF.match-with-params\x01\
-/\x03\0\x11wasm:cv/objdetect\x05\x16\x01B\x05\x02\x03\x02\x01\x0f\x04\0\x03mat\x03\
-\0\0\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\0\x07process\x01\x03\x04\0\x0fwasm\
-:cv/request\x05\x17\x04\0\x0fwasm:cv/imports\x04\0\x0b\x0d\x01\0\x07imports\x03\0\
-\0\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-component\x070.217.0\x10wit-bi\
-ndgen-rust\x060.32.0";
+/\x03\0\x11wasm:cv/objdetect\x05\x16\x02\x03\0\0\x09key-point\x02\x03\0\0\x07d-m\
+atch\x01Ba\x02\x03\x02\x01\x0f\x04\0\x03mat\x03\0\0\x02\x03\x02\x01\x17\x04\0\x09\
+key-point\x03\0\x02\x02\x03\x02\x01\x18\x04\0\x07d-match\x03\0\x04\x01p\x03\x01i\
+\x01\x01r\x02\x03kps\x06\x04desc\x07\x04\0\x0fdetector-result\x03\0\x08\x04\0\x0e\
+AKAZE-detector\x03\x01\x04\0\x0eBRISK-detector\x03\x01\x04\0\x0dKAZE-detector\x03\
+\x01\x04\0\x0cORB-detector\x03\x01\x04\0\x0dSIFT-detector\x03\x01\x04\0\x0aBF-ma\
+tcher\x03\x01\x04\0\x13flann-based-matcher\x03\x01\x01i\x0a\x01@\x01\x04names\0\x11\
+\x04\0\x1b[constructor]AKAZE-detector\x01\x12\x01h\x0a\x01@\x01\x04self\x13\x01\0\
+\x04\0\x1c[method]AKAZE-detector.close\x01\x14\x01@\x02\x04self\x13\x03src\x07\0\
+\x06\x04\0\x1d[method]AKAZE-detector.detect\x01\x15\x01@\x04\x04self\x13\x03src\x07\
+\x04mask\x07\x03kps\x06\0\x09\x04\0\x1e[method]AKAZE-detector.compute\x01\x16\x01\
+@\x03\x04self\x13\x03src\x07\x04mask\x07\0\x09\x04\0)[method]AKAZE-detector.dete\
+ct-and-compute\x01\x17\x01i\x0b\x01@\x01\x04names\0\x18\x04\0\x1b[constructor]BR\
+ISK-detector\x01\x19\x01h\x0b\x01@\x01\x04self\x1a\x01\0\x04\0\x1c[method]BRISK-\
+detector.close\x01\x1b\x01@\x02\x04self\x1a\x03src\x07\0\x06\x04\0\x1d[method]BR\
+ISK-detector.detect\x01\x1c\x01@\x04\x04self\x1a\x03src\x07\x04mask\x07\x03kps\x06\
+\0\x09\x04\0\x1e[method]BRISK-detector.compute\x01\x1d\x01@\x03\x04self\x1a\x03s\
+rc\x07\x04mask\x07\0\x09\x04\0)[method]BRISK-detector.detect-and-compute\x01\x1e\
+\x01i\x0c\x01@\x01\x04names\0\x1f\x04\0\x1a[constructor]KAZE-detector\x01\x20\x01\
+h\x0c\x01@\x01\x04self!\x01\0\x04\0\x1b[method]KAZE-detector.close\x01\"\x01@\x02\
+\x04self!\x03src\x07\0\x06\x04\0\x1c[method]KAZE-detector.detect\x01#\x01@\x04\x04\
+self!\x03src\x07\x04mask\x07\x03kps\x06\0\x09\x04\0\x1d[method]KAZE-detector.com\
+pute\x01$\x01@\x03\x04self!\x03src\x07\x04mask\x07\0\x09\x04\0([method]KAZE-dete\
+ctor.detect-and-compute\x01%\x01i\x0d\x01@\x01\x04names\0&\x04\0\x19[constructor\
+]ORB-detector\x01'\x01h\x0d\x01@\x01\x04self(\x01\0\x04\0\x1a[method]ORB-detecto\
+r.close\x01)\x01@\x02\x04self(\x03src\x07\0\x06\x04\0\x1b[method]ORB-detector.de\
+tect\x01*\x01@\x04\x04self(\x03src\x07\x04mask\x07\x03kps\x06\0\x09\x04\0\x1c[me\
+thod]ORB-detector.compute\x01+\x01@\x03\x04self(\x03src\x07\x04mask\x07\0\x09\x04\
+\0'[method]ORB-detector.detect-and-compute\x01,\x01i\x0e\x01@\x01\x04names\0-\x04\
+\0\x1a[constructor]SIFT-detector\x01.\x01h\x0e\x01@\x01\x04self/\x01\0\x04\0\x1b\
+[method]SIFT-detector.close\x010\x01@\x02\x04self/\x03src\x07\0\x06\x04\0\x1c[me\
+thod]SIFT-detector.detect\x011\x01@\x04\x04self/\x03src\x07\x04mask\x07\x03kps\x06\
+\0\x09\x04\0\x1d[method]SIFT-detector.compute\x012\x01@\x03\x04self/\x03src\x07\x04\
+mask\x07\0\x09\x04\0([method]SIFT-detector.detect-and-compute\x013\x01i\x0f\x01@\
+\x01\x04names\04\x04\0\x17[constructor]BF-matcher\x015\x01h\x0f\x01@\x01\x04self\
+6\x01\0\x04\0\x18[method]BF-matcher.close\x017\x01p\x05\x01@\x03\x04self6\x05que\
+ry\x07\x05train\x07\08\x04\0\x18[method]BF-matcher.match\x019\x01p8\x01@\x04\x04\
+self6\x05query\x07\x05train\x07\x01ky\0:\x04\0\x1c[method]BF-matcher.KNN-match\x01\
+;\x01i\x10\x01@\x01\x04names\0<\x04\0\x20[constructor]flann-based-matcher\x01=\x01\
+h\x10\x01@\x01\x04self>\x01\0\x04\0![method]flann-based-matcher.close\x01?\x01@\x04\
+\x04self>\x05query\x07\x05train\x07\x01ky\0:\x04\0%[method]flann-based-matcher.K\
+NN-match\x01@\x03\0\x12wasm:cv/features2d\x05\x19\x01B\x05\x02\x03\x02\x01\x0f\x04\
+\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\0\x07process\x01\x03\x04\
+\0\x0fwasm:cv/request\x05\x1a\x04\0\x0fwasm:cv/imports\x04\0\x0b\x0d\x01\0\x07im\
+ports\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-component\x070.217.\
+0\x10wit-bindgen-rust\x060.32.0";
 
 #[inline(never)]
 #[doc(hidden)]
