@@ -99,6 +99,11 @@ interface features2d {
 		detect-and-compute: func(src: mat, mask: mat) -> detector-result;
 	}
 
+    enum ORB-score-type {
+        ORB-HARRIS,
+        ORB-FAST,
+    }
+
 	/// ORB-detector is a wrapper around the cv::ORB algorithm.
 	resource ORB-detector {
 		/// Returns a new ORB-detector.
@@ -106,6 +111,12 @@ interface features2d {
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/db/d95/classcv_1_1ORB.html
 		constructor(name: string);
+
+        /// Returns a new ORB-detector.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/db/d95/classcv_1_1ORB.html
+        new-with-params: static func(features: u32, scale: f32, levels: u32, edge-threshold: u32, first: u32, WTAK: u32, score-type: ORB-score-type, patch-size: u32, fast-threshold: u32) -> ORB-detector;
 
 		/// Close the ORB-detector
 		close: func();
@@ -159,6 +170,18 @@ interface features2d {
 		detect-and-compute: func(src: mat, mask: mat) -> detector-result;
 	}
 
+    enum norm-type {
+        NORM-NONE,
+        NONE-INF,
+        NORM-L1,
+        NORM-NONE2,
+        NORM-L2,
+        NORM-L2SQR,
+        NORM-HAMMING,
+        NORM-HAMMING2,
+        NORM-RELATIVE,
+    }
+
     /// BF-matcher is a wrapper around the cv::BFMatcher algorithm.
 	resource BF-matcher {
 		/// Returns a new BF-matcher.
@@ -166,6 +189,12 @@ interface features2d {
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/d3/da1/classcv_1_1BFMatcher.html#abe0bb11749b30d97f60d6ade665617bd
 		constructor(name: string);
+
+        /// Returns a new BF-matcher.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d3/da1/classcv_1_1BFMatcher.html#abe0bb11749b30d97f60d6ade665617bd
+        new-with-params: static func(norm: norm-type, cross-check: bool) -> BF-matcher;
 
 		/// Close the BF-matcher
 		close: func();
