@@ -49,6 +49,12 @@ interface mat {
         /// Size returns an array with one element for each dimension containing the size of that dimension for the Mat.
         size: func() -> list<u32>;
 
+        /// Step returns the number of bytes each matrix row occupies.
+        step: func() -> u32;
+
+        /// ElemSize returns the matrix element size in bytes.
+        elemsize: func() -> u32;
+
         /// Empty returns true if the Mat is empty.
         empty: func() -> bool;
 
@@ -120,5 +126,22 @@ interface mat {
         /// For further details, please see:
         /// https://docs.opencv.org/trunk/d2/de8/group__core__array.html#gab473bf2eb6d14ff97e89b355dac20707
         min-max-loc: func() -> mix-max-loc-result;
+
+        /// col creates a matrix header for the specified matrix column.
+        /// The underlying data of the new matrix is shared with the original matrix.
+        col: func(col: u32) -> mat;
+
+        /// row creates a matrix header for the specified matrix row.
+        /// The underlying data of the new matrix is shared with the original matrix.
+        row: func(row: u32) -> mat;
+
+        /// Merge creates one multi-channel array out of several single-channel ones.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7d7b4d6c6ee504b30a20b1680029c7b4
+        merge: static func(mv: list<mat>) -> mat;
+
+        /// zeros returns a zero array of the specified size and type.
+        zeros: static func(cols: u32, rows: u32, mattype: mattype) -> mat;
     }
 }
