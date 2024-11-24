@@ -415,6 +415,11 @@ typedef struct wasm_cv_features2d_borrow_kaze_detector_t {
   int32_t __handle;
 } wasm_cv_features2d_borrow_kaze_detector_t;
 
+typedef uint8_t wasm_cv_features2d_orb_score_type_t;
+
+#define WASM_CV_FEATURES2D_ORB_SCORE_TYPE_ORB_HARRIS 0
+#define WASM_CV_FEATURES2D_ORB_SCORE_TYPE_ORB_FAST 1
+
 typedef struct wasm_cv_features2d_own_orb_detector_t {
   int32_t __handle;
 } wasm_cv_features2d_own_orb_detector_t;
@@ -430,6 +435,18 @@ typedef struct wasm_cv_features2d_own_sift_detector_t {
 typedef struct wasm_cv_features2d_borrow_sift_detector_t {
   int32_t __handle;
 } wasm_cv_features2d_borrow_sift_detector_t;
+
+typedef uint8_t wasm_cv_features2d_norm_type_t;
+
+#define WASM_CV_FEATURES2D_NORM_TYPE_NORM_NONE 0
+#define WASM_CV_FEATURES2D_NORM_TYPE_NONE_INF 1
+#define WASM_CV_FEATURES2D_NORM_TYPE_NORM_L1 2
+#define WASM_CV_FEATURES2D_NORM_TYPE_NORM_NONE2 3
+#define WASM_CV_FEATURES2D_NORM_TYPE_NORM_L2 4
+#define WASM_CV_FEATURES2D_NORM_TYPE_NORM_L2SQR 5
+#define WASM_CV_FEATURES2D_NORM_TYPE_NORM_HAMMING 6
+#define WASM_CV_FEATURES2D_NORM_TYPE_NORM_HAMMING2 7
+#define WASM_CV_FEATURES2D_NORM_TYPE_NORM_RELATIVE 8
 
 typedef struct wasm_cv_features2d_own_bf_matcher_t {
   int32_t __handle;
@@ -980,6 +997,11 @@ extern void wasm_cv_features2d_method_kaze_detector_detect_and_compute(wasm_cv_f
 // For further details, please see:
 // https://docs.opencv.org/4.x/db/d95/classcv_1_1ORB.html
 extern wasm_cv_features2d_own_orb_detector_t wasm_cv_features2d_constructor_orb_detector(imports_string_t *name);
+// Returns a new ORB-detector.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/db/d95/classcv_1_1ORB.html
+extern wasm_cv_features2d_own_orb_detector_t wasm_cv_features2d_static_orb_detector_new_with_params(uint32_t features, float scale, uint32_t levels, uint32_t edge_threshold, uint32_t first, uint32_t wtak, wasm_cv_features2d_orb_score_type_t score_type, uint32_t patch_size, uint32_t fast_threshold);
 // Close the ORB-detector
 extern void wasm_cv_features2d_method_orb_detector_close(wasm_cv_features2d_borrow_orb_detector_t self);
 // Detect keypoints in an image using ORB.
@@ -1024,6 +1046,11 @@ extern void wasm_cv_features2d_method_sift_detector_detect_and_compute(wasm_cv_f
 // For further details, please see:
 // https://docs.opencv.org/4.x/d3/da1/classcv_1_1BFMatcher.html#abe0bb11749b30d97f60d6ade665617bd
 extern wasm_cv_features2d_own_bf_matcher_t wasm_cv_features2d_constructor_bf_matcher(imports_string_t *name);
+// Returns a new BF-matcher.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d3/da1/classcv_1_1BFMatcher.html#abe0bb11749b30d97f60d6ade665617bd
+extern wasm_cv_features2d_own_bf_matcher_t wasm_cv_features2d_static_bf_matcher_new_with_params(wasm_cv_features2d_norm_type_t norm, bool cross_check);
 // Close the BF-matcher
 extern void wasm_cv_features2d_method_bf_matcher_close(wasm_cv_features2d_borrow_bf_matcher_t self);
 // Match Finds the best match for each descriptor from a query set.

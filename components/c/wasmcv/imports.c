@@ -397,6 +397,9 @@ extern void __wasm_import_wasm_cv_features2d_method_kaze_detector_detect_and_com
 __attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[constructor]ORB-detector")))
 extern int32_t __wasm_import_wasm_cv_features2d_constructor_orb_detector(uint8_t *, size_t);
 
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[static]ORB-detector.new-with-params")))
+extern int32_t __wasm_import_wasm_cv_features2d_static_orb_detector_new_with_params(int32_t, float, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
+
 __attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]ORB-detector.close")))
 extern void __wasm_import_wasm_cv_features2d_method_orb_detector_close(int32_t);
 
@@ -426,6 +429,9 @@ extern void __wasm_import_wasm_cv_features2d_method_sift_detector_detect_and_com
 
 __attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[constructor]BF-matcher")))
 extern int32_t __wasm_import_wasm_cv_features2d_constructor_bf_matcher(uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[static]BF-matcher.new-with-params")))
+extern int32_t __wasm_import_wasm_cv_features2d_static_bf_matcher_new_with_params(int32_t, int32_t);
 
 __attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]BF-matcher.close")))
 extern void __wasm_import_wasm_cv_features2d_method_bf_matcher_close(int32_t);
@@ -1503,6 +1509,11 @@ wasm_cv_features2d_own_orb_detector_t wasm_cv_features2d_constructor_orb_detecto
   return (wasm_cv_features2d_own_orb_detector_t) { ret };
 }
 
+wasm_cv_features2d_own_orb_detector_t wasm_cv_features2d_static_orb_detector_new_with_params(uint32_t features, float scale, uint32_t levels, uint32_t edge_threshold, uint32_t first, uint32_t wtak, wasm_cv_features2d_orb_score_type_t score_type, uint32_t patch_size, uint32_t fast_threshold) {
+  int32_t ret = __wasm_import_wasm_cv_features2d_static_orb_detector_new_with_params((int32_t) (features), scale, (int32_t) (levels), (int32_t) (edge_threshold), (int32_t) (first), (int32_t) (wtak), (int32_t) score_type, (int32_t) (patch_size), (int32_t) (fast_threshold));
+  return (wasm_cv_features2d_own_orb_detector_t) { ret };
+}
+
 void wasm_cv_features2d_method_orb_detector_close(wasm_cv_features2d_borrow_orb_detector_t self) {
   __wasm_import_wasm_cv_features2d_method_orb_detector_close((self).__handle);
 }
@@ -1578,6 +1589,11 @@ void wasm_cv_features2d_method_sift_detector_detect_and_compute(wasm_cv_features
 
 wasm_cv_features2d_own_bf_matcher_t wasm_cv_features2d_constructor_bf_matcher(imports_string_t *name) {
   int32_t ret = __wasm_import_wasm_cv_features2d_constructor_bf_matcher((uint8_t *) (*name).ptr, (*name).len);
+  return (wasm_cv_features2d_own_bf_matcher_t) { ret };
+}
+
+wasm_cv_features2d_own_bf_matcher_t wasm_cv_features2d_static_bf_matcher_new_with_params(wasm_cv_features2d_norm_type_t norm, bool cross_check) {
+  int32_t ret = __wasm_import_wasm_cv_features2d_static_bf_matcher_new_with_params((int32_t) norm, cross_check);
   return (wasm_cv_features2d_own_bf_matcher_t) { ret };
 }
 
