@@ -1,217 +1,217 @@
 
 interface cv {
-    use types.{border-type, size, point, adaptive-threshold-type, threshold-type, scalar, rect, RGBA, hershey-font-type, interpolation-type, color-coversion-type, morph-shape};
-    use mat.{mat, mattype};
+	use types.{border-type, size, point, adaptive-threshold-type, threshold-type, scalar, rect, RGBA, hershey-font-type, interpolation-type, color-coversion-type, morph-shape};
+	use mat.{mat, mattype};
 
-    // drawing functions
+	// drawing functions
 
-    /// ArrowedLine draws a arrow segment pointing from the first point to the second one.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd488ac709fdf10c05b2
-    arrowed-line: func(img: borrow<mat>, point1: point, point2: point, c: RGBA, thickness: u8);
+	/// ArrowedLine draws a arrow segment pointing from the first point to the second one.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd488ac709fdf10c05b2
+	arrowed-line: func(img: borrow<mat>, point1: point, point2: point, c: RGBA, thickness: u8);
 
-    /// Rectangle draws a simple, thick, or filled up-right rectangle.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8f3d1e1b7
-    rectangle: func(img: borrow<mat>, r: rect, c: RGBA, thickness: u8);
+	/// Rectangle draws a simple, thick, or filled up-right rectangle.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8f3d1e1b7
+	rectangle: func(img: borrow<mat>, r: rect, c: RGBA, thickness: u8);
 
-    /// Circle draws a circle.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b069374903dbd0f0488cb43670
-    circle: func(img: borrow<mat>, center: point, radius: u32, c: RGBA, thickness: u8);
+	/// Circle draws a circle.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b069374903dbd0f0488cb43670
+	circle: func(img: borrow<mat>, center: point, radius: u32, c: RGBA, thickness: u8);
 
-    /// Line draws a line segment connecting two points.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga7078a9fae8c7e7d13d24dac2520ae4a2
-    line: func(img: borrow<mat>, point1: point, point2: point, c: RGBA, thickness: u8);
+	/// Line draws a line segment connecting two points.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga7078a9fae8c7e7d13d24dac2520ae4a2
+	line: func(img: borrow<mat>, point1: point, point2: point, c: RGBA, thickness: u8);
 
-    /// PutText draws a text string.
-    /// It renders the specified text string into the img Mat at the location
-    /// passed in the "org" param, using the desired font face, font scale,
-    /// color, and line thinkness.
-    ///
-    /// For further details, please see:
-    /// http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576
-    put-text: func(img: borrow<mat>, text: string, org: point, font-face: hershey-font-type, font-scale: f64, c: RGBA, thickness: s32);
+	/// PutText draws a text string.
+	/// It renders the specified text string into the img Mat at the location
+	/// passed in the "org" param, using the desired font face, font scale,
+	/// color, and line thinkness.
+	///
+	/// For further details, please see:
+	/// http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730f633d74f07456c576
+	put-text: func(img: borrow<mat>, text: string, org: point, font-face: hershey-font-type, font-scale: f64, c: RGBA, thickness: s32);
 
-    // imgproc functions
+	// imgproc functions
 
-    /// AdaptiveThreshold applies a fixed-level threshold to each array element.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1b1b397736707afcde3
-    adaptive-threshold: func(src: mat, max-value: f32, adaptive-type: adaptive-threshold-type, threshold-type: threshold-type, block-size: u32, c: f32) -> mat;
+	/// AdaptiveThreshold applies a fixed-level threshold to each array element.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1b1b397736707afcde3
+	adaptive-threshold: func(src: mat, max-value: f32, adaptive-type: adaptive-threshold-type, threshold-type: threshold-type, block-size: u32, c: f32) -> mat;
 
-    /// Blur blurs an image Mat using a normalized box filter.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga8c45db9afe636703801b0b2e440fce37
-    blur: func(src: mat, k-size: size) -> mat;
+	/// Blur blurs an image Mat using a normalized box filter.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga8c45db9afe636703801b0b2e440fce37
+	blur: func(src: mat, k-size: size) -> mat;
 
-    /// BoxFilter blurs an image using the box filter.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gad533230ebf2d42509547d514f7d3fbc3
-    box-filter: func(src: mat, depth: u32, k-size: size) -> mat;
+	/// BoxFilter blurs an image using the box filter.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gad533230ebf2d42509547d514f7d3fbc3
+	box-filter: func(src: mat, depth: u32, k-size: size) -> mat;
 
-    /// Canny finds edges in an image using the Canny algorithm.
-    /// The function finds edges in the input image image and marks
-    /// them in the output map edges using the Canny algorithm.
-    /// The smallest value between threshold1 and threshold2 is used
-    /// for edge linking. The largest value is used to
-    /// find initial segments of strong edges.
-    /// See http://en.wikipedia.org/wiki/Canny_edge_detector
-    ///
-    /// For further details, please see:
-    /// http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga04723e007ed888ddf11d9ba04e2232de
-    canny: func(src: mat, threshold1: f32, threshold2: f32) -> mat;
+	/// Canny finds edges in an image using the Canny algorithm.
+	/// The function finds edges in the input image image and marks
+	/// them in the output map edges using the Canny algorithm.
+	/// The smallest value between threshold1 and threshold2 is used
+	/// for edge linking. The largest value is used to
+	/// find initial segments of strong edges.
+	/// See http://en.wikipedia.org/wiki/Canny_edge_detector
+	///
+	/// For further details, please see:
+	/// http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga04723e007ed888ddf11d9ba04e2232de
+	canny: func(src: mat, threshold1: f32, threshold2: f32) -> mat;
 
-    /// CvtColor converts an image from one color space to another.
-    ///
-    /// For further details, please see:
-    /// http://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga4e0972be5de079fed4e3a10e24ef5ef0
-    cvt-color: func(src: mat, code: color-coversion-type) -> mat;
+	/// CvtColor converts an image from one color space to another.
+	///
+	/// For further details, please see:
+	/// http://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga4e0972be5de079fed4e3a10e24ef5ef0
+	cvt-color: func(src: mat, code: color-coversion-type) -> mat;
 
-    /// Dilate dilates an image by using a specific structuring element.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga4ff0f3318642c4f469d0e11f242f3b6c
-    dilate: func(src: mat, kernel: mat) -> mat;
+	/// Dilate dilates an image by using a specific structuring element.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga4ff0f3318642c4f469d0e11f242f3b6c
+	dilate: func(src: mat, kernel: mat) -> mat;
 
-    /// Erode erodes an image by using a specific structuring element.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gaeb1e0c1033e3f6b891a25d0511362aeb
-    erode: func(src: mat, kernel: mat) -> mat;
+	/// Erode erodes an image by using a specific structuring element.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gaeb1e0c1033e3f6b891a25d0511362aeb
+	erode: func(src: mat, kernel: mat) -> mat;
 
-    /// EqualizeHist normalizes the brightness and increases the contrast of the image.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/master/d6/dc7/group__imgproc__hist.html#ga7e54091f0c937d49bf84152a16f76d6e
-    equalize-hist: func(src: mat) -> mat;
+	/// EqualizeHist normalizes the brightness and increases the contrast of the image.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/master/d6/dc7/group__imgproc__hist.html#ga7e54091f0c937d49bf84152a16f76d6e
+	equalize-hist: func(src: mat) -> mat;
 
-    /// GaussianBlur blurs an image using a Gaussian filter.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
-    gaussian-blur: func(src: mat, size: size, sigma-x: f32, sigma-y: f32, border: border-type) -> mat;
+	/// GaussianBlur blurs an image using a Gaussian filter.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca3cbc1766d960f45c1
+	gaussian-blur: func(src: mat, size: size, sigma-x: f32, sigma-y: f32, border: border-type) -> mat;
 
-    /// GetStructuringElement returns a structuring element of the specified size
-    /// and shape for morphological operations.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gac342a1bb6eabf6f55c803b09268e36dc
-    get-structuring-element: func(shape: morph-shape, size: size) -> mat;
+	/// GetStructuringElement returns a structuring element of the specified size
+	/// and shape for morphological operations.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gac342a1bb6eabf6f55c803b09268e36dc
+	get-structuring-element: func(shape: morph-shape, size: size) -> mat;
 
-    /// HoughLines implements the standard or standard multi-scale Hough transform
-    /// algorithm for line detection. For a good explanation of Hough transform, see:
-    /// http://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm
-    ///
-    /// For further details, please see:
-    /// http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga46b4e588934f6c8dfd509cc6e0e4545a
-    hough-lines: func(src: mat, rho: f64, theta: f64, threshold: s32) -> mat;
+	/// HoughLines implements the standard or standard multi-scale Hough transform
+	/// algorithm for line detection. For a good explanation of Hough transform, see:
+	/// http://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm
+	///
+	/// For further details, please see:
+	/// http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga46b4e588934f6c8dfd509cc6e0e4545a
+	hough-lines: func(src: mat, rho: f64, theta: f64, threshold: s32) -> mat;
 
-    /// HoughLinesP implements the probabilistic Hough transform
-    /// algorithm for line detection. For a good explanation of Hough transform, see:
-    /// http://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm
-    ///
-    /// For further details, please see:
-    /// http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga8618180a5948286384e3b7ca02f6feeb
-    hough-lines-p: func(src: mat, rho: f64, theta: f64, threshold: s32) -> mat;
+	/// HoughLinesP implements the probabilistic Hough transform
+	/// algorithm for line detection. For a good explanation of Hough transform, see:
+	/// http://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm
+	///
+	/// For further details, please see:
+	/// http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga8618180a5948286384e3b7ca02f6feeb
+	hough-lines-p: func(src: mat, rho: f64, theta: f64, threshold: s32) -> mat;
 
-    /// MedianBlur blurs an image using the median filter.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga564869aa33e58769b4469101aac458f9
-    median-blur: func(src: mat, k-size: size) -> mat;
+	/// MedianBlur blurs an image using the median filter.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga564869aa33e58769b4469101aac458f9
+	median-blur: func(src: mat, k-size: size) -> mat;
 
-    /// Resize resizes an image.
-    /// It resizes the image src down to or up to the specified size, storing the
-    /// result in dst. Note that src and dst may be the same image. If you wish to
-    /// scale by factor, an empty sz may be passed and non-zero fx and fy. Likewise,
-    /// if you wish to scale to an explicit size, a non-empty sz may be passed with
-    /// zero for both fx and fy.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/master/da/d54/group__imgproc__transform.html#ga47a974309e9102f5f08231edc7e7529d
-    resize: func(src: mat, size: size, fx: f32, fy: f32, interp: interpolation-type) -> mat;
+	/// Resize resizes an image.
+	/// It resizes the image src down to or up to the specified size, storing the
+	/// result in dst. Note that src and dst may be the same image. If you wish to
+	/// scale by factor, an empty sz may be passed and non-zero fx and fy. Likewise,
+	/// if you wish to scale to an explicit size, a non-empty sz may be passed with
+	/// zero for both fx and fy.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/master/da/d54/group__imgproc__transform.html#ga47a974309e9102f5f08231edc7e7529d
+	resize: func(src: mat, size: size, fx: f32, fy: f32, interp: interpolation-type) -> mat;
 
-    /// Threshold applies a fixed-level threshold to each array element.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57
-    threshold: func(src: mat, thresh: f32, max-value: f32, threshold-type: threshold-type) -> mat;
+	/// Threshold applies a fixed-level threshold to each array element.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c626a53577199e9c57
+	threshold: func(src: mat, thresh: f32, max-value: f32, threshold-type: threshold-type) -> mat;
 
-    /// Transpose for n-dimensional matrices.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
-    transpose-ND: func(src: mat, order: list<s32>) -> mat;
+	/// Transpose for n-dimensional matrices.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cdfa55b8919a4ec
+	transpose-ND: func(src: mat, order: list<s32>) -> mat;
 
-    /// estimate-affine2d computes an optimal affine transformation between two 2D point sets.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.0.0/d9/d0c/group__calib3d.html#ga27865b1d26bac9ce91efaee83e94d4dd
-    estimate-affine2d: func(frm: mat, to: mat) -> mat;
+	/// estimate-affine2d computes an optimal affine transformation between two 2D point sets.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.0.0/d9/d0c/group__calib3d.html#ga27865b1d26bac9ce91efaee83e94d4dd
+	estimate-affine2d: func(frm: mat, to: mat) -> mat;
 
-    /// warp-affine applies an affine transformation to an image.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#ga0203d9ee5fcd28d40dbc4a1ea4451983
-    warp-affine: func(src: mat, m: mat, size: size) -> mat;
+	/// warp-affine applies an affine transformation to an image.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#ga0203d9ee5fcd28d40dbc4a1ea4451983
+	warp-affine: func(src: mat, m: mat, size: size) -> mat;
 
-    /// get-rotation-matrix2d calculates an affine matrix of 2D rotation.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#gafbbc470ce83812914a70abfb604f4326
-    get-rotation-matrix2d: func(center: point, angle: f64, scale: f64) -> mat;
+	/// get-rotation-matrix2d calculates an affine matrix of 2D rotation.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#gafbbc470ce83812914a70abfb604f4326
+	get-rotation-matrix2d: func(center: point, angle: f64, scale: f64) -> mat;
 
-    /// add calculates the per-element sum of two arrays.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga10ac1bfb180e2cfda1701d06c24fdbd6
-    add: func(src1: mat, src2: mat) -> mat;
+	/// add calculates the per-element sum of two arrays.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga10ac1bfb180e2cfda1701d06c24fdbd6
+	add: func(src1: mat, src2: mat) -> mat;
 
-    /// add-weighted calculates the weighted sum of two arrays.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gafafb2513349db3bcff51f54ee5592a19
-    add-weighted: func(src1: mat, alpha: f64, src2: mat, beta: f64, gamma: f64) -> mat;
+	/// add-weighted calculates the weighted sum of two arrays.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gafafb2513349db3bcff51f54ee5592a19
+	add-weighted: func(src1: mat, alpha: f64, src2: mat, beta: f64, gamma: f64) -> mat;
 
-    /// exp calculates the exponent of every array element.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga3e10108e2162c338f1b848af619f39e5
-    exp: func(src: mat) -> mat;
+	/// exp calculates the exponent of every array element.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga3e10108e2162c338f1b848af619f39e5
+	exp: func(src: mat) -> mat;
 
-    /// hconcat applies horizontal concatenation to given matrices.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaab5ceee39e0580f879df645a872c6bf7
-    hconcat: func(src1: mat, src2: mat) -> mat;
+	/// hconcat applies horizontal concatenation to given matrices.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaab5ceee39e0580f879df645a872c6bf7
+	hconcat: func(src1: mat, src2: mat) -> mat;
 
-    /// vconcat applies vertical concatenation to given matrices.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga744f53b69f6e4f12156cdde4e76aed27
-    vconcat: func(src1: mat, src2: mat) -> mat;
+	/// vconcat applies vertical concatenation to given matrices.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga744f53b69f6e4f12156cdde4e76aed27
+	vconcat: func(src1: mat, src2: mat) -> mat;
 
-    /// lut performs a look-up table transform of an array.
-    ///
-    /// The function LUT fills the output array with values from the look-up table.
-    /// Indices of the entries are taken from the input array.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab55b8d062b7f5587720ede032d34156f
-    lut: func(src: mat, wblut: mat) -> mat;
+	/// lut performs a look-up table transform of an array.
+	///
+	/// The function LUT fills the output array with values from the look-up table.
+	/// Indices of the entries are taken from the input array.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab55b8d062b7f5587720ede032d34156f
+	lut: func(src: mat, wblut: mat) -> mat;
 
-    /// reduce-arg-max finds indices of max elements along provided axis.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf9695048355163da0
-    reduce-arg-max: func(src: mat, axis: u32, last-index: bool) -> mat;
+	/// reduce-arg-max finds indices of max elements along provided axis.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf9695048355163da0
+	reduce-arg-max: func(src: mat, axis: u32, last-index: bool) -> mat;
 }

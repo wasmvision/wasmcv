@@ -1,7 +1,7 @@
 /// request resource is a request from host for guest module to process an image.
 ///
 interface request {
-    use mat.{mat};
-    
-    process: func(image: mat) -> mat;
+	use mat.{mat};
+	
+	process: func(image: mat) -> mat;
 }

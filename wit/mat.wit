@@ -1,147 +1,147 @@
 /// mat resource is a matrix of bytes, wrapper around the cv::Mat type.
 ///
 interface mat {
-    use types.{mix-max-loc-result, rect};
+	use types.{mix-max-loc-result, rect};
 
-    enum mattype {
-        cv8u,
-        cv8s,
-        cv16u,
-        cv16s,
-        cv32s,
-        cv32f,
-        cv64f,
-    }
+	enum mattype {
+		cv8u,
+		cv8s,
+		cv16u,
+		cv16s,
+		cv32s,
+		cv32f,
+		cv64f,
+	}
 
-    resource mat {
-        /// Create a new Mat. id does not currently do anything.
-        constructor(id: u32);
+	resource mat {
+		/// Create a new Mat. id does not currently do anything.
+		constructor(id: u32);
 
-        /// Create a new Mat with the specified size and type.
-        new-with-size: static func(cols: u32, rows: u32, mattype: mattype) -> mat;
+		/// Create a new Mat with the specified size and type.
+		new-with-size: static func(cols: u32, rows: u32, mattype: mattype) -> mat;
 
-        /// Clone returns a cloned full copy of the Mat.
-        clone: func() -> mat;
+		/// Clone returns a cloned full copy of the Mat.
+		clone: func() -> mat;
 
-        /// Close the Mat
-        close: func();
+		/// Close the Mat
+		close: func();
 
-        /// Cols returns the number of columns for this Mat.
-        cols: func() -> u32;
+		/// Cols returns the number of columns for this Mat.
+		cols: func() -> u32;
 
-        /// Rows returns the number of rows for this Mat.
-        rows: func() -> u32;
+		/// Rows returns the number of rows for this Mat.
+		rows: func() -> u32;
 
-        /// Region returns a new Mat that points to a region of this Mat. Changes made to the
-        /// region Mat will affect the original Mat, since they are pointers to the underlying
-        /// OpenCV Mat object.
-        region: func(rect: rect) -> mat;
+		/// Region returns a new Mat that points to a region of this Mat. Changes made to the
+		/// region Mat will affect the original Mat, since they are pointers to the underlying
+		/// OpenCV Mat object.
+		region: func(rect: rect) -> mat;
 
-        /// CopyTo copies Mat into destination Mat.
-        copy-to: func(dst: borrow<mat>);
+		/// CopyTo copies Mat into destination Mat.
+		copy-to: func(dst: borrow<mat>);
 
-        /// ConvertTo converts Mat into destination Mat.
-        convert-to: func(mattype: mattype) -> mat;
+		/// ConvertTo converts Mat into destination Mat.
+		convert-to: func(mattype: mattype) -> mat;
 
-        /// MatType returns the type of the Mat.
-        mattype: func() -> mattype;
+		/// MatType returns the type of the Mat.
+		mattype: func() -> mattype;
 
-        /// Size returns an array with one element for each dimension containing the size of that dimension for the Mat.
-        size: func() -> list<u32>;
+		/// Size returns an array with one element for each dimension containing the size of that dimension for the Mat.
+		size: func() -> list<u32>;
 
-        /// Step returns the number of bytes each matrix row occupies.
-        step: func() -> u32;
+		/// Step returns the number of bytes each matrix row occupies.
+		step: func() -> u32;
 
-        /// ElemSize returns the matrix element size in bytes.
-        elemsize: func() -> u32;
+		/// ElemSize returns the matrix element size in bytes.
+		elemsize: func() -> u32;
 
-        /// Empty returns true if the Mat is empty.
-        empty: func() -> bool;
+		/// Empty returns true if the Mat is empty.
+		empty: func() -> bool;
 
-        /// GetFloatAt returns the value at the specified row and column as a f32.
-        get-float-at: func(row: u32, col: u32) -> f32;
+		/// GetFloatAt returns the value at the specified row and column as a f32.
+		get-float-at: func(row: u32, col: u32) -> f32;
 
-        /// SetFloatAt sets the value at the specified row and column as a f32.
-        set-float-at: func(row: u32, col: u32, val: f32);
+		/// SetFloatAt sets the value at the specified row and column as a f32.
+		set-float-at: func(row: u32, col: u32, val: f32);
 
-        /// GetUCharAt returns the value at the specified row and column as a u8.
-        get-uchar-at: func(row: u32, col: u32) -> u8;
+		/// GetUCharAt returns the value at the specified row and column as a u8.
+		get-uchar-at: func(row: u32, col: u32) -> u8;
 
-        /// SetUCharAt sets the value at the specified row and column as a u8.
-        set-uchar-at: func(row: u32, col: u32, val: u8);
+		/// SetUCharAt sets the value at the specified row and column as a u8.
+		set-uchar-at: func(row: u32, col: u32, val: u8);
 
-        /// GetIntAt returns the value at the specified row and column as a s32.
-        get-int-at: func(row: u32, col: u32) -> s32;
+		/// GetIntAt returns the value at the specified row and column as a s32.
+		get-int-at: func(row: u32, col: u32) -> s32;
 
-        /// SetIntAt sets the value at the specified row and column as a s32.
-        set-int-at: func(row: u32, col: u32, val: s32);
+		/// SetIntAt sets the value at the specified row and column as a s32.
+		set-int-at: func(row: u32, col: u32, val: s32);
 
-        /// GetFloatAt3 returns the value at the specified x, y, z as a f32.
-        get-float-at3: func(x: u32, y: u32, z: u32) -> f32;
+		/// GetFloatAt3 returns the value at the specified x, y, z as a f32.
+		get-float-at3: func(x: u32, y: u32, z: u32) -> f32;
 
-        /// SetFloatAt3 sets the value at the specified x, y, z as a f32.
-        set-float-at3: func(x: u32, y: u32, z: u32, val: f32);
+		/// SetFloatAt3 sets the value at the specified x, y, z as a f32.
+		set-float-at3: func(x: u32, y: u32, z: u32, val: f32);
 
-        /// GetUCharAt3 returns the value at the specified x, y, z as a u8.
-        get-uchar-at3: func(x: u32, y: u32, z: u32) -> u8;
+		/// GetUCharAt3 returns the value at the specified x, y, z as a u8.
+		get-uchar-at3: func(x: u32, y: u32, z: u32) -> u8;
 
-        /// SetUCharAt3 sets the value at the specified x, y, z as a u8.
-        set-uchar-at3: func(x: u32, y: u32, z: u32, val: u8);
+		/// SetUCharAt3 sets the value at the specified x, y, z as a u8.
+		set-uchar-at3: func(x: u32, y: u32, z: u32, val: u8);
 
-        /// GetIntAt3 returns the value at the specified x, y, z as a s32.
-        get-int-at3: func(x: u32, y: u32, z: u32) -> s32;
+		/// GetIntAt3 returns the value at the specified x, y, z as a s32.
+		get-int-at3: func(x: u32, y: u32, z: u32) -> s32;
 
-        /// SetIntAt3 sets the value at the specified x, y, z as a s32.
-        set-int-at3: func(x: u32, y: u32, z: u32, val: s32);
+		/// SetIntAt3 sets the value at the specified x, y, z as a s32.
+		set-int-at3: func(x: u32, y: u32, z: u32, val: s32);
 
-        /// GetVecbAt returns a vector of bytes. Its size corresponds to the number of channels of the Mat.
-        get-vecb-at: func(row: u32, col: u32) -> list<u8>;
+		/// GetVecbAt returns a vector of bytes. Its size corresponds to the number of channels of the Mat.
+		get-vecb-at: func(row: u32, col: u32) -> list<u8>;
 
-        /// GetVecfAt returns a vector of floats. Its size corresponds to the number of channels of the Mat.
-        get-vecf-at: func(row: u32, col: u32) -> list<f32>;
+		/// GetVecfAt returns a vector of floats. Its size corresponds to the number of channels of the Mat.
+		get-vecf-at: func(row: u32, col: u32) -> list<f32>;
 
-        /// GetVeciAt returns a vector of s32. Its size corresponds to the number of channels of the Mat.
-        get-veci-at: func(row: u32, col: u32) -> list<s32>;
+		/// GetVeciAt returns a vector of s32. Its size corresponds to the number of channels of the Mat.
+		get-veci-at: func(row: u32, col: u32) -> list<s32>;
 
-        /// Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.
-        ///
-        /// For further details, please see:
-        /// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a4eb96e3251417fa88b78e2abd6cfd7d8
-        reshape: func(channels: u32, rows: u32) -> mat;
+		/// Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a4eb96e3251417fa88b78e2abd6cfd7d8
+		reshape: func(channels: u32, rows: u32) -> mat;
 
-        /// RowRange creates a matrix header for the specified row span.
-        ///
-        /// For further details, please see:
-        /// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aa6542193430356ad631a9beabc624107
-        row-range: func(start: u32, end: u32) -> mat;
+		/// RowRange creates a matrix header for the specified row span.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aa6542193430356ad631a9beabc624107
+		row-range: func(start: u32, end: u32) -> mat;
 
-        /// ColRange creates a matrix header for the specified column span.
-        ///
-        /// For further details, please see:
-        /// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aadc8f9210fe4dec50513746c246fa8d9
-        col-range: func(start: u32, end: u32) -> mat;
+		/// ColRange creates a matrix header for the specified column span.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aadc8f9210fe4dec50513746c246fa8d9
+		col-range: func(start: u32, end: u32) -> mat;
 
-        /// MinMaxLoc finds the global minimum and maximum in an array.
-        ///
-        /// For further details, please see:
-        /// https://docs.opencv.org/trunk/d2/de8/group__core__array.html#gab473bf2eb6d14ff97e89b355dac20707
-        min-max-loc: func() -> mix-max-loc-result;
+		/// MinMaxLoc finds the global minimum and maximum in an array.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/trunk/d2/de8/group__core__array.html#gab473bf2eb6d14ff97e89b355dac20707
+		min-max-loc: func() -> mix-max-loc-result;
 
-        /// col creates a matrix header for the specified matrix column.
-        /// The underlying data of the new matrix is shared with the original matrix.
-        col: func(col: u32) -> mat;
+		/// col creates a matrix header for the specified matrix column.
+		/// The underlying data of the new matrix is shared with the original matrix.
+		col: func(col: u32) -> mat;
 
-        /// row creates a matrix header for the specified matrix row.
-        /// The underlying data of the new matrix is shared with the original matrix.
-        row: func(row: u32) -> mat;
+		/// row creates a matrix header for the specified matrix row.
+		/// The underlying data of the new matrix is shared with the original matrix.
+		row: func(row: u32) -> mat;
 
-        /// Merge creates one multi-channel array out of several single-channel ones.
-        ///
-        /// For further details, please see:
-        /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7d7b4d6c6ee504b30a20b1680029c7b4
-        merge: static func(mv: list<mat>) -> mat;
+		/// Merge creates one multi-channel array out of several single-channel ones.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7d7b4d6c6ee504b30a20b1680029c7b4
+		merge: static func(mv: list<mat>) -> mat;
 
-        /// zeros returns a zero array of the specified size and type.
-        zeros: static func(cols: u32, rows: u32, mattype: mattype) -> mat;
-    }
+		/// zeros returns a zero array of the specified size and type.
+		zeros: static func(cols: u32, rows: u32, mattype: mattype) -> mat;
+	}
 }
