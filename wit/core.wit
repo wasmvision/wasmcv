@@ -163,4 +163,55 @@ interface cv {
     /// For further details, please see:
     /// https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#ga0203d9ee5fcd28d40dbc4a1ea4451983
     warp-affine: func(src: mat, m: mat, size: size) -> mat;
+
+    /// get-rotation-matrix2d calculates an affine matrix of 2D rotation.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#gafbbc470ce83812914a70abfb604f4326
+    get-rotation-matrix2d: func(center: point, angle: f64, scale: f64) -> mat;
+
+    /// add calculates the per-element sum of two arrays.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga10ac1bfb180e2cfda1701d06c24fdbd6
+    add: func(src1: mat, src2: mat) -> mat;
+
+    /// add-weighted calculates the weighted sum of two arrays.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gafafb2513349db3bcff51f54ee5592a19
+    add-weighted: func(src1: mat, alpha: f64, src2: mat, beta: f64, gamma: f64) -> mat;
+
+    /// exp calculates the exponent of every array element.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga3e10108e2162c338f1b848af619f39e5
+    exp: func(src: mat) -> mat;
+
+    /// hconcat applies horizontal concatenation to given matrices.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaab5ceee39e0580f879df645a872c6bf7
+    hconcat: func(src1: mat, src2: mat) -> mat;
+
+    /// vconcat applies vertical concatenation to given matrices.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga744f53b69f6e4f12156cdde4e76aed27
+    vconcat: func(src1: mat, src2: mat) -> mat;
+
+    /// lut performs a look-up table transform of an array.
+    ///
+    /// The function LUT fills the output array with values from the look-up table.
+    /// Indices of the entries are taken from the input array.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab55b8d062b7f5587720ede032d34156f
+    lut: func(src: mat, wblut: mat) -> mat;
+
+    /// reduce-arg-max finds indices of max elements along provided axis.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf9695048355163da0
+    reduce-arg-max: func(src: mat, axis: u32, last-index: bool) -> mat;
 }
