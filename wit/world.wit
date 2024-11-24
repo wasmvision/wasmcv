@@ -8,6 +8,7 @@ world imports {
     import cv;
     import dnn;
     import objdetect;
+    import features2d;
 
     export request;
 }

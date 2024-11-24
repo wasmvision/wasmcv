@@ -146,4 +146,25 @@ interface types {
         morph-cross,
         morph-ellipse,
     }
+
+    record key-point {
+        x: f32,
+        y: f32,
+        size: f32,
+        angle: f32,
+        response: f32,
+        octave: s32,
+        class-id: s32,
+    }
+
+    /// DMatch is data structure for matching keypoint descriptors.
+    ///
+    /// For further details, please see:
+    /// https://docs.opencv.org/4.x/d4/de0/classcv_1_1DMatch.html#a546ddb9a87898f06e510e015a6de596e
+    record d-match {
+	    query-idx: u32,
+	    train-idx: u32,
+	    img-idx:   u32,
+	    distance: f64,
+    }
 }
