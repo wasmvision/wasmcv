@@ -162,6 +162,27 @@ typedef uint8_t wasm_cv_types_morph_shape_t;
 #define WASM_CV_TYPES_MORPH_SHAPE_MORPH_CROSS 1
 #define WASM_CV_TYPES_MORPH_SHAPE_MORPH_ELLIPSE 2
 
+typedef struct wasm_cv_types_key_point_t {
+  float   x;
+  float   y;
+  float   size;
+  float   angle;
+  float   response;
+  int32_t   octave;
+  int32_t   class_id;
+} wasm_cv_types_key_point_t;
+
+// DMatch is data structure for matching keypoint descriptors.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d4/de0/classcv_1_1DMatch.html#a546ddb9a87898f06e510e015a6de596e
+typedef struct wasm_cv_types_d_match_t {
+  uint32_t   query_idx;
+  uint32_t   train_idx;
+  uint32_t   img_idx;
+  double   distance;
+} wasm_cv_types_d_match_t;
+
 typedef wasm_cv_types_mix_max_loc_result_t wasm_cv_mat_mix_max_loc_result_t;
 
 typedef wasm_cv_types_rect_t wasm_cv_mat_rect_t;
@@ -351,6 +372,90 @@ typedef struct {
   wasm_cv_objdetect_rect_t *ptr;
   size_t len;
 } wasm_cv_objdetect_list_rect_t;
+
+typedef wasm_cv_types_key_point_t wasm_cv_features2d_key_point_t;
+
+typedef wasm_cv_types_d_match_t wasm_cv_features2d_d_match_t;
+
+typedef struct {
+  wasm_cv_features2d_key_point_t *ptr;
+  size_t len;
+} wasm_cv_features2d_list_key_point_t;
+
+typedef wasm_cv_mat_own_mat_t wasm_cv_features2d_own_mat_t;
+
+// rect is a rectangle with integer coordinates.
+// It is represented by the top-left corner and the bottom-right corner.
+typedef struct wasm_cv_features2d_detector_result_t {
+  wasm_cv_features2d_list_key_point_t   kps;
+  wasm_cv_features2d_own_mat_t   desc;
+} wasm_cv_features2d_detector_result_t;
+
+typedef struct wasm_cv_features2d_own_akaze_detector_t {
+  int32_t __handle;
+} wasm_cv_features2d_own_akaze_detector_t;
+
+typedef struct wasm_cv_features2d_borrow_akaze_detector_t {
+  int32_t __handle;
+} wasm_cv_features2d_borrow_akaze_detector_t;
+
+typedef struct wasm_cv_features2d_own_brisk_detector_t {
+  int32_t __handle;
+} wasm_cv_features2d_own_brisk_detector_t;
+
+typedef struct wasm_cv_features2d_borrow_brisk_detector_t {
+  int32_t __handle;
+} wasm_cv_features2d_borrow_brisk_detector_t;
+
+typedef struct wasm_cv_features2d_own_kaze_detector_t {
+  int32_t __handle;
+} wasm_cv_features2d_own_kaze_detector_t;
+
+typedef struct wasm_cv_features2d_borrow_kaze_detector_t {
+  int32_t __handle;
+} wasm_cv_features2d_borrow_kaze_detector_t;
+
+typedef struct wasm_cv_features2d_own_orb_detector_t {
+  int32_t __handle;
+} wasm_cv_features2d_own_orb_detector_t;
+
+typedef struct wasm_cv_features2d_borrow_orb_detector_t {
+  int32_t __handle;
+} wasm_cv_features2d_borrow_orb_detector_t;
+
+typedef struct wasm_cv_features2d_own_sift_detector_t {
+  int32_t __handle;
+} wasm_cv_features2d_own_sift_detector_t;
+
+typedef struct wasm_cv_features2d_borrow_sift_detector_t {
+  int32_t __handle;
+} wasm_cv_features2d_borrow_sift_detector_t;
+
+typedef struct wasm_cv_features2d_own_bf_matcher_t {
+  int32_t __handle;
+} wasm_cv_features2d_own_bf_matcher_t;
+
+typedef struct wasm_cv_features2d_borrow_bf_matcher_t {
+  int32_t __handle;
+} wasm_cv_features2d_borrow_bf_matcher_t;
+
+typedef struct wasm_cv_features2d_own_flann_based_matcher_t {
+  int32_t __handle;
+} wasm_cv_features2d_own_flann_based_matcher_t;
+
+typedef struct wasm_cv_features2d_borrow_flann_based_matcher_t {
+  int32_t __handle;
+} wasm_cv_features2d_borrow_flann_based_matcher_t;
+
+typedef struct {
+  wasm_cv_features2d_d_match_t *ptr;
+  size_t len;
+} wasm_cv_features2d_list_d_match_t;
+
+typedef struct {
+  wasm_cv_features2d_list_d_match_t *ptr;
+  size_t len;
+} wasm_cv_features2d_list_list_d_match_t;
 
 typedef wasm_cv_mat_own_mat_t exports_wasm_cv_request_own_mat_t;
 
@@ -803,6 +908,147 @@ extern float wasm_cv_objdetect_method_face_recognizer_sf_match(wasm_cv_objdetect
 // https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e64320a1f3ba7e1386d0219
 extern float wasm_cv_objdetect_method_face_recognizer_sf_match_with_params(wasm_cv_objdetect_borrow_face_recognizer_sf_t self, wasm_cv_objdetect_own_mat_t face1, wasm_cv_objdetect_own_mat_t face2, wasm_cv_objdetect_face_distance_type_t distance);
 
+// Imported Functions from `wasm:cv/features2d`
+// Returns a new akaze-detector.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d8/d30/classcv_1_1AKAZE.html
+extern wasm_cv_features2d_own_akaze_detector_t wasm_cv_features2d_constructor_akaze_detector(imports_string_t *name);
+// Close the akaze-detector
+extern void wasm_cv_features2d_method_akaze_detector_close(wasm_cv_features2d_borrow_akaze_detector_t self);
+// Detect keypoints in an image using AKAZE.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887
+extern void wasm_cv_features2d_method_akaze_detector_detect(wasm_cv_features2d_borrow_akaze_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_list_key_point_t *ret);
+// Compute keypoints in an image using AKAZE.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0
+extern void wasm_cv_features2d_method_akaze_detector_compute(wasm_cv_features2d_borrow_akaze_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_list_key_point_t *kps, wasm_cv_features2d_detector_result_t *ret);
+// DetectAndCompute keypoints and compute in an image using AKAZE.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677
+extern void wasm_cv_features2d_method_akaze_detector_detect_and_compute(wasm_cv_features2d_borrow_akaze_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_detector_result_t *ret);
+// Returns a new BRISK-detector.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/de/dbf/classcv_1_1BRISK.html
+extern wasm_cv_features2d_own_brisk_detector_t wasm_cv_features2d_constructor_brisk_detector(imports_string_t *name);
+// Close the BRISK-detector
+extern void wasm_cv_features2d_method_brisk_detector_close(wasm_cv_features2d_borrow_brisk_detector_t self);
+// Detect keypoints in an image using BRISK.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887
+extern void wasm_cv_features2d_method_brisk_detector_detect(wasm_cv_features2d_borrow_brisk_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_list_key_point_t *ret);
+// Compute keypoints in an image using BRISK.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0
+extern void wasm_cv_features2d_method_brisk_detector_compute(wasm_cv_features2d_borrow_brisk_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_list_key_point_t *kps, wasm_cv_features2d_detector_result_t *ret);
+// DetectAndCompute keypoints and compute in an image using BRISK.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677
+extern void wasm_cv_features2d_method_brisk_detector_detect_and_compute(wasm_cv_features2d_borrow_brisk_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_detector_result_t *ret);
+// Returns a new KAZE-detector.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d3/d61/classcv_1_1KAZE.html
+extern wasm_cv_features2d_own_kaze_detector_t wasm_cv_features2d_constructor_kaze_detector(imports_string_t *name);
+// Close the KAZE-detector
+extern void wasm_cv_features2d_method_kaze_detector_close(wasm_cv_features2d_borrow_kaze_detector_t self);
+// Detect keypoints in an image using KAZE.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887
+extern void wasm_cv_features2d_method_kaze_detector_detect(wasm_cv_features2d_borrow_kaze_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_list_key_point_t *ret);
+// Compute keypoints in an image using KAZE.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0
+extern void wasm_cv_features2d_method_kaze_detector_compute(wasm_cv_features2d_borrow_kaze_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_list_key_point_t *kps, wasm_cv_features2d_detector_result_t *ret);
+// DetectAndCompute keypoints and compute in an image using KAZE.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677
+extern void wasm_cv_features2d_method_kaze_detector_detect_and_compute(wasm_cv_features2d_borrow_kaze_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_detector_result_t *ret);
+// Returns a new ORB-detector.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/db/d95/classcv_1_1ORB.html
+extern wasm_cv_features2d_own_orb_detector_t wasm_cv_features2d_constructor_orb_detector(imports_string_t *name);
+// Close the ORB-detector
+extern void wasm_cv_features2d_method_orb_detector_close(wasm_cv_features2d_borrow_orb_detector_t self);
+// Detect keypoints in an image using ORB.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887
+extern void wasm_cv_features2d_method_orb_detector_detect(wasm_cv_features2d_borrow_orb_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_list_key_point_t *ret);
+// Compute keypoints in an image using ORB.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0
+extern void wasm_cv_features2d_method_orb_detector_compute(wasm_cv_features2d_borrow_orb_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_list_key_point_t *kps, wasm_cv_features2d_detector_result_t *ret);
+// DetectAndCompute keypoints and compute in an image using ORB.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677
+extern void wasm_cv_features2d_method_orb_detector_detect_and_compute(wasm_cv_features2d_borrow_orb_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_detector_result_t *ret);
+// Returns a new SIFT-detector.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d7/d60/classcv_1_1SIFT.html
+extern wasm_cv_features2d_own_sift_detector_t wasm_cv_features2d_constructor_sift_detector(imports_string_t *name);
+// Close the SIFT-detector
+extern void wasm_cv_features2d_method_sift_detector_close(wasm_cv_features2d_borrow_sift_detector_t self);
+// Detect keypoints in an image using SIFT.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887
+extern void wasm_cv_features2d_method_sift_detector_detect(wasm_cv_features2d_borrow_sift_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_list_key_point_t *ret);
+// Compute keypoints in an image using SIFT.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0
+extern void wasm_cv_features2d_method_sift_detector_compute(wasm_cv_features2d_borrow_sift_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_list_key_point_t *kps, wasm_cv_features2d_detector_result_t *ret);
+// DetectAndCompute keypoints and compute in an image using SIFT.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677
+extern void wasm_cv_features2d_method_sift_detector_detect_and_compute(wasm_cv_features2d_borrow_sift_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_detector_result_t *ret);
+// Returns a new BF-matcher.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d3/da1/classcv_1_1BFMatcher.html#abe0bb11749b30d97f60d6ade665617bd
+extern wasm_cv_features2d_own_bf_matcher_t wasm_cv_features2d_constructor_bf_matcher(imports_string_t *name);
+// Close the BF-matcher
+extern void wasm_cv_features2d_method_bf_matcher_close(wasm_cv_features2d_borrow_bf_matcher_t self);
+// Match Finds the best match for each descriptor from a query set.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#a0f046f47b68ec7074391e1e85c750cba
+extern void wasm_cv_features2d_method_bf_matcher_match(wasm_cv_features2d_borrow_bf_matcher_t self, wasm_cv_features2d_own_mat_t query, wasm_cv_features2d_own_mat_t train, wasm_cv_features2d_list_d_match_t *ret);
+// KNNMatch finds the k best matches for each descriptor from a query set.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#aa880f9353cdf185ccf3013e08210483a
+extern void wasm_cv_features2d_method_bf_matcher_knn_match(wasm_cv_features2d_borrow_bf_matcher_t self, wasm_cv_features2d_own_mat_t query, wasm_cv_features2d_own_mat_t train, uint32_t k, wasm_cv_features2d_list_list_d_match_t *ret);
+// Returns a new flann-based-matcher.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/dc/de2/classcv_1_1FlannBasedMatcher.html#ab9114a6471e364ad221f89068ca21382
+extern wasm_cv_features2d_own_flann_based_matcher_t wasm_cv_features2d_constructor_flann_based_matcher(imports_string_t *name);
+// Close the flann-based-matcher
+extern void wasm_cv_features2d_method_flann_based_matcher_close(wasm_cv_features2d_borrow_flann_based_matcher_t self);
+// KNNMatch finds the k best matches for each descriptor from a query set.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#aa880f9353cdf185ccf3013e08210483a
+extern void wasm_cv_features2d_method_flann_based_matcher_knn_match(wasm_cv_features2d_borrow_flann_based_matcher_t self, wasm_cv_features2d_own_mat_t query, wasm_cv_features2d_own_mat_t train, uint32_t k, wasm_cv_features2d_list_list_d_match_t *ret);
+
 // Exported Functions from `wasm:cv/request`
 exports_wasm_cv_request_own_mat_t exports_wasm_cv_request_process(exports_wasm_cv_request_own_mat_t image);
 
@@ -853,6 +1099,42 @@ extern void wasm_cv_objdetect_face_recognizer_sf_drop_own(wasm_cv_objdetect_own_
 extern wasm_cv_objdetect_borrow_face_recognizer_sf_t wasm_cv_objdetect_borrow_face_recognizer_sf(wasm_cv_objdetect_own_face_recognizer_sf_t handle);
 
 void wasm_cv_objdetect_list_rect_free(wasm_cv_objdetect_list_rect_t *ptr);
+
+void wasm_cv_features2d_list_key_point_free(wasm_cv_features2d_list_key_point_t *ptr);
+
+void wasm_cv_features2d_detector_result_free(wasm_cv_features2d_detector_result_t *ptr);
+
+extern void wasm_cv_features2d_akaze_detector_drop_own(wasm_cv_features2d_own_akaze_detector_t handle);
+
+extern wasm_cv_features2d_borrow_akaze_detector_t wasm_cv_features2d_borrow_akaze_detector(wasm_cv_features2d_own_akaze_detector_t handle);
+
+extern void wasm_cv_features2d_brisk_detector_drop_own(wasm_cv_features2d_own_brisk_detector_t handle);
+
+extern wasm_cv_features2d_borrow_brisk_detector_t wasm_cv_features2d_borrow_brisk_detector(wasm_cv_features2d_own_brisk_detector_t handle);
+
+extern void wasm_cv_features2d_kaze_detector_drop_own(wasm_cv_features2d_own_kaze_detector_t handle);
+
+extern wasm_cv_features2d_borrow_kaze_detector_t wasm_cv_features2d_borrow_kaze_detector(wasm_cv_features2d_own_kaze_detector_t handle);
+
+extern void wasm_cv_features2d_orb_detector_drop_own(wasm_cv_features2d_own_orb_detector_t handle);
+
+extern wasm_cv_features2d_borrow_orb_detector_t wasm_cv_features2d_borrow_orb_detector(wasm_cv_features2d_own_orb_detector_t handle);
+
+extern void wasm_cv_features2d_sift_detector_drop_own(wasm_cv_features2d_own_sift_detector_t handle);
+
+extern wasm_cv_features2d_borrow_sift_detector_t wasm_cv_features2d_borrow_sift_detector(wasm_cv_features2d_own_sift_detector_t handle);
+
+extern void wasm_cv_features2d_bf_matcher_drop_own(wasm_cv_features2d_own_bf_matcher_t handle);
+
+extern wasm_cv_features2d_borrow_bf_matcher_t wasm_cv_features2d_borrow_bf_matcher(wasm_cv_features2d_own_bf_matcher_t handle);
+
+extern void wasm_cv_features2d_flann_based_matcher_drop_own(wasm_cv_features2d_own_flann_based_matcher_t handle);
+
+extern wasm_cv_features2d_borrow_flann_based_matcher_t wasm_cv_features2d_borrow_flann_based_matcher(wasm_cv_features2d_own_flann_based_matcher_t handle);
+
+void wasm_cv_features2d_list_d_match_free(wasm_cv_features2d_list_d_match_t *ptr);
+
+void wasm_cv_features2d_list_list_d_match_free(wasm_cv_features2d_list_list_d_match_t *ptr);
 
 // Transfers ownership of `s` into the string `ret`
 void imports_string_set(imports_string_t *ret, const char*s);

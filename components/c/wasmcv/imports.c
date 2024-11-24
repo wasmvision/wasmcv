@@ -347,6 +347,104 @@ extern float __wasm_import_wasm_cv_objdetect_method_face_recognizer_sf_match(int
 __attribute__((__import_module__("wasm:cv/objdetect"), __import_name__("[method]face-recognizer-SF.match-with-params")))
 extern float __wasm_import_wasm_cv_objdetect_method_face_recognizer_sf_match_with_params(int32_t, int32_t, int32_t, int32_t);
 
+// Imported Functions from `wasm:cv/features2d`
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[constructor]AKAZE-detector")))
+extern int32_t __wasm_import_wasm_cv_features2d_constructor_akaze_detector(uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]AKAZE-detector.close")))
+extern void __wasm_import_wasm_cv_features2d_method_akaze_detector_close(int32_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]AKAZE-detector.detect")))
+extern void __wasm_import_wasm_cv_features2d_method_akaze_detector_detect(int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]AKAZE-detector.compute")))
+extern void __wasm_import_wasm_cv_features2d_method_akaze_detector_compute(int32_t, int32_t, int32_t, uint8_t *, size_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]AKAZE-detector.detect-and-compute")))
+extern void __wasm_import_wasm_cv_features2d_method_akaze_detector_detect_and_compute(int32_t, int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[constructor]BRISK-detector")))
+extern int32_t __wasm_import_wasm_cv_features2d_constructor_brisk_detector(uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]BRISK-detector.close")))
+extern void __wasm_import_wasm_cv_features2d_method_brisk_detector_close(int32_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]BRISK-detector.detect")))
+extern void __wasm_import_wasm_cv_features2d_method_brisk_detector_detect(int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]BRISK-detector.compute")))
+extern void __wasm_import_wasm_cv_features2d_method_brisk_detector_compute(int32_t, int32_t, int32_t, uint8_t *, size_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]BRISK-detector.detect-and-compute")))
+extern void __wasm_import_wasm_cv_features2d_method_brisk_detector_detect_and_compute(int32_t, int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[constructor]KAZE-detector")))
+extern int32_t __wasm_import_wasm_cv_features2d_constructor_kaze_detector(uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]KAZE-detector.close")))
+extern void __wasm_import_wasm_cv_features2d_method_kaze_detector_close(int32_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]KAZE-detector.detect")))
+extern void __wasm_import_wasm_cv_features2d_method_kaze_detector_detect(int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]KAZE-detector.compute")))
+extern void __wasm_import_wasm_cv_features2d_method_kaze_detector_compute(int32_t, int32_t, int32_t, uint8_t *, size_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]KAZE-detector.detect-and-compute")))
+extern void __wasm_import_wasm_cv_features2d_method_kaze_detector_detect_and_compute(int32_t, int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[constructor]ORB-detector")))
+extern int32_t __wasm_import_wasm_cv_features2d_constructor_orb_detector(uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]ORB-detector.close")))
+extern void __wasm_import_wasm_cv_features2d_method_orb_detector_close(int32_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]ORB-detector.detect")))
+extern void __wasm_import_wasm_cv_features2d_method_orb_detector_detect(int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]ORB-detector.compute")))
+extern void __wasm_import_wasm_cv_features2d_method_orb_detector_compute(int32_t, int32_t, int32_t, uint8_t *, size_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]ORB-detector.detect-and-compute")))
+extern void __wasm_import_wasm_cv_features2d_method_orb_detector_detect_and_compute(int32_t, int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[constructor]SIFT-detector")))
+extern int32_t __wasm_import_wasm_cv_features2d_constructor_sift_detector(uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]SIFT-detector.close")))
+extern void __wasm_import_wasm_cv_features2d_method_sift_detector_close(int32_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]SIFT-detector.detect")))
+extern void __wasm_import_wasm_cv_features2d_method_sift_detector_detect(int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]SIFT-detector.compute")))
+extern void __wasm_import_wasm_cv_features2d_method_sift_detector_compute(int32_t, int32_t, int32_t, uint8_t *, size_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]SIFT-detector.detect-and-compute")))
+extern void __wasm_import_wasm_cv_features2d_method_sift_detector_detect_and_compute(int32_t, int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[constructor]BF-matcher")))
+extern int32_t __wasm_import_wasm_cv_features2d_constructor_bf_matcher(uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]BF-matcher.close")))
+extern void __wasm_import_wasm_cv_features2d_method_bf_matcher_close(int32_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]BF-matcher.match")))
+extern void __wasm_import_wasm_cv_features2d_method_bf_matcher_match(int32_t, int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]BF-matcher.KNN-match")))
+extern void __wasm_import_wasm_cv_features2d_method_bf_matcher_knn_match(int32_t, int32_t, int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[constructor]flann-based-matcher")))
+extern int32_t __wasm_import_wasm_cv_features2d_constructor_flann_based_matcher(uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]flann-based-matcher.close")))
+extern void __wasm_import_wasm_cv_features2d_method_flann_based_matcher_close(int32_t);
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[method]flann-based-matcher.KNN-match")))
+extern void __wasm_import_wasm_cv_features2d_method_flann_based_matcher_knn_match(int32_t, int32_t, int32_t, int32_t, uint8_t *);
+
 // Exported Functions from `wasm:cv/request`
 
 
@@ -526,6 +624,118 @@ void wasm_cv_objdetect_list_rect_free(wasm_cv_objdetect_list_rect_t *ptr) {
   if (list_len > 0) {
     wasm_cv_objdetect_rect_t *list_ptr = ptr->ptr;
     for (size_t i = 0; i < list_len; i++) {
+    }
+    free(list_ptr);
+  }
+}
+
+void wasm_cv_features2d_list_key_point_free(wasm_cv_features2d_list_key_point_t *ptr) {
+  size_t list_len = ptr->len;
+  if (list_len > 0) {
+    wasm_cv_features2d_key_point_t *list_ptr = ptr->ptr;
+    for (size_t i = 0; i < list_len; i++) {
+    }
+    free(list_ptr);
+  }
+}
+
+void wasm_cv_features2d_detector_result_free(wasm_cv_features2d_detector_result_t *ptr) {
+  wasm_cv_features2d_list_key_point_free(&ptr->kps);
+}
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[resource-drop]AKAZE-detector")))
+extern void __wasm_import_wasm_cv_features2d_akaze_detector_drop(int32_t handle);
+
+void wasm_cv_features2d_akaze_detector_drop_own(wasm_cv_features2d_own_akaze_detector_t handle) {
+  __wasm_import_wasm_cv_features2d_akaze_detector_drop(handle.__handle);
+}
+
+wasm_cv_features2d_borrow_akaze_detector_t wasm_cv_features2d_borrow_akaze_detector(wasm_cv_features2d_own_akaze_detector_t arg) {
+  return (wasm_cv_features2d_borrow_akaze_detector_t) { arg.__handle };
+}
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[resource-drop]BRISK-detector")))
+extern void __wasm_import_wasm_cv_features2d_brisk_detector_drop(int32_t handle);
+
+void wasm_cv_features2d_brisk_detector_drop_own(wasm_cv_features2d_own_brisk_detector_t handle) {
+  __wasm_import_wasm_cv_features2d_brisk_detector_drop(handle.__handle);
+}
+
+wasm_cv_features2d_borrow_brisk_detector_t wasm_cv_features2d_borrow_brisk_detector(wasm_cv_features2d_own_brisk_detector_t arg) {
+  return (wasm_cv_features2d_borrow_brisk_detector_t) { arg.__handle };
+}
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[resource-drop]KAZE-detector")))
+extern void __wasm_import_wasm_cv_features2d_kaze_detector_drop(int32_t handle);
+
+void wasm_cv_features2d_kaze_detector_drop_own(wasm_cv_features2d_own_kaze_detector_t handle) {
+  __wasm_import_wasm_cv_features2d_kaze_detector_drop(handle.__handle);
+}
+
+wasm_cv_features2d_borrow_kaze_detector_t wasm_cv_features2d_borrow_kaze_detector(wasm_cv_features2d_own_kaze_detector_t arg) {
+  return (wasm_cv_features2d_borrow_kaze_detector_t) { arg.__handle };
+}
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[resource-drop]ORB-detector")))
+extern void __wasm_import_wasm_cv_features2d_orb_detector_drop(int32_t handle);
+
+void wasm_cv_features2d_orb_detector_drop_own(wasm_cv_features2d_own_orb_detector_t handle) {
+  __wasm_import_wasm_cv_features2d_orb_detector_drop(handle.__handle);
+}
+
+wasm_cv_features2d_borrow_orb_detector_t wasm_cv_features2d_borrow_orb_detector(wasm_cv_features2d_own_orb_detector_t arg) {
+  return (wasm_cv_features2d_borrow_orb_detector_t) { arg.__handle };
+}
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[resource-drop]SIFT-detector")))
+extern void __wasm_import_wasm_cv_features2d_sift_detector_drop(int32_t handle);
+
+void wasm_cv_features2d_sift_detector_drop_own(wasm_cv_features2d_own_sift_detector_t handle) {
+  __wasm_import_wasm_cv_features2d_sift_detector_drop(handle.__handle);
+}
+
+wasm_cv_features2d_borrow_sift_detector_t wasm_cv_features2d_borrow_sift_detector(wasm_cv_features2d_own_sift_detector_t arg) {
+  return (wasm_cv_features2d_borrow_sift_detector_t) { arg.__handle };
+}
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[resource-drop]BF-matcher")))
+extern void __wasm_import_wasm_cv_features2d_bf_matcher_drop(int32_t handle);
+
+void wasm_cv_features2d_bf_matcher_drop_own(wasm_cv_features2d_own_bf_matcher_t handle) {
+  __wasm_import_wasm_cv_features2d_bf_matcher_drop(handle.__handle);
+}
+
+wasm_cv_features2d_borrow_bf_matcher_t wasm_cv_features2d_borrow_bf_matcher(wasm_cv_features2d_own_bf_matcher_t arg) {
+  return (wasm_cv_features2d_borrow_bf_matcher_t) { arg.__handle };
+}
+
+__attribute__((__import_module__("wasm:cv/features2d"), __import_name__("[resource-drop]flann-based-matcher")))
+extern void __wasm_import_wasm_cv_features2d_flann_based_matcher_drop(int32_t handle);
+
+void wasm_cv_features2d_flann_based_matcher_drop_own(wasm_cv_features2d_own_flann_based_matcher_t handle) {
+  __wasm_import_wasm_cv_features2d_flann_based_matcher_drop(handle.__handle);
+}
+
+wasm_cv_features2d_borrow_flann_based_matcher_t wasm_cv_features2d_borrow_flann_based_matcher(wasm_cv_features2d_own_flann_based_matcher_t arg) {
+  return (wasm_cv_features2d_borrow_flann_based_matcher_t) { arg.__handle };
+}
+
+void wasm_cv_features2d_list_d_match_free(wasm_cv_features2d_list_d_match_t *ptr) {
+  size_t list_len = ptr->len;
+  if (list_len > 0) {
+    wasm_cv_features2d_d_match_t *list_ptr = ptr->ptr;
+    for (size_t i = 0; i < list_len; i++) {
+    }
+    free(list_ptr);
+  }
+}
+
+void wasm_cv_features2d_list_list_d_match_free(wasm_cv_features2d_list_list_d_match_t *ptr) {
+  size_t list_len = ptr->len;
+  if (list_len > 0) {
+    wasm_cv_features2d_list_d_match_t *list_ptr = ptr->ptr;
+    for (size_t i = 0; i < list_len; i++) {
+      wasm_cv_features2d_list_d_match_free(&list_ptr[i]);
     }
     free(list_ptr);
   }
@@ -1169,6 +1379,243 @@ float wasm_cv_objdetect_method_face_recognizer_sf_match(wasm_cv_objdetect_borrow
 float wasm_cv_objdetect_method_face_recognizer_sf_match_with_params(wasm_cv_objdetect_borrow_face_recognizer_sf_t self, wasm_cv_objdetect_own_mat_t face1, wasm_cv_objdetect_own_mat_t face2, wasm_cv_objdetect_face_distance_type_t distance) {
   float ret = __wasm_import_wasm_cv_objdetect_method_face_recognizer_sf_match_with_params((self).__handle, (face1).__handle, (face2).__handle, (int32_t) distance);
   return ret;
+}
+
+wasm_cv_features2d_own_akaze_detector_t wasm_cv_features2d_constructor_akaze_detector(imports_string_t *name) {
+  int32_t ret = __wasm_import_wasm_cv_features2d_constructor_akaze_detector((uint8_t *) (*name).ptr, (*name).len);
+  return (wasm_cv_features2d_own_akaze_detector_t) { ret };
+}
+
+void wasm_cv_features2d_method_akaze_detector_close(wasm_cv_features2d_borrow_akaze_detector_t self) {
+  __wasm_import_wasm_cv_features2d_method_akaze_detector_close((self).__handle);
+}
+
+void wasm_cv_features2d_method_akaze_detector_detect(wasm_cv_features2d_borrow_akaze_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_list_key_point_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_akaze_detector_detect((self).__handle, (src).__handle, ptr);
+  *ret = (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+void wasm_cv_features2d_method_akaze_detector_compute(wasm_cv_features2d_borrow_akaze_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_list_key_point_t *kps, wasm_cv_features2d_detector_result_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[12];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_akaze_detector_compute((self).__handle, (src).__handle, (mask).__handle, (uint8_t *) (*kps).ptr, (*kps).len, ptr);
+  *ret = (wasm_cv_features2d_detector_result_t) {
+    (wasm_cv_features2d_list_key_point_t) (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) },
+    (wasm_cv_features2d_own_mat_t) (wasm_cv_features2d_own_mat_t) { *((int32_t*) (ptr + 8)) },
+  };
+}
+
+void wasm_cv_features2d_method_akaze_detector_detect_and_compute(wasm_cv_features2d_borrow_akaze_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_detector_result_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[12];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_akaze_detector_detect_and_compute((self).__handle, (src).__handle, (mask).__handle, ptr);
+  *ret = (wasm_cv_features2d_detector_result_t) {
+    (wasm_cv_features2d_list_key_point_t) (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) },
+    (wasm_cv_features2d_own_mat_t) (wasm_cv_features2d_own_mat_t) { *((int32_t*) (ptr + 8)) },
+  };
+}
+
+wasm_cv_features2d_own_brisk_detector_t wasm_cv_features2d_constructor_brisk_detector(imports_string_t *name) {
+  int32_t ret = __wasm_import_wasm_cv_features2d_constructor_brisk_detector((uint8_t *) (*name).ptr, (*name).len);
+  return (wasm_cv_features2d_own_brisk_detector_t) { ret };
+}
+
+void wasm_cv_features2d_method_brisk_detector_close(wasm_cv_features2d_borrow_brisk_detector_t self) {
+  __wasm_import_wasm_cv_features2d_method_brisk_detector_close((self).__handle);
+}
+
+void wasm_cv_features2d_method_brisk_detector_detect(wasm_cv_features2d_borrow_brisk_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_list_key_point_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_brisk_detector_detect((self).__handle, (src).__handle, ptr);
+  *ret = (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+void wasm_cv_features2d_method_brisk_detector_compute(wasm_cv_features2d_borrow_brisk_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_list_key_point_t *kps, wasm_cv_features2d_detector_result_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[12];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_brisk_detector_compute((self).__handle, (src).__handle, (mask).__handle, (uint8_t *) (*kps).ptr, (*kps).len, ptr);
+  *ret = (wasm_cv_features2d_detector_result_t) {
+    (wasm_cv_features2d_list_key_point_t) (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) },
+    (wasm_cv_features2d_own_mat_t) (wasm_cv_features2d_own_mat_t) { *((int32_t*) (ptr + 8)) },
+  };
+}
+
+void wasm_cv_features2d_method_brisk_detector_detect_and_compute(wasm_cv_features2d_borrow_brisk_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_detector_result_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[12];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_brisk_detector_detect_and_compute((self).__handle, (src).__handle, (mask).__handle, ptr);
+  *ret = (wasm_cv_features2d_detector_result_t) {
+    (wasm_cv_features2d_list_key_point_t) (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) },
+    (wasm_cv_features2d_own_mat_t) (wasm_cv_features2d_own_mat_t) { *((int32_t*) (ptr + 8)) },
+  };
+}
+
+wasm_cv_features2d_own_kaze_detector_t wasm_cv_features2d_constructor_kaze_detector(imports_string_t *name) {
+  int32_t ret = __wasm_import_wasm_cv_features2d_constructor_kaze_detector((uint8_t *) (*name).ptr, (*name).len);
+  return (wasm_cv_features2d_own_kaze_detector_t) { ret };
+}
+
+void wasm_cv_features2d_method_kaze_detector_close(wasm_cv_features2d_borrow_kaze_detector_t self) {
+  __wasm_import_wasm_cv_features2d_method_kaze_detector_close((self).__handle);
+}
+
+void wasm_cv_features2d_method_kaze_detector_detect(wasm_cv_features2d_borrow_kaze_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_list_key_point_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_kaze_detector_detect((self).__handle, (src).__handle, ptr);
+  *ret = (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+void wasm_cv_features2d_method_kaze_detector_compute(wasm_cv_features2d_borrow_kaze_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_list_key_point_t *kps, wasm_cv_features2d_detector_result_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[12];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_kaze_detector_compute((self).__handle, (src).__handle, (mask).__handle, (uint8_t *) (*kps).ptr, (*kps).len, ptr);
+  *ret = (wasm_cv_features2d_detector_result_t) {
+    (wasm_cv_features2d_list_key_point_t) (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) },
+    (wasm_cv_features2d_own_mat_t) (wasm_cv_features2d_own_mat_t) { *((int32_t*) (ptr + 8)) },
+  };
+}
+
+void wasm_cv_features2d_method_kaze_detector_detect_and_compute(wasm_cv_features2d_borrow_kaze_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_detector_result_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[12];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_kaze_detector_detect_and_compute((self).__handle, (src).__handle, (mask).__handle, ptr);
+  *ret = (wasm_cv_features2d_detector_result_t) {
+    (wasm_cv_features2d_list_key_point_t) (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) },
+    (wasm_cv_features2d_own_mat_t) (wasm_cv_features2d_own_mat_t) { *((int32_t*) (ptr + 8)) },
+  };
+}
+
+wasm_cv_features2d_own_orb_detector_t wasm_cv_features2d_constructor_orb_detector(imports_string_t *name) {
+  int32_t ret = __wasm_import_wasm_cv_features2d_constructor_orb_detector((uint8_t *) (*name).ptr, (*name).len);
+  return (wasm_cv_features2d_own_orb_detector_t) { ret };
+}
+
+void wasm_cv_features2d_method_orb_detector_close(wasm_cv_features2d_borrow_orb_detector_t self) {
+  __wasm_import_wasm_cv_features2d_method_orb_detector_close((self).__handle);
+}
+
+void wasm_cv_features2d_method_orb_detector_detect(wasm_cv_features2d_borrow_orb_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_list_key_point_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_orb_detector_detect((self).__handle, (src).__handle, ptr);
+  *ret = (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+void wasm_cv_features2d_method_orb_detector_compute(wasm_cv_features2d_borrow_orb_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_list_key_point_t *kps, wasm_cv_features2d_detector_result_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[12];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_orb_detector_compute((self).__handle, (src).__handle, (mask).__handle, (uint8_t *) (*kps).ptr, (*kps).len, ptr);
+  *ret = (wasm_cv_features2d_detector_result_t) {
+    (wasm_cv_features2d_list_key_point_t) (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) },
+    (wasm_cv_features2d_own_mat_t) (wasm_cv_features2d_own_mat_t) { *((int32_t*) (ptr + 8)) },
+  };
+}
+
+void wasm_cv_features2d_method_orb_detector_detect_and_compute(wasm_cv_features2d_borrow_orb_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_detector_result_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[12];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_orb_detector_detect_and_compute((self).__handle, (src).__handle, (mask).__handle, ptr);
+  *ret = (wasm_cv_features2d_detector_result_t) {
+    (wasm_cv_features2d_list_key_point_t) (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) },
+    (wasm_cv_features2d_own_mat_t) (wasm_cv_features2d_own_mat_t) { *((int32_t*) (ptr + 8)) },
+  };
+}
+
+wasm_cv_features2d_own_sift_detector_t wasm_cv_features2d_constructor_sift_detector(imports_string_t *name) {
+  int32_t ret = __wasm_import_wasm_cv_features2d_constructor_sift_detector((uint8_t *) (*name).ptr, (*name).len);
+  return (wasm_cv_features2d_own_sift_detector_t) { ret };
+}
+
+void wasm_cv_features2d_method_sift_detector_close(wasm_cv_features2d_borrow_sift_detector_t self) {
+  __wasm_import_wasm_cv_features2d_method_sift_detector_close((self).__handle);
+}
+
+void wasm_cv_features2d_method_sift_detector_detect(wasm_cv_features2d_borrow_sift_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_list_key_point_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_sift_detector_detect((self).__handle, (src).__handle, ptr);
+  *ret = (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+void wasm_cv_features2d_method_sift_detector_compute(wasm_cv_features2d_borrow_sift_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_list_key_point_t *kps, wasm_cv_features2d_detector_result_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[12];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_sift_detector_compute((self).__handle, (src).__handle, (mask).__handle, (uint8_t *) (*kps).ptr, (*kps).len, ptr);
+  *ret = (wasm_cv_features2d_detector_result_t) {
+    (wasm_cv_features2d_list_key_point_t) (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) },
+    (wasm_cv_features2d_own_mat_t) (wasm_cv_features2d_own_mat_t) { *((int32_t*) (ptr + 8)) },
+  };
+}
+
+void wasm_cv_features2d_method_sift_detector_detect_and_compute(wasm_cv_features2d_borrow_sift_detector_t self, wasm_cv_features2d_own_mat_t src, wasm_cv_features2d_own_mat_t mask, wasm_cv_features2d_detector_result_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[12];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_sift_detector_detect_and_compute((self).__handle, (src).__handle, (mask).__handle, ptr);
+  *ret = (wasm_cv_features2d_detector_result_t) {
+    (wasm_cv_features2d_list_key_point_t) (wasm_cv_features2d_list_key_point_t) { (wasm_cv_features2d_key_point_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) },
+    (wasm_cv_features2d_own_mat_t) (wasm_cv_features2d_own_mat_t) { *((int32_t*) (ptr + 8)) },
+  };
+}
+
+wasm_cv_features2d_own_bf_matcher_t wasm_cv_features2d_constructor_bf_matcher(imports_string_t *name) {
+  int32_t ret = __wasm_import_wasm_cv_features2d_constructor_bf_matcher((uint8_t *) (*name).ptr, (*name).len);
+  return (wasm_cv_features2d_own_bf_matcher_t) { ret };
+}
+
+void wasm_cv_features2d_method_bf_matcher_close(wasm_cv_features2d_borrow_bf_matcher_t self) {
+  __wasm_import_wasm_cv_features2d_method_bf_matcher_close((self).__handle);
+}
+
+void wasm_cv_features2d_method_bf_matcher_match(wasm_cv_features2d_borrow_bf_matcher_t self, wasm_cv_features2d_own_mat_t query, wasm_cv_features2d_own_mat_t train, wasm_cv_features2d_list_d_match_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_bf_matcher_match((self).__handle, (query).__handle, (train).__handle, ptr);
+  *ret = (wasm_cv_features2d_list_d_match_t) { (wasm_cv_features2d_d_match_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+void wasm_cv_features2d_method_bf_matcher_knn_match(wasm_cv_features2d_borrow_bf_matcher_t self, wasm_cv_features2d_own_mat_t query, wasm_cv_features2d_own_mat_t train, uint32_t k, wasm_cv_features2d_list_list_d_match_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_bf_matcher_knn_match((self).__handle, (query).__handle, (train).__handle, (int32_t) (k), ptr);
+  *ret = (wasm_cv_features2d_list_list_d_match_t) { (wasm_cv_features2d_list_d_match_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
+}
+
+wasm_cv_features2d_own_flann_based_matcher_t wasm_cv_features2d_constructor_flann_based_matcher(imports_string_t *name) {
+  int32_t ret = __wasm_import_wasm_cv_features2d_constructor_flann_based_matcher((uint8_t *) (*name).ptr, (*name).len);
+  return (wasm_cv_features2d_own_flann_based_matcher_t) { ret };
+}
+
+void wasm_cv_features2d_method_flann_based_matcher_close(wasm_cv_features2d_borrow_flann_based_matcher_t self) {
+  __wasm_import_wasm_cv_features2d_method_flann_based_matcher_close((self).__handle);
+}
+
+void wasm_cv_features2d_method_flann_based_matcher_knn_match(wasm_cv_features2d_borrow_flann_based_matcher_t self, wasm_cv_features2d_own_mat_t query, wasm_cv_features2d_own_mat_t train, uint32_t k, wasm_cv_features2d_list_list_d_match_t *ret) {
+  __attribute__((__aligned__(4)))
+  uint8_t ret_area[8];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_features2d_method_flann_based_matcher_knn_match((self).__handle, (query).__handle, (train).__handle, (int32_t) (k), ptr);
+  *ret = (wasm_cv_features2d_list_list_d_match_t) { (wasm_cv_features2d_list_d_match_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
 }
 
 __attribute__((__export_name__("wasm:cv/request#process")))
