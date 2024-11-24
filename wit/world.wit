@@ -2,13 +2,13 @@ package wasm:cv;
 /// wasmCV is a WebAssembly guest module interface for computer vision based on OpenCV.
 ///
 world imports {
-    import types;
-    import mat;
+	import types;
+	import mat;
 
-    import cv;
-    import dnn;
-    import objdetect;
-    import features2d;
+	import cv;
+	import dnn;
+	import objdetect;
+	import features2d;
 
-    export request;
+	export request;
 }

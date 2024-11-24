@@ -1,170 +1,170 @@
 interface types {
-    /// size is a 2-element integer vector.
-    /// It represents a width and height.
-    record size {
-        x: s32,
-        y: s32,
-    }
+	/// size is a 2-element integer vector.
+	/// It represents a width and height.
+	record size {
+		x: s32,
+		y: s32,
+	}
 
-    /// point is a 2-element integer vector.
-    /// It represents a x and y coordinate.
-    type point = size;
+	/// point is a 2-element integer vector.
+	/// It represents a x and y coordinate.
+	type point = size;
 
-    /// scalar is a 4-element floating point vector.
-    record scalar {
-        val1: f32,
-        val2: f32,
-        val3: f32,
-        val4: f32,
-    }
+	/// scalar is a 4-element floating point vector.
+	record scalar {
+		val1: f32,
+		val2: f32,
+		val3: f32,
+		val4: f32,
+	}
 
-    /// rect is a rectangle with integer coordinates.
-    /// It is represented by the top-left corner and the bottom-right corner.
-    record rect {
-        min: size,
-        max: size,
-    }
+	/// rect is a rectangle with integer coordinates.
+	/// It is represented by the top-left corner and the bottom-right corner.
+	record rect {
+		min: size,
+		max: size,
+	}
 
-    /// RGBA is a color with red, green, blue, and alpha channels.
-    record RGBA {
-        r: u8,
-        g: u8,
-        b: u8,
-        a: u8,
-    }
+	/// RGBA is a color with red, green, blue, and alpha channels.
+	record RGBA {
+		r: u8,
+		g: u8,
+		b: u8,
+		a: u8,
+	}
 
-    /// border-type is a type of border to add to an image.
-    enum border-type {
-        border-constant,
-        border-replicate,
-        border-reflect,
-        border-wrap,
-        border-reflect101,
-        border-transparent,
-        border-default,
-        border-isolated,
-    }
+	/// border-type is a type of border to add to an image.
+	enum border-type {
+		border-constant,
+		border-replicate,
+		border-reflect,
+		border-wrap,
+		border-reflect101,
+		border-transparent,
+		border-default,
+		border-isolated,
+	}
 
-    /// adaptive-threshold-type is a type of adaptive thresholding.
-    enum adaptive-threshold-type {
-        adaptive-threshold-mean,
-        adaptive-threshold-gaussian,
-    }
-    
-    /// threshold-type is a type of thresholding.
-    enum threshold-type {
-        threshold-binary,
-        threshold-binary-inv,
-        threshold-trunc,
-        threshold-to-zero,
-        threshold-to-zero-inv,
-        threshold-mask,
-        threshold-otsu,
-        tthreshold-triangle,
-    }
+	/// adaptive-threshold-type is a type of adaptive thresholding.
+	enum adaptive-threshold-type {
+		adaptive-threshold-mean,
+		adaptive-threshold-gaussian,
+	}
+	
+	/// threshold-type is a type of thresholding.
+	enum threshold-type {
+		threshold-binary,
+		threshold-binary-inv,
+		threshold-trunc,
+		threshold-to-zero,
+		threshold-to-zero-inv,
+		threshold-mask,
+		threshold-otsu,
+		tthreshold-triangle,
+	}
 
-    /// data-layout-type is a type of data layout.
-    enum data-layout-type {
-        data-layout-unknown,
-        data-layout-nd,
-        data-layout-nchw,
-        data-layout-ncdhw,
-        data-layout-nhwc,
-        data-layout-ndhwc,
-        data-layout-planar,
-    }
+	/// data-layout-type is a type of data layout.
+	enum data-layout-type {
+		data-layout-unknown,
+		data-layout-nd,
+		data-layout-nchw,
+		data-layout-ncdhw,
+		data-layout-nhwc,
+		data-layout-ndhwc,
+		data-layout-planar,
+	}
 
-    enum padding-mode-type {
-        padding-mode-null,
-        padding-mode-crop-center,
-        padding-mode-letterbox,
-    }
+	enum padding-mode-type {
+		padding-mode-null,
+		padding-mode-crop-center,
+		padding-mode-letterbox,
+	}
 
-    record blob-params {
-        scale-factor: f32,
-        size: size,
-        mean: scalar,
-        swap-RB: bool,
-        ddepth: u8,
-        data-layout: data-layout-type,
-        padding-mode: padding-mode-type,
-        border: scalar,
-    }
+	record blob-params {
+		scale-factor: f32,
+		size: size,
+		mean: scalar,
+		swap-RB: bool,
+		ddepth: u8,
+		data-layout: data-layout-type,
+		padding-mode: padding-mode-type,
+		border: scalar,
+	}
 
-    record mix-max-loc-result {
-        min-val: f32,
-        max-val: f32,
-        min-loc: size,
-        max-loc: size,
-    }
+	record mix-max-loc-result {
+		min-val: f32,
+		max-val: f32,
+		min-loc: size,
+		max-loc: size,
+	}
 
-    enum hershey-font-type {
-        hershey-font-simplex,
-        hershey-font-plain,
-        hershey-font-duplex,
-        hershey-font-complex,
-        hershey-font-triplex,
-        hershey-font-complex-small,
-        hershey-font-script-simplex,
-        hershey-font-script-complex,
-        hershey-font-italic,
-    }
+	enum hershey-font-type {
+		hershey-font-simplex,
+		hershey-font-plain,
+		hershey-font-duplex,
+		hershey-font-complex,
+		hershey-font-triplex,
+		hershey-font-complex-small,
+		hershey-font-script-simplex,
+		hershey-font-script-complex,
+		hershey-font-italic,
+	}
 
-    enum interpolation-type {
-        interpolation-nearest,
-        interpolation-linear,
-        interpolation-cubic,
-        interpolation-area,
-        interpolation-lanczos4,
-    }
+	enum interpolation-type {
+		interpolation-nearest,
+		interpolation-linear,
+		interpolation-cubic,
+		interpolation-area,
+		interpolation-lanczos4,
+	}
 
-    enum color-coversion-type {
-        color-BGR-to-BGRA,
-        color-RGB-to-RGBA,
-        color-BGRA-to-BGR,
-        color-RGBA-to-RGB,
-        color-BGR-to-RGBA,
-        color-RGB-to-BGRA,
-        color-RGBA-to-BGR,
-        color-BGRA-to-RGB,
-        color-BGR-to-RGB,
-        color-RGB-to-BGR,
-        color-BGRA-to-RGBA,
-        color-RGBA-to-BGRA,
-        color-BGR-to-gray,
-        color-RGB-to-gray,
-        color-gray-to-BGR,
-        color-gray-to-RGB,
-        color-gray-to-BGRA,
-        color-gray-to-RGBA,
-        color-BGRA-to-gray,
-        color-RGBA-to-gray,
-    }
+	enum color-coversion-type {
+		color-BGR-to-BGRA,
+		color-RGB-to-RGBA,
+		color-BGRA-to-BGR,
+		color-RGBA-to-RGB,
+		color-BGR-to-RGBA,
+		color-RGB-to-BGRA,
+		color-RGBA-to-BGR,
+		color-BGRA-to-RGB,
+		color-BGR-to-RGB,
+		color-RGB-to-BGR,
+		color-BGRA-to-RGBA,
+		color-RGBA-to-BGRA,
+		color-BGR-to-gray,
+		color-RGB-to-gray,
+		color-gray-to-BGR,
+		color-gray-to-RGB,
+		color-gray-to-BGRA,
+		color-gray-to-RGBA,
+		color-BGRA-to-gray,
+		color-RGBA-to-gray,
+	}
 
-    enum morph-shape {
-        morph-rect,
-        morph-cross,
-        morph-ellipse,
-    }
+	enum morph-shape {
+		morph-rect,
+		morph-cross,
+		morph-ellipse,
+	}
 
-    record key-point {
-        x: f32,
-        y: f32,
-        size: f32,
-        angle: f32,
-        response: f32,
-        octave: s32,
-        class-id: s32,
-    }
+	record key-point {
+		x: f32,
+		y: f32,
+		size: f32,
+		angle: f32,
+		response: f32,
+		octave: s32,
+		class-id: s32,
+	}
 
-    /// DMatch is data structure for matching keypoint descriptors.
-    ///
-    /// For further details, please see:
-    /// https://docs.opencv.org/4.x/d4/de0/classcv_1_1DMatch.html#a546ddb9a87898f06e510e015a6de596e
-    record d-match {
-	    query-idx: u32,
-	    train-idx: u32,
-	    img-idx:   u32,
-	    distance: f64,
-    }
+	/// DMatch is data structure for matching keypoint descriptors.
+	///
+	/// For further details, please see:
+	/// https://docs.opencv.org/4.x/d4/de0/classcv_1_1DMatch.html#a546ddb9a87898f06e510e015a6de596e
+	record d-match {
+		query-idx: u32,
+		train-idx: u32,
+		img-idx:   u32,
+		distance: f64,
+	}
 }
