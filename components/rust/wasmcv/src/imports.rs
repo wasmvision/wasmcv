@@ -4136,6 +4136,41 @@ pub mod wasm {
         }
       }
 
+      #[repr(u8)]
+      #[derive(Clone, Copy, Eq, Ord, PartialEq, PartialOrd)]
+      pub enum OrbScoreType {
+        OrbHarris,
+        OrbFast,
+      }
+      impl ::core::fmt::Debug for OrbScoreType {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          match self {
+            OrbScoreType::OrbHarris => {
+              f.debug_tuple("OrbScoreType::OrbHarris").finish()
+            }
+            OrbScoreType::OrbFast => {
+              f.debug_tuple("OrbScoreType::OrbFast").finish()
+            }
+          }
+        }
+      }
+
+      impl OrbScoreType{
+        #[doc(hidden)]
+        pub unsafe fn _lift(val: u8) -> OrbScoreType{
+          if !cfg!(debug_assertions) {
+            return ::core::mem::transmute(val);
+          }
+
+          match val {
+            0 => OrbScoreType::OrbHarris,
+            1 => OrbScoreType::OrbFast,
+
+            _ => panic!("invalid enum discriminant"),
+          }
+        }
+      }
+
       /// ORB-detector is a wrapper around the cv::ORB algorithm.
 
       #[derive(Debug)]
@@ -4226,6 +4261,76 @@ pub mod wasm {
             }
 
             drop(_handle);
+          }
+        }
+      }
+
+      #[repr(u8)]
+      #[derive(Clone, Copy, Eq, Ord, PartialEq, PartialOrd)]
+      pub enum NormType {
+        NormNone,
+        NoneInf,
+        NormL1,
+        NormNone2,
+        NormL2,
+        NormL2sqr,
+        NormHamming,
+        NormHamming2,
+        NormRelative,
+      }
+      impl ::core::fmt::Debug for NormType {
+        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+          match self {
+            NormType::NormNone => {
+              f.debug_tuple("NormType::NormNone").finish()
+            }
+            NormType::NoneInf => {
+              f.debug_tuple("NormType::NoneInf").finish()
+            }
+            NormType::NormL1 => {
+              f.debug_tuple("NormType::NormL1").finish()
+            }
+            NormType::NormNone2 => {
+              f.debug_tuple("NormType::NormNone2").finish()
+            }
+            NormType::NormL2 => {
+              f.debug_tuple("NormType::NormL2").finish()
+            }
+            NormType::NormL2sqr => {
+              f.debug_tuple("NormType::NormL2sqr").finish()
+            }
+            NormType::NormHamming => {
+              f.debug_tuple("NormType::NormHamming").finish()
+            }
+            NormType::NormHamming2 => {
+              f.debug_tuple("NormType::NormHamming2").finish()
+            }
+            NormType::NormRelative => {
+              f.debug_tuple("NormType::NormRelative").finish()
+            }
+          }
+        }
+      }
+
+      impl NormType{
+        #[doc(hidden)]
+        pub unsafe fn _lift(val: u8) -> NormType{
+          if !cfg!(debug_assertions) {
+            return ::core::mem::transmute(val);
+          }
+
+          match val {
+            0 => NormType::NormNone,
+            1 => NormType::NoneInf,
+            2 => NormType::NormL1,
+            3 => NormType::NormNone2,
+            4 => NormType::NormL2,
+            5 => NormType::NormL2sqr,
+            6 => NormType::NormHamming,
+            7 => NormType::NormHamming2,
+            8 => NormType::NormRelative,
+
+            _ => panic!("invalid enum discriminant"),
           }
         }
       }
@@ -4781,6 +4886,29 @@ pub mod wasm {
       }
       impl OrbDetector {
         #[allow(unused_unsafe, clippy::all)]
+        /// Returns a new ORB-detector.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/db/d95/classcv_1_1ORB.html
+        pub fn new_with_params(features: u32,scale: f32,levels: u32,edge_threshold: u32,first: u32,wtak: u32,score_type: OrbScoreType,patch_size: u32,fast_threshold: u32,) -> OrbDetector{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[static]ORB-detector.new-with-params"]
+              fn wit_import(_: i32, _: f32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: f32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import(_rt::as_i32(&features), _rt::as_f32(&scale), _rt::as_i32(&levels), _rt::as_i32(&edge_threshold), _rt::as_i32(&first), _rt::as_i32(&wtak), score_type.clone() as i32, _rt::as_i32(&patch_size), _rt::as_i32(&fast_threshold));
+            OrbDetector::from_handle(ret as u32)
+          }
+        }
+      }
+      impl OrbDetector {
+        #[allow(unused_unsafe, clippy::all)]
         /// Close the ORB-detector
         pub fn close(&self,){
           unsafe {
@@ -5061,6 +5189,29 @@ pub mod wasm {
             #[cfg(not(target_arch = "wasm32"))]
             fn wit_import(_: *mut u8, _: usize, ) -> i32{ unreachable!() }
             let ret = wit_import(ptr0.cast_mut(), len0);
+            BfMatcher::from_handle(ret as u32)
+          }
+        }
+      }
+      impl BfMatcher {
+        #[allow(unused_unsafe, clippy::all)]
+        /// Returns a new BF-matcher.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d3/da1/classcv_1_1BFMatcher.html#abe0bb11749b30d97f60d6ade665617bd
+        pub fn new_with_params(norm: NormType,cross_check: bool,) -> BfMatcher{
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/features2d")]
+            extern "C" {
+              #[link_name = "[static]BF-matcher.new-with-params"]
+              fn wit_import(_: i32, _: i32, ) -> i32;
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            fn wit_import(_: i32, _: i32, ) -> i32{ unreachable!() }
+            let ret = wit_import(norm.clone() as i32, match &cross_check { true => 1, false => 0 });
             BfMatcher::from_handle(ret as u32)
           }
         }
@@ -5568,8 +5719,8 @@ pub(crate) use __export_imports_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[link_section = "component-type:wit-bindgen:0.32.0:wasm:cv:imports:encoded world"]
 #[doc(hidden)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 10964] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xd6T\x01A\x02\x01A\"\
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 11331] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xc5W\x01A\x02\x01A\"\
 \x01B#\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\0\x04\0\x05point\x03\0\x01\x01r\x04\
 \x04val1v\x04val2v\x04val3v\x04val4v\x04\0\x06scalar\x03\0\x03\x01r\x02\x03min\x01\
 \x03max\x01\x04\0\x04rect\x03\0\x05\x01r\x04\x01r}\x01g}\x01b}\x01a}\x04\0\x04RG\
@@ -5745,51 +5896,57 @@ hod]face-recognizer-SF.feature\x01-\x01@\x03\x04self*\x05face1\x11\x05face2\x11\
 v\x04\0\x20[method]face-recognizer-SF.match\x01.\x01@\x04\x04self*\x05face1\x11\x05\
 face2\x11\x08distance\x0a\0v\x04\0,[method]face-recognizer-SF.match-with-params\x01\
 /\x03\0\x11wasm:cv/objdetect\x05\x16\x02\x03\0\0\x09key-point\x02\x03\0\0\x07d-m\
-atch\x01Ba\x02\x03\x02\x01\x0f\x04\0\x03mat\x03\0\0\x02\x03\x02\x01\x17\x04\0\x09\
+atch\x01Bi\x02\x03\x02\x01\x0f\x04\0\x03mat\x03\0\0\x02\x03\x02\x01\x17\x04\0\x09\
 key-point\x03\0\x02\x02\x03\x02\x01\x18\x04\0\x07d-match\x03\0\x04\x01p\x03\x01i\
 \x01\x01r\x02\x03kps\x06\x04desc\x07\x04\0\x0fdetector-result\x03\0\x08\x04\0\x0e\
 AKAZE-detector\x03\x01\x04\0\x0eBRISK-detector\x03\x01\x04\0\x0dKAZE-detector\x03\
-\x01\x04\0\x0cORB-detector\x03\x01\x04\0\x0dSIFT-detector\x03\x01\x04\0\x0aBF-ma\
-tcher\x03\x01\x04\0\x13flann-based-matcher\x03\x01\x01i\x0a\x01@\x01\x04names\0\x11\
-\x04\0\x1b[constructor]AKAZE-detector\x01\x12\x01h\x0a\x01@\x01\x04self\x13\x01\0\
-\x04\0\x1c[method]AKAZE-detector.close\x01\x14\x01@\x02\x04self\x13\x03src\x07\0\
-\x06\x04\0\x1d[method]AKAZE-detector.detect\x01\x15\x01@\x04\x04self\x13\x03src\x07\
-\x04mask\x07\x03kps\x06\0\x09\x04\0\x1e[method]AKAZE-detector.compute\x01\x16\x01\
-@\x03\x04self\x13\x03src\x07\x04mask\x07\0\x09\x04\0)[method]AKAZE-detector.dete\
-ct-and-compute\x01\x17\x01i\x0b\x01@\x01\x04names\0\x18\x04\0\x1b[constructor]BR\
-ISK-detector\x01\x19\x01h\x0b\x01@\x01\x04self\x1a\x01\0\x04\0\x1c[method]BRISK-\
-detector.close\x01\x1b\x01@\x02\x04self\x1a\x03src\x07\0\x06\x04\0\x1d[method]BR\
-ISK-detector.detect\x01\x1c\x01@\x04\x04self\x1a\x03src\x07\x04mask\x07\x03kps\x06\
-\0\x09\x04\0\x1e[method]BRISK-detector.compute\x01\x1d\x01@\x03\x04self\x1a\x03s\
-rc\x07\x04mask\x07\0\x09\x04\0)[method]BRISK-detector.detect-and-compute\x01\x1e\
-\x01i\x0c\x01@\x01\x04names\0\x1f\x04\0\x1a[constructor]KAZE-detector\x01\x20\x01\
-h\x0c\x01@\x01\x04self!\x01\0\x04\0\x1b[method]KAZE-detector.close\x01\"\x01@\x02\
-\x04self!\x03src\x07\0\x06\x04\0\x1c[method]KAZE-detector.detect\x01#\x01@\x04\x04\
-self!\x03src\x07\x04mask\x07\x03kps\x06\0\x09\x04\0\x1d[method]KAZE-detector.com\
-pute\x01$\x01@\x03\x04self!\x03src\x07\x04mask\x07\0\x09\x04\0([method]KAZE-dete\
-ctor.detect-and-compute\x01%\x01i\x0d\x01@\x01\x04names\0&\x04\0\x19[constructor\
-]ORB-detector\x01'\x01h\x0d\x01@\x01\x04self(\x01\0\x04\0\x1a[method]ORB-detecto\
-r.close\x01)\x01@\x02\x04self(\x03src\x07\0\x06\x04\0\x1b[method]ORB-detector.de\
-tect\x01*\x01@\x04\x04self(\x03src\x07\x04mask\x07\x03kps\x06\0\x09\x04\0\x1c[me\
-thod]ORB-detector.compute\x01+\x01@\x03\x04self(\x03src\x07\x04mask\x07\0\x09\x04\
-\0'[method]ORB-detector.detect-and-compute\x01,\x01i\x0e\x01@\x01\x04names\0-\x04\
-\0\x1a[constructor]SIFT-detector\x01.\x01h\x0e\x01@\x01\x04self/\x01\0\x04\0\x1b\
-[method]SIFT-detector.close\x010\x01@\x02\x04self/\x03src\x07\0\x06\x04\0\x1c[me\
-thod]SIFT-detector.detect\x011\x01@\x04\x04self/\x03src\x07\x04mask\x07\x03kps\x06\
-\0\x09\x04\0\x1d[method]SIFT-detector.compute\x012\x01@\x03\x04self/\x03src\x07\x04\
-mask\x07\0\x09\x04\0([method]SIFT-detector.detect-and-compute\x013\x01i\x0f\x01@\
-\x01\x04names\04\x04\0\x17[constructor]BF-matcher\x015\x01h\x0f\x01@\x01\x04self\
-6\x01\0\x04\0\x18[method]BF-matcher.close\x017\x01p\x05\x01@\x03\x04self6\x05que\
-ry\x07\x05train\x07\08\x04\0\x18[method]BF-matcher.match\x019\x01p8\x01@\x04\x04\
-self6\x05query\x07\x05train\x07\x01ky\0:\x04\0\x1c[method]BF-matcher.KNN-match\x01\
-;\x01i\x10\x01@\x01\x04names\0<\x04\0\x20[constructor]flann-based-matcher\x01=\x01\
-h\x10\x01@\x01\x04self>\x01\0\x04\0![method]flann-based-matcher.close\x01?\x01@\x04\
-\x04self>\x05query\x07\x05train\x07\x01ky\0:\x04\0%[method]flann-based-matcher.K\
-NN-match\x01@\x03\0\x12wasm:cv/features2d\x05\x19\x01B\x05\x02\x03\x02\x01\x0f\x04\
-\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05image\x02\0\x02\x04\0\x07process\x01\x03\x04\
-\0\x0fwasm:cv/request\x05\x1a\x04\0\x0fwasm:cv/imports\x04\0\x0b\x0d\x01\0\x07im\
-ports\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-component\x070.217.\
-0\x10wit-bindgen-rust\x060.32.0";
+\x01\x01m\x02\x0aORB-HARRIS\x08ORB-FAST\x04\0\x0eORB-score-type\x03\0\x0d\x04\0\x0c\
+ORB-detector\x03\x01\x04\0\x0dSIFT-detector\x03\x01\x01m\x09\x09NORM-NONE\x08NON\
+E-INF\x07NORM-L1\x0aNORM-NONE2\x07NORM-L2\x0aNORM-L2SQR\x0cNORM-HAMMING\x0dNORM-\
+HAMMING2\x0dNORM-RELATIVE\x04\0\x09norm-type\x03\0\x11\x04\0\x0aBF-matcher\x03\x01\
+\x04\0\x13flann-based-matcher\x03\x01\x01i\x0a\x01@\x01\x04names\0\x15\x04\0\x1b\
+[constructor]AKAZE-detector\x01\x16\x01h\x0a\x01@\x01\x04self\x17\x01\0\x04\0\x1c\
+[method]AKAZE-detector.close\x01\x18\x01@\x02\x04self\x17\x03src\x07\0\x06\x04\0\
+\x1d[method]AKAZE-detector.detect\x01\x19\x01@\x04\x04self\x17\x03src\x07\x04mas\
+k\x07\x03kps\x06\0\x09\x04\0\x1e[method]AKAZE-detector.compute\x01\x1a\x01@\x03\x04\
+self\x17\x03src\x07\x04mask\x07\0\x09\x04\0)[method]AKAZE-detector.detect-and-co\
+mpute\x01\x1b\x01i\x0b\x01@\x01\x04names\0\x1c\x04\0\x1b[constructor]BRISK-detec\
+tor\x01\x1d\x01h\x0b\x01@\x01\x04self\x1e\x01\0\x04\0\x1c[method]BRISK-detector.\
+close\x01\x1f\x01@\x02\x04self\x1e\x03src\x07\0\x06\x04\0\x1d[method]BRISK-detec\
+tor.detect\x01\x20\x01@\x04\x04self\x1e\x03src\x07\x04mask\x07\x03kps\x06\0\x09\x04\
+\0\x1e[method]BRISK-detector.compute\x01!\x01@\x03\x04self\x1e\x03src\x07\x04mas\
+k\x07\0\x09\x04\0)[method]BRISK-detector.detect-and-compute\x01\"\x01i\x0c\x01@\x01\
+\x04names\0#\x04\0\x1a[constructor]KAZE-detector\x01$\x01h\x0c\x01@\x01\x04self%\
+\x01\0\x04\0\x1b[method]KAZE-detector.close\x01&\x01@\x02\x04self%\x03src\x07\0\x06\
+\x04\0\x1c[method]KAZE-detector.detect\x01'\x01@\x04\x04self%\x03src\x07\x04mask\
+\x07\x03kps\x06\0\x09\x04\0\x1d[method]KAZE-detector.compute\x01(\x01@\x03\x04se\
+lf%\x03src\x07\x04mask\x07\0\x09\x04\0([method]KAZE-detector.detect-and-compute\x01\
+)\x01i\x0f\x01@\x01\x04names\0*\x04\0\x19[constructor]ORB-detector\x01+\x01@\x09\
+\x08featuresy\x05scalev\x06levelsy\x0eedge-thresholdy\x05firsty\x04WTAKy\x0ascor\
+e-type\x0e\x0apatch-sizey\x0efast-thresholdy\0*\x04\0$[static]ORB-detector.new-w\
+ith-params\x01,\x01h\x0f\x01@\x01\x04self-\x01\0\x04\0\x1a[method]ORB-detector.c\
+lose\x01.\x01@\x02\x04self-\x03src\x07\0\x06\x04\0\x1b[method]ORB-detector.detec\
+t\x01/\x01@\x04\x04self-\x03src\x07\x04mask\x07\x03kps\x06\0\x09\x04\0\x1c[metho\
+d]ORB-detector.compute\x010\x01@\x03\x04self-\x03src\x07\x04mask\x07\0\x09\x04\0\
+'[method]ORB-detector.detect-and-compute\x011\x01i\x10\x01@\x01\x04names\02\x04\0\
+\x1a[constructor]SIFT-detector\x013\x01h\x10\x01@\x01\x04self4\x01\0\x04\0\x1b[m\
+ethod]SIFT-detector.close\x015\x01@\x02\x04self4\x03src\x07\0\x06\x04\0\x1c[meth\
+od]SIFT-detector.detect\x016\x01@\x04\x04self4\x03src\x07\x04mask\x07\x03kps\x06\
+\0\x09\x04\0\x1d[method]SIFT-detector.compute\x017\x01@\x03\x04self4\x03src\x07\x04\
+mask\x07\0\x09\x04\0([method]SIFT-detector.detect-and-compute\x018\x01i\x13\x01@\
+\x01\x04names\09\x04\0\x17[constructor]BF-matcher\x01:\x01@\x02\x04norm\x12\x0bc\
+ross-check\x7f\09\x04\0\"[static]BF-matcher.new-with-params\x01;\x01h\x13\x01@\x01\
+\x04self<\x01\0\x04\0\x18[method]BF-matcher.close\x01=\x01p\x05\x01@\x03\x04self\
+<\x05query\x07\x05train\x07\0>\x04\0\x18[method]BF-matcher.match\x01?\x01p>\x01@\
+\x04\x04self<\x05query\x07\x05train\x07\x01ky\0\xc0\0\x04\0\x1c[method]BF-matche\
+r.KNN-match\x01A\x01i\x14\x01@\x01\x04names\0\xc2\0\x04\0\x20[constructor]flann-\
+based-matcher\x01C\x01h\x14\x01@\x01\x04self\xc4\0\x01\0\x04\0![method]flann-bas\
+ed-matcher.close\x01E\x01@\x04\x04self\xc4\0\x05query\x07\x05train\x07\x01ky\0\xc0\
+\0\x04\0%[method]flann-based-matcher.KNN-match\x01F\x03\0\x12wasm:cv/features2d\x05\
+\x19\x01B\x05\x02\x03\x02\x01\x0f\x04\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05imag\
+e\x02\0\x02\x04\0\x07process\x01\x03\x04\0\x0fwasm:cv/request\x05\x1a\x04\0\x0fw\
+asm:cv/imports\x04\0\x0b\x0d\x01\0\x07imports\x03\0\0\0G\x09producers\x01\x0cpro\
+cessed-by\x02\x0dwit-component\x070.217.0\x10wit-bindgen-rust\x060.32.0";
 
 #[inline(never)]
 #[doc(hidden)]
