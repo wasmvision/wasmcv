@@ -204,6 +204,11 @@ typedef struct {
   size_t len;
 } imports_list_s32_t;
 
+typedef struct {
+  wasm_cv_mat_own_mat_t *ptr;
+  size_t len;
+} wasm_cv_mat_list_own_mat_t;
+
 typedef wasm_cv_types_border_type_t wasm_cv_cv_border_type_t;
 
 typedef wasm_cv_types_size_t wasm_cv_cv_size_t;
@@ -374,6 +379,10 @@ extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_convert_to(wasm_cv_mat_borro
 extern wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_mattype(wasm_cv_mat_borrow_mat_t self);
 // Size returns an array with one element for each dimension containing the size of that dimension for the Mat.
 extern void wasm_cv_mat_method_mat_size(wasm_cv_mat_borrow_mat_t self, imports_list_u32_t *ret);
+// Step returns the number of bytes each matrix row occupies.
+extern uint32_t wasm_cv_mat_method_mat_step(wasm_cv_mat_borrow_mat_t self);
+// ElemSize returns the matrix element size in bytes.
+extern uint32_t wasm_cv_mat_method_mat_elemsize(wasm_cv_mat_borrow_mat_t self);
 // Empty returns true if the Mat is empty.
 extern bool wasm_cv_mat_method_mat_empty(wasm_cv_mat_borrow_mat_t self);
 // GetFloatAt returns the value at the specified row and column as a f32.
@@ -426,6 +435,19 @@ extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_col_range(wasm_cv_mat_borrow
 // For further details, please see:
 // https://docs.opencv.org/trunk/d2/de8/group__core__array.html#gab473bf2eb6d14ff97e89b355dac20707
 extern void wasm_cv_mat_method_mat_min_max_loc(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_mix_max_loc_result_t *ret);
+// col creates a matrix header for the specified matrix column.
+// The underlying data of the new matrix is shared with the original matrix.
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_col(wasm_cv_mat_borrow_mat_t self, uint32_t col);
+// row creates a matrix header for the specified matrix row.
+// The underlying data of the new matrix is shared with the original matrix.
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_row(wasm_cv_mat_borrow_mat_t self, uint32_t row);
+// Merge creates one multi-channel array out of several single-channel ones.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7d7b4d6c6ee504b30a20b1680029c7b4
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_merge(wasm_cv_mat_list_own_mat_t *mv);
+// zeros returns a zero array of the specified size and type.
+extern wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_zeros(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t mattype);
 
 // Imported Functions from `wasm:cv/cv`
 // drawing functions
@@ -564,6 +586,49 @@ extern wasm_cv_cv_own_mat_t wasm_cv_cv_estimate_affine2d(wasm_cv_cv_own_mat_t fr
 // For further details, please see:
 // https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#ga0203d9ee5fcd28d40dbc4a1ea4451983
 extern wasm_cv_cv_own_mat_t wasm_cv_cv_warp_affine(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t m, wasm_cv_cv_size_t *size);
+// get-rotation-matrix2d calculates an affine matrix of 2D rotation.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#gafbbc470ce83812914a70abfb604f4326
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_get_rotation_matrix2d(wasm_cv_cv_point_t *center, double angle, double scale);
+// add calculates the per-element sum of two arrays.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga10ac1bfb180e2cfda1701d06c24fdbd6
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_add(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t src2);
+// add-weighted calculates the weighted sum of two arrays.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gafafb2513349db3bcff51f54ee5592a19
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_add_weighted(wasm_cv_cv_own_mat_t src1, double alpha, wasm_cv_cv_own_mat_t src2, double beta, double gamma);
+// exp calculates the exponent of every array element.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga3e10108e2162c338f1b848af619f39e5
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_exp(wasm_cv_cv_own_mat_t src);
+// hconcat applies horizontal concatenation to given matrices.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaab5ceee39e0580f879df645a872c6bf7
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_hconcat(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t src2);
+// vconcat applies vertical concatenation to given matrices.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga744f53b69f6e4f12156cdde4e76aed27
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_vconcat(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t src2);
+// lut performs a look-up table transform of an array.
+// 
+// The function LUT fills the output array with values from the look-up table.
+// Indices of the entries are taken from the input array.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab55b8d062b7f5587720ede032d34156f
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_lut(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t wblut);
+// reduce-arg-max finds indices of max elements along provided axis.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf9695048355163da0
+extern wasm_cv_cv_own_mat_t wasm_cv_cv_reduce_arg_max(wasm_cv_cv_own_mat_t src, uint32_t axis, bool last_index);
 
 // Imported Functions from `wasm:cv/dnn`
 extern wasm_cv_dnn_own_layer_t wasm_cv_dnn_constructor_layer(void);
@@ -754,6 +819,8 @@ void imports_list_u8_free(imports_list_u8_t *ptr);
 void imports_list_f32_free(imports_list_f32_t *ptr);
 
 void imports_list_s32_free(imports_list_s32_t *ptr);
+
+void wasm_cv_mat_list_own_mat_free(wasm_cv_mat_list_own_mat_t *ptr);
 
 extern void wasm_cv_dnn_layer_drop_own(wasm_cv_dnn_own_layer_t handle);
 

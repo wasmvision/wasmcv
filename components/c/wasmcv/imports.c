@@ -38,6 +38,12 @@ extern int32_t __wasm_import_wasm_cv_mat_method_mat_mattype(int32_t);
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.size")))
 extern void __wasm_import_wasm_cv_mat_method_mat_size(int32_t, uint8_t *);
 
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.step")))
+extern int32_t __wasm_import_wasm_cv_mat_method_mat_step(int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.elemsize")))
+extern int32_t __wasm_import_wasm_cv_mat_method_mat_elemsize(int32_t);
+
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.empty")))
 extern int32_t __wasm_import_wasm_cv_mat_method_mat_empty(int32_t);
 
@@ -97,6 +103,18 @@ extern int32_t __wasm_import_wasm_cv_mat_method_mat_col_range(int32_t, int32_t, 
 
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.min-max-loc")))
 extern void __wasm_import_wasm_cv_mat_method_mat_min_max_loc(int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.col")))
+extern int32_t __wasm_import_wasm_cv_mat_method_mat_col(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.row")))
+extern int32_t __wasm_import_wasm_cv_mat_method_mat_row(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[static]mat.merge")))
+extern int32_t __wasm_import_wasm_cv_mat_static_mat_merge(uint8_t *, size_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[static]mat.zeros")))
+extern int32_t __wasm_import_wasm_cv_mat_static_mat_zeros(int32_t, int32_t, int32_t);
 
 // Imported Functions from `wasm:cv/cv`
 
@@ -168,6 +186,30 @@ extern int32_t __wasm_import_wasm_cv_cv_estimate_affine2d(int32_t, int32_t);
 
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("warp-affine")))
 extern int32_t __wasm_import_wasm_cv_cv_warp_affine(int32_t, int32_t, int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("get-rotation-matrix2d")))
+extern int32_t __wasm_import_wasm_cv_cv_get_rotation_matrix2d(int32_t, int32_t, double, double);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("add")))
+extern int32_t __wasm_import_wasm_cv_cv_add(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("add-weighted")))
+extern int32_t __wasm_import_wasm_cv_cv_add_weighted(int32_t, double, int32_t, double, double);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("exp")))
+extern int32_t __wasm_import_wasm_cv_cv_exp(int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("hconcat")))
+extern int32_t __wasm_import_wasm_cv_cv_hconcat(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("vconcat")))
+extern int32_t __wasm_import_wasm_cv_cv_vconcat(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("lut")))
+extern int32_t __wasm_import_wasm_cv_cv_lut(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("reduce-arg-max")))
+extern int32_t __wasm_import_wasm_cv_cv_reduce_arg_max(int32_t, int32_t, int32_t);
 
 // Imported Functions from `wasm:cv/dnn`
 
@@ -372,6 +414,16 @@ void imports_list_s32_free(imports_list_s32_t *ptr) {
   }
 }
 
+void wasm_cv_mat_list_own_mat_free(wasm_cv_mat_list_own_mat_t *ptr) {
+  size_t list_len = ptr->len;
+  if (list_len > 0) {
+    wasm_cv_mat_own_mat_t *list_ptr = ptr->ptr;
+    for (size_t i = 0; i < list_len; i++) {
+    }
+    free(list_ptr);
+  }
+}
+
 __attribute__((__import_module__("wasm:cv/dnn"), __import_name__("[resource-drop]layer")))
 extern void __wasm_import_wasm_cv_dnn_layer_drop(int32_t handle);
 
@@ -556,6 +608,16 @@ void wasm_cv_mat_method_mat_size(wasm_cv_mat_borrow_mat_t self, imports_list_u32
   *ret = (imports_list_u32_t) { (uint32_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + 4))) };
 }
 
+uint32_t wasm_cv_mat_method_mat_step(wasm_cv_mat_borrow_mat_t self) {
+  int32_t ret = __wasm_import_wasm_cv_mat_method_mat_step((self).__handle);
+  return (uint32_t) (ret);
+}
+
+uint32_t wasm_cv_mat_method_mat_elemsize(wasm_cv_mat_borrow_mat_t self) {
+  int32_t ret = __wasm_import_wasm_cv_mat_method_mat_elemsize((self).__handle);
+  return (uint32_t) (ret);
+}
+
 bool wasm_cv_mat_method_mat_empty(wasm_cv_mat_borrow_mat_t self) {
   int32_t ret = __wasm_import_wasm_cv_mat_method_mat_empty((self).__handle);
   return ret;
@@ -673,6 +735,26 @@ void wasm_cv_mat_method_mat_min_max_loc(wasm_cv_mat_borrow_mat_t self, wasm_cv_m
   };
 }
 
+wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_col(wasm_cv_mat_borrow_mat_t self, uint32_t col) {
+  int32_t ret = __wasm_import_wasm_cv_mat_method_mat_col((self).__handle, (int32_t) (col));
+  return (wasm_cv_mat_own_mat_t) { ret };
+}
+
+wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_row(wasm_cv_mat_borrow_mat_t self, uint32_t row) {
+  int32_t ret = __wasm_import_wasm_cv_mat_method_mat_row((self).__handle, (int32_t) (row));
+  return (wasm_cv_mat_own_mat_t) { ret };
+}
+
+wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_merge(wasm_cv_mat_list_own_mat_t *mv) {
+  int32_t ret = __wasm_import_wasm_cv_mat_static_mat_merge((uint8_t *) (*mv).ptr, (*mv).len);
+  return (wasm_cv_mat_own_mat_t) { ret };
+}
+
+wasm_cv_mat_own_mat_t wasm_cv_mat_static_mat_zeros(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t mattype) {
+  int32_t ret = __wasm_import_wasm_cv_mat_static_mat_zeros((int32_t) (cols), (int32_t) (rows), (int32_t) mattype);
+  return (wasm_cv_mat_own_mat_t) { ret };
+}
+
 void wasm_cv_cv_arrowed_line(wasm_cv_cv_borrow_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness) {
   __wasm_import_wasm_cv_cv_arrowed_line((img).__handle, (*point1).x, (*point1).y, (*point2).x, (*point2).y, (int32_t) ((*c).r), (int32_t) ((*c).g), (int32_t) ((*c).b), (int32_t) ((*c).a), (int32_t) (thickness));
 }
@@ -780,6 +862,46 @@ wasm_cv_cv_own_mat_t wasm_cv_cv_estimate_affine2d(wasm_cv_cv_own_mat_t frm, wasm
 
 wasm_cv_cv_own_mat_t wasm_cv_cv_warp_affine(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t m, wasm_cv_cv_size_t *size) {
   int32_t ret = __wasm_import_wasm_cv_cv_warp_affine((src).__handle, (m).__handle, (*size).x, (*size).y);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_get_rotation_matrix2d(wasm_cv_cv_point_t *center, double angle, double scale) {
+  int32_t ret = __wasm_import_wasm_cv_cv_get_rotation_matrix2d((*center).x, (*center).y, angle, scale);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_add(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t src2) {
+  int32_t ret = __wasm_import_wasm_cv_cv_add((src1).__handle, (src2).__handle);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_add_weighted(wasm_cv_cv_own_mat_t src1, double alpha, wasm_cv_cv_own_mat_t src2, double beta, double gamma) {
+  int32_t ret = __wasm_import_wasm_cv_cv_add_weighted((src1).__handle, alpha, (src2).__handle, beta, gamma);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_exp(wasm_cv_cv_own_mat_t src) {
+  int32_t ret = __wasm_import_wasm_cv_cv_exp((src).__handle);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_hconcat(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t src2) {
+  int32_t ret = __wasm_import_wasm_cv_cv_hconcat((src1).__handle, (src2).__handle);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_vconcat(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t src2) {
+  int32_t ret = __wasm_import_wasm_cv_cv_vconcat((src1).__handle, (src2).__handle);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_lut(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t wblut) {
+  int32_t ret = __wasm_import_wasm_cv_cv_lut((src).__handle, (wblut).__handle);
+  return (wasm_cv_cv_own_mat_t) { ret };
+}
+
+wasm_cv_cv_own_mat_t wasm_cv_cv_reduce_arg_max(wasm_cv_cv_own_mat_t src, uint32_t axis, bool last_index) {
+  int32_t ret = __wasm_import_wasm_cv_cv_reduce_arg_max((src).__handle, (int32_t) (axis), last_index);
   return (wasm_cv_cv_own_mat_t) { ret };
 }
 
