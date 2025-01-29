@@ -1,6 +1,6 @@
 
 generate-go:
-	wit-bindgen-go generate --out ./components/tinygo -w imports -p wasmcv.org ./wit/
+	wit-bindgen-go generate --out ./components/tinygo -w imports -p wasmcv.org -cm go.bytecodealliance.org/cm ./wit
 
 generate-rust:
 	wit-bindgen rust --out-dir ./components/rust/wasmcv/src -w imports ./wit/
