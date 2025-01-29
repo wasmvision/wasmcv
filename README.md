@@ -202,7 +202,7 @@ https://github.com/bytecodealliance/go-modules
 ### TinyGo
 
 ```shell
-wit-bindgen-go generate --out ./components/tinygo -w imports -p wasmcv.org ./wit/
+wit-bindgen-go generate --out ./components/tinygo -w imports -p wasmcv.org ./wit
 ```
 
 Note that the TinyGo bindings are a git submodule. When regenerating the submodule must be updated in order to update the separate Go package repo.
@@ -210,12 +210,11 @@ Note that the TinyGo bindings are a git submodule. When regenerating the submodu
 ### Rust
 
 ```shell
-wit-bindgen rust --out-dir ./components/rust/wasmcv/src -w imports ./wit/
+wit-bindgen rust --out-dir ./components/rust/wasmcv/src -w imports ./wit
 ```
 
 ### C
 
 ```shell
-wit-bindgen c --out-dir ./components/c/wasmcv/ -w imports ./wit/
+wit-bindgen c --out-dir ./components/c/wasmcv/ -w imports ./wit
 ```
-
