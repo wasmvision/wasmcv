@@ -5,8 +5,8 @@ go 1.23.0
 require (
 	github.com/orsinium-labs/wypes v0.3.0
 	github.com/subeshb1/wasm-go-image-to-ascii v0.0.0-20200725121413-d828986df340
-	github.com/tetratelabs/wazero v1.8.1
-	gocv.io/x/gocv v0.39.0
+	github.com/tetratelabs/wazero v1.8.2
+	gocv.io/x/gocv v0.40.0
 )
 
 require (

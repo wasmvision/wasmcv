@@ -21,5 +21,3 @@ func process(image mat.Mat) mat.Mat {
 
 	return image
 }
-
-func main() {}
