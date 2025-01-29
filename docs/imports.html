@@ -8,6 +8,7 @@
 <li>interface <a href="#wasm_cv_cv"><code>wasm:cv/cv</code></a></li>
 <li>interface <a href="#wasm_cv_dnn"><code>wasm:cv/dnn</code></a></li>
 <li>interface <a href="#wasm_cv_objdetect"><code>wasm:cv/objdetect</code></a></li>
+<li>interface <a href="#wasm_cv_features2d"><code>wasm:cv/features2d</code></a></li>
 </ul>
 </li>
 <li>Exports:
@@ -182,6 +183,28 @@ It is represented by the top-left corner and the bottom-right corner.</p>
 <li><a id="morph_shape.morph_cross"></a><code>morph-cross</code></li>
 <li><a id="morph_shape.morph_ellipse"></a><code>morph-ellipse</code></li>
 </ul>
+<h4><a id="key_point"></a><code>record key-point</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="key_point.x"></a><code>x</code>: <code>f32</code></li>
+<li><a id="key_point.y"></a><code>y</code>: <code>f32</code></li>
+<li><a id="key_point.size"></a><a href="#size"><code>size</code></a>: <code>f32</code></li>
+<li><a id="key_point.angle"></a><code>angle</code>: <code>f32</code></li>
+<li><a id="key_point.response"></a><code>response</code>: <code>f32</code></li>
+<li><a id="key_point.octave"></a><code>octave</code>: <code>s32</code></li>
+<li><a id="key_point.class_id"></a><code>class-id</code>: <code>s32</code></li>
+</ul>
+<h4><a id="d_match"></a><code>record d-match</code></h4>
+<p>DMatch is data structure for matching keypoint descriptors.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d4/de0/classcv_1_1DMatch.html#a546ddb9a87898f06e510e015a6de596e</p>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="d_match.query_idx"></a><code>query-idx</code>: <code>u32</code></li>
+<li><a id="d_match.train_idx"></a><code>train-idx</code>: <code>u32</code></li>
+<li><a id="d_match.img_idx"></a><code>img-idx</code>: <code>u32</code></li>
+<li><a id="d_match.distance"></a><code>distance</code>: <code>f64</code></li>
+</ul>
 <h2><a id="wasm_cv_mat"></a>Import interface wasm:cv/mat</h2>
 <p>mat resource is a matrix of bytes, wrapper around the cv::Mat type.</p>
 <hr />
@@ -284,6 +307,17 @@ OpenCV Mat object.</p>
 <li><a id="method_mat_copy_to.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
 <li><a id="method_mat_copy_to.dst"></a><code>dst</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
 </ul>
+<h4><a id="method_mat_convert_to"></a><code>[method]mat.convert-to: func</code></h4>
+<p>ConvertTo converts Mat into destination Mat.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_convert_to.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_convert_to.mattype"></a><a href="#mattype"><code>mattype</code></a>: <a href="#mattype"><a href="#mattype"><code>mattype</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_convert_to.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
 <h4><a id="method_mat_mattype"></a><code>[method]mat.mattype: func</code></h4>
 <p>MatType returns the type of the Mat.</p>
 <h5>Params</h5>
@@ -303,6 +337,26 @@ OpenCV Mat object.</p>
 <h5>Return values</h5>
 <ul>
 <li><a id="method_mat_size.0"></a> list&lt;<code>u32</code>&gt;</li>
+</ul>
+<h4><a id="method_mat_step"></a><code>[method]mat.step: func</code></h4>
+<p>Step returns the number of bytes each matrix row occupies.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_step.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_step.0"></a> <code>u32</code></li>
+</ul>
+<h4><a id="method_mat_elemsize"></a><code>[method]mat.elemsize: func</code></h4>
+<p>ElemSize returns the matrix element size in bytes.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_elemsize.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_elemsize.0"></a> <code>u32</code></li>
 </ul>
 <h4><a id="method_mat_empty"></a><code>[method]mat.empty: func</code></h4>
 <p>Empty returns true if the Mat is empty.</p>
@@ -535,6 +589,54 @@ https://docs.opencv.org/trunk/d2/de8/group__core__array.html#gab473bf2eb6d14ff97
 <h5>Return values</h5>
 <ul>
 <li><a id="method_mat_min_max_loc.0"></a> <a href="#mix_max_loc_result"><a href="#mix_max_loc_result"><code>mix-max-loc-result</code></a></a></li>
+</ul>
+<h4><a id="method_mat_col"></a><code>[method]mat.col: func</code></h4>
+<p>col creates a matrix header for the specified matrix column.
+The underlying data of the new matrix is shared with the original matrix.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_col.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_col.col"></a><code>col</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_col.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_mat_row"></a><code>[method]mat.row: func</code></h4>
+<p>row creates a matrix header for the specified matrix row.
+The underlying data of the new matrix is shared with the original matrix.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_row.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_row.row"></a><code>row</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_row.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="static_mat_merge"></a><code>[static]mat.merge: func</code></h4>
+<p>Merge creates one multi-channel array out of several single-channel ones.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7d7b4d6c6ee504b30a20b1680029c7b4</p>
+<h5>Params</h5>
+<ul>
+<li><a id="static_mat_merge.mv"></a><code>mv</code>: list&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="static_mat_merge.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="static_mat_zeros"></a><code>[static]mat.zeros: func</code></h4>
+<p>zeros returns a zero array of the specified size and type.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="static_mat_zeros.cols"></a><code>cols</code>: <code>u32</code></li>
+<li><a id="static_mat_zeros.rows"></a><code>rows</code>: <code>u32</code></li>
+<li><a id="static_mat_zeros.mattype"></a><a href="#mattype"><code>mattype</code></a>: <a href="#mattype"><a href="#mattype"><code>mattype</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="static_mat_zeros.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
 </ul>
 <h2><a id="wasm_cv_cv"></a>Import interface wasm:cv/cv</h2>
 <hr />
@@ -889,6 +991,143 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cd
 <h5>Return values</h5>
 <ul>
 <li><a id="transpose_nd.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="estimate_affine2d"></a><code>estimate-affine2d: func</code></h4>
+<p>estimate-affine2d computes an optimal affine transformation between two 2D point sets.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.0.0/d9/d0c/group__calib3d.html#ga27865b1d26bac9ce91efaee83e94d4dd</p>
+<h5>Params</h5>
+<ul>
+<li><a id="estimate_affine2d.frm"></a><code>frm</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="estimate_affine2d.to"></a><code>to</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="estimate_affine2d.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="warp_affine"></a><code>warp-affine: func</code></h4>
+<p>warp-affine applies an affine transformation to an image.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#ga0203d9ee5fcd28d40dbc4a1ea4451983</p>
+<h5>Params</h5>
+<ul>
+<li><a id="warp_affine.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="warp_affine.m"></a><code>m</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="warp_affine.size"></a><a href="#size"><code>size</code></a>: <a href="#size"><a href="#size"><code>size</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="warp_affine.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="get_rotation_matrix2d"></a><code>get-rotation-matrix2d: func</code></h4>
+<p>get-rotation-matrix2d calculates an affine matrix of 2D rotation.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#gafbbc470ce83812914a70abfb604f4326</p>
+<h5>Params</h5>
+<ul>
+<li><a id="get_rotation_matrix2d.center"></a><code>center</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
+<li><a id="get_rotation_matrix2d.angle"></a><code>angle</code>: <code>f64</code></li>
+<li><a id="get_rotation_matrix2d.scale"></a><code>scale</code>: <code>f64</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="get_rotation_matrix2d.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="add"></a><code>add: func</code></h4>
+<p>add calculates the per-element sum of two arrays.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga10ac1bfb180e2cfda1701d06c24fdbd6</p>
+<h5>Params</h5>
+<ul>
+<li><a id="add.src1"></a><code>src1</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="add.src2"></a><code>src2</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="add.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="add_weighted"></a><code>add-weighted: func</code></h4>
+<p>add-weighted calculates the weighted sum of two arrays.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gafafb2513349db3bcff51f54ee5592a19</p>
+<h5>Params</h5>
+<ul>
+<li><a id="add_weighted.src1"></a><code>src1</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="add_weighted.alpha"></a><code>alpha</code>: <code>f64</code></li>
+<li><a id="add_weighted.src2"></a><code>src2</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="add_weighted.beta"></a><code>beta</code>: <code>f64</code></li>
+<li><a id="add_weighted.gamma"></a><code>gamma</code>: <code>f64</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="add_weighted.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="exp"></a><code>exp: func</code></h4>
+<p>exp calculates the exponent of every array element.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga3e10108e2162c338f1b848af619f39e5</p>
+<h5>Params</h5>
+<ul>
+<li><a id="exp.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="exp.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="hconcat"></a><code>hconcat: func</code></h4>
+<p>hconcat applies horizontal concatenation to given matrices.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaab5ceee39e0580f879df645a872c6bf7</p>
+<h5>Params</h5>
+<ul>
+<li><a id="hconcat.src1"></a><code>src1</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="hconcat.src2"></a><code>src2</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="hconcat.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="vconcat"></a><code>vconcat: func</code></h4>
+<p>vconcat applies vertical concatenation to given matrices.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga744f53b69f6e4f12156cdde4e76aed27</p>
+<h5>Params</h5>
+<ul>
+<li><a id="vconcat.src1"></a><code>src1</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="vconcat.src2"></a><code>src2</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="vconcat.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="lut"></a><code>lut: func</code></h4>
+<p>lut performs a look-up table transform of an array.</p>
+<p>The function LUT fills the output array with values from the look-up table.
+Indices of the entries are taken from the input array.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab55b8d062b7f5587720ede032d34156f</p>
+<h5>Params</h5>
+<ul>
+<li><a id="lut.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="lut.wblut"></a><code>wblut</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="lut.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="reduce_arg_max"></a><code>reduce-arg-max: func</code></h4>
+<p>reduce-arg-max finds indices of max elements along provided axis.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf9695048355163da0</p>
+<h5>Params</h5>
+<ul>
+<li><a id="reduce_arg_max.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="reduce_arg_max.axis"></a><code>axis</code>: <code>u32</code></li>
+<li><a id="reduce_arg_max.last_index"></a><code>last-index</code>: <code>bool</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="reduce_arg_max.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
 </ul>
 <h2><a id="wasm_cv_dnn"></a>Import interface wasm:cv/dnn</h2>
 <hr />
@@ -1475,6 +1714,472 @@ https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e6
 <h5>Return values</h5>
 <ul>
 <li><a id="method_face_recognizer_sf_match_with_params.0"></a> <code>f32</code></li>
+</ul>
+<h2><a id="wasm_cv_features2d"></a>Import interface wasm:cv/features2d</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="mat"></a><code>type mat</code></h4>
+<p><a href="#mat"><a href="#mat"><code>mat</code></a></a></p>
+<p>
+#### <a id="key_point"></a>`type key-point`
+[`key-point`](#key_point)
+<p>
+#### <a id="d_match"></a>`type d-match`
+[`d-match`](#d_match)
+<p>
+#### <a id="detector_result"></a>`record detector-result`
+<p>detector-result returns the keypoints and descripts for a detector.</p>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="detector_result.kps"></a><code>kps</code>: list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+<li><a id="detector_result.desc"></a><code>desc</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h4><a id="akaze_detector"></a><code>resource AKAZE-detector</code></h4>
+<p>AKAZE-detector is a wrapper around the cv::AKAZE algorithm.</p>
+<h4><a id="brisk_detector"></a><code>resource BRISK-detector</code></h4>
+<p>BRISK-detector is a wrapper around the cv::BRISK algorithm.</p>
+<h4><a id="kaze_detector"></a><code>resource KAZE-detector</code></h4>
+<p>KAZE-detector is a wrapper around the cv::KAZE algorithm.</p>
+<h4><a id="orb_score_type"></a><code>enum ORB-score-type</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="orb_score_type.orb_harris"></a><code>ORB-HARRIS</code></li>
+<li><a id="orb_score_type.orb_fast"></a><code>ORB-FAST</code></li>
+</ul>
+<h4><a id="orb_detector"></a><code>resource ORB-detector</code></h4>
+<p>ORB-detector is a wrapper around the cv::ORB algorithm.</p>
+<h4><a id="sift_detector"></a><code>resource SIFT-detector</code></h4>
+<p>SIFT-detector is a wrapper around the cv::SIFT algorithm.</p>
+<h4><a id="norm_type"></a><code>enum norm-type</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="norm_type.norm_none"></a><code>NORM-NONE</code></li>
+<li><a id="norm_type.none_inf"></a><code>NONE-INF</code></li>
+<li><a id="norm_type.norm_l1"></a><code>NORM-L1</code></li>
+<li><a id="norm_type.norm_none2"></a><code>NORM-NONE2</code></li>
+<li><a id="norm_type.norm_l2"></a><code>NORM-L2</code></li>
+<li><a id="norm_type.norm_l2sqr"></a><code>NORM-L2SQR</code></li>
+<li><a id="norm_type.norm_hamming"></a><code>NORM-HAMMING</code></li>
+<li><a id="norm_type.norm_hamming2"></a><code>NORM-HAMMING2</code></li>
+<li><a id="norm_type.norm_relative"></a><code>NORM-RELATIVE</code></li>
+</ul>
+<h4><a id="bf_matcher"></a><code>resource BF-matcher</code></h4>
+<p>BF-matcher is a wrapper around the cv::BFMatcher algorithm.</p>
+<h4><a id="flann_based_matcher"></a><code>resource flann-based-matcher</code></h4>
+<h2>Flann-based-matcher is a wrapper around the cv::BFMatcher algorithm.</h2>
+<h3>Functions</h3>
+<h4><a id="constructor_akaze_detector"></a><code>[constructor]AKAZE-detector: func</code></h4>
+<p>Returns a new akaze-detector.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d8/d30/classcv_1_1AKAZE.html</p>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_akaze_detector.name"></a><code>name</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_akaze_detector.0"></a> own&lt;<a href="#akaze_detector"><a href="#akaze_detector"><code>AKAZE-detector</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_akaze_detector_close"></a><code>[method]AKAZE-detector.close: func</code></h4>
+<p>Close the akaze-detector</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_akaze_detector_close.self"></a><code>self</code>: borrow&lt;<a href="#akaze_detector"><a href="#akaze_detector"><code>AKAZE-detector</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_akaze_detector_detect"></a><code>[method]AKAZE-detector.detect: func</code></h4>
+<p>Detect keypoints in an image using AKAZE.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_akaze_detector_detect.self"></a><code>self</code>: borrow&lt;<a href="#akaze_detector"><a href="#akaze_detector"><code>AKAZE-detector</code></a></a>&gt;</li>
+<li><a id="method_akaze_detector_detect.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_akaze_detector_detect.0"></a> list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_akaze_detector_compute"></a><code>[method]AKAZE-detector.compute: func</code></h4>
+<p>Compute keypoints in an image using AKAZE.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_akaze_detector_compute.self"></a><code>self</code>: borrow&lt;<a href="#akaze_detector"><a href="#akaze_detector"><code>AKAZE-detector</code></a></a>&gt;</li>
+<li><a id="method_akaze_detector_compute.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_akaze_detector_compute.mask"></a><code>mask</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_akaze_detector_compute.kps"></a><code>kps</code>: list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_akaze_detector_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+</ul>
+<h4><a id="method_akaze_detector_detect_and_compute"></a><code>[method]AKAZE-detector.detect-and-compute: func</code></h4>
+<p>DetectAndCompute keypoints and compute in an image using AKAZE.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_akaze_detector_detect_and_compute.self"></a><code>self</code>: borrow&lt;<a href="#akaze_detector"><a href="#akaze_detector"><code>AKAZE-detector</code></a></a>&gt;</li>
+<li><a id="method_akaze_detector_detect_and_compute.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_akaze_detector_detect_and_compute.mask"></a><code>mask</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_akaze_detector_detect_and_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+</ul>
+<h4><a id="constructor_brisk_detector"></a><code>[constructor]BRISK-detector: func</code></h4>
+<p>Returns a new BRISK-detector.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/de/dbf/classcv_1_1BRISK.html</p>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_brisk_detector.name"></a><code>name</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_brisk_detector.0"></a> own&lt;<a href="#brisk_detector"><a href="#brisk_detector"><code>BRISK-detector</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_brisk_detector_close"></a><code>[method]BRISK-detector.close: func</code></h4>
+<p>Close the BRISK-detector</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_brisk_detector_close.self"></a><code>self</code>: borrow&lt;<a href="#brisk_detector"><a href="#brisk_detector"><code>BRISK-detector</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_brisk_detector_detect"></a><code>[method]BRISK-detector.detect: func</code></h4>
+<p>Detect keypoints in an image using BRISK.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_brisk_detector_detect.self"></a><code>self</code>: borrow&lt;<a href="#brisk_detector"><a href="#brisk_detector"><code>BRISK-detector</code></a></a>&gt;</li>
+<li><a id="method_brisk_detector_detect.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_brisk_detector_detect.0"></a> list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_brisk_detector_compute"></a><code>[method]BRISK-detector.compute: func</code></h4>
+<p>Compute keypoints in an image using BRISK.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_brisk_detector_compute.self"></a><code>self</code>: borrow&lt;<a href="#brisk_detector"><a href="#brisk_detector"><code>BRISK-detector</code></a></a>&gt;</li>
+<li><a id="method_brisk_detector_compute.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_brisk_detector_compute.mask"></a><code>mask</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_brisk_detector_compute.kps"></a><code>kps</code>: list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_brisk_detector_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+</ul>
+<h4><a id="method_brisk_detector_detect_and_compute"></a><code>[method]BRISK-detector.detect-and-compute: func</code></h4>
+<p>DetectAndCompute keypoints and compute in an image using BRISK.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_brisk_detector_detect_and_compute.self"></a><code>self</code>: borrow&lt;<a href="#brisk_detector"><a href="#brisk_detector"><code>BRISK-detector</code></a></a>&gt;</li>
+<li><a id="method_brisk_detector_detect_and_compute.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_brisk_detector_detect_and_compute.mask"></a><code>mask</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_brisk_detector_detect_and_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+</ul>
+<h4><a id="constructor_kaze_detector"></a><code>[constructor]KAZE-detector: func</code></h4>
+<p>Returns a new KAZE-detector.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d3/d61/classcv_1_1KAZE.html</p>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_kaze_detector.name"></a><code>name</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_kaze_detector.0"></a> own&lt;<a href="#kaze_detector"><a href="#kaze_detector"><code>KAZE-detector</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_kaze_detector_close"></a><code>[method]KAZE-detector.close: func</code></h4>
+<p>Close the KAZE-detector</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_kaze_detector_close.self"></a><code>self</code>: borrow&lt;<a href="#kaze_detector"><a href="#kaze_detector"><code>KAZE-detector</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_kaze_detector_detect"></a><code>[method]KAZE-detector.detect: func</code></h4>
+<p>Detect keypoints in an image using KAZE.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_kaze_detector_detect.self"></a><code>self</code>: borrow&lt;<a href="#kaze_detector"><a href="#kaze_detector"><code>KAZE-detector</code></a></a>&gt;</li>
+<li><a id="method_kaze_detector_detect.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_kaze_detector_detect.0"></a> list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_kaze_detector_compute"></a><code>[method]KAZE-detector.compute: func</code></h4>
+<p>Compute keypoints in an image using KAZE.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_kaze_detector_compute.self"></a><code>self</code>: borrow&lt;<a href="#kaze_detector"><a href="#kaze_detector"><code>KAZE-detector</code></a></a>&gt;</li>
+<li><a id="method_kaze_detector_compute.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_kaze_detector_compute.mask"></a><code>mask</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_kaze_detector_compute.kps"></a><code>kps</code>: list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_kaze_detector_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+</ul>
+<h4><a id="method_kaze_detector_detect_and_compute"></a><code>[method]KAZE-detector.detect-and-compute: func</code></h4>
+<p>DetectAndCompute keypoints and compute in an image using KAZE.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_kaze_detector_detect_and_compute.self"></a><code>self</code>: borrow&lt;<a href="#kaze_detector"><a href="#kaze_detector"><code>KAZE-detector</code></a></a>&gt;</li>
+<li><a id="method_kaze_detector_detect_and_compute.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_kaze_detector_detect_and_compute.mask"></a><code>mask</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_kaze_detector_detect_and_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+</ul>
+<h4><a id="constructor_orb_detector"></a><code>[constructor]ORB-detector: func</code></h4>
+<p>Returns a new ORB-detector.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/db/d95/classcv_1_1ORB.html</p>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_orb_detector.name"></a><code>name</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_orb_detector.0"></a> own&lt;<a href="#orb_detector"><a href="#orb_detector"><code>ORB-detector</code></a></a>&gt;</li>
+</ul>
+<h4><a id="static_orb_detector_new_with_params"></a><code>[static]ORB-detector.new-with-params: func</code></h4>
+<p>Returns a new ORB-detector.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/db/d95/classcv_1_1ORB.html</p>
+<h5>Params</h5>
+<ul>
+<li><a id="static_orb_detector_new_with_params.features"></a><code>features</code>: <code>u32</code></li>
+<li><a id="static_orb_detector_new_with_params.scale"></a><code>scale</code>: <code>f32</code></li>
+<li><a id="static_orb_detector_new_with_params.levels"></a><code>levels</code>: <code>u32</code></li>
+<li><a id="static_orb_detector_new_with_params.edge_threshold"></a><code>edge-threshold</code>: <code>u32</code></li>
+<li><a id="static_orb_detector_new_with_params.first"></a><code>first</code>: <code>u32</code></li>
+<li><a id="static_orb_detector_new_with_params.wtak"></a><code>WTAK</code>: <code>u32</code></li>
+<li><a id="static_orb_detector_new_with_params.score_type"></a><code>score-type</code>: <a href="#orb_score_type"><a href="#orb_score_type"><code>ORB-score-type</code></a></a></li>
+<li><a id="static_orb_detector_new_with_params.patch_size"></a><code>patch-size</code>: <code>u32</code></li>
+<li><a id="static_orb_detector_new_with_params.fast_threshold"></a><code>fast-threshold</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="static_orb_detector_new_with_params.0"></a> own&lt;<a href="#orb_detector"><a href="#orb_detector"><code>ORB-detector</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_orb_detector_close"></a><code>[method]ORB-detector.close: func</code></h4>
+<p>Close the ORB-detector</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_orb_detector_close.self"></a><code>self</code>: borrow&lt;<a href="#orb_detector"><a href="#orb_detector"><code>ORB-detector</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_orb_detector_detect"></a><code>[method]ORB-detector.detect: func</code></h4>
+<p>Detect keypoints in an image using ORB.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_orb_detector_detect.self"></a><code>self</code>: borrow&lt;<a href="#orb_detector"><a href="#orb_detector"><code>ORB-detector</code></a></a>&gt;</li>
+<li><a id="method_orb_detector_detect.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_orb_detector_detect.0"></a> list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_orb_detector_compute"></a><code>[method]ORB-detector.compute: func</code></h4>
+<p>Compute keypoints in an image using ORB.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_orb_detector_compute.self"></a><code>self</code>: borrow&lt;<a href="#orb_detector"><a href="#orb_detector"><code>ORB-detector</code></a></a>&gt;</li>
+<li><a id="method_orb_detector_compute.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_orb_detector_compute.mask"></a><code>mask</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_orb_detector_compute.kps"></a><code>kps</code>: list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_orb_detector_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+</ul>
+<h4><a id="method_orb_detector_detect_and_compute"></a><code>[method]ORB-detector.detect-and-compute: func</code></h4>
+<p>DetectAndCompute keypoints and compute in an image using ORB.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_orb_detector_detect_and_compute.self"></a><code>self</code>: borrow&lt;<a href="#orb_detector"><a href="#orb_detector"><code>ORB-detector</code></a></a>&gt;</li>
+<li><a id="method_orb_detector_detect_and_compute.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_orb_detector_detect_and_compute.mask"></a><code>mask</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_orb_detector_detect_and_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+</ul>
+<h4><a id="constructor_sift_detector"></a><code>[constructor]SIFT-detector: func</code></h4>
+<p>Returns a new SIFT-detector.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d7/d60/classcv_1_1SIFT.html</p>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_sift_detector.name"></a><code>name</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_sift_detector.0"></a> own&lt;<a href="#sift_detector"><a href="#sift_detector"><code>SIFT-detector</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_sift_detector_close"></a><code>[method]SIFT-detector.close: func</code></h4>
+<p>Close the SIFT-detector</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_sift_detector_close.self"></a><code>self</code>: borrow&lt;<a href="#sift_detector"><a href="#sift_detector"><code>SIFT-detector</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_sift_detector_detect"></a><code>[method]SIFT-detector.detect: func</code></h4>
+<p>Detect keypoints in an image using SIFT.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc108806704fbd7887</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_sift_detector_detect.self"></a><code>self</code>: borrow&lt;<a href="#sift_detector"><a href="#sift_detector"><code>SIFT-detector</code></a></a>&gt;</li>
+<li><a id="method_sift_detector_detect.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_sift_detector_detect.0"></a> list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_sift_detector_compute"></a><code>[method]SIFT-detector.compute: func</code></h4>
+<p>Compute keypoints in an image using SIFT.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d530b5931e1e8dc0</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_sift_detector_compute.self"></a><code>self</code>: borrow&lt;<a href="#sift_detector"><a href="#sift_detector"><code>SIFT-detector</code></a></a>&gt;</li>
+<li><a id="method_sift_detector_compute.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_sift_detector_compute.mask"></a><code>mask</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_sift_detector_compute.kps"></a><code>kps</code>: list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_sift_detector_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+</ul>
+<h4><a id="method_sift_detector_detect_and_compute"></a><code>[method]SIFT-detector.detect-and-compute: func</code></h4>
+<p>DetectAndCompute keypoints and compute in an image using SIFT.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb867184b8d74c15a677</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_sift_detector_detect_and_compute.self"></a><code>self</code>: borrow&lt;<a href="#sift_detector"><a href="#sift_detector"><code>SIFT-detector</code></a></a>&gt;</li>
+<li><a id="method_sift_detector_detect_and_compute.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_sift_detector_detect_and_compute.mask"></a><code>mask</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_sift_detector_detect_and_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+</ul>
+<h4><a id="constructor_bf_matcher"></a><code>[constructor]BF-matcher: func</code></h4>
+<p>Returns a new BF-matcher.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d3/da1/classcv_1_1BFMatcher.html#abe0bb11749b30d97f60d6ade665617bd</p>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_bf_matcher.name"></a><code>name</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_bf_matcher.0"></a> own&lt;<a href="#bf_matcher"><a href="#bf_matcher"><code>BF-matcher</code></a></a>&gt;</li>
+</ul>
+<h4><a id="static_bf_matcher_new_with_params"></a><code>[static]BF-matcher.new-with-params: func</code></h4>
+<p>Returns a new BF-matcher.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d3/da1/classcv_1_1BFMatcher.html#abe0bb11749b30d97f60d6ade665617bd</p>
+<h5>Params</h5>
+<ul>
+<li><a id="static_bf_matcher_new_with_params.norm"></a><code>norm</code>: <a href="#norm_type"><a href="#norm_type"><code>norm-type</code></a></a></li>
+<li><a id="static_bf_matcher_new_with_params.cross_check"></a><code>cross-check</code>: <code>bool</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="static_bf_matcher_new_with_params.0"></a> own&lt;<a href="#bf_matcher"><a href="#bf_matcher"><code>BF-matcher</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_bf_matcher_close"></a><code>[method]BF-matcher.close: func</code></h4>
+<p>Close the BF-matcher</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_bf_matcher_close.self"></a><code>self</code>: borrow&lt;<a href="#bf_matcher"><a href="#bf_matcher"><code>BF-matcher</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_bf_matcher_match"></a><code>[method]BF-matcher.match: func</code></h4>
+<p>Match Finds the best match for each descriptor from a query set.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#a0f046f47b68ec7074391e1e85c750cba</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_bf_matcher_match.self"></a><code>self</code>: borrow&lt;<a href="#bf_matcher"><a href="#bf_matcher"><code>BF-matcher</code></a></a>&gt;</li>
+<li><a id="method_bf_matcher_match.query"></a><code>query</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_bf_matcher_match.train"></a><code>train</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_bf_matcher_match.0"></a> list&lt;<a href="#d_match"><a href="#d_match"><code>d-match</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_bf_matcher_knn_match"></a><code>[method]BF-matcher.KNN-match: func</code></h4>
+<p>KNNMatch finds the k best matches for each descriptor from a query set.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#aa880f9353cdf185ccf3013e08210483a</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_bf_matcher_knn_match.self"></a><code>self</code>: borrow&lt;<a href="#bf_matcher"><a href="#bf_matcher"><code>BF-matcher</code></a></a>&gt;</li>
+<li><a id="method_bf_matcher_knn_match.query"></a><code>query</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_bf_matcher_knn_match.train"></a><code>train</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_bf_matcher_knn_match.k"></a><code>k</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_bf_matcher_knn_match.0"></a> list&lt;list&lt;<a href="#d_match"><a href="#d_match"><code>d-match</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="constructor_flann_based_matcher"></a><code>[constructor]flann-based-matcher: func</code></h4>
+<p>Returns a new flann-based-matcher.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/dc/de2/classcv_1_1FlannBasedMatcher.html#ab9114a6471e364ad221f89068ca21382</p>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_flann_based_matcher.name"></a><code>name</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_flann_based_matcher.0"></a> own&lt;<a href="#flann_based_matcher"><a href="#flann_based_matcher"><code>flann-based-matcher</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_flann_based_matcher_close"></a><code>[method]flann-based-matcher.close: func</code></h4>
+<p>Close the flann-based-matcher</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_flann_based_matcher_close.self"></a><code>self</code>: borrow&lt;<a href="#flann_based_matcher"><a href="#flann_based_matcher"><code>flann-based-matcher</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_flann_based_matcher_knn_match"></a><code>[method]flann-based-matcher.KNN-match: func</code></h4>
+<p>KNNMatch finds the k best matches for each descriptor from a query set.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#aa880f9353cdf185ccf3013e08210483a</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_flann_based_matcher_knn_match.self"></a><code>self</code>: borrow&lt;<a href="#flann_based_matcher"><a href="#flann_based_matcher"><code>flann-based-matcher</code></a></a>&gt;</li>
+<li><a id="method_flann_based_matcher_knn_match.query"></a><code>query</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_flann_based_matcher_knn_match.train"></a><code>train</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_flann_based_matcher_knn_match.k"></a><code>k</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_flann_based_matcher_knn_match.0"></a> list&lt;list&lt;<a href="#d_match"><a href="#d_match"><code>d-match</code></a></a>&gt;&gt;</li>
 </ul>
 <h2><a id="wasm_cv_request"></a>Export interface wasm:cv/request</h2>
 <hr />
