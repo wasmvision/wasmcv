@@ -1,4 +1,4 @@
 github.com/hybridgroup/mechanoid v0.2.0 h1:2Kg3c0cK9JK8ZeJkiN+l2o4B0QJYnNHkNEKraMFOugQ=
 github.com/hybridgroup/mechanoid v0.2.0/go.mod h1:7jQEJ0blXXbIcqmu2/d7vSxWL5Dxbt18zZirJ35OeXc=
-go.bytecodealliance.org v0.4.0 h1:SRwgZIcXR54AmbJg9Y3AMgDlZlvD8dffteBYW+nCD3k=
-go.bytecodealliance.org v0.4.0/go.mod h1:hkdjfgQ/bFZYUucnm9cn0Q8/SHO3iT0rzskYlkV4Jy0=
+go.bytecodealliance.org/cm v0.1.1-0.20250127224617-c53528d4b8b4 h1:uY4JJfbq+ln3u6Qv9j56eJ7nIDlWovTq6Gj9fwCdnOs=
+go.bytecodealliance.org/cm v0.1.1-0.20250127224617-c53528d4b8b4/go.mod h1:NZ2UT0DyGhBfpIPOxPMCuG6g1YTR4YF3xweD7mHX5VQ=

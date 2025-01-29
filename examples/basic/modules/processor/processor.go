@@ -37,5 +37,3 @@ func malloc(size uint32) uint32 {
 //export free
 func free(ptr uint32) {
 }
-
-func main() {}
