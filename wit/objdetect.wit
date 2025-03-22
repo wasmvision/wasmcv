@@ -1,6 +1,6 @@
 interface objdetect {
 	use mat.{mat};
-	use types.{size, rect};
+	use types.{error-result, size, rect};
 
 	/// CascadeClassifier is a cascade classifier class for object detection.
 	resource cascade-classifier {
@@ -24,14 +24,14 @@ interface objdetect {
 		///
 		/// For further details, please see:
 		/// http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb63968136476ec4204ffca498
-		detect-multi-scale: func(image: mat) -> list<rect>;
+		detect-multi-scale: func(image: mat) -> result<list<rect>, error-result>;
 
 		/// DetectMultiScaleWithParams detects objects of different sizes in the input Mat image.
 		/// The detected objects are returned as a slice of image.Rectangle structs.
 		///
 		/// For further details, please see:
 		/// http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb63968136476ec4204ffca498
-		detect-multi-scale-with-params: func(image: mat, scale: f64, min-neighbors: u32, %flags: u32, min-size: size, max-size: size) -> list<rect>;
+		detect-multi-scale-with-params: func(image: mat, scale: f64, min-neighbors: u32, %flags: u32, min-size: size, max-size: size) -> result<list<rect>, error-result>;
 	}
 
 	/// HOGDescriptor is a Histogram Of Gradiants (HOG) for object detection.
@@ -50,14 +50,14 @@ interface objdetect {
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036fd5ddf0f5767b352acd948
-		detect-multi-scale: func(image: mat) -> list<rect>;
+		detect-multi-scale: func(image: mat) -> result<list<rect>, error-result>;
 
 		/// DetectMultiScaleWithParams detects objects of different sizes in the input Mat image.
 		/// The detected objects are returned as a slice of image.Rectangle structs.
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036fd5ddf0f5767b352acd948
-		detect-multi-scale-with-params: func(image: mat, hit-threshold: f64, win-stride: size, padding: size, scale: f64, final-threshold: f64, use-meanshift-grouping: bool) -> list<rect>;
+		detect-multi-scale-with-params: func(image: mat, hit-threshold: f64, win-stride: size, padding: size, scale: f64, final-threshold: f64, use-meanshift-grouping: bool) -> result<list<rect>, error-result>;
 	}
 
 	resource face-detector-YN {
@@ -80,7 +80,7 @@ interface objdetect {
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#ac05bd075ca3e6edc0e328927aae6f45b
-		detect: func(input: mat) -> mat;
+		detect: func(input: mat) -> result<mat, error-result>;
 
 		get-input-size: func() -> size;
 		get-nms-threshold: func() -> f32;
@@ -118,24 +118,24 @@ interface objdetect {
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a84492908abecbc9362b4ddc8d46b8345
-		align-crop: func(src: mat, face-box: mat) -> mat;
+		align-crop: func(src: mat, face-box: mat) -> result<mat, error-result>;
 
 		/// Feature extracts face feature from aligned image.
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#ab1b4a3c12213e89091a490c573dc5aba
-		feature: func(aligned: mat) -> mat;
+		feature: func(aligned: mat) -> result<mat, error-result>;
 
 		/// Match calculates the distance between two face features.
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e64320a1f3ba7e1386d0219
-		match: func(face1: mat, face2: mat) -> f32;
+		match: func(face1: mat, face2: mat) -> result<f32, error-result>;
 
 		/// Match calculates the distance between two face features.
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e64320a1f3ba7e1386d0219
-		match-with-params: func(face1: mat, face2: mat, distance: face-distance-type) -> f32;
+		match-with-params: func(face1: mat, face2: mat, distance: face-distance-type) -> result<f32, error-result>;
 	}
 }
