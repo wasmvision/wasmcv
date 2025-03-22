@@ -1,4 +1,6 @@
 interface types {
+	type error-result = string;
+	
 	/// size is a 2-element integer vector.
 	/// It represents a width and height.
 	record size {

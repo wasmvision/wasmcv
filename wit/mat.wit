@@ -1,7 +1,7 @@
 /// mat resource is a matrix of bytes, wrapper around the cv::Mat type.
 ///
 interface mat {
-	use types.{mix-max-loc-result, rect};
+	use types.{error-result, mix-max-loc-result, rect};
 
 	enum mattype {
 		cv8u,
@@ -41,7 +41,7 @@ interface mat {
 		copy-to: func(dst: borrow<mat>);
 
 		/// ConvertTo converts Mat into destination Mat.
-		convert-to: func(mattype: mattype) -> mat;
+		convert-to: func(mattype: mattype) -> result<mat, error-result>;
 
 		/// MatType returns the type of the Mat.
 		mattype: func() -> mattype;
@@ -107,41 +107,41 @@ interface mat {
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a4eb96e3251417fa88b78e2abd6cfd7d8
-		reshape: func(channels: u32, rows: u32) -> mat;
+		reshape: func(channels: u32, rows: u32) -> result<mat, error-result>;
 
 		/// RowRange creates a matrix header for the specified row span.
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aa6542193430356ad631a9beabc624107
-		row-range: func(start: u32, end: u32) -> mat;
+		row-range: func(start: u32, end: u32) -> result<mat, error-result>;
 
 		/// ColRange creates a matrix header for the specified column span.
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aadc8f9210fe4dec50513746c246fa8d9
-		col-range: func(start: u32, end: u32) -> mat;
+		col-range: func(start: u32, end: u32) -> result<mat, error-result>;
 
 		/// MinMaxLoc finds the global minimum and maximum in an array.
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/trunk/d2/de8/group__core__array.html#gab473bf2eb6d14ff97e89b355dac20707
-		min-max-loc: func() -> mix-max-loc-result;
+		min-max-loc: func() -> result<mix-max-loc-result, error-result>;
 
 		/// col creates a matrix header for the specified matrix column.
 		/// The underlying data of the new matrix is shared with the original matrix.
-		col: func(col: u32) -> mat;
+		col: func(col: u32) -> result<mat, error-result>;
 
 		/// row creates a matrix header for the specified matrix row.
 		/// The underlying data of the new matrix is shared with the original matrix.
-		row: func(row: u32) -> mat;
+		row: func(row: u32) -> result<mat, error-result>;
 
 		/// Merge creates one multi-channel array out of several single-channel ones.
 		///
 		/// For further details, please see:
 		/// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7d7b4d6c6ee504b30a20b1680029c7b4
-		merge: static func(mv: list<mat>) -> mat;
+		merge: static func(mv: list<mat>) -> result<mat, error-result>;
 
 		/// zeros returns a zero array of the specified size and type.
-		zeros: static func(cols: u32, rows: u32, mattype: mattype) -> mat;
+		zeros: static func(cols: u32, rows: u32, mattype: mattype) -> result<mat, error-result>;
 	}
 }
