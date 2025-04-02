@@ -25,8 +25,11 @@ interface dnn {
 	resource layer {
 		constructor();
 
+		/// Close the layer
+		close: func();
+
 		/// GetName returns the name of the layer.
-		get-name: func() -> string;
+		get-name: func() -> result<string, error-result>;
 	}
 
 	resource net {
