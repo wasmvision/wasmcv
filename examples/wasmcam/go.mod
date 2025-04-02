@@ -6,7 +6,7 @@ require (
 	github.com/orsinium-labs/wypes v0.3.0
 	github.com/subeshb1/wasm-go-image-to-ascii v0.0.0-20200725121413-d828986df340
 	github.com/tetratelabs/wazero v1.8.2
-	gocv.io/x/gocv v0.40.0
+	gocv.io/x/gocv v0.41.0
 )
 
 require (
