@@ -24,7 +24,12 @@ func process(image mat.Mat) mat.Mat {
 		" Type: " +
 		convert.IntToString(int(image.Mattype()))))
 
-	imageOut := cv.GaussianBlur(image, types.Size{X: 5, Y: 5}, 1.5, 1.5, types.BorderTypeBorderReflect101)
+	imageOut, _, isErr := cv.GaussianBlur(image, types.Size{X: 5, Y: 5}, 1.5, 1.5, types.BorderTypeBorderReflect101).Result()
+	if isErr {
+		println(convert.StringToWasmPtr("Error processing image"))
+		return image
+	}
+
 	println(convert.StringToWasmPtr("Performed GaussianBlur on image"))
 
 	complete()

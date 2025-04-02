@@ -6,8 +6,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-wasmcv = { version = "0.6.0", path = "../../../../components/rust/wasmcv" }
-wit-bindgen = "0.32.0"
+wasmcv = { version = "0.7.0", path = "../../../../components/rust/wasmcv" }
+wit-bindgen = "0.41.0"
 
 [lib]
 crate-type = ["cdylib"]
