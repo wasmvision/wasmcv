@@ -19,6 +19,9 @@ wasmCV is a WebAssembly guest module interface for computer vision based on Open
 
 ### Types
 
+#### <a id="error_result"></a>`type error-result`
+`string`
+<p>
 #### <a id="size"></a>`record size`
 
 size is a 2-element integer vector.
@@ -231,6 +234,9 @@ mat resource is a matrix of bytes, wrapper around the cv::Mat type.
 
 ### Types
 
+#### <a id="error_result"></a>`type error-result`
+[`error-result`](#error_result)
+<p>
 #### <a id="mix_max_loc_result"></a>`type mix-max-loc-result`
 [`mix-max-loc-result`](#mix_max_loc_result)
 <p>
@@ -360,7 +366,7 @@ ConvertTo converts Mat into destination Mat.
 
 ##### Return values
 
-- <a id="method_mat_convert_to.0"></a> own<[`mat`](#mat)>
+- <a id="method_mat_convert_to.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="method_mat_mattype"></a>`[method]mat.mattype: func`
 
@@ -635,7 +641,7 @@ https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a4eb96e3251417fa88b78e2ab
 
 ##### Return values
 
-- <a id="method_mat_reshape.0"></a> own<[`mat`](#mat)>
+- <a id="method_mat_reshape.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="method_mat_row_range"></a>`[method]mat.row-range: func`
 
@@ -652,7 +658,7 @@ https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aa6542193430356ad631a9bea
 
 ##### Return values
 
-- <a id="method_mat_row_range.0"></a> own<[`mat`](#mat)>
+- <a id="method_mat_row_range.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="method_mat_col_range"></a>`[method]mat.col-range: func`
 
@@ -669,7 +675,7 @@ https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aadc8f9210fe4dec50513746c
 
 ##### Return values
 
-- <a id="method_mat_col_range.0"></a> own<[`mat`](#mat)>
+- <a id="method_mat_col_range.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="method_mat_min_max_loc"></a>`[method]mat.min-max-loc: func`
 
@@ -684,7 +690,7 @@ https://docs.opencv.org/trunk/d2/de8/group__core__array.html#gab473bf2eb6d14ff97
 
 ##### Return values
 
-- <a id="method_mat_min_max_loc.0"></a> [`mix-max-loc-result`](#mix_max_loc_result)
+- <a id="method_mat_min_max_loc.0"></a> result<[`mix-max-loc-result`](#mix_max_loc_result), [`error-result`](#error_result)>
 
 #### <a id="method_mat_col"></a>`[method]mat.col: func`
 
@@ -698,7 +704,7 @@ The underlying data of the new matrix is shared with the original matrix.
 
 ##### Return values
 
-- <a id="method_mat_col.0"></a> own<[`mat`](#mat)>
+- <a id="method_mat_col.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="method_mat_row"></a>`[method]mat.row: func`
 
@@ -712,7 +718,7 @@ The underlying data of the new matrix is shared with the original matrix.
 
 ##### Return values
 
-- <a id="method_mat_row.0"></a> own<[`mat`](#mat)>
+- <a id="method_mat_row.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="static_mat_merge"></a>`[static]mat.merge: func`
 
@@ -727,7 +733,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7d7b4d6c6ee504b30a2
 
 ##### Return values
 
-- <a id="static_mat_merge.0"></a> own<[`mat`](#mat)>
+- <a id="static_mat_merge.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="static_mat_zeros"></a>`[static]mat.zeros: func`
 
@@ -741,7 +747,7 @@ zeros returns a zero array of the specified size and type.
 
 ##### Return values
 
-- <a id="static_mat_zeros.0"></a> own<[`mat`](#mat)>
+- <a id="static_mat_zeros.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 ## <a id="wasm_cv_cv"></a>Import interface wasm:cv/cv
 
@@ -750,6 +756,9 @@ zeros returns a zero array of the specified size and type.
 
 ### Types
 
+#### <a id="error_result"></a>`type error-result`
+[`error-result`](#error_result)
+<p>
 #### <a id="border_type"></a>`type border-type`
 [`border-type`](#border_type)
 <p>
@@ -812,6 +821,10 @@ https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd
 - <a id="arrowed_line.c"></a>`c`: [`RGBA`](#rgba)
 - <a id="arrowed_line.thickness"></a>`thickness`: `u8`
 
+##### Return values
+
+- <a id="arrowed_line.0"></a> result<_, [`error-result`](#error_result)>
+
 #### <a id="rectangle"></a>`rectangle: func`
 
 Rectangle draws a simple, thick, or filled up-right rectangle.
@@ -825,6 +838,10 @@ https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305
 - <a id="rectangle.r"></a>`r`: [`rect`](#rect)
 - <a id="rectangle.c"></a>`c`: [`RGBA`](#rgba)
 - <a id="rectangle.thickness"></a>`thickness`: `u8`
+
+##### Return values
+
+- <a id="rectangle.0"></a> result<_, [`error-result`](#error_result)>
 
 #### <a id="circle"></a>`circle: func`
 
@@ -841,6 +858,10 @@ https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b0693749
 - <a id="circle.c"></a>`c`: [`RGBA`](#rgba)
 - <a id="circle.thickness"></a>`thickness`: `u8`
 
+##### Return values
+
+- <a id="circle.0"></a> result<_, [`error-result`](#error_result)>
+
 #### <a id="line"></a>`line: func`
 
 Line draws a line segment connecting two points.
@@ -855,6 +876,10 @@ https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga7078a9fae8c7e7
 - <a id="line.point2"></a>`point2`: [`point`](#point)
 - <a id="line.c"></a>`c`: [`RGBA`](#rgba)
 - <a id="line.thickness"></a>`thickness`: `u8`
+
+##### Return values
+
+- <a id="line.0"></a> result<_, [`error-result`](#error_result)>
 
 #### <a id="put_text"></a>`put-text: func`
 
@@ -876,6 +901,10 @@ http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730
 - <a id="put_text.c"></a>`c`: [`RGBA`](#rgba)
 - <a id="put_text.thickness"></a>`thickness`: `s32`
 
+##### Return values
+
+- <a id="put_text.0"></a> result<_, [`error-result`](#error_result)>
+
 #### <a id="adaptive_threshold"></a>`adaptive-threshold: func`
 
 imgproc functions
@@ -895,7 +924,7 @@ https://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1
 
 ##### Return values
 
-- <a id="adaptive_threshold.0"></a> own<[`mat`](#mat)>
+- <a id="adaptive_threshold.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="blur"></a>`blur: func`
 
@@ -911,7 +940,7 @@ https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga8c45db9afe63
 
 ##### Return values
 
-- <a id="blur.0"></a> own<[`mat`](#mat)>
+- <a id="blur.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="box_filter"></a>`box-filter: func`
 
@@ -928,7 +957,7 @@ https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gad533230ebf2d
 
 ##### Return values
 
-- <a id="box_filter.0"></a> own<[`mat`](#mat)>
+- <a id="box_filter.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="canny"></a>`canny: func`
 
@@ -951,7 +980,7 @@ http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga04723e007ed8
 
 ##### Return values
 
-- <a id="canny.0"></a> own<[`mat`](#mat)>
+- <a id="canny.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="cvt_color"></a>`cvt-color: func`
 
@@ -967,7 +996,7 @@ http://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga4e0972be5de079f
 
 ##### Return values
 
-- <a id="cvt_color.0"></a> own<[`mat`](#mat)>
+- <a id="cvt_color.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="dilate"></a>`dilate: func`
 
@@ -983,7 +1012,7 @@ https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga4ff0f3318642c4f
 
 ##### Return values
 
-- <a id="dilate.0"></a> own<[`mat`](#mat)>
+- <a id="dilate.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="erode"></a>`erode: func`
 
@@ -999,7 +1028,7 @@ https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gaeb1e0c1033e3
 
 ##### Return values
 
-- <a id="erode.0"></a> own<[`mat`](#mat)>
+- <a id="erode.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="equalize_hist"></a>`equalize-hist: func`
 
@@ -1014,7 +1043,7 @@ https://docs.opencv.org/master/d6/dc7/group__imgproc__hist.html#ga7e54091f0c937d
 
 ##### Return values
 
-- <a id="equalize_hist.0"></a> own<[`mat`](#mat)>
+- <a id="equalize_hist.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="gaussian_blur"></a>`gaussian-blur: func`
 
@@ -1033,7 +1062,7 @@ https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca
 
 ##### Return values
 
-- <a id="gaussian_blur.0"></a> own<[`mat`](#mat)>
+- <a id="gaussian_blur.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="get_structuring_element"></a>`get-structuring-element: func`
 
@@ -1050,7 +1079,7 @@ https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gac342a1bb6eab
 
 ##### Return values
 
-- <a id="get_structuring_element.0"></a> own<[`mat`](#mat)>
+- <a id="get_structuring_element.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="hough_lines"></a>`hough-lines: func`
 
@@ -1070,7 +1099,7 @@ http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga46b4e588934f
 
 ##### Return values
 
-- <a id="hough_lines.0"></a> own<[`mat`](#mat)>
+- <a id="hough_lines.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="hough_lines_p"></a>`hough-lines-p: func`
 
@@ -1090,7 +1119,7 @@ http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga8618180a5948
 
 ##### Return values
 
-- <a id="hough_lines_p.0"></a> own<[`mat`](#mat)>
+- <a id="hough_lines_p.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="median_blur"></a>`median-blur: func`
 
@@ -1106,7 +1135,7 @@ https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga564869aa33e5
 
 ##### Return values
 
-- <a id="median_blur.0"></a> own<[`mat`](#mat)>
+- <a id="median_blur.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="resize"></a>`resize: func`
 
@@ -1130,7 +1159,7 @@ https://docs.opencv.org/master/da/d54/group__imgproc__transform.html#ga47a974309
 
 ##### Return values
 
-- <a id="resize.0"></a> own<[`mat`](#mat)>
+- <a id="resize.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="threshold"></a>`threshold: func`
 
@@ -1148,7 +1177,7 @@ https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c
 
 ##### Return values
 
-- <a id="threshold.0"></a> own<[`mat`](#mat)>
+- <a id="threshold.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="transpose_nd"></a>`transpose-ND: func`
 
@@ -1164,7 +1193,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cd
 
 ##### Return values
 
-- <a id="transpose_nd.0"></a> own<[`mat`](#mat)>
+- <a id="transpose_nd.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="estimate_affine2d"></a>`estimate-affine2d: func`
 
@@ -1180,7 +1209,7 @@ https://docs.opencv.org/4.0.0/d9/d0c/group__calib3d.html#ga27865b1d26bac9ce91efa
 
 ##### Return values
 
-- <a id="estimate_affine2d.0"></a> own<[`mat`](#mat)>
+- <a id="estimate_affine2d.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="warp_affine"></a>`warp-affine: func`
 
@@ -1197,7 +1226,7 @@ https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#ga0203d9ee5fcd
 
 ##### Return values
 
-- <a id="warp_affine.0"></a> own<[`mat`](#mat)>
+- <a id="warp_affine.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="get_rotation_matrix2d"></a>`get-rotation-matrix2d: func`
 
@@ -1214,7 +1243,7 @@ https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#gafbbc470ce838
 
 ##### Return values
 
-- <a id="get_rotation_matrix2d.0"></a> own<[`mat`](#mat)>
+- <a id="get_rotation_matrix2d.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="add"></a>`add: func`
 
@@ -1230,7 +1259,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga10ac1bfb180e2cfda17
 
 ##### Return values
 
-- <a id="add.0"></a> own<[`mat`](#mat)>
+- <a id="add.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="add_weighted"></a>`add-weighted: func`
 
@@ -1249,7 +1278,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gafafb2513349db3bcff5
 
 ##### Return values
 
-- <a id="add_weighted.0"></a> own<[`mat`](#mat)>
+- <a id="add_weighted.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="exp"></a>`exp: func`
 
@@ -1264,7 +1293,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga3e10108e2162c338f1b
 
 ##### Return values
 
-- <a id="exp.0"></a> own<[`mat`](#mat)>
+- <a id="exp.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="hconcat"></a>`hconcat: func`
 
@@ -1280,7 +1309,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaab5ceee39e0580f879d
 
 ##### Return values
 
-- <a id="hconcat.0"></a> own<[`mat`](#mat)>
+- <a id="hconcat.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="vconcat"></a>`vconcat: func`
 
@@ -1296,7 +1325,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga744f53b69f6e4f12156
 
 ##### Return values
 
-- <a id="vconcat.0"></a> own<[`mat`](#mat)>
+- <a id="vconcat.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="lut"></a>`lut: func`
 
@@ -1315,7 +1344,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab55b8d062b7f5587720
 
 ##### Return values
 
-- <a id="lut.0"></a> own<[`mat`](#mat)>
+- <a id="lut.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="reduce_arg_max"></a>`reduce-arg-max: func`
 
@@ -1332,7 +1361,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf969
 
 ##### Return values
 
-- <a id="reduce_arg_max.0"></a> own<[`mat`](#mat)>
+- <a id="reduce_arg_max.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 ## <a id="wasm_cv_dnn"></a>Import interface wasm:cv/dnn
 
@@ -1343,6 +1372,9 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf969
 
 #### <a id="mat"></a>`type mat`
 [`mat`](#mat)
+<p>
+#### <a id="error_result"></a>`type error-result`
+[`error-result`](#error_result)
 <p>
 #### <a id="size"></a>`type size`
 [`size`](#size)
@@ -1401,6 +1433,14 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf969
 
 - <a id="constructor_layer.0"></a> own<[`layer`](#layer)>
 
+#### <a id="method_layer_close"></a>`[method]layer.close: func`
+
+Close the layer
+
+##### Params
+
+- <a id="method_layer_close.self"></a>`self`: borrow<[`layer`](#layer)>
+
 #### <a id="method_layer_get_name"></a>`[method]layer.get-name: func`
 
 GetName returns the name of the layer.
@@ -1411,7 +1451,7 @@ GetName returns the name of the layer.
 
 ##### Return values
 
-- <a id="method_layer_get_name.0"></a> `string`
+- <a id="method_layer_get_name.0"></a> result<`string`, [`error-result`](#error_result)>
 
 #### <a id="static_net_read"></a>`[static]net.read: func`
 
@@ -1427,7 +1467,7 @@ https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga138439da76f26266fdefec9723f
 
 ##### Return values
 
-- <a id="static_net_read.0"></a> own<[`net`](#net)>
+- <a id="static_net_read.0"></a> result<own<[`net`](#net)>, [`error-result`](#error_result)>
 
 #### <a id="static_net_read_from_onnx"></a>`[static]net.read-from-ONNX: func`
 
@@ -1442,7 +1482,7 @@ https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd3
 
 ##### Return values
 
-- <a id="static_net_read_from_onnx.0"></a> own<[`net`](#net)>
+- <a id="static_net_read_from_onnx.0"></a> result<own<[`net`](#net)>, [`error-result`](#error_result)>
 
 #### <a id="method_net_close"></a>`[method]net.close: func`
 
@@ -1480,6 +1520,10 @@ https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a672a08ae76444d7
 - <a id="method_net_set_input.input"></a>`input`: own<[`mat`](#mat)>
 - <a id="method_net_set_input.name"></a>`name`: `string`
 
+##### Return values
+
+- <a id="method_net_set_input.0"></a> result<_, [`error-result`](#error_result)>
+
 #### <a id="method_net_forward"></a>`[method]net.forward: func`
 
 Forward runs forward pass to compute output of layer with name outputName.
@@ -1494,7 +1538,7 @@ https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a98ed94cb6ef7063
 
 ##### Return values
 
-- <a id="method_net_forward.0"></a> own<[`mat`](#mat)>
+- <a id="method_net_forward.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="method_net_forward_layers"></a>`[method]net.forward-layers: func`
 
@@ -1510,7 +1554,7 @@ https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#afe22e099b60a2883e
 
 ##### Return values
 
-- <a id="method_net_forward_layers.0"></a> list<own<[`mat`](#mat)>>
+- <a id="method_net_forward_layers.0"></a> result<list<own<[`mat`](#mat)>>, [`error-result`](#error_result)>
 
 #### <a id="method_net_get_unconnected_out_layers"></a>`[method]net.get-unconnected-out-layers: func`
 
@@ -1525,7 +1569,7 @@ https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ae26f0c29b3733d15d
 
 ##### Return values
 
-- <a id="method_net_get_unconnected_out_layers.0"></a> list<`u32`>
+- <a id="method_net_get_unconnected_out_layers.0"></a> result<list<`u32`>, [`error-result`](#error_result)>
 
 #### <a id="method_net_get_layer_names"></a>`[method]net.get-layer-names: func`
 
@@ -1540,7 +1584,7 @@ hhttps://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#a38e67098ae4ae590
 
 ##### Return values
 
-- <a id="method_net_get_layer_names.0"></a> list<`string`>
+- <a id="method_net_get_layer_names.0"></a> result<list<`string`>, [`error-result`](#error_result)>
 
 #### <a id="method_net_get_layer"></a>`[method]net.get-layer: func`
 
@@ -1556,7 +1600,7 @@ https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ac944d7f2d3ead5ef9
 
 ##### Return values
 
-- <a id="method_net_get_layer.0"></a> own<[`layer`](#layer)>
+- <a id="method_net_get_layer.0"></a> result<own<[`layer`](#layer)>, [`error-result`](#error_result)>
 
 #### <a id="blob_from_image"></a>`blob-from-image: func`
 
@@ -1577,7 +1621,7 @@ https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581
 
 ##### Return values
 
-- <a id="blob_from_image.0"></a> own<[`mat`](#mat)>
+- <a id="blob_from_image.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="blob_from_image_with_params"></a>`blob-from-image-with-params: func`
 
@@ -1594,7 +1638,7 @@ https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581
 
 ##### Return values
 
-- <a id="blob_from_image_with_params.0"></a> own<[`mat`](#mat)>
+- <a id="blob_from_image_with_params.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="blob_rects_to_image_rects"></a>`blob-rects-to-image-rects: func`
 
@@ -1611,7 +1655,7 @@ https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b102
 
 ##### Return values
 
-- <a id="blob_rects_to_image_rects.0"></a> list<[`rect`](#rect)>
+- <a id="blob_rects_to_image_rects.0"></a> result<list<[`rect`](#rect)>, [`error-result`](#error_result)>
 
 #### <a id="nms_boxes"></a>`NMS-boxes: func`
 
@@ -1629,7 +1673,7 @@ https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b102
 
 ##### Return values
 
-- <a id="nms_boxes.0"></a> list<`s32`>
+- <a id="nms_boxes.0"></a> result<list<`u32`>, [`error-result`](#error_result)>
 
 ## <a id="wasm_cv_objdetect"></a>Import interface wasm:cv/objdetect
 
@@ -1640,6 +1684,9 @@ https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b102
 
 #### <a id="mat"></a>`type mat`
 [`mat`](#mat)
+<p>
+#### <a id="error_result"></a>`type error-result`
+[`error-result`](#error_result)
 <p>
 #### <a id="size"></a>`type size`
 [`size`](#size)
@@ -1725,7 +1772,7 @@ http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb
 
 ##### Return values
 
-- <a id="method_cascade_classifier_detect_multi_scale.0"></a> list<[`rect`](#rect)>
+- <a id="method_cascade_classifier_detect_multi_scale.0"></a> result<list<[`rect`](#rect)>, [`error-result`](#error_result)>
 
 #### <a id="method_cascade_classifier_detect_multi_scale_with_params"></a>`[method]cascade-classifier.detect-multi-scale-with-params: func`
 
@@ -1747,7 +1794,7 @@ http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb
 
 ##### Return values
 
-- <a id="method_cascade_classifier_detect_multi_scale_with_params.0"></a> list<[`rect`](#rect)>
+- <a id="method_cascade_classifier_detect_multi_scale_with_params.0"></a> result<list<[`rect`](#rect)>, [`error-result`](#error_result)>
 
 #### <a id="constructor_hog_descriptor"></a>`[constructor]HOG-descriptor: func`
 
@@ -1784,7 +1831,7 @@ https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036
 
 ##### Return values
 
-- <a id="method_hog_descriptor_detect_multi_scale.0"></a> list<[`rect`](#rect)>
+- <a id="method_hog_descriptor_detect_multi_scale.0"></a> result<list<[`rect`](#rect)>, [`error-result`](#error_result)>
 
 #### <a id="method_hog_descriptor_detect_multi_scale_with_params"></a>`[method]HOG-descriptor.detect-multi-scale-with-params: func`
 
@@ -1807,7 +1854,7 @@ https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036
 
 ##### Return values
 
-- <a id="method_hog_descriptor_detect_multi_scale_with_params.0"></a> list<[`rect`](#rect)>
+- <a id="method_hog_descriptor_detect_multi_scale_with_params.0"></a> result<list<[`rect`](#rect)>, [`error-result`](#error_result)>
 
 #### <a id="constructor_face_detector_yn"></a>`[constructor]face-detector-YN: func`
 
@@ -1870,7 +1917,7 @@ https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#ac05bd075ca3e6
 
 ##### Return values
 
-- <a id="method_face_detector_yn_detect.0"></a> own<[`mat`](#mat)>
+- <a id="method_face_detector_yn_detect.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="method_face_detector_yn_get_input_size"></a>`[method]face-detector-YN.get-input-size: func`
 
@@ -2005,7 +2052,7 @@ https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a84492908abe
 
 ##### Return values
 
-- <a id="method_face_recognizer_sf_align_crop.0"></a> own<[`mat`](#mat)>
+- <a id="method_face_recognizer_sf_align_crop.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="method_face_recognizer_sf_feature"></a>`[method]face-recognizer-SF.feature: func`
 
@@ -2021,7 +2068,7 @@ https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#ab1b4a3c1221
 
 ##### Return values
 
-- <a id="method_face_recognizer_sf_feature.0"></a> own<[`mat`](#mat)>
+- <a id="method_face_recognizer_sf_feature.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="method_face_recognizer_sf_match"></a>`[method]face-recognizer-SF.match: func`
 
@@ -2038,7 +2085,7 @@ https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e6
 
 ##### Return values
 
-- <a id="method_face_recognizer_sf_match.0"></a> `f32`
+- <a id="method_face_recognizer_sf_match.0"></a> result<`f32`, [`error-result`](#error_result)>
 
 #### <a id="method_face_recognizer_sf_match_with_params"></a>`[method]face-recognizer-SF.match-with-params: func`
 
@@ -2056,7 +2103,7 @@ https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e6
 
 ##### Return values
 
-- <a id="method_face_recognizer_sf_match_with_params.0"></a> `f32`
+- <a id="method_face_recognizer_sf_match_with_params.0"></a> result<`f32`, [`error-result`](#error_result)>
 
 ## <a id="wasm_cv_features2d"></a>Import interface wasm:cv/features2d
 
@@ -2067,6 +2114,9 @@ https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e6
 
 #### <a id="mat"></a>`type mat`
 [`mat`](#mat)
+<p>
+#### <a id="error_result"></a>`type error-result`
+[`error-result`](#error_result)
 <p>
 #### <a id="key_point"></a>`type key-point`
 [`key-point`](#key_point)
@@ -2165,7 +2215,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc10
 
 ##### Return values
 
-- <a id="method_akaze_detector_detect.0"></a> list<[`key-point`](#key_point)>
+- <a id="method_akaze_detector_detect.0"></a> result<list<[`key-point`](#key_point)>, [`error-result`](#error_result)>
 
 #### <a id="method_akaze_detector_compute"></a>`[method]AKAZE-detector.compute: func`
 
@@ -2183,7 +2233,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d5
 
 ##### Return values
 
-- <a id="method_akaze_detector_compute.0"></a> [`detector-result`](#detector_result)
+- <a id="method_akaze_detector_compute.0"></a> result<[`detector-result`](#detector_result), [`error-result`](#error_result)>
 
 #### <a id="method_akaze_detector_detect_and_compute"></a>`[method]AKAZE-detector.detect-and-compute: func`
 
@@ -2200,7 +2250,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb8671
 
 ##### Return values
 
-- <a id="method_akaze_detector_detect_and_compute.0"></a> [`detector-result`](#detector_result)
+- <a id="method_akaze_detector_detect_and_compute.0"></a> result<[`detector-result`](#detector_result), [`error-result`](#error_result)>
 
 #### <a id="constructor_brisk_detector"></a>`[constructor]BRISK-detector: func`
 
@@ -2239,7 +2289,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc10
 
 ##### Return values
 
-- <a id="method_brisk_detector_detect.0"></a> list<[`key-point`](#key_point)>
+- <a id="method_brisk_detector_detect.0"></a> result<list<[`key-point`](#key_point)>, [`error-result`](#error_result)>
 
 #### <a id="method_brisk_detector_compute"></a>`[method]BRISK-detector.compute: func`
 
@@ -2257,7 +2307,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d5
 
 ##### Return values
 
-- <a id="method_brisk_detector_compute.0"></a> [`detector-result`](#detector_result)
+- <a id="method_brisk_detector_compute.0"></a> result<[`detector-result`](#detector_result), [`error-result`](#error_result)>
 
 #### <a id="method_brisk_detector_detect_and_compute"></a>`[method]BRISK-detector.detect-and-compute: func`
 
@@ -2274,7 +2324,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb8671
 
 ##### Return values
 
-- <a id="method_brisk_detector_detect_and_compute.0"></a> [`detector-result`](#detector_result)
+- <a id="method_brisk_detector_detect_and_compute.0"></a> result<[`detector-result`](#detector_result), [`error-result`](#error_result)>
 
 #### <a id="constructor_kaze_detector"></a>`[constructor]KAZE-detector: func`
 
@@ -2313,7 +2363,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc10
 
 ##### Return values
 
-- <a id="method_kaze_detector_detect.0"></a> list<[`key-point`](#key_point)>
+- <a id="method_kaze_detector_detect.0"></a> result<list<[`key-point`](#key_point)>, [`error-result`](#error_result)>
 
 #### <a id="method_kaze_detector_compute"></a>`[method]KAZE-detector.compute: func`
 
@@ -2331,7 +2381,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d5
 
 ##### Return values
 
-- <a id="method_kaze_detector_compute.0"></a> [`detector-result`](#detector_result)
+- <a id="method_kaze_detector_compute.0"></a> result<[`detector-result`](#detector_result), [`error-result`](#error_result)>
 
 #### <a id="method_kaze_detector_detect_and_compute"></a>`[method]KAZE-detector.detect-and-compute: func`
 
@@ -2348,7 +2398,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb8671
 
 ##### Return values
 
-- <a id="method_kaze_detector_detect_and_compute.0"></a> [`detector-result`](#detector_result)
+- <a id="method_kaze_detector_detect_and_compute.0"></a> result<[`detector-result`](#detector_result), [`error-result`](#error_result)>
 
 #### <a id="constructor_orb_detector"></a>`[constructor]ORB-detector: func`
 
@@ -2410,7 +2460,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc10
 
 ##### Return values
 
-- <a id="method_orb_detector_detect.0"></a> list<[`key-point`](#key_point)>
+- <a id="method_orb_detector_detect.0"></a> result<list<[`key-point`](#key_point)>, [`error-result`](#error_result)>
 
 #### <a id="method_orb_detector_compute"></a>`[method]ORB-detector.compute: func`
 
@@ -2428,7 +2478,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d5
 
 ##### Return values
 
-- <a id="method_orb_detector_compute.0"></a> [`detector-result`](#detector_result)
+- <a id="method_orb_detector_compute.0"></a> result<[`detector-result`](#detector_result), [`error-result`](#error_result)>
 
 #### <a id="method_orb_detector_detect_and_compute"></a>`[method]ORB-detector.detect-and-compute: func`
 
@@ -2445,7 +2495,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb8671
 
 ##### Return values
 
-- <a id="method_orb_detector_detect_and_compute.0"></a> [`detector-result`](#detector_result)
+- <a id="method_orb_detector_detect_and_compute.0"></a> result<[`detector-result`](#detector_result), [`error-result`](#error_result)>
 
 #### <a id="constructor_sift_detector"></a>`[constructor]SIFT-detector: func`
 
@@ -2484,7 +2534,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc10
 
 ##### Return values
 
-- <a id="method_sift_detector_detect.0"></a> list<[`key-point`](#key_point)>
+- <a id="method_sift_detector_detect.0"></a> result<list<[`key-point`](#key_point)>, [`error-result`](#error_result)>
 
 #### <a id="method_sift_detector_compute"></a>`[method]SIFT-detector.compute: func`
 
@@ -2502,7 +2552,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d5
 
 ##### Return values
 
-- <a id="method_sift_detector_compute.0"></a> [`detector-result`](#detector_result)
+- <a id="method_sift_detector_compute.0"></a> result<[`detector-result`](#detector_result), [`error-result`](#error_result)>
 
 #### <a id="method_sift_detector_detect_and_compute"></a>`[method]SIFT-detector.detect-and-compute: func`
 
@@ -2519,7 +2569,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb8671
 
 ##### Return values
 
-- <a id="method_sift_detector_detect_and_compute.0"></a> [`detector-result`](#detector_result)
+- <a id="method_sift_detector_detect_and_compute.0"></a> result<[`detector-result`](#detector_result), [`error-result`](#error_result)>
 
 #### <a id="constructor_bf_matcher"></a>`[constructor]BF-matcher: func`
 
@@ -2575,7 +2625,7 @@ https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#a0f046f47b6
 
 ##### Return values
 
-- <a id="method_bf_matcher_match.0"></a> list<[`d-match`](#d_match)>
+- <a id="method_bf_matcher_match.0"></a> result<list<[`d-match`](#d_match)>, [`error-result`](#error_result)>
 
 #### <a id="method_bf_matcher_knn_match"></a>`[method]BF-matcher.KNN-match: func`
 
@@ -2593,7 +2643,7 @@ https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#aa880f9353c
 
 ##### Return values
 
-- <a id="method_bf_matcher_knn_match.0"></a> list<list<[`d-match`](#d_match)>>
+- <a id="method_bf_matcher_knn_match.0"></a> result<list<list<[`d-match`](#d_match)>>, [`error-result`](#error_result)>
 
 #### <a id="constructor_flann_based_matcher"></a>`[constructor]flann-based-matcher: func`
 
@@ -2634,7 +2684,7 @@ https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#aa880f9353c
 
 ##### Return values
 
-- <a id="method_flann_based_matcher_knn_match.0"></a> list<list<[`d-match`](#d_match)>>
+- <a id="method_flann_based_matcher_knn_match.0"></a> result<list<list<[`d-match`](#d_match)>>, [`error-result`](#error_result)>
 
 ## <a id="wasm_cv_request"></a>Export interface wasm:cv/request
 

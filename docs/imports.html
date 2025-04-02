@@ -20,7 +20,10 @@
 <h2><a id="wasm_cv_types"></a>Import interface wasm:cv/types</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="size"></a><code>record size</code></h4>
+<h4><a id="error_result"></a><code>type error-result</code></h4>
+<p><code>string</code></p>
+<p>
+#### <a id="size"></a>`record size`
 <p>size is a 2-element integer vector.
 It represents a width and height.</p>
 <h5>Record Fields</h5>
@@ -209,8 +212,11 @@ https://docs.opencv.org/4.x/d4/de0/classcv_1_1DMatch.html#a546ddb9a87898f06e510e
 <p>mat resource is a matrix of bytes, wrapper around the cv::Mat type.</p>
 <hr />
 <h3>Types</h3>
-<h4><a id="mix_max_loc_result"></a><code>type mix-max-loc-result</code></h4>
-<p><a href="#mix_max_loc_result"><a href="#mix_max_loc_result"><code>mix-max-loc-result</code></a></a></p>
+<h4><a id="error_result"></a><code>type error-result</code></h4>
+<p><a href="#error_result"><a href="#error_result"><code>error-result</code></a></a></p>
+<p>
+#### <a id="mix_max_loc_result"></a>`type mix-max-loc-result`
+[`mix-max-loc-result`](#mix_max_loc_result)
 <p>
 #### <a id="rect"></a>`type rect`
 [`rect`](#rect)
@@ -316,7 +322,7 @@ OpenCV Mat object.</p>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_mat_convert_to.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_convert_to.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_mat_mattype"></a><code>[method]mat.mattype: func</code></h4>
 <p>MatType returns the type of the Mat.</p>
@@ -548,7 +554,7 @@ https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a4eb96e3251417fa88b78e2ab
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_mat_reshape.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_reshape.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_mat_row_range"></a><code>[method]mat.row-range: func</code></h4>
 <p>RowRange creates a matrix header for the specified row span.</p>
@@ -562,7 +568,7 @@ https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aa6542193430356ad631a9bea
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_mat_row_range.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_row_range.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_mat_col_range"></a><code>[method]mat.col-range: func</code></h4>
 <p>ColRange creates a matrix header for the specified column span.</p>
@@ -576,7 +582,7 @@ https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#aadc8f9210fe4dec50513746c
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_mat_col_range.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_col_range.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_mat_min_max_loc"></a><code>[method]mat.min-max-loc: func</code></h4>
 <p>MinMaxLoc finds the global minimum and maximum in an array.</p>
@@ -588,7 +594,7 @@ https://docs.opencv.org/trunk/d2/de8/group__core__array.html#gab473bf2eb6d14ff97
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_mat_min_max_loc.0"></a> <a href="#mix_max_loc_result"><a href="#mix_max_loc_result"><code>mix-max-loc-result</code></a></a></li>
+<li><a id="method_mat_min_max_loc.0"></a> result&lt;<a href="#mix_max_loc_result"><a href="#mix_max_loc_result"><code>mix-max-loc-result</code></a></a>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_mat_col"></a><code>[method]mat.col: func</code></h4>
 <p>col creates a matrix header for the specified matrix column.
@@ -600,7 +606,7 @@ The underlying data of the new matrix is shared with the original matrix.</p>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_mat_col.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_col.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_mat_row"></a><code>[method]mat.row: func</code></h4>
 <p>row creates a matrix header for the specified matrix row.
@@ -612,7 +618,7 @@ The underlying data of the new matrix is shared with the original matrix.</p>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_mat_row.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_row.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="static_mat_merge"></a><code>[static]mat.merge: func</code></h4>
 <p>Merge creates one multi-channel array out of several single-channel ones.</p>
@@ -624,7 +630,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7d7b4d6c6ee504b30a2
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="static_mat_merge.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="static_mat_merge.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="static_mat_zeros"></a><code>[static]mat.zeros: func</code></h4>
 <p>zeros returns a zero array of the specified size and type.</p>
@@ -636,13 +642,16 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7d7b4d6c6ee504b30a2
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="static_mat_zeros.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="static_mat_zeros.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h2><a id="wasm_cv_cv"></a>Import interface wasm:cv/cv</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="border_type"></a><code>type border-type</code></h4>
-<p><a href="#border_type"><a href="#border_type"><code>border-type</code></a></a></p>
+<h4><a id="error_result"></a><code>type error-result</code></h4>
+<p><a href="#error_result"><a href="#error_result"><code>error-result</code></a></a></p>
+<p>
+#### <a id="border_type"></a>`type border-type`
+[`border-type`](#border_type)
 <p>
 #### <a id="size"></a>`type size`
 [`size`](#size)
@@ -698,6 +707,10 @@ https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga0a165a3ca093fd
 <li><a id="arrowed_line.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
 <li><a id="arrowed_line.thickness"></a><code>thickness</code>: <code>u8</code></li>
 </ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="arrowed_line.0"></a> result&lt;_, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
+</ul>
 <h4><a id="rectangle"></a><code>rectangle: func</code></h4>
 <p>Rectangle draws a simple, thick, or filled up-right rectangle.</p>
 <p>For further details, please see:
@@ -708,6 +721,10 @@ https://docs.opencv.org/4.x/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305
 <li><a id="rectangle.r"></a><code>r</code>: <a href="#rect"><a href="#rect"><code>rect</code></a></a></li>
 <li><a id="rectangle.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
 <li><a id="rectangle.thickness"></a><code>thickness</code>: <code>u8</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="rectangle.0"></a> result&lt;_, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="circle"></a><code>circle: func</code></h4>
 <p>Circle draws a circle.</p>
@@ -721,6 +738,10 @@ https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#gaf10604b0693749
 <li><a id="circle.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
 <li><a id="circle.thickness"></a><code>thickness</code>: <code>u8</code></li>
 </ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="circle.0"></a> result&lt;_, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
+</ul>
 <h4><a id="line"></a><code>line: func</code></h4>
 <p>Line draws a line segment connecting two points.</p>
 <p>For further details, please see:
@@ -732,6 +753,10 @@ https://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga7078a9fae8c7e7
 <li><a id="line.point2"></a><code>point2</code>: <a href="#point"><a href="#point"><code>point</code></a></a></li>
 <li><a id="line.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
 <li><a id="line.thickness"></a><code>thickness</code>: <code>u8</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="line.0"></a> result&lt;_, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="put_text"></a><code>put-text: func</code></h4>
 <p>PutText draws a text string.
@@ -750,6 +775,10 @@ http://docs.opencv.org/master/d6/d6e/group__imgproc__draw.html#ga5126f47f883d730
 <li><a id="put_text.c"></a><code>c</code>: <a href="#rgba"><a href="#rgba"><code>RGBA</code></a></a></li>
 <li><a id="put_text.thickness"></a><code>thickness</code>: <code>s32</code></li>
 </ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="put_text.0"></a> result&lt;_, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
+</ul>
 <h4><a id="adaptive_threshold"></a><code>adaptive-threshold: func</code></h4>
 <p>imgproc functions
 AdaptiveThreshold applies a fixed-level threshold to each array element.</p>
@@ -766,7 +795,7 @@ https://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="adaptive_threshold.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="adaptive_threshold.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="blur"></a><code>blur: func</code></h4>
 <p>Blur blurs an image Mat using a normalized box filter.</p>
@@ -779,7 +808,7 @@ https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga8c45db9afe63
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="blur.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="blur.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="box_filter"></a><code>box-filter: func</code></h4>
 <p>BoxFilter blurs an image using the box filter.</p>
@@ -793,7 +822,7 @@ https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gad533230ebf2d
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="box_filter.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="box_filter.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="canny"></a><code>canny: func</code></h4>
 <p>Canny finds edges in an image using the Canny algorithm.
@@ -813,7 +842,7 @@ http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga04723e007ed8
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="canny.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="canny.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="cvt_color"></a><code>cvt-color: func</code></h4>
 <p>CvtColor converts an image from one color space to another.</p>
@@ -826,7 +855,7 @@ http://docs.opencv.org/master/d7/d1b/group__imgproc__misc.html#ga4e0972be5de079f
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="cvt_color.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="cvt_color.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="dilate"></a><code>dilate: func</code></h4>
 <p>Dilate dilates an image by using a specific structuring element.</p>
@@ -839,7 +868,7 @@ https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga4ff0f3318642c4f
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="dilate.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="dilate.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="erode"></a><code>erode: func</code></h4>
 <p>Erode erodes an image by using a specific structuring element.</p>
@@ -852,7 +881,7 @@ https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gaeb1e0c1033e3
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="erode.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="erode.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="equalize_hist"></a><code>equalize-hist: func</code></h4>
 <p>EqualizeHist normalizes the brightness and increases the contrast of the image.</p>
@@ -864,7 +893,7 @@ https://docs.opencv.org/master/d6/dc7/group__imgproc__hist.html#ga7e54091f0c937d
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="equalize_hist.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="equalize_hist.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="gaussian_blur"></a><code>gaussian-blur: func</code></h4>
 <p>GaussianBlur blurs an image using a Gaussian filter.</p>
@@ -880,7 +909,7 @@ https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#gae8bdcd9154ed5ca
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="gaussian_blur.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="gaussian_blur.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="get_structuring_element"></a><code>get-structuring-element: func</code></h4>
 <p>GetStructuringElement returns a structuring element of the specified size
@@ -894,7 +923,7 @@ https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#gac342a1bb6eab
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="get_structuring_element.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="get_structuring_element.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="hough_lines"></a><code>hough-lines: func</code></h4>
 <p>HoughLines implements the standard or standard multi-scale Hough transform
@@ -911,7 +940,7 @@ http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga46b4e588934f
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="hough_lines.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="hough_lines.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="hough_lines_p"></a><code>hough-lines-p: func</code></h4>
 <p>HoughLinesP implements the probabilistic Hough transform
@@ -928,7 +957,7 @@ http://docs.opencv.org/master/dd/d1a/group__imgproc__feature.html#ga8618180a5948
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="hough_lines_p.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="hough_lines_p.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="median_blur"></a><code>median-blur: func</code></h4>
 <p>MedianBlur blurs an image using the median filter.</p>
@@ -941,7 +970,7 @@ https://docs.opencv.org/master/d4/d86/group__imgproc__filter.html#ga564869aa33e5
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="median_blur.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="median_blur.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="resize"></a><code>resize: func</code></h4>
 <p>Resize resizes an image.
@@ -962,7 +991,7 @@ https://docs.opencv.org/master/da/d54/group__imgproc__transform.html#ga47a974309
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="resize.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="resize.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="threshold"></a><code>threshold: func</code></h4>
 <p>Threshold applies a fixed-level threshold to each array element.</p>
@@ -977,7 +1006,7 @@ https://docs.opencv.org/3.3.0/d7/d1b/group__imgproc__misc.html#gae8a4a146d1ca78c
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="threshold.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="threshold.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="transpose_nd"></a><code>transpose-ND: func</code></h4>
 <p>Transpose for n-dimensional matrices.</p>
@@ -990,7 +1019,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab1b1274b4a563be34cd
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="transpose_nd.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="transpose_nd.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="estimate_affine2d"></a><code>estimate-affine2d: func</code></h4>
 <p>estimate-affine2d computes an optimal affine transformation between two 2D point sets.</p>
@@ -1003,7 +1032,7 @@ https://docs.opencv.org/4.0.0/d9/d0c/group__calib3d.html#ga27865b1d26bac9ce91efa
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="estimate_affine2d.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="estimate_affine2d.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="warp_affine"></a><code>warp-affine: func</code></h4>
 <p>warp-affine applies an affine transformation to an image.</p>
@@ -1017,7 +1046,7 @@ https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#ga0203d9ee5fcd
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="warp_affine.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="warp_affine.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="get_rotation_matrix2d"></a><code>get-rotation-matrix2d: func</code></h4>
 <p>get-rotation-matrix2d calculates an affine matrix of 2D rotation.</p>
@@ -1031,7 +1060,7 @@ https://docs.opencv.org/4.x/da/d54/group__imgproc__transform.html#gafbbc470ce838
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="get_rotation_matrix2d.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="get_rotation_matrix2d.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="add"></a><code>add: func</code></h4>
 <p>add calculates the per-element sum of two arrays.</p>
@@ -1044,7 +1073,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga10ac1bfb180e2cfda17
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="add.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="add.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="add_weighted"></a><code>add-weighted: func</code></h4>
 <p>add-weighted calculates the weighted sum of two arrays.</p>
@@ -1060,7 +1089,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gafafb2513349db3bcff5
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="add_weighted.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="add_weighted.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="exp"></a><code>exp: func</code></h4>
 <p>exp calculates the exponent of every array element.</p>
@@ -1072,7 +1101,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga3e10108e2162c338f1b
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="exp.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="exp.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="hconcat"></a><code>hconcat: func</code></h4>
 <p>hconcat applies horizontal concatenation to given matrices.</p>
@@ -1085,7 +1114,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaab5ceee39e0580f879d
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="hconcat.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="hconcat.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="vconcat"></a><code>vconcat: func</code></h4>
 <p>vconcat applies vertical concatenation to given matrices.</p>
@@ -1098,7 +1127,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga744f53b69f6e4f12156
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="vconcat.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="vconcat.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="lut"></a><code>lut: func</code></h4>
 <p>lut performs a look-up table transform of an array.</p>
@@ -1113,7 +1142,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab55b8d062b7f5587720
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="lut.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="lut.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="reduce_arg_max"></a><code>reduce-arg-max: func</code></h4>
 <p>reduce-arg-max finds indices of max elements along provided axis.</p>
@@ -1127,13 +1156,16 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf969
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="reduce_arg_max.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="reduce_arg_max.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h2><a id="wasm_cv_dnn"></a>Import interface wasm:cv/dnn</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="mat"></a><code>type mat</code></h4>
 <p><a href="#mat"><a href="#mat"><code>mat</code></a></a></p>
+<p>
+#### <a id="error_result"></a>`type error-result`
+[`error-result`](#error_result)
 <p>
 #### <a id="size"></a>`type size`
 [`size`](#size)
@@ -1184,6 +1216,12 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf969
 <ul>
 <li><a id="constructor_layer.0"></a> own&lt;<a href="#layer"><a href="#layer"><code>layer</code></a></a>&gt;</li>
 </ul>
+<h4><a id="method_layer_close"></a><code>[method]layer.close: func</code></h4>
+<p>Close the layer</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_layer_close.self"></a><code>self</code>: borrow&lt;<a href="#layer"><a href="#layer"><code>layer</code></a></a>&gt;</li>
+</ul>
 <h4><a id="method_layer_get_name"></a><code>[method]layer.get-name: func</code></h4>
 <p>GetName returns the name of the layer.</p>
 <h5>Params</h5>
@@ -1192,7 +1230,7 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf969
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_layer_get_name.0"></a> <code>string</code></li>
+<li><a id="method_layer_get_name.0"></a> result&lt;<code>string</code>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="static_net_read"></a><code>[static]net.read: func</code></h4>
 <p>ReadNet read deep learning network represented in one of the supported formats.</p>
@@ -1205,7 +1243,7 @@ https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga138439da76f26266fdefec9723f
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="static_net_read.0"></a> own&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;</li>
+<li><a id="static_net_read.0"></a> result&lt;own&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="static_net_read_from_onnx"></a><code>[static]net.read-from-ONNX: func</code></h4>
 <p>ReadNetFromONNX reads a network model stored in ONNX framework's format.</p>
@@ -1217,7 +1255,7 @@ https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga9198ecaac7c32ddf0aa7a1bcbd3
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="static_net_read_from_onnx.0"></a> own&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;</li>
+<li><a id="static_net_read_from_onnx.0"></a> result&lt;own&lt;<a href="#net"><a href="#net"><code>net</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_net_close"></a><code>[method]net.close: func</code></h4>
 <p>Close the network</p>
@@ -1247,6 +1285,10 @@ https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a672a08ae76444d7
 <li><a id="method_net_set_input.input"></a><code>input</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
 <li><a id="method_net_set_input.name"></a><code>name</code>: <code>string</code></li>
 </ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_net_set_input.0"></a> result&lt;_, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
+</ul>
 <h4><a id="method_net_forward"></a><code>[method]net.forward: func</code></h4>
 <p>Forward runs forward pass to compute output of layer with name outputName.</p>
 <p>For further details, please see:
@@ -1258,7 +1300,7 @@ https://docs.opencv.org/trunk/db/d30/classcv_1_1dnn_1_1Net.html#a98ed94cb6ef7063
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_net_forward.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_net_forward.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_net_forward_layers"></a><code>[method]net.forward-layers: func</code></h4>
 <p>ForwardLayers forward pass to compute outputs of layers listed in outBlobNames.</p>
@@ -1271,7 +1313,7 @@ https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#afe22e099b60a2883e
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_net_forward_layers.0"></a> list&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;&gt;</li>
+<li><a id="method_net_forward_layers.0"></a> result&lt;list&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_net_get_unconnected_out_layers"></a><code>[method]net.get-unconnected-out-layers: func</code></h4>
 <p>GetUnconnectedOutLayers returns indexes of layers with unconnected outputs.</p>
@@ -1283,7 +1325,7 @@ https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ae26f0c29b3733d15d
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_net_get_unconnected_out_layers.0"></a> list&lt;<code>u32</code>&gt;</li>
+<li><a id="method_net_get_unconnected_out_layers.0"></a> result&lt;list&lt;<code>u32</code>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_net_get_layer_names"></a><code>[method]net.get-layer-names: func</code></h4>
 <p>GetLayerNames returns names of layers in the network.</p>
@@ -1295,7 +1337,7 @@ hhttps://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#a38e67098ae4ae590
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_net_get_layer_names.0"></a> list&lt;<code>string</code>&gt;</li>
+<li><a id="method_net_get_layer_names.0"></a> result&lt;list&lt;<code>string</code>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_net_get_layer"></a><code>[method]net.get-layer: func</code></h4>
 <p>GetLayer returns layer with specified id.</p>
@@ -1308,7 +1350,7 @@ https://docs.opencv.org/4.x/db/d30/classcv_1_1dnn_1_1Net.html#ac944d7f2d3ead5ef9
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_net_get_layer.0"></a> own&lt;<a href="#layer"><a href="#layer"><code>layer</code></a></a>&gt;</li>
+<li><a id="method_net_get_layer.0"></a> result&lt;own&lt;<a href="#layer"><a href="#layer"><code>layer</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="blob_from_image"></a><code>blob-from-image: func</code></h4>
 <p>BlobFromImage creates 4-dimensional blob from image. Optionally resizes and crops image from center,
@@ -1326,7 +1368,7 @@ https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="blob_from_image.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="blob_from_image.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="blob_from_image_with_params"></a><code>blob-from-image-with-params: func</code></h4>
 <p>BlobFromImageWithParams creates 4-dimensional blob from image. Optionally resizes and crops image from center,
@@ -1340,7 +1382,7 @@ https://docs.opencv.org/4.x/d6/d0f/group__dnn.html#ga29f34df9376379a603acd8df581
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="blob_from_image_with_params.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="blob_from_image_with_params.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="blob_rects_to_image_rects"></a><code>blob-rects-to-image-rects: func</code></h4>
 <p>BlobRectsToImageRects converts blob rects to image rects.</p>
@@ -1354,7 +1396,7 @@ https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b102
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="blob_rects_to_image_rects.0"></a> list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;</li>
+<li><a id="blob_rects_to_image_rects.0"></a> result&lt;list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="nms_boxes"></a><code>NMS-boxes: func</code></h4>
 <p>NMSBoxes performs non maximum suppression given boxes and corresponding scores.</p>
@@ -1369,13 +1411,16 @@ https://docs.opencv.org/4.4.0/d6/d0f/group__dnn.html#ga9d118d70a1659af729d01b102
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="nms_boxes.0"></a> list&lt;<code>s32</code>&gt;</li>
+<li><a id="nms_boxes.0"></a> result&lt;list&lt;<code>u32</code>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h2><a id="wasm_cv_objdetect"></a>Import interface wasm:cv/objdetect</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="mat"></a><code>type mat</code></h4>
 <p><a href="#mat"><a href="#mat"><code>mat</code></a></a></p>
+<p>
+#### <a id="error_result"></a>`type error-result`
+[`error-result`](#error_result)
 <p>
 #### <a id="size"></a>`type size`
 [`size`](#size)
@@ -1442,7 +1487,7 @@ http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_cascade_classifier_detect_multi_scale.0"></a> list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;</li>
+<li><a id="method_cascade_classifier_detect_multi_scale.0"></a> result&lt;list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_cascade_classifier_detect_multi_scale_with_params"></a><code>[method]cascade-classifier.detect-multi-scale-with-params: func</code></h4>
 <p>DetectMultiScaleWithParams detects objects of different sizes in the input Mat image.
@@ -1461,7 +1506,7 @@ http://docs.opencv.org/master/d1/de5/classcv_1_1CascadeClassifier.html#aaf8181cb
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_cascade_classifier_detect_multi_scale_with_params.0"></a> list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;</li>
+<li><a id="method_cascade_classifier_detect_multi_scale_with_params.0"></a> result&lt;list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="constructor_hog_descriptor"></a><code>[constructor]HOG-descriptor: func</code></h4>
 <p>NewHOGDescriptor returns a new HOGDescriptor.</p>
@@ -1491,7 +1536,7 @@ https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_hog_descriptor_detect_multi_scale.0"></a> list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;</li>
+<li><a id="method_hog_descriptor_detect_multi_scale.0"></a> result&lt;list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_hog_descriptor_detect_multi_scale_with_params"></a><code>[method]HOG-descriptor.detect-multi-scale-with-params: func</code></h4>
 <p>DetectMultiScaleWithParams detects objects of different sizes in the input Mat image.
@@ -1511,7 +1556,7 @@ https://docs.opencv.org/master/d5/d33/structcv_1_1HOGDescriptor.html#a660e5cd036
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_hog_descriptor_detect_multi_scale_with_params.0"></a> list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;</li>
+<li><a id="method_hog_descriptor_detect_multi_scale_with_params.0"></a> result&lt;list&lt;<a href="#rect"><a href="#rect"><code>rect</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="constructor_face_detector_yn"></a><code>[constructor]face-detector-YN: func</code></h4>
 <p>Creates an instance of face detector YN with given parameters.</p>
@@ -1563,7 +1608,7 @@ https://docs.opencv.org/4.x/df/d20/classcv_1_1FaceDetectorYN.html#ac05bd075ca3e6
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_face_detector_yn_detect.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_face_detector_yn_detect.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_face_detector_yn_get_input_size"></a><code>[method]face-detector-YN.get-input-size: func</code></h4>
 <h5>Params</h5>
@@ -1671,7 +1716,7 @@ https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a84492908abe
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_face_recognizer_sf_align_crop.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_face_recognizer_sf_align_crop.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_face_recognizer_sf_feature"></a><code>[method]face-recognizer-SF.feature: func</code></h4>
 <p>Feature extracts face feature from aligned image.</p>
@@ -1684,7 +1729,7 @@ https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#ab1b4a3c1221
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_face_recognizer_sf_feature.0"></a> own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_face_recognizer_sf_feature.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_face_recognizer_sf_match"></a><code>[method]face-recognizer-SF.match: func</code></h4>
 <p>Match calculates the distance between two face features.</p>
@@ -1698,7 +1743,7 @@ https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e6
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_face_recognizer_sf_match.0"></a> <code>f32</code></li>
+<li><a id="method_face_recognizer_sf_match.0"></a> result&lt;<code>f32</code>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_face_recognizer_sf_match_with_params"></a><code>[method]face-recognizer-SF.match-with-params: func</code></h4>
 <p>Match calculates the distance between two face features.</p>
@@ -1713,13 +1758,16 @@ https://docs.opencv.org/4.x/da/d09/classcv_1_1FaceRecognizerSF.html#a2f0362ca1e6
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_face_recognizer_sf_match_with_params.0"></a> <code>f32</code></li>
+<li><a id="method_face_recognizer_sf_match_with_params.0"></a> result&lt;<code>f32</code>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h2><a id="wasm_cv_features2d"></a>Import interface wasm:cv/features2d</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="mat"></a><code>type mat</code></h4>
 <p><a href="#mat"><a href="#mat"><code>mat</code></a></a></p>
+<p>
+#### <a id="error_result"></a>`type error-result`
+[`error-result`](#error_result)
 <p>
 #### <a id="key_point"></a>`type key-point`
 [`key-point`](#key_point)
@@ -1797,7 +1845,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc10
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_akaze_detector_detect.0"></a> list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+<li><a id="method_akaze_detector_detect.0"></a> result&lt;list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_akaze_detector_compute"></a><code>[method]AKAZE-detector.compute: func</code></h4>
 <p>Compute keypoints in an image using AKAZE.</p>
@@ -1812,7 +1860,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d5
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_akaze_detector_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+<li><a id="method_akaze_detector_compute.0"></a> result&lt;<a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_akaze_detector_detect_and_compute"></a><code>[method]AKAZE-detector.detect-and-compute: func</code></h4>
 <p>DetectAndCompute keypoints and compute in an image using AKAZE.</p>
@@ -1826,7 +1874,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb8671
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_akaze_detector_detect_and_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+<li><a id="method_akaze_detector_detect_and_compute.0"></a> result&lt;<a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="constructor_brisk_detector"></a><code>[constructor]BRISK-detector: func</code></h4>
 <p>Returns a new BRISK-detector.</p>
@@ -1857,7 +1905,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc10
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_brisk_detector_detect.0"></a> list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+<li><a id="method_brisk_detector_detect.0"></a> result&lt;list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_brisk_detector_compute"></a><code>[method]BRISK-detector.compute: func</code></h4>
 <p>Compute keypoints in an image using BRISK.</p>
@@ -1872,7 +1920,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d5
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_brisk_detector_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+<li><a id="method_brisk_detector_compute.0"></a> result&lt;<a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_brisk_detector_detect_and_compute"></a><code>[method]BRISK-detector.detect-and-compute: func</code></h4>
 <p>DetectAndCompute keypoints and compute in an image using BRISK.</p>
@@ -1886,7 +1934,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb8671
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_brisk_detector_detect_and_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+<li><a id="method_brisk_detector_detect_and_compute.0"></a> result&lt;<a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="constructor_kaze_detector"></a><code>[constructor]KAZE-detector: func</code></h4>
 <p>Returns a new KAZE-detector.</p>
@@ -1917,7 +1965,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc10
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_kaze_detector_detect.0"></a> list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+<li><a id="method_kaze_detector_detect.0"></a> result&lt;list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_kaze_detector_compute"></a><code>[method]KAZE-detector.compute: func</code></h4>
 <p>Compute keypoints in an image using KAZE.</p>
@@ -1932,7 +1980,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d5
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_kaze_detector_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+<li><a id="method_kaze_detector_compute.0"></a> result&lt;<a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_kaze_detector_detect_and_compute"></a><code>[method]KAZE-detector.detect-and-compute: func</code></h4>
 <p>DetectAndCompute keypoints and compute in an image using KAZE.</p>
@@ -1946,7 +1994,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb8671
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_kaze_detector_detect_and_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+<li><a id="method_kaze_detector_detect_and_compute.0"></a> result&lt;<a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="constructor_orb_detector"></a><code>[constructor]ORB-detector: func</code></h4>
 <p>Returns a new ORB-detector.</p>
@@ -1997,7 +2045,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc10
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_orb_detector_detect.0"></a> list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+<li><a id="method_orb_detector_detect.0"></a> result&lt;list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_orb_detector_compute"></a><code>[method]ORB-detector.compute: func</code></h4>
 <p>Compute keypoints in an image using ORB.</p>
@@ -2012,7 +2060,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d5
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_orb_detector_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+<li><a id="method_orb_detector_compute.0"></a> result&lt;<a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_orb_detector_detect_and_compute"></a><code>[method]ORB-detector.detect-and-compute: func</code></h4>
 <p>DetectAndCompute keypoints and compute in an image using ORB.</p>
@@ -2026,7 +2074,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb8671
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_orb_detector_detect_and_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+<li><a id="method_orb_detector_detect_and_compute.0"></a> result&lt;<a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="constructor_sift_detector"></a><code>[constructor]SIFT-detector: func</code></h4>
 <p>Returns a new SIFT-detector.</p>
@@ -2057,7 +2105,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#aa4e9a7082ec61ebc10
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_sift_detector_detect.0"></a> list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;</li>
+<li><a id="method_sift_detector_detect.0"></a> result&lt;list&lt;<a href="#key_point"><a href="#key_point"><code>key-point</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_sift_detector_compute"></a><code>[method]SIFT-detector.compute: func</code></h4>
 <p>Compute keypoints in an image using SIFT.</p>
@@ -2072,7 +2120,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#ab3cce8d56f4fc5e1d5
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_sift_detector_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+<li><a id="method_sift_detector_compute.0"></a> result&lt;<a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_sift_detector_detect_and_compute"></a><code>[method]SIFT-detector.detect-and-compute: func</code></h4>
 <p>DetectAndCompute keypoints and compute in an image using SIFT.</p>
@@ -2086,7 +2134,7 @@ https://docs.opencv.org/4.x/d0/d13/classcv_1_1Feature2D.html#a8be0d1c20b08eb8671
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_sift_detector_detect_and_compute.0"></a> <a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a></li>
+<li><a id="method_sift_detector_detect_and_compute.0"></a> result&lt;<a href="#detector_result"><a href="#detector_result"><code>detector-result</code></a></a>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="constructor_bf_matcher"></a><code>[constructor]BF-matcher: func</code></h4>
 <p>Returns a new BF-matcher.</p>
@@ -2131,7 +2179,7 @@ https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#a0f046f47b6
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_bf_matcher_match.0"></a> list&lt;<a href="#d_match"><a href="#d_match"><code>d-match</code></a></a>&gt;</li>
+<li><a id="method_bf_matcher_match.0"></a> result&lt;list&lt;<a href="#d_match"><a href="#d_match"><code>d-match</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_bf_matcher_knn_match"></a><code>[method]BF-matcher.KNN-match: func</code></h4>
 <p>KNNMatch finds the k best matches for each descriptor from a query set.</p>
@@ -2146,7 +2194,7 @@ https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#aa880f9353c
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_bf_matcher_knn_match.0"></a> list&lt;list&lt;<a href="#d_match"><a href="#d_match"><code>d-match</code></a></a>&gt;&gt;</li>
+<li><a id="method_bf_matcher_knn_match.0"></a> result&lt;list&lt;list&lt;<a href="#d_match"><a href="#d_match"><code>d-match</code></a></a>&gt;&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="constructor_flann_based_matcher"></a><code>[constructor]flann-based-matcher: func</code></h4>
 <p>Returns a new flann-based-matcher.</p>
@@ -2179,7 +2227,7 @@ https://docs.opencv.org/4.x/db/d39/classcv_1_1DescriptorMatcher.html#aa880f9353c
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_flann_based_matcher_knn_match.0"></a> list&lt;list&lt;<a href="#d_match"><a href="#d_match"><code>d-match</code></a></a>&gt;&gt;</li>
+<li><a id="method_flann_based_matcher_knn_match.0"></a> result&lt;list&lt;list&lt;<a href="#d_match"><a href="#d_match"><code>d-match</code></a></a>&gt;&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h2><a id="wasm_cv_request"></a>Export interface wasm:cv/request</h2>
 <hr />
