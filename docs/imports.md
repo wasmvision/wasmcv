@@ -359,6 +359,9 @@ CopyTo copies Mat into destination Mat.
 
 ConvertTo converts Mat into destination Mat.
 
+For further details, please see:
+https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#adf88c60c5b4980e05bb556080916978b
+
 ##### Params
 
 - <a id="method_mat_convert_to.self"></a>`self`: borrow<[`mat`](#mat)>
@@ -367,6 +370,24 @@ ConvertTo converts Mat into destination Mat.
 ##### Return values
 
 - <a id="method_mat_convert_to.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
+
+#### <a id="method_mat_convert_to_with_params"></a>`[method]mat.convert-to-with-params: func`
+
+ConvertToWithParams converts Mat into destination Mat using additional params.
+
+For further details, please see:
+https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#adf88c60c5b4980e05bb556080916978b
+
+##### Params
+
+- <a id="method_mat_convert_to_with_params.self"></a>`self`: borrow<[`mat`](#mat)>
+- <a id="method_mat_convert_to_with_params.mattype"></a>`mattype`: [`mattype`](#mattype)
+- <a id="method_mat_convert_to_with_params.alpha"></a>`alpha`: `f32`
+- <a id="method_mat_convert_to_with_params.beta"></a>`beta`: `f32`
+
+##### Return values
+
+- <a id="method_mat_convert_to_with_params.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="method_mat_mattype"></a>`[method]mat.mattype: func`
 
@@ -625,6 +646,78 @@ GetVeciAt returns a vector of s32. Its size corresponds to the number of channel
 ##### Return values
 
 - <a id="method_mat_get_veci_at.0"></a> list<`s32`>
+
+#### <a id="method_mat_add_uchar"></a>`[method]mat.add-uchar: func`
+
+AddUChar adds a u8 value to each element in the Mat. Performs addition in place.
+
+##### Params
+
+- <a id="method_mat_add_uchar.self"></a>`self`: borrow<[`mat`](#mat)>
+- <a id="method_mat_add_uchar.val"></a>`val`: `u8`
+
+#### <a id="method_mat_subtract_uchar"></a>`[method]mat.subtract-uchar: func`
+
+SubtractUChar subtracts a u8 value from each element in the Mat. Performs subtraction in place.
+
+##### Params
+
+- <a id="method_mat_subtract_uchar.self"></a>`self`: borrow<[`mat`](#mat)>
+- <a id="method_mat_subtract_uchar.val"></a>`val`: `u8`
+
+#### <a id="method_mat_multiply_uchar"></a>`[method]mat.multiply-uchar: func`
+
+MultiplyUChar multiplies each element in the Mat by a u8 value. Performs multiplication in place.
+
+##### Params
+
+- <a id="method_mat_multiply_uchar.self"></a>`self`: borrow<[`mat`](#mat)>
+- <a id="method_mat_multiply_uchar.val"></a>`val`: `u8`
+
+#### <a id="method_mat_divide_uchar"></a>`[method]mat.divide-uchar: func`
+
+DivideUChar divides each element in the Mat by a u8 value. Performs division in place.
+
+##### Params
+
+- <a id="method_mat_divide_uchar.self"></a>`self`: borrow<[`mat`](#mat)>
+- <a id="method_mat_divide_uchar.val"></a>`val`: `u8`
+
+#### <a id="method_mat_add_float"></a>`[method]mat.add-float: func`
+
+AddFloat adds a float value to each element in the Mat. Performs addition in place.
+
+##### Params
+
+- <a id="method_mat_add_float.self"></a>`self`: borrow<[`mat`](#mat)>
+- <a id="method_mat_add_float.val"></a>`val`: `f32`
+
+#### <a id="method_mat_subtract_float"></a>`[method]mat.subtract-float: func`
+
+SubtractFloat subtracts a float value from each element in the Mat. Performs subtraction in place.
+
+##### Params
+
+- <a id="method_mat_subtract_float.self"></a>`self`: borrow<[`mat`](#mat)>
+- <a id="method_mat_subtract_float.val"></a>`val`: `f32`
+
+#### <a id="method_mat_multiply_float"></a>`[method]mat.multiply-float: func`
+
+MultiplyFloat multiplies each element in the Mat by a float value. Performs multiplication in place.
+
+##### Params
+
+- <a id="method_mat_multiply_float.self"></a>`self`: borrow<[`mat`](#mat)>
+- <a id="method_mat_multiply_float.val"></a>`val`: `f32`
+
+#### <a id="method_mat_divide_float"></a>`[method]mat.divide-float: func`
+
+DivideFloat divides each element in the Mat by a float value. Performs division in place.
+
+##### Params
+
+- <a id="method_mat_divide_float.self"></a>`self`: borrow<[`mat`](#mat)>
+- <a id="method_mat_divide_float.val"></a>`val`: `f32`
 
 #### <a id="method_mat_reshape"></a>`[method]mat.reshape: func`
 
@@ -1346,6 +1439,24 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab55b8d062b7f5587720
 
 - <a id="lut.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
+#### <a id="reduce"></a>`reduce: func`
+
+reduce reduces the matrix to a vector.
+
+For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga4b78072a303f29d9031d56e5638da78e
+
+##### Params
+
+- <a id="reduce.src"></a>`src`: own<[`mat`](#mat)>
+- <a id="reduce.dim"></a>`dim`: `u32`
+- <a id="reduce.reduce_type"></a>`reduce-type`: `u32`
+- <a id="reduce.depth_type"></a>`depth-type`: `u32`
+
+##### Return values
+
+- <a id="reduce.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
+
 #### <a id="reduce_arg_max"></a>`reduce-arg-max: func`
 
 reduce-arg-max finds indices of max elements along provided axis.
@@ -1362,6 +1473,40 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf969
 ##### Return values
 
 - <a id="reduce_arg_max.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
+
+#### <a id="normalize"></a>`normalize: func`
+
+normalize normalizes the norm or value range of an array.
+
+For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga87eef7ee3970f86906d69a92cbf064bd
+
+##### Params
+
+- <a id="normalize.src"></a>`src`: own<[`mat`](#mat)>
+- <a id="normalize.alpha"></a>`alpha`: `f32`
+- <a id="normalize.beta"></a>`beta`: `f32`
+- <a id="normalize.norm_type"></a>`norm-type`: `u32`
+
+##### Return values
+
+- <a id="normalize.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
+
+#### <a id="norm"></a>`norm: func`
+
+norm calculates the norm of an array.
+
+For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7c331fb8dd951707e184ef4e3f21dd33
+
+##### Params
+
+- <a id="norm.src"></a>`src`: own<[`mat`](#mat)>
+- <a id="norm.norm_type"></a>`norm-type`: `u32`
+
+##### Return values
+
+- <a id="norm.0"></a> result<`f32`, [`error-result`](#error_result)>
 
 ## <a id="wasm_cv_dnn"></a>Import interface wasm:cv/dnn
 

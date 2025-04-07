@@ -315,6 +315,8 @@ OpenCV Mat object.</p>
 </ul>
 <h4><a id="method_mat_convert_to"></a><code>[method]mat.convert-to: func</code></h4>
 <p>ConvertTo converts Mat into destination Mat.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#adf88c60c5b4980e05bb556080916978b</p>
 <h5>Params</h5>
 <ul>
 <li><a id="method_mat_convert_to.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
@@ -323,6 +325,21 @@ OpenCV Mat object.</p>
 <h5>Return values</h5>
 <ul>
 <li><a id="method_mat_convert_to.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_mat_convert_to_with_params"></a><code>[method]mat.convert-to-with-params: func</code></h4>
+<p>ConvertToWithParams converts Mat into destination Mat using additional params.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#adf88c60c5b4980e05bb556080916978b</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_convert_to_with_params.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_convert_to_with_params.mattype"></a><a href="#mattype"><code>mattype</code></a>: <a href="#mattype"><a href="#mattype"><code>mattype</code></a></a></li>
+<li><a id="method_mat_convert_to_with_params.alpha"></a><code>alpha</code>: <code>f32</code></li>
+<li><a id="method_mat_convert_to_with_params.beta"></a><code>beta</code>: <code>f32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_mat_convert_to_with_params.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_mat_mattype"></a><code>[method]mat.mattype: func</code></h4>
 <p>MatType returns the type of the Mat.</p>
@@ -541,6 +558,62 @@ OpenCV Mat object.</p>
 <h5>Return values</h5>
 <ul>
 <li><a id="method_mat_get_veci_at.0"></a> list&lt;<code>s32</code>&gt;</li>
+</ul>
+<h4><a id="method_mat_add_uchar"></a><code>[method]mat.add-uchar: func</code></h4>
+<p>AddUChar adds a u8 value to each element in the Mat. Performs addition in place.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_add_uchar.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_add_uchar.val"></a><code>val</code>: <code>u8</code></li>
+</ul>
+<h4><a id="method_mat_subtract_uchar"></a><code>[method]mat.subtract-uchar: func</code></h4>
+<p>SubtractUChar subtracts a u8 value from each element in the Mat. Performs subtraction in place.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_subtract_uchar.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_subtract_uchar.val"></a><code>val</code>: <code>u8</code></li>
+</ul>
+<h4><a id="method_mat_multiply_uchar"></a><code>[method]mat.multiply-uchar: func</code></h4>
+<p>MultiplyUChar multiplies each element in the Mat by a u8 value. Performs multiplication in place.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_multiply_uchar.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_multiply_uchar.val"></a><code>val</code>: <code>u8</code></li>
+</ul>
+<h4><a id="method_mat_divide_uchar"></a><code>[method]mat.divide-uchar: func</code></h4>
+<p>DivideUChar divides each element in the Mat by a u8 value. Performs division in place.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_divide_uchar.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_divide_uchar.val"></a><code>val</code>: <code>u8</code></li>
+</ul>
+<h4><a id="method_mat_add_float"></a><code>[method]mat.add-float: func</code></h4>
+<p>AddFloat adds a float value to each element in the Mat. Performs addition in place.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_add_float.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_add_float.val"></a><code>val</code>: <code>f32</code></li>
+</ul>
+<h4><a id="method_mat_subtract_float"></a><code>[method]mat.subtract-float: func</code></h4>
+<p>SubtractFloat subtracts a float value from each element in the Mat. Performs subtraction in place.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_subtract_float.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_subtract_float.val"></a><code>val</code>: <code>f32</code></li>
+</ul>
+<h4><a id="method_mat_multiply_float"></a><code>[method]mat.multiply-float: func</code></h4>
+<p>MultiplyFloat multiplies each element in the Mat by a float value. Performs multiplication in place.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_multiply_float.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_multiply_float.val"></a><code>val</code>: <code>f32</code></li>
+</ul>
+<h4><a id="method_mat_divide_float"></a><code>[method]mat.divide-float: func</code></h4>
+<p>DivideFloat divides each element in the Mat by a float value. Performs division in place.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_mat_divide_float.self"></a><code>self</code>: borrow&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="method_mat_divide_float.val"></a><code>val</code>: <code>f32</code></li>
 </ul>
 <h4><a id="method_mat_reshape"></a><code>[method]mat.reshape: func</code></h4>
 <p>Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.</p>
@@ -1144,6 +1217,21 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab55b8d062b7f5587720
 <ul>
 <li><a id="lut.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
+<h4><a id="reduce"></a><code>reduce: func</code></h4>
+<p>reduce reduces the matrix to a vector.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga4b78072a303f29d9031d56e5638da78e</p>
+<h5>Params</h5>
+<ul>
+<li><a id="reduce.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="reduce.dim"></a><code>dim</code>: <code>u32</code></li>
+<li><a id="reduce.reduce_type"></a><code>reduce-type</code>: <code>u32</code></li>
+<li><a id="reduce.depth_type"></a><code>depth-type</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="reduce.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
+</ul>
 <h4><a id="reduce_arg_max"></a><code>reduce-arg-max: func</code></h4>
 <p>reduce-arg-max finds indices of max elements along provided axis.</p>
 <p>For further details, please see:
@@ -1157,6 +1245,34 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf969
 <h5>Return values</h5>
 <ul>
 <li><a id="reduce_arg_max.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
+</ul>
+<h4><a id="normalize"></a><code>normalize: func</code></h4>
+<p>normalize normalizes the norm or value range of an array.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga87eef7ee3970f86906d69a92cbf064bd</p>
+<h5>Params</h5>
+<ul>
+<li><a id="normalize.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="normalize.alpha"></a><code>alpha</code>: <code>f32</code></li>
+<li><a id="normalize.beta"></a><code>beta</code>: <code>f32</code></li>
+<li><a id="normalize.norm_type"></a><a href="#norm_type"><code>norm-type</code></a>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="normalize.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
+</ul>
+<h4><a id="norm"></a><code>norm: func</code></h4>
+<p>norm calculates the norm of an array.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7c331fb8dd951707e184ef4e3f21dd33</p>
+<h5>Params</h5>
+<ul>
+<li><a id="norm.src"></a><code>src</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="norm.norm_type"></a><a href="#norm_type"><code>norm-type</code></a>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="norm.0"></a> result&lt;<code>f32</code>, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h2><a id="wasm_cv_dnn"></a>Import interface wasm:cv/dnn</h2>
 <hr />
@@ -2154,7 +2270,7 @@ https://docs.opencv.org/4.x/d3/da1/classcv_1_1BFMatcher.html#abe0bb11749b30d97f6
 https://docs.opencv.org/4.x/d3/da1/classcv_1_1BFMatcher.html#abe0bb11749b30d97f60d6ade665617bd</p>
 <h5>Params</h5>
 <ul>
-<li><a id="static_bf_matcher_new_with_params.norm"></a><code>norm</code>: <a href="#norm_type"><a href="#norm_type"><code>norm-type</code></a></a></li>
+<li><a id="static_bf_matcher_new_with_params.norm"></a><a href="#norm"><code>norm</code></a>: <a href="#norm_type"><a href="#norm_type"><code>norm-type</code></a></a></li>
 <li><a id="static_bf_matcher_new_with_params.cross_check"></a><code>cross-check</code>: <code>bool</code></li>
 </ul>
 <h5>Return values</h5>
