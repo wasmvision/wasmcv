@@ -32,6 +32,9 @@ extern void __wasm_import_wasm_cv_mat_method_mat_copy_to(int32_t, int32_t);
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.convert-to")))
 extern void __wasm_import_wasm_cv_mat_method_mat_convert_to(int32_t, int32_t, uint8_t *);
 
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.convert-to-with-params")))
+extern void __wasm_import_wasm_cv_mat_method_mat_convert_to_with_params(int32_t, int32_t, float, float, uint8_t *);
+
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.mattype")))
 extern int32_t __wasm_import_wasm_cv_mat_method_mat_mattype(int32_t);
 
@@ -91,6 +94,30 @@ extern void __wasm_import_wasm_cv_mat_method_mat_get_vecf_at(int32_t, int32_t, i
 
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.get-veci-at")))
 extern void __wasm_import_wasm_cv_mat_method_mat_get_veci_at(int32_t, int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.add-uchar")))
+extern void __wasm_import_wasm_cv_mat_method_mat_add_uchar(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.subtract-uchar")))
+extern void __wasm_import_wasm_cv_mat_method_mat_subtract_uchar(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.multiply-uchar")))
+extern void __wasm_import_wasm_cv_mat_method_mat_multiply_uchar(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.divide-uchar")))
+extern void __wasm_import_wasm_cv_mat_method_mat_divide_uchar(int32_t, int32_t);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.add-float")))
+extern void __wasm_import_wasm_cv_mat_method_mat_add_float(int32_t, float);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.subtract-float")))
+extern void __wasm_import_wasm_cv_mat_method_mat_subtract_float(int32_t, float);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.multiply-float")))
+extern void __wasm_import_wasm_cv_mat_method_mat_multiply_float(int32_t, float);
+
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.divide-float")))
+extern void __wasm_import_wasm_cv_mat_method_mat_divide_float(int32_t, float);
 
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[method]mat.reshape")))
 extern void __wasm_import_wasm_cv_mat_method_mat_reshape(int32_t, int32_t, int32_t, uint8_t *);
@@ -208,8 +235,17 @@ extern void __wasm_import_wasm_cv_cv_vconcat(int32_t, int32_t, uint8_t *);
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("lut")))
 extern void __wasm_import_wasm_cv_cv_lut(int32_t, int32_t, uint8_t *);
 
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("reduce")))
+extern void __wasm_import_wasm_cv_cv_reduce(int32_t, int32_t, int32_t, int32_t, uint8_t *);
+
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("reduce-arg-max")))
 extern void __wasm_import_wasm_cv_cv_reduce_arg_max(int32_t, int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("normalize")))
+extern void __wasm_import_wasm_cv_cv_normalize(int32_t, float, float, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("norm")))
+extern void __wasm_import_wasm_cv_cv_norm(int32_t, int32_t, uint8_t *);
 
 // Imported Functions from `wasm:cv/dnn`
 
@@ -565,6 +601,13 @@ void wasm_cv_cv_result_void_error_result_free(wasm_cv_cv_result_void_error_resul
 }
 
 void wasm_cv_cv_result_own_mat_error_result_free(wasm_cv_cv_result_own_mat_error_result_t *ptr) {
+  if (!ptr->is_err) {
+  } else {
+    wasm_cv_cv_error_result_free(&ptr->val.err);
+  }
+}
+
+void wasm_cv_cv_result_f32_error_result_free(wasm_cv_cv_result_f32_error_result_t *ptr) {
   if (!ptr->is_err) {
   } else {
     wasm_cv_cv_error_result_free(&ptr->val.err);
@@ -1010,6 +1053,33 @@ bool wasm_cv_mat_method_mat_convert_to(wasm_cv_mat_borrow_mat_t self, wasm_cv_ma
   }
 }
 
+bool wasm_cv_mat_method_mat_convert_to_with_params(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_mattype_t mattype, float alpha, float beta, wasm_cv_mat_own_mat_t *ret, wasm_cv_mat_error_result_t *err) {
+  __attribute__((__aligned__(sizeof(void*))))
+  uint8_t ret_area[(3*sizeof(void*))];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_mat_method_mat_convert_to_with_params((self).__handle, (int32_t) mattype, alpha, beta, ptr);
+  wasm_cv_mat_result_own_mat_error_result_t result;
+  switch ((int32_t) *((uint8_t*) (ptr + 0))) {
+    case 0: {
+      result.is_err = false;
+      result.val.ok = (wasm_cv_mat_own_mat_t) { *((int32_t*) (ptr + sizeof(void*))) };
+      break;
+    }
+    case 1: {
+      result.is_err = true;
+      result.val.err = (imports_string_t) { (uint8_t*)(*((uint8_t **) (ptr + sizeof(void*)))), (*((size_t*) (ptr + (2*sizeof(void*))))) };
+      break;
+    }
+  }
+  if (!result.is_err) {
+    *ret = result.val.ok;
+    return 1;
+  } else {
+    *err = result.val.err;
+    return 0;
+  }
+}
+
 wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_mattype(wasm_cv_mat_borrow_mat_t self) {
   int32_t ret = __wasm_import_wasm_cv_mat_method_mat_mattype((self).__handle);
   return ret;
@@ -1114,6 +1184,38 @@ void wasm_cv_mat_method_mat_get_veci_at(wasm_cv_mat_borrow_mat_t self, uint32_t 
   uint8_t *ptr = (uint8_t *) &ret_area;
   __wasm_import_wasm_cv_mat_method_mat_get_veci_at((self).__handle, (int32_t) (row), (int32_t) (col), ptr);
   *ret = (imports_list_s32_t) { (int32_t*)(*((uint8_t **) (ptr + 0))), (*((size_t*) (ptr + sizeof(void*)))) };
+}
+
+void wasm_cv_mat_method_mat_add_uchar(wasm_cv_mat_borrow_mat_t self, uint8_t val) {
+  __wasm_import_wasm_cv_mat_method_mat_add_uchar((self).__handle, (int32_t) (val));
+}
+
+void wasm_cv_mat_method_mat_subtract_uchar(wasm_cv_mat_borrow_mat_t self, uint8_t val) {
+  __wasm_import_wasm_cv_mat_method_mat_subtract_uchar((self).__handle, (int32_t) (val));
+}
+
+void wasm_cv_mat_method_mat_multiply_uchar(wasm_cv_mat_borrow_mat_t self, uint8_t val) {
+  __wasm_import_wasm_cv_mat_method_mat_multiply_uchar((self).__handle, (int32_t) (val));
+}
+
+void wasm_cv_mat_method_mat_divide_uchar(wasm_cv_mat_borrow_mat_t self, uint8_t val) {
+  __wasm_import_wasm_cv_mat_method_mat_divide_uchar((self).__handle, (int32_t) (val));
+}
+
+void wasm_cv_mat_method_mat_add_float(wasm_cv_mat_borrow_mat_t self, float val) {
+  __wasm_import_wasm_cv_mat_method_mat_add_float((self).__handle, val);
+}
+
+void wasm_cv_mat_method_mat_subtract_float(wasm_cv_mat_borrow_mat_t self, float val) {
+  __wasm_import_wasm_cv_mat_method_mat_subtract_float((self).__handle, val);
+}
+
+void wasm_cv_mat_method_mat_multiply_float(wasm_cv_mat_borrow_mat_t self, float val) {
+  __wasm_import_wasm_cv_mat_method_mat_multiply_float((self).__handle, val);
+}
+
+void wasm_cv_mat_method_mat_divide_float(wasm_cv_mat_borrow_mat_t self, float val) {
+  __wasm_import_wasm_cv_mat_method_mat_divide_float((self).__handle, val);
 }
 
 bool wasm_cv_mat_method_mat_reshape(wasm_cv_mat_borrow_mat_t self, uint32_t channels, uint32_t rows, wasm_cv_mat_own_mat_t *ret, wasm_cv_mat_error_result_t *err) {
@@ -2143,6 +2245,33 @@ bool wasm_cv_cv_lut(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t wblut, wasm_c
   }
 }
 
+bool wasm_cv_cv_reduce(wasm_cv_cv_own_mat_t src, uint32_t dim, uint32_t reduce_type, uint32_t depth_type, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err) {
+  __attribute__((__aligned__(sizeof(void*))))
+  uint8_t ret_area[(3*sizeof(void*))];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_cv_reduce((src).__handle, (int32_t) (dim), (int32_t) (reduce_type), (int32_t) (depth_type), ptr);
+  wasm_cv_cv_result_own_mat_error_result_t result;
+  switch ((int32_t) *((uint8_t*) (ptr + 0))) {
+    case 0: {
+      result.is_err = false;
+      result.val.ok = (wasm_cv_cv_own_mat_t) { *((int32_t*) (ptr + sizeof(void*))) };
+      break;
+    }
+    case 1: {
+      result.is_err = true;
+      result.val.err = (imports_string_t) { (uint8_t*)(*((uint8_t **) (ptr + sizeof(void*)))), (*((size_t*) (ptr + (2*sizeof(void*))))) };
+      break;
+    }
+  }
+  if (!result.is_err) {
+    *ret = result.val.ok;
+    return 1;
+  } else {
+    *err = result.val.err;
+    return 0;
+  }
+}
+
 bool wasm_cv_cv_reduce_arg_max(wasm_cv_cv_own_mat_t src, uint32_t axis, bool last_index, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err) {
   __attribute__((__aligned__(sizeof(void*))))
   uint8_t ret_area[(3*sizeof(void*))];
@@ -2153,6 +2282,60 @@ bool wasm_cv_cv_reduce_arg_max(wasm_cv_cv_own_mat_t src, uint32_t axis, bool las
     case 0: {
       result.is_err = false;
       result.val.ok = (wasm_cv_cv_own_mat_t) { *((int32_t*) (ptr + sizeof(void*))) };
+      break;
+    }
+    case 1: {
+      result.is_err = true;
+      result.val.err = (imports_string_t) { (uint8_t*)(*((uint8_t **) (ptr + sizeof(void*)))), (*((size_t*) (ptr + (2*sizeof(void*))))) };
+      break;
+    }
+  }
+  if (!result.is_err) {
+    *ret = result.val.ok;
+    return 1;
+  } else {
+    *err = result.val.err;
+    return 0;
+  }
+}
+
+bool wasm_cv_cv_normalize(wasm_cv_cv_own_mat_t src, float alpha, float beta, uint32_t norm_type, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err) {
+  __attribute__((__aligned__(sizeof(void*))))
+  uint8_t ret_area[(3*sizeof(void*))];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_cv_normalize((src).__handle, alpha, beta, (int32_t) (norm_type), ptr);
+  wasm_cv_cv_result_own_mat_error_result_t result;
+  switch ((int32_t) *((uint8_t*) (ptr + 0))) {
+    case 0: {
+      result.is_err = false;
+      result.val.ok = (wasm_cv_cv_own_mat_t) { *((int32_t*) (ptr + sizeof(void*))) };
+      break;
+    }
+    case 1: {
+      result.is_err = true;
+      result.val.err = (imports_string_t) { (uint8_t*)(*((uint8_t **) (ptr + sizeof(void*)))), (*((size_t*) (ptr + (2*sizeof(void*))))) };
+      break;
+    }
+  }
+  if (!result.is_err) {
+    *ret = result.val.ok;
+    return 1;
+  } else {
+    *err = result.val.err;
+    return 0;
+  }
+}
+
+bool wasm_cv_cv_norm(wasm_cv_cv_own_mat_t src, uint32_t norm_type, float *ret, wasm_cv_cv_error_result_t *err) {
+  __attribute__((__aligned__(sizeof(void*))))
+  uint8_t ret_area[(3*sizeof(void*))];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_cv_norm((src).__handle, (int32_t) (norm_type), ptr);
+  wasm_cv_cv_result_f32_error_result_t result;
+  switch ((int32_t) *((uint8_t*) (ptr + 0))) {
+    case 0: {
+      result.is_err = false;
+      result.val.ok = *((float*) (ptr + sizeof(void*)));
       break;
     }
     case 1: {
