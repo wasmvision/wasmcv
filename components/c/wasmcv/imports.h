@@ -297,6 +297,14 @@ typedef struct {
   } val;
 } wasm_cv_cv_result_own_mat_error_result_t;
 
+typedef struct {
+  bool is_err;
+  union {
+    float ok;
+    wasm_cv_cv_error_result_t err;
+  } val;
+} wasm_cv_cv_result_f32_error_result_t;
+
 typedef wasm_cv_types_error_result_t wasm_cv_dnn_error_result_t;
 
 typedef wasm_cv_types_size_t wasm_cv_dnn_size_t;
@@ -665,7 +673,15 @@ extern wasm_cv_mat_own_mat_t wasm_cv_mat_method_mat_region(wasm_cv_mat_borrow_ma
 // CopyTo copies Mat into destination Mat.
 extern void wasm_cv_mat_method_mat_copy_to(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_borrow_mat_t dst);
 // ConvertTo converts Mat into destination Mat.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#adf88c60c5b4980e05bb556080916978b
 extern bool wasm_cv_mat_method_mat_convert_to(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_mattype_t mattype, wasm_cv_mat_own_mat_t *ret, wasm_cv_mat_error_result_t *err);
+// ConvertToWithParams converts Mat into destination Mat using additional params.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#adf88c60c5b4980e05bb556080916978b
+extern bool wasm_cv_mat_method_mat_convert_to_with_params(wasm_cv_mat_borrow_mat_t self, wasm_cv_mat_mattype_t mattype, float alpha, float beta, wasm_cv_mat_own_mat_t *ret, wasm_cv_mat_error_result_t *err);
 // MatType returns the type of the Mat.
 extern wasm_cv_mat_mattype_t wasm_cv_mat_method_mat_mattype(wasm_cv_mat_borrow_mat_t self);
 // Size returns an array with one element for each dimension containing the size of that dimension for the Mat.
@@ -706,6 +722,22 @@ extern void wasm_cv_mat_method_mat_get_vecb_at(wasm_cv_mat_borrow_mat_t self, ui
 extern void wasm_cv_mat_method_mat_get_vecf_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col, imports_list_f32_t *ret);
 // GetVeciAt returns a vector of s32. Its size corresponds to the number of channels of the Mat.
 extern void wasm_cv_mat_method_mat_get_veci_at(wasm_cv_mat_borrow_mat_t self, uint32_t row, uint32_t col, imports_list_s32_t *ret);
+// AddUChar adds a u8 value to each element in the Mat. Performs addition in place.
+extern void wasm_cv_mat_method_mat_add_uchar(wasm_cv_mat_borrow_mat_t self, uint8_t val);
+// SubtractUChar subtracts a u8 value from each element in the Mat. Performs subtraction in place.
+extern void wasm_cv_mat_method_mat_subtract_uchar(wasm_cv_mat_borrow_mat_t self, uint8_t val);
+// MultiplyUChar multiplies each element in the Mat by a u8 value. Performs multiplication in place.
+extern void wasm_cv_mat_method_mat_multiply_uchar(wasm_cv_mat_borrow_mat_t self, uint8_t val);
+// DivideUChar divides each element in the Mat by a u8 value. Performs division in place.
+extern void wasm_cv_mat_method_mat_divide_uchar(wasm_cv_mat_borrow_mat_t self, uint8_t val);
+// AddFloat adds a float value to each element in the Mat. Performs addition in place.
+extern void wasm_cv_mat_method_mat_add_float(wasm_cv_mat_borrow_mat_t self, float val);
+// SubtractFloat subtracts a float value from each element in the Mat. Performs subtraction in place.
+extern void wasm_cv_mat_method_mat_subtract_float(wasm_cv_mat_borrow_mat_t self, float val);
+// MultiplyFloat multiplies each element in the Mat by a float value. Performs multiplication in place.
+extern void wasm_cv_mat_method_mat_multiply_float(wasm_cv_mat_borrow_mat_t self, float val);
+// DivideFloat divides each element in the Mat by a float value. Performs division in place.
+extern void wasm_cv_mat_method_mat_divide_float(wasm_cv_mat_borrow_mat_t self, float val);
 // Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.
 // 
 // For further details, please see:
@@ -915,11 +947,26 @@ extern bool wasm_cv_cv_vconcat(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t s
 // For further details, please see:
 // https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab55b8d062b7f5587720ede032d34156f
 extern bool wasm_cv_cv_lut(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t wblut, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err);
+// reduce reduces the matrix to a vector.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga4b78072a303f29d9031d56e5638da78e
+extern bool wasm_cv_cv_reduce(wasm_cv_cv_own_mat_t src, uint32_t dim, uint32_t reduce_type, uint32_t depth_type, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err);
 // reduce-arg-max finds indices of max elements along provided axis.
 // 
 // For further details, please see:
 // https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf9695048355163da0
 extern bool wasm_cv_cv_reduce_arg_max(wasm_cv_cv_own_mat_t src, uint32_t axis, bool last_index, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err);
+// normalize normalizes the norm or value range of an array.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga87eef7ee3970f86906d69a92cbf064bd
+extern bool wasm_cv_cv_normalize(wasm_cv_cv_own_mat_t src, float alpha, float beta, uint32_t norm_type, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err);
+// norm calculates the norm of an array.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7c331fb8dd951707e184ef4e3f21dd33
+extern bool wasm_cv_cv_norm(wasm_cv_cv_own_mat_t src, uint32_t norm_type, float *ret, wasm_cv_cv_error_result_t *err);
 
 // Imported Functions from `wasm:cv/dnn`
 extern wasm_cv_dnn_own_layer_t wasm_cv_dnn_constructor_layer(void);
@@ -1279,6 +1326,8 @@ void wasm_cv_cv_error_result_free(wasm_cv_cv_error_result_t *ptr);
 void wasm_cv_cv_result_void_error_result_free(wasm_cv_cv_result_void_error_result_t *ptr);
 
 void wasm_cv_cv_result_own_mat_error_result_free(wasm_cv_cv_result_own_mat_error_result_t *ptr);
+
+void wasm_cv_cv_result_f32_error_result_free(wasm_cv_cv_result_f32_error_result_t *ptr);
 
 void wasm_cv_dnn_error_result_free(wasm_cv_dnn_error_result_t *ptr);
 

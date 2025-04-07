@@ -974,6 +974,9 @@ pub mod wasm {
       impl Mat {
         #[allow(unused_unsafe, clippy::all)]
         /// ConvertTo converts Mat into destination Mat.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#adf88c60c5b4980e05bb556080916978b
         pub fn convert_to(&self,mattype: Mattype,) -> Result<Mat,ErrorResult>{
           unsafe {
 
@@ -992,6 +995,57 @@ pub mod wasm {
             #[cfg(not(target_arch = "wasm32"))]
             unsafe extern "C" fn wit_import1(_: i32, _: i32, _: *mut u8, ){ unreachable!() }
             unsafe { wit_import1((self).handle() as i32, mattype.clone() as i32, ptr0) };
+            let l2 = i32::from(*ptr0.add(0).cast::<u8>());
+            let result7 = match l2 {
+              0 => {
+                let e = {
+                  let l3 = *ptr0.add(::core::mem::size_of::<*const u8>()).cast::<i32>();
+
+                  unsafe { Mat::from_handle(l3 as u32) }
+                };
+                Ok(e)
+              }
+              1 => {
+                let e = {
+                  let l4 = *ptr0.add(::core::mem::size_of::<*const u8>()).cast::<*mut u8>();
+                  let l5 = *ptr0.add(2*::core::mem::size_of::<*const u8>()).cast::<usize>();
+                  let len6 = l5;
+                  let bytes6 = _rt::Vec::from_raw_parts(l4.cast(), len6, len6);
+
+                  _rt::string_lift(bytes6)
+                };
+                Err(e)
+              }
+              _ => _rt::invalid_enum_discriminant(),
+            };
+            result7
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// ConvertToWithParams converts Mat into destination Mat using additional params.
+        ///
+        /// For further details, please see:
+        /// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#adf88c60c5b4980e05bb556080916978b
+        pub fn convert_to_with_params(&self,mattype: Mattype,alpha: f32,beta: f32,) -> Result<Mat,ErrorResult>{
+          unsafe {
+
+            #[cfg_attr(target_pointer_width="64", repr(align(8)))]
+            #[cfg_attr(target_pointer_width="32", repr(align(4)))]
+            struct RetArea([::core::mem::MaybeUninit::<u8>; 3*::core::mem::size_of::<*const u8>()]);
+            let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 3*::core::mem::size_of::<*const u8>()]);
+            let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            unsafe extern "C" {
+              #[link_name = "[method]mat.convert-to-with-params"]
+              fn wit_import1(_: i32, _: i32, _: f32, _: f32, _: *mut u8, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            unsafe extern "C" fn wit_import1(_: i32, _: i32, _: f32, _: f32, _: *mut u8, ){ unreachable!() }
+            unsafe { wit_import1((self).handle() as i32, mattype.clone() as i32, _rt::as_f32(&alpha), _rt::as_f32(&beta), ptr0) };
             let l2 = i32::from(*ptr0.add(0).cast::<u8>());
             let result7 = match l2 {
               0 => {
@@ -1446,6 +1500,158 @@ pub mod wasm {
             let len4 = l3;
             let result5 = _rt::Vec::from_raw_parts(l2.cast(), len4, len4);
             result5
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// AddUChar adds a u8 value to each element in the Mat. Performs addition in place.
+        pub fn add_uchar(&self,val: u8,) -> (){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            unsafe extern "C" {
+              #[link_name = "[method]mat.add-uchar"]
+              fn wit_import0(_: i32, _: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            unsafe extern "C" fn wit_import0(_: i32, _: i32, ){ unreachable!() }
+            unsafe { wit_import0((self).handle() as i32, _rt::as_i32(&val)) };
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// SubtractUChar subtracts a u8 value from each element in the Mat. Performs subtraction in place.
+        pub fn subtract_uchar(&self,val: u8,) -> (){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            unsafe extern "C" {
+              #[link_name = "[method]mat.subtract-uchar"]
+              fn wit_import0(_: i32, _: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            unsafe extern "C" fn wit_import0(_: i32, _: i32, ){ unreachable!() }
+            unsafe { wit_import0((self).handle() as i32, _rt::as_i32(&val)) };
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// MultiplyUChar multiplies each element in the Mat by a u8 value. Performs multiplication in place.
+        pub fn multiply_uchar(&self,val: u8,) -> (){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            unsafe extern "C" {
+              #[link_name = "[method]mat.multiply-uchar"]
+              fn wit_import0(_: i32, _: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            unsafe extern "C" fn wit_import0(_: i32, _: i32, ){ unreachable!() }
+            unsafe { wit_import0((self).handle() as i32, _rt::as_i32(&val)) };
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// DivideUChar divides each element in the Mat by a u8 value. Performs division in place.
+        pub fn divide_uchar(&self,val: u8,) -> (){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            unsafe extern "C" {
+              #[link_name = "[method]mat.divide-uchar"]
+              fn wit_import0(_: i32, _: i32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            unsafe extern "C" fn wit_import0(_: i32, _: i32, ){ unreachable!() }
+            unsafe { wit_import0((self).handle() as i32, _rt::as_i32(&val)) };
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// AddFloat adds a float value to each element in the Mat. Performs addition in place.
+        pub fn add_float(&self,val: f32,) -> (){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            unsafe extern "C" {
+              #[link_name = "[method]mat.add-float"]
+              fn wit_import0(_: i32, _: f32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            unsafe extern "C" fn wit_import0(_: i32, _: f32, ){ unreachable!() }
+            unsafe { wit_import0((self).handle() as i32, _rt::as_f32(&val)) };
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// SubtractFloat subtracts a float value from each element in the Mat. Performs subtraction in place.
+        pub fn subtract_float(&self,val: f32,) -> (){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            unsafe extern "C" {
+              #[link_name = "[method]mat.subtract-float"]
+              fn wit_import0(_: i32, _: f32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            unsafe extern "C" fn wit_import0(_: i32, _: f32, ){ unreachable!() }
+            unsafe { wit_import0((self).handle() as i32, _rt::as_f32(&val)) };
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// MultiplyFloat multiplies each element in the Mat by a float value. Performs multiplication in place.
+        pub fn multiply_float(&self,val: f32,) -> (){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            unsafe extern "C" {
+              #[link_name = "[method]mat.multiply-float"]
+              fn wit_import0(_: i32, _: f32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            unsafe extern "C" fn wit_import0(_: i32, _: f32, ){ unreachable!() }
+            unsafe { wit_import0((self).handle() as i32, _rt::as_f32(&val)) };
+          }
+        }
+      }
+      impl Mat {
+        #[allow(unused_unsafe, clippy::all)]
+        /// DivideFloat divides each element in the Mat by a float value. Performs division in place.
+        pub fn divide_float(&self,val: f32,) -> (){
+          unsafe {
+
+            #[cfg(target_arch = "wasm32")]
+            #[link(wasm_import_module = "wasm:cv/mat")]
+            unsafe extern "C" {
+              #[link_name = "[method]mat.divide-float"]
+              fn wit_import0(_: i32, _: f32, );
+            }
+
+            #[cfg(not(target_arch = "wasm32"))]
+            unsafe extern "C" fn wit_import0(_: i32, _: f32, ){ unreachable!() }
+            unsafe { wit_import0((self).handle() as i32, _rt::as_f32(&val)) };
           }
         }
       }
@@ -3416,6 +3622,55 @@ pub mod wasm {
         }
       }
       #[allow(unused_unsafe, clippy::all)]
+      /// reduce reduces the matrix to a vector.
+      ///
+      /// For further details, please see:
+      /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga4b78072a303f29d9031d56e5638da78e
+      pub fn reduce(src: Mat,dim: u32,reduce_type: u32,depth_type: u32,) -> Result<Mat,ErrorResult>{
+        unsafe {
+
+          #[cfg_attr(target_pointer_width="64", repr(align(8)))]
+          #[cfg_attr(target_pointer_width="32", repr(align(4)))]
+          struct RetArea([::core::mem::MaybeUninit::<u8>; 3*::core::mem::size_of::<*const u8>()]);
+          let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 3*::core::mem::size_of::<*const u8>()]);
+          let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+          #[cfg(target_arch = "wasm32")]
+          #[link(wasm_import_module = "wasm:cv/cv")]
+          unsafe extern "C" {
+            #[link_name = "reduce"]
+            fn wit_import1(_: i32, _: i32, _: i32, _: i32, _: *mut u8, );
+          }
+
+          #[cfg(not(target_arch = "wasm32"))]
+          unsafe extern "C" fn wit_import1(_: i32, _: i32, _: i32, _: i32, _: *mut u8, ){ unreachable!() }
+          unsafe { wit_import1((&src).take_handle() as i32, _rt::as_i32(&dim), _rt::as_i32(&reduce_type), _rt::as_i32(&depth_type), ptr0) };
+          let l2 = i32::from(*ptr0.add(0).cast::<u8>());
+          let result7 = match l2 {
+            0 => {
+              let e = {
+                let l3 = *ptr0.add(::core::mem::size_of::<*const u8>()).cast::<i32>();
+
+                unsafe { super::super::super::wasm::cv::mat::Mat::from_handle(l3 as u32) }
+              };
+              Ok(e)
+            }
+            1 => {
+              let e = {
+                let l4 = *ptr0.add(::core::mem::size_of::<*const u8>()).cast::<*mut u8>();
+                let l5 = *ptr0.add(2*::core::mem::size_of::<*const u8>()).cast::<usize>();
+                let len6 = l5;
+                let bytes6 = _rt::Vec::from_raw_parts(l4.cast(), len6, len6);
+
+                _rt::string_lift(bytes6)
+              };
+              Err(e)
+            }
+            _ => _rt::invalid_enum_discriminant(),
+          };
+          result7
+        }
+      }
+      #[allow(unused_unsafe, clippy::all)]
       /// reduce-arg-max finds indices of max elements along provided axis.
       ///
       /// For further details, please see:
@@ -3445,6 +3700,104 @@ pub mod wasm {
                 let l3 = *ptr0.add(::core::mem::size_of::<*const u8>()).cast::<i32>();
 
                 unsafe { super::super::super::wasm::cv::mat::Mat::from_handle(l3 as u32) }
+              };
+              Ok(e)
+            }
+            1 => {
+              let e = {
+                let l4 = *ptr0.add(::core::mem::size_of::<*const u8>()).cast::<*mut u8>();
+                let l5 = *ptr0.add(2*::core::mem::size_of::<*const u8>()).cast::<usize>();
+                let len6 = l5;
+                let bytes6 = _rt::Vec::from_raw_parts(l4.cast(), len6, len6);
+
+                _rt::string_lift(bytes6)
+              };
+              Err(e)
+            }
+            _ => _rt::invalid_enum_discriminant(),
+          };
+          result7
+        }
+      }
+      #[allow(unused_unsafe, clippy::all)]
+      /// normalize normalizes the norm or value range of an array.
+      ///
+      /// For further details, please see:
+      /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga87eef7ee3970f86906d69a92cbf064bd
+      pub fn normalize(src: Mat,alpha: f32,beta: f32,norm_type: u32,) -> Result<Mat,ErrorResult>{
+        unsafe {
+
+          #[cfg_attr(target_pointer_width="64", repr(align(8)))]
+          #[cfg_attr(target_pointer_width="32", repr(align(4)))]
+          struct RetArea([::core::mem::MaybeUninit::<u8>; 3*::core::mem::size_of::<*const u8>()]);
+          let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 3*::core::mem::size_of::<*const u8>()]);
+          let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+          #[cfg(target_arch = "wasm32")]
+          #[link(wasm_import_module = "wasm:cv/cv")]
+          unsafe extern "C" {
+            #[link_name = "normalize"]
+            fn wit_import1(_: i32, _: f32, _: f32, _: i32, _: *mut u8, );
+          }
+
+          #[cfg(not(target_arch = "wasm32"))]
+          unsafe extern "C" fn wit_import1(_: i32, _: f32, _: f32, _: i32, _: *mut u8, ){ unreachable!() }
+          unsafe { wit_import1((&src).take_handle() as i32, _rt::as_f32(&alpha), _rt::as_f32(&beta), _rt::as_i32(&norm_type), ptr0) };
+          let l2 = i32::from(*ptr0.add(0).cast::<u8>());
+          let result7 = match l2 {
+            0 => {
+              let e = {
+                let l3 = *ptr0.add(::core::mem::size_of::<*const u8>()).cast::<i32>();
+
+                unsafe { super::super::super::wasm::cv::mat::Mat::from_handle(l3 as u32) }
+              };
+              Ok(e)
+            }
+            1 => {
+              let e = {
+                let l4 = *ptr0.add(::core::mem::size_of::<*const u8>()).cast::<*mut u8>();
+                let l5 = *ptr0.add(2*::core::mem::size_of::<*const u8>()).cast::<usize>();
+                let len6 = l5;
+                let bytes6 = _rt::Vec::from_raw_parts(l4.cast(), len6, len6);
+
+                _rt::string_lift(bytes6)
+              };
+              Err(e)
+            }
+            _ => _rt::invalid_enum_discriminant(),
+          };
+          result7
+        }
+      }
+      #[allow(unused_unsafe, clippy::all)]
+      /// norm calculates the norm of an array.
+      ///
+      /// For further details, please see:
+      /// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7c331fb8dd951707e184ef4e3f21dd33
+      pub fn norm(src: Mat,norm_type: u32,) -> Result<f32,ErrorResult>{
+        unsafe {
+
+          #[cfg_attr(target_pointer_width="64", repr(align(8)))]
+          #[cfg_attr(target_pointer_width="32", repr(align(4)))]
+          struct RetArea([::core::mem::MaybeUninit::<u8>; 3*::core::mem::size_of::<*const u8>()]);
+          let mut ret_area = RetArea([::core::mem::MaybeUninit::uninit(); 3*::core::mem::size_of::<*const u8>()]);
+          let ptr0 = ret_area.0.as_mut_ptr().cast::<u8>();
+          #[cfg(target_arch = "wasm32")]
+          #[link(wasm_import_module = "wasm:cv/cv")]
+          unsafe extern "C" {
+            #[link_name = "norm"]
+            fn wit_import1(_: i32, _: i32, _: *mut u8, );
+          }
+
+          #[cfg(not(target_arch = "wasm32"))]
+          unsafe extern "C" fn wit_import1(_: i32, _: i32, _: *mut u8, ){ unreachable!() }
+          unsafe { wit_import1((&src).take_handle() as i32, _rt::as_i32(&norm_type), ptr0) };
+          let l2 = i32::from(*ptr0.add(0).cast::<u8>());
+          let result7 = match l2 {
+            0 => {
+              let e = {
+                let l3 = *ptr0.add(::core::mem::size_of::<*const u8>()).cast::<f32>();
+
+                l3
               };
               Ok(e)
             }
@@ -7776,17 +8129,6 @@ mod _rt {
       unsafe { core::hint::unreachable_unchecked() }
     }
   }
-  pub unsafe fn bool_lift(val: u8) -> bool {
-    if cfg!(debug_assertions) {
-      match val {
-        0 => false,
-        1 => true,
-        _ => panic!("invalid bool discriminant"),
-      }
-    } else {
-      val != 0
-    }
-  }
   
   pub fn as_f32<T: AsF32>(t: T) -> f32 {
     t.as_f32()
@@ -7806,6 +8148,17 @@ mod _rt {
     #[inline]
     fn as_f32(self) -> f32 {
       self as f32
+    }
+  }
+  pub unsafe fn bool_lift(val: u8) -> bool {
+    if cfg!(debug_assertions) {
+      match val {
+        0 => false,
+        1 => true,
+        _ => panic!("invalid bool discriminant"),
+      }
+    } else {
+      val != 0
     }
   }
   pub use alloc_crate::alloc;
@@ -7877,8 +8230,8 @@ pub(crate) use __export_imports_impl as export;
 #[unsafe(link_section = "component-type:wit-bindgen:0.41.0:wasm:cv:imports:encoded world")]
 #[doc(hidden)]
 #[allow(clippy::octal_escapes)]
-pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 11666] = *b"\
-\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\x94Z\x01A\x02\x01A#\x01\
+pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 12139] = *b"\
+\0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07\xed]\x01A\x02\x01A#\x01\
 B%\x01s\x04\0\x0cerror-result\x03\0\0\x01r\x02\x01xz\x01yz\x04\0\x04size\x03\0\x02\
 \x04\0\x05point\x03\0\x03\x01r\x04\x04val1v\x04val2v\x04val3v\x04val4v\x04\0\x06\
 scalar\x03\0\x05\x01r\x02\x03min\x03\x03max\x03\x04\0\x04rect\x03\0\x07\x01r\x04\
@@ -7912,7 +8265,7 @@ color-BGR-to-gray\x11color-RGB-to-gray\x11color-gray-to-BGR\x11color-gray-to-RGB
 izev\x05anglev\x08responsev\x06octavez\x08class-idz\x04\0\x09key-point\x03\0!\x01\
 r\x04\x09query-idxy\x09train-idxy\x07img-idxy\x08distanceu\x04\0\x07d-match\x03\0\
 #\x03\0\x0dwasm:cv/types\x05\0\x02\x03\0\0\x0cerror-result\x02\x03\0\0\x12mix-ma\
-x-loc-result\x02\x03\0\0\x04rect\x01BX\x02\x03\x02\x01\x01\x04\0\x0cerror-result\
+x-loc-result\x02\x03\0\0\x04rect\x01Bd\x02\x03\x02\x01\x01\x04\0\x0cerror-result\
 \x03\0\0\x02\x03\x02\x01\x02\x04\0\x12mix-max-loc-result\x03\0\x02\x02\x03\x02\x01\
 \x03\x04\0\x04rect\x03\0\x04\x01m\x07\x04cv8u\x04cv8s\x05cv16u\x05cv16s\x05cv32s\
 \x05cv32f\x05cv64f\x04\0\x07mattype\x03\0\x06\x04\0\x03mat\x03\x01\x01i\x08\x01@\
@@ -7923,197 +8276,206 @@ self\x0c\0\x09\x04\0\x11[method]mat.clone\x01\x0d\x01@\x01\x04self\x0c\x01\0\x04
 s\x01\x0f\x04\0\x10[method]mat.rows\x01\x0f\x01@\x02\x04self\x0c\x04rect\x05\0\x09\
 \x04\0\x12[method]mat.region\x01\x10\x01@\x02\x04self\x0c\x03dst\x0c\x01\0\x04\0\
 \x13[method]mat.copy-to\x01\x11\x01j\x01\x09\x01\x01\x01@\x02\x04self\x0c\x07mat\
-type\x07\0\x12\x04\0\x16[method]mat.convert-to\x01\x13\x01@\x01\x04self\x0c\0\x07\
-\x04\0\x13[method]mat.mattype\x01\x14\x01py\x01@\x01\x04self\x0c\0\x15\x04\0\x10\
-[method]mat.size\x01\x16\x04\0\x10[method]mat.step\x01\x0f\x04\0\x14[method]mat.\
-elemsize\x01\x0f\x01@\x01\x04self\x0c\0\x7f\x04\0\x11[method]mat.empty\x01\x17\x01\
-@\x03\x04self\x0c\x03rowy\x03coly\0v\x04\0\x18[method]mat.get-float-at\x01\x18\x01\
-@\x04\x04self\x0c\x03rowy\x03coly\x03valv\x01\0\x04\0\x18[method]mat.set-float-a\
-t\x01\x19\x01@\x03\x04self\x0c\x03rowy\x03coly\0}\x04\0\x18[method]mat.get-uchar\
--at\x01\x1a\x01@\x04\x04self\x0c\x03rowy\x03coly\x03val}\x01\0\x04\0\x18[method]\
-mat.set-uchar-at\x01\x1b\x01@\x03\x04self\x0c\x03rowy\x03coly\0z\x04\0\x16[metho\
-d]mat.get-int-at\x01\x1c\x01@\x04\x04self\x0c\x03rowy\x03coly\x03valz\x01\0\x04\0\
-\x16[method]mat.set-int-at\x01\x1d\x01@\x04\x04self\x0c\x01xy\x01yy\x01zy\0v\x04\
-\0\x19[method]mat.get-float-at3\x01\x1e\x01@\x05\x04self\x0c\x01xy\x01yy\x01zy\x03\
-valv\x01\0\x04\0\x19[method]mat.set-float-at3\x01\x1f\x01@\x04\x04self\x0c\x01xy\
-\x01yy\x01zy\0}\x04\0\x19[method]mat.get-uchar-at3\x01\x20\x01@\x05\x04self\x0c\x01\
-xy\x01yy\x01zy\x03val}\x01\0\x04\0\x19[method]mat.set-uchar-at3\x01!\x01@\x04\x04\
-self\x0c\x01xy\x01yy\x01zy\0z\x04\0\x17[method]mat.get-int-at3\x01\"\x01@\x05\x04\
-self\x0c\x01xy\x01yy\x01zy\x03valz\x01\0\x04\0\x17[method]mat.set-int-at3\x01#\x01\
-p}\x01@\x03\x04self\x0c\x03rowy\x03coly\0$\x04\0\x17[method]mat.get-vecb-at\x01%\
-\x01pv\x01@\x03\x04self\x0c\x03rowy\x03coly\0&\x04\0\x17[method]mat.get-vecf-at\x01\
-'\x01pz\x01@\x03\x04self\x0c\x03rowy\x03coly\0(\x04\0\x17[method]mat.get-veci-at\
-\x01)\x01@\x03\x04self\x0c\x08channelsy\x04rowsy\0\x12\x04\0\x13[method]mat.resh\
-ape\x01*\x01@\x03\x04self\x0c\x05starty\x03endy\0\x12\x04\0\x15[method]mat.row-r\
-ange\x01+\x04\0\x15[method]mat.col-range\x01+\x01j\x01\x03\x01\x01\x01@\x01\x04s\
-elf\x0c\0,\x04\0\x17[method]mat.min-max-loc\x01-\x01@\x02\x04self\x0c\x03coly\0\x12\
-\x04\0\x0f[method]mat.col\x01.\x01@\x02\x04self\x0c\x03rowy\0\x12\x04\0\x0f[meth\
-od]mat.row\x01/\x01p\x09\x01@\x01\x02mv0\0\x12\x04\0\x11[static]mat.merge\x011\x01\
-@\x03\x04colsy\x04rowsy\x07mattype\x07\0\x12\x04\0\x11[static]mat.zeros\x012\x03\
-\0\x0bwasm:cv/mat\x05\x04\x02\x03\0\0\x0bborder-type\x02\x03\0\0\x04size\x02\x03\
-\0\0\x05point\x02\x03\0\0\x17adaptive-threshold-type\x02\x03\0\0\x0ethreshold-ty\
-pe\x02\x03\0\0\x06scalar\x02\x03\0\0\x04RGBA\x02\x03\0\0\x11hershey-font-type\x02\
-\x03\0\0\x12interpolation-type\x02\x03\0\0\x14color-coversion-type\x02\x03\0\0\x0b\
-morph-shape\x02\x03\0\x01\x03mat\x02\x03\0\x01\x07mattype\x01BZ\x02\x03\x02\x01\x01\
-\x04\0\x0cerror-result\x03\0\0\x02\x03\x02\x01\x05\x04\0\x0bborder-type\x03\0\x02\
-\x02\x03\x02\x01\x06\x04\0\x04size\x03\0\x04\x02\x03\x02\x01\x07\x04\0\x05point\x03\
-\0\x06\x02\x03\x02\x01\x08\x04\0\x17adaptive-threshold-type\x03\0\x08\x02\x03\x02\
-\x01\x09\x04\0\x0ethreshold-type\x03\0\x0a\x02\x03\x02\x01\x0a\x04\0\x06scalar\x03\
-\0\x0c\x02\x03\x02\x01\x03\x04\0\x04rect\x03\0\x0e\x02\x03\x02\x01\x0b\x04\0\x04\
-RGBA\x03\0\x10\x02\x03\x02\x01\x0c\x04\0\x11hershey-font-type\x03\0\x12\x02\x03\x02\
-\x01\x0d\x04\0\x12interpolation-type\x03\0\x14\x02\x03\x02\x01\x0e\x04\0\x14colo\
-r-coversion-type\x03\0\x16\x02\x03\x02\x01\x0f\x04\0\x0bmorph-shape\x03\0\x18\x02\
-\x03\x02\x01\x10\x04\0\x03mat\x03\0\x1a\x02\x03\x02\x01\x11\x04\0\x07mattype\x03\
-\0\x1c\x01h\x1b\x01j\0\x01\x01\x01@\x05\x03img\x1e\x06point1\x07\x06point2\x07\x01\
-c\x11\x09thickness}\0\x1f\x04\0\x0carrowed-line\x01\x20\x01@\x04\x03img\x1e\x01r\
-\x0f\x01c\x11\x09thickness}\0\x1f\x04\0\x09rectangle\x01!\x01@\x05\x03img\x1e\x06\
-center\x07\x06radiusy\x01c\x11\x09thickness}\0\x1f\x04\0\x06circle\x01\"\x04\0\x04\
-line\x01\x20\x01@\x07\x03img\x1e\x04texts\x03org\x07\x09font-face\x13\x0afont-sc\
-aleu\x01c\x11\x09thicknessz\0\x1f\x04\0\x08put-text\x01#\x01i\x1b\x01j\x01$\x01\x01\
-\x01@\x06\x03src$\x09max-valuev\x0dadaptive-type\x09\x0ethreshold-type\x0b\x0abl\
-ock-sizey\x01cv\0%\x04\0\x12adaptive-threshold\x01&\x01@\x02\x03src$\x06k-size\x05\
-\0%\x04\0\x04blur\x01'\x01@\x03\x03src$\x05depthy\x06k-size\x05\0%\x04\0\x0abox-\
-filter\x01(\x01@\x03\x03src$\x0athreshold1v\x0athreshold2v\0%\x04\0\x05canny\x01\
-)\x01@\x02\x03src$\x04code\x17\0%\x04\0\x09cvt-color\x01*\x01@\x02\x03src$\x06ke\
-rnel$\0%\x04\0\x06dilate\x01+\x04\0\x05erode\x01+\x01@\x01\x03src$\0%\x04\0\x0de\
-qualize-hist\x01,\x01@\x05\x03src$\x04size\x05\x07sigma-xv\x07sigma-yv\x06border\
-\x03\0%\x04\0\x0dgaussian-blur\x01-\x01@\x02\x05shape\x19\x04size\x05\0%\x04\0\x17\
-get-structuring-element\x01.\x01@\x04\x03src$\x03rhou\x05thetau\x09thresholdz\0%\
-\x04\0\x0bhough-lines\x01/\x04\0\x0dhough-lines-p\x01/\x04\0\x0bmedian-blur\x01'\
-\x01@\x05\x03src$\x04size\x05\x02fxv\x02fyv\x06interp\x15\0%\x04\0\x06resize\x01\
-0\x01@\x04\x03src$\x06threshv\x09max-valuev\x0ethreshold-type\x0b\0%\x04\0\x09th\
-reshold\x011\x01pz\x01@\x02\x03src$\x05order2\0%\x04\0\x0ctranspose-ND\x013\x01@\
-\x02\x03frm$\x02to$\0%\x04\0\x11estimate-affine2d\x014\x01@\x03\x03src$\x01m$\x04\
-size\x05\0%\x04\0\x0bwarp-affine\x015\x01@\x03\x06center\x07\x05angleu\x05scaleu\
-\0%\x04\0\x15get-rotation-matrix2d\x016\x01@\x02\x04src1$\x04src2$\0%\x04\0\x03a\
-dd\x017\x01@\x05\x04src1$\x05alphau\x04src2$\x04betau\x05gammau\0%\x04\0\x0cadd-\
-weighted\x018\x04\0\x03exp\x01,\x04\0\x07hconcat\x017\x04\0\x07vconcat\x017\x01@\
-\x02\x03src$\x05wblut$\0%\x04\0\x03lut\x019\x01@\x03\x03src$\x04axisy\x0alast-in\
-dex\x7f\0%\x04\0\x0ereduce-arg-max\x01:\x03\0\x0awasm:cv/cv\x05\x12\x02\x03\0\0\x0b\
-blob-params\x02\x03\0\0\x10data-layout-type\x02\x03\0\0\x11padding-mode-type\x01\
-BK\x02\x03\x02\x01\x10\x04\0\x03mat\x03\0\0\x02\x03\x02\x01\x01\x04\0\x0cerror-r\
-esult\x03\0\x02\x02\x03\x02\x01\x06\x04\0\x04size\x03\0\x04\x02\x03\x02\x01\x0a\x04\
-\0\x06scalar\x03\0\x06\x02\x03\x02\x01\x03\x04\0\x04rect\x03\0\x08\x02\x03\x02\x01\
-\x13\x04\0\x0bblob-params\x03\0\x0a\x02\x03\x02\x01\x14\x04\0\x10data-layout-typ\
-e\x03\0\x0c\x02\x03\x02\x01\x15\x04\0\x11padding-mode-type\x03\0\x0e\x01m\x06\x13\
-net-backend-default\x12net-backend-halide\x14net-backend-openvino\x12net-backend\
--opencv\x11net-backend-vkcom\x10net-backend-cuda\x04\0\x10net-backend-type\x03\0\
-\x10\x01m\x08\x0enet-target-cpu\x0fnet-target-fp32\x0fnet-target-fp16\x0enet-tar\
-get-vpu\x11net-target-vulkan\x0fnet-target-fpga\x0fnet-target-cuda\x14net-target\
--cuda-fp16\x04\0\x0fnet-target-type\x03\0\x12\x04\0\x05layer\x03\x01\x04\0\x03ne\
-t\x03\x01\x01i\x14\x01@\0\0\x16\x04\0\x12[constructor]layer\x01\x17\x01h\x14\x01\
-@\x01\x04self\x18\x01\0\x04\0\x13[method]layer.close\x01\x19\x01j\x01s\x01\x03\x01\
-@\x01\x04self\x18\0\x1a\x04\0\x16[method]layer.get-name\x01\x1b\x01i\x15\x01j\x01\
-\x1c\x01\x03\x01@\x02\x05models\x06configs\0\x1d\x04\0\x10[static]net.read\x01\x1e\
-\x01@\x01\x05models\0\x1d\x04\0\x1a[static]net.read-from-ONNX\x01\x1f\x01h\x15\x01\
-@\x01\x04self\x20\x01\0\x04\0\x11[method]net.close\x01!\x01@\x01\x04self\x20\0\x7f\
-\x04\0\x11[method]net.empty\x01\"\x01i\x01\x01j\0\x01\x03\x01@\x03\x04self\x20\x05\
-input#\x04names\0$\x04\0\x15[method]net.set-input\x01%\x01j\x01#\x01\x03\x01@\x02\
-\x04self\x20\x0boutput-names\0&\x04\0\x13[method]net.forward\x01'\x01ps\x01p#\x01\
-j\x01)\x01\x03\x01@\x02\x04self\x20\x0coutput-names(\0*\x04\0\x1a[method]net.for\
-ward-layers\x01+\x01py\x01j\x01,\x01\x03\x01@\x01\x04self\x20\0-\x04\0&[method]n\
-et.get-unconnected-out-layers\x01.\x01j\x01(\x01\x03\x01@\x01\x04self\x20\0/\x04\
-\0\x1b[method]net.get-layer-names\x010\x01j\x01\x16\x01\x03\x01@\x02\x04self\x20\
-\x02idy\01\x04\0\x15[method]net.get-layer\x012\x01@\x06\x05image#\x0cscale-facto\
-rv\x04size\x05\x04mean\x07\x07swap-rb\x7f\x04crop\x7f\0&\x04\0\x0fblob-from-imag\
-e\x013\x01@\x02\x05image#\x06params\x0b\0&\x04\0\x1bblob-from-image-with-params\x01\
-4\x01p\x09\x01j\x015\x01\x03\x01@\x03\x06params\x0b\x0ablob-rects5\x0aimage-size\
-\x05\06\x04\0\x19blob-rects-to-image-rects\x017\x01pv\x01@\x04\x06bboxes5\x06sco\
-res8\x0fscore-thresholdv\x0dnms-thresholdv\0-\x04\0\x09NMS-boxes\x019\x03\0\x0bw\
-asm:cv/dnn\x05\x16\x01BQ\x02\x03\x02\x01\x10\x04\0\x03mat\x03\0\0\x02\x03\x02\x01\
-\x01\x04\0\x0cerror-result\x03\0\x02\x02\x03\x02\x01\x06\x04\0\x04size\x03\0\x04\
-\x02\x03\x02\x01\x03\x04\0\x04rect\x03\0\x06\x04\0\x12cascade-classifier\x03\x01\
-\x04\0\x0eHOG-descriptor\x03\x01\x04\0\x10face-detector-YN\x03\x01\x01m\x02\x19f\
-ace-distance-type-cosine\x15face-distance-norm-l2\x04\0\x12face-distance-type\x03\
-\0\x0b\x04\0\x12face-recognizer-SF\x03\x01\x01i\x08\x01@\x01\x04names\0\x0e\x04\0\
-\x1f[constructor]cascade-classifier\x01\x0f\x01h\x08\x01@\x01\x04self\x10\x01\0\x04\
-\0\x20[method]cascade-classifier.close\x01\x11\x01@\x02\x04self\x10\x04files\0\x7f\
-\x04\0\x1f[method]cascade-classifier.load\x01\x12\x01i\x01\x01p\x07\x01j\x01\x14\
-\x01\x03\x01@\x02\x04self\x10\x05image\x13\0\x15\x04\0-[method]cascade-classifie\
-r.detect-multi-scale\x01\x16\x01@\x07\x04self\x10\x05image\x13\x05scaleu\x0dmin-\
-neighborsy\x05flagsy\x08min-size\x05\x08max-size\x05\0\x15\x04\09[method]cascade\
--classifier.detect-multi-scale-with-params\x01\x17\x01i\x09\x01@\x01\x04names\0\x18\
-\x04\0\x1b[constructor]HOG-descriptor\x01\x19\x01h\x09\x01@\x01\x04self\x1a\x01\0\
-\x04\0\x1c[method]HOG-descriptor.close\x01\x1b\x01@\x02\x04self\x1a\x05image\x13\
-\0\x15\x04\0)[method]HOG-descriptor.detect-multi-scale\x01\x1c\x01@\x08\x04self\x1a\
-\x05image\x13\x0dhit-thresholdu\x0awin-stride\x05\x07padding\x05\x05scaleu\x0ffi\
-nal-thresholdu\x16use-meanshift-grouping\x7f\0\x15\x04\05[method]HOG-descriptor.\
-detect-multi-scale-with-params\x01\x1d\x01i\x0a\x01@\x03\x05models\x06configs\x0a\
-input-size\x05\0\x1e\x04\0\x1d[constructor]face-detector-YN\x01\x1f\x01@\x08\x05\
-models\x06configs\x0ainput-size\x05\x0fscore-thresholdv\x0dnms-thresholdv\x05top\
--ky\x0abackend-idy\x09target-idy\0\x1e\x04\0([static]face-detector-YN.new-with-p\
-arams\x01\x20\x01h\x0a\x01@\x01\x04self!\x01\0\x04\0\x1e[method]face-detector-YN\
-.close\x01\"\x01j\x01\x13\x01\x03\x01@\x02\x04self!\x05input\x13\0#\x04\0\x1f[me\
-thod]face-detector-YN.detect\x01$\x01@\x01\x04self!\0\x05\x04\0'[method]face-det\
-ector-YN.get-input-size\x01%\x01@\x01\x04self!\0v\x04\0*[method]face-detector-YN\
-.get-nms-threshold\x01&\x04\0,[method]face-detector-YN.get-score-threshold\x01&\x01\
-@\x01\x04self!\0y\x04\0![method]face-detector-YN.get-topk\x01'\x01@\x02\x04self!\
-\x04size\x05\x01\0\x04\0'[method]face-detector-YN.set-input-size\x01(\x01@\x02\x04\
-self!\x09thresholdv\x01\0\x04\0*[method]face-detector-YN.set-nms-threshold\x01)\x04\
-\0,[method]face-detector-YN.set-score-threshold\x01)\x01@\x02\x04self!\x04topky\x01\
-\0\x04\0![method]face-detector-YN.set-topk\x01*\x01i\x0d\x01@\x02\x05models\x06c\
-onfigs\0+\x04\0\x1f[constructor]face-recognizer-SF\x01,\x01@\x04\x05models\x06co\
-nfigs\x0abackend-idy\x09target-idy\0+\x04\0*[static]face-recognizer-SF.new-with-\
-params\x01-\x01h\x0d\x01@\x01\x04self.\x01\0\x04\0\x20[method]face-recognizer-SF\
-.close\x01/\x01@\x03\x04self.\x03src\x13\x08face-box\x13\0#\x04\0%[method]face-r\
-ecognizer-SF.align-crop\x010\x01@\x02\x04self.\x07aligned\x13\0#\x04\0\"[method]\
-face-recognizer-SF.feature\x011\x01j\x01v\x01\x03\x01@\x03\x04self.\x05face1\x13\
-\x05face2\x13\02\x04\0\x20[method]face-recognizer-SF.match\x013\x01@\x04\x04self\
-.\x05face1\x13\x05face2\x13\x08distance\x0c\02\x04\0,[method]face-recognizer-SF.\
-match-with-params\x014\x03\0\x11wasm:cv/objdetect\x05\x17\x02\x03\0\0\x09key-poi\
-nt\x02\x03\0\0\x07d-match\x01Bo\x02\x03\x02\x01\x10\x04\0\x03mat\x03\0\0\x02\x03\
-\x02\x01\x01\x04\0\x0cerror-result\x03\0\x02\x02\x03\x02\x01\x18\x04\0\x09key-po\
-int\x03\0\x04\x02\x03\x02\x01\x19\x04\0\x07d-match\x03\0\x06\x01p\x05\x01i\x01\x01\
-r\x02\x03kps\x08\x04desc\x09\x04\0\x0fdetector-result\x03\0\x0a\x04\0\x0eAKAZE-d\
-etector\x03\x01\x04\0\x0eBRISK-detector\x03\x01\x04\0\x0dKAZE-detector\x03\x01\x01\
-m\x02\x0aORB-HARRIS\x08ORB-FAST\x04\0\x0eORB-score-type\x03\0\x0f\x04\0\x0cORB-d\
-etector\x03\x01\x04\0\x0dSIFT-detector\x03\x01\x01m\x09\x09NORM-NONE\x08NONE-INF\
-\x07NORM-L1\x0aNORM-NONE2\x07NORM-L2\x0aNORM-L2SQR\x0cNORM-HAMMING\x0dNORM-HAMMI\
-NG2\x0dNORM-RELATIVE\x04\0\x09norm-type\x03\0\x13\x04\0\x0aBF-matcher\x03\x01\x04\
-\0\x13flann-based-matcher\x03\x01\x01i\x0c\x01@\x01\x04names\0\x17\x04\0\x1b[con\
-structor]AKAZE-detector\x01\x18\x01h\x0c\x01@\x01\x04self\x19\x01\0\x04\0\x1c[me\
-thod]AKAZE-detector.close\x01\x1a\x01j\x01\x08\x01\x03\x01@\x02\x04self\x19\x03s\
-rc\x09\0\x1b\x04\0\x1d[method]AKAZE-detector.detect\x01\x1c\x01j\x01\x0b\x01\x03\
-\x01@\x04\x04self\x19\x03src\x09\x04mask\x09\x03kps\x08\0\x1d\x04\0\x1e[method]A\
-KAZE-detector.compute\x01\x1e\x01@\x03\x04self\x19\x03src\x09\x04mask\x09\0\x1d\x04\
-\0)[method]AKAZE-detector.detect-and-compute\x01\x1f\x01i\x0d\x01@\x01\x04names\0\
-\x20\x04\0\x1b[constructor]BRISK-detector\x01!\x01h\x0d\x01@\x01\x04self\"\x01\0\
-\x04\0\x1c[method]BRISK-detector.close\x01#\x01@\x02\x04self\"\x03src\x09\0\x1b\x04\
-\0\x1d[method]BRISK-detector.detect\x01$\x01@\x04\x04self\"\x03src\x09\x04mask\x09\
-\x03kps\x08\0\x1d\x04\0\x1e[method]BRISK-detector.compute\x01%\x01@\x03\x04self\"\
-\x03src\x09\x04mask\x09\0\x1d\x04\0)[method]BRISK-detector.detect-and-compute\x01\
-&\x01i\x0e\x01@\x01\x04names\0'\x04\0\x1a[constructor]KAZE-detector\x01(\x01h\x0e\
-\x01@\x01\x04self)\x01\0\x04\0\x1b[method]KAZE-detector.close\x01*\x01@\x02\x04s\
-elf)\x03src\x09\0\x1b\x04\0\x1c[method]KAZE-detector.detect\x01+\x01@\x04\x04sel\
-f)\x03src\x09\x04mask\x09\x03kps\x08\0\x1d\x04\0\x1d[method]KAZE-detector.comput\
-e\x01,\x01@\x03\x04self)\x03src\x09\x04mask\x09\0\x1d\x04\0([method]KAZE-detecto\
-r.detect-and-compute\x01-\x01i\x11\x01@\x01\x04names\0.\x04\0\x19[constructor]OR\
-B-detector\x01/\x01@\x09\x08featuresy\x05scalev\x06levelsy\x0eedge-thresholdy\x05\
-firsty\x04WTAKy\x0ascore-type\x10\x0apatch-sizey\x0efast-thresholdy\0.\x04\0$[st\
-atic]ORB-detector.new-with-params\x010\x01h\x11\x01@\x01\x04self1\x01\0\x04\0\x1a\
-[method]ORB-detector.close\x012\x01@\x02\x04self1\x03src\x09\0\x1b\x04\0\x1b[met\
-hod]ORB-detector.detect\x013\x01@\x04\x04self1\x03src\x09\x04mask\x09\x03kps\x08\
-\0\x1d\x04\0\x1c[method]ORB-detector.compute\x014\x01@\x03\x04self1\x03src\x09\x04\
-mask\x09\0\x1d\x04\0'[method]ORB-detector.detect-and-compute\x015\x01i\x12\x01@\x01\
-\x04names\06\x04\0\x1a[constructor]SIFT-detector\x017\x01h\x12\x01@\x01\x04self8\
-\x01\0\x04\0\x1b[method]SIFT-detector.close\x019\x01@\x02\x04self8\x03src\x09\0\x1b\
-\x04\0\x1c[method]SIFT-detector.detect\x01:\x01@\x04\x04self8\x03src\x09\x04mask\
-\x09\x03kps\x08\0\x1d\x04\0\x1d[method]SIFT-detector.compute\x01;\x01@\x03\x04se\
-lf8\x03src\x09\x04mask\x09\0\x1d\x04\0([method]SIFT-detector.detect-and-compute\x01\
-<\x01i\x15\x01@\x01\x04names\0=\x04\0\x17[constructor]BF-matcher\x01>\x01@\x02\x04\
-norm\x14\x0bcross-check\x7f\0=\x04\0\"[static]BF-matcher.new-with-params\x01?\x01\
-h\x15\x01@\x01\x04self\xc0\0\x01\0\x04\0\x18[method]BF-matcher.close\x01A\x01p\x07\
-\x01j\x01\xc2\0\x01\x03\x01@\x03\x04self\xc0\0\x05query\x09\x05train\x09\0\xc3\0\
-\x04\0\x18[method]BF-matcher.match\x01D\x01p\xc2\0\x01j\x01\xc5\0\x01\x03\x01@\x04\
-\x04self\xc0\0\x05query\x09\x05train\x09\x01ky\0\xc6\0\x04\0\x1c[method]BF-match\
-er.KNN-match\x01G\x01i\x16\x01@\x01\x04names\0\xc8\0\x04\0\x20[constructor]flann\
--based-matcher\x01I\x01h\x16\x01@\x01\x04self\xca\0\x01\0\x04\0![method]flann-ba\
-sed-matcher.close\x01K\x01@\x04\x04self\xca\0\x05query\x09\x05train\x09\x01ky\0\xc6\
-\0\x04\0%[method]flann-based-matcher.KNN-match\x01L\x03\0\x12wasm:cv/features2d\x05\
-\x1a\x01B\x05\x02\x03\x02\x01\x10\x04\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05imag\
-e\x02\0\x02\x04\0\x07process\x01\x03\x04\0\x0fwasm:cv/request\x05\x1b\x04\0\x0fw\
-asm:cv/imports\x04\0\x0b\x0d\x01\0\x07imports\x03\0\0\0G\x09producers\x01\x0cpro\
-cessed-by\x02\x0dwit-component\x070.227.1\x10wit-bindgen-rust\x060.41.0";
+type\x07\0\x12\x04\0\x16[method]mat.convert-to\x01\x13\x01@\x04\x04self\x0c\x07m\
+attype\x07\x05alphav\x04betav\0\x12\x04\0\"[method]mat.convert-to-with-params\x01\
+\x14\x01@\x01\x04self\x0c\0\x07\x04\0\x13[method]mat.mattype\x01\x15\x01py\x01@\x01\
+\x04self\x0c\0\x16\x04\0\x10[method]mat.size\x01\x17\x04\0\x10[method]mat.step\x01\
+\x0f\x04\0\x14[method]mat.elemsize\x01\x0f\x01@\x01\x04self\x0c\0\x7f\x04\0\x11[\
+method]mat.empty\x01\x18\x01@\x03\x04self\x0c\x03rowy\x03coly\0v\x04\0\x18[metho\
+d]mat.get-float-at\x01\x19\x01@\x04\x04self\x0c\x03rowy\x03coly\x03valv\x01\0\x04\
+\0\x18[method]mat.set-float-at\x01\x1a\x01@\x03\x04self\x0c\x03rowy\x03coly\0}\x04\
+\0\x18[method]mat.get-uchar-at\x01\x1b\x01@\x04\x04self\x0c\x03rowy\x03coly\x03v\
+al}\x01\0\x04\0\x18[method]mat.set-uchar-at\x01\x1c\x01@\x03\x04self\x0c\x03rowy\
+\x03coly\0z\x04\0\x16[method]mat.get-int-at\x01\x1d\x01@\x04\x04self\x0c\x03rowy\
+\x03coly\x03valz\x01\0\x04\0\x16[method]mat.set-int-at\x01\x1e\x01@\x04\x04self\x0c\
+\x01xy\x01yy\x01zy\0v\x04\0\x19[method]mat.get-float-at3\x01\x1f\x01@\x05\x04sel\
+f\x0c\x01xy\x01yy\x01zy\x03valv\x01\0\x04\0\x19[method]mat.set-float-at3\x01\x20\
+\x01@\x04\x04self\x0c\x01xy\x01yy\x01zy\0}\x04\0\x19[method]mat.get-uchar-at3\x01\
+!\x01@\x05\x04self\x0c\x01xy\x01yy\x01zy\x03val}\x01\0\x04\0\x19[method]mat.set-\
+uchar-at3\x01\"\x01@\x04\x04self\x0c\x01xy\x01yy\x01zy\0z\x04\0\x17[method]mat.g\
+et-int-at3\x01#\x01@\x05\x04self\x0c\x01xy\x01yy\x01zy\x03valz\x01\0\x04\0\x17[m\
+ethod]mat.set-int-at3\x01$\x01p}\x01@\x03\x04self\x0c\x03rowy\x03coly\0%\x04\0\x17\
+[method]mat.get-vecb-at\x01&\x01pv\x01@\x03\x04self\x0c\x03rowy\x03coly\0'\x04\0\
+\x17[method]mat.get-vecf-at\x01(\x01pz\x01@\x03\x04self\x0c\x03rowy\x03coly\0)\x04\
+\0\x17[method]mat.get-veci-at\x01*\x01@\x02\x04self\x0c\x03val}\x01\0\x04\0\x15[\
+method]mat.add-uchar\x01+\x04\0\x1a[method]mat.subtract-uchar\x01+\x04\0\x1a[met\
+hod]mat.multiply-uchar\x01+\x04\0\x18[method]mat.divide-uchar\x01+\x01@\x02\x04s\
+elf\x0c\x03valv\x01\0\x04\0\x15[method]mat.add-float\x01,\x04\0\x1a[method]mat.s\
+ubtract-float\x01,\x04\0\x1a[method]mat.multiply-float\x01,\x04\0\x18[method]mat\
+.divide-float\x01,\x01@\x03\x04self\x0c\x08channelsy\x04rowsy\0\x12\x04\0\x13[me\
+thod]mat.reshape\x01-\x01@\x03\x04self\x0c\x05starty\x03endy\0\x12\x04\0\x15[met\
+hod]mat.row-range\x01.\x04\0\x15[method]mat.col-range\x01.\x01j\x01\x03\x01\x01\x01\
+@\x01\x04self\x0c\0/\x04\0\x17[method]mat.min-max-loc\x010\x01@\x02\x04self\x0c\x03\
+coly\0\x12\x04\0\x0f[method]mat.col\x011\x01@\x02\x04self\x0c\x03rowy\0\x12\x04\0\
+\x0f[method]mat.row\x012\x01p\x09\x01@\x01\x02mv3\0\x12\x04\0\x11[static]mat.mer\
+ge\x014\x01@\x03\x04colsy\x04rowsy\x07mattype\x07\0\x12\x04\0\x11[static]mat.zer\
+os\x015\x03\0\x0bwasm:cv/mat\x05\x04\x02\x03\0\0\x0bborder-type\x02\x03\0\0\x04s\
+ize\x02\x03\0\0\x05point\x02\x03\0\0\x17adaptive-threshold-type\x02\x03\0\0\x0et\
+hreshold-type\x02\x03\0\0\x06scalar\x02\x03\0\0\x04RGBA\x02\x03\0\0\x11hershey-f\
+ont-type\x02\x03\0\0\x12interpolation-type\x02\x03\0\0\x14color-coversion-type\x02\
+\x03\0\0\x0bmorph-shape\x02\x03\0\x01\x03mat\x02\x03\0\x01\x07mattype\x01Ba\x02\x03\
+\x02\x01\x01\x04\0\x0cerror-result\x03\0\0\x02\x03\x02\x01\x05\x04\0\x0bborder-t\
+ype\x03\0\x02\x02\x03\x02\x01\x06\x04\0\x04size\x03\0\x04\x02\x03\x02\x01\x07\x04\
+\0\x05point\x03\0\x06\x02\x03\x02\x01\x08\x04\0\x17adaptive-threshold-type\x03\0\
+\x08\x02\x03\x02\x01\x09\x04\0\x0ethreshold-type\x03\0\x0a\x02\x03\x02\x01\x0a\x04\
+\0\x06scalar\x03\0\x0c\x02\x03\x02\x01\x03\x04\0\x04rect\x03\0\x0e\x02\x03\x02\x01\
+\x0b\x04\0\x04RGBA\x03\0\x10\x02\x03\x02\x01\x0c\x04\0\x11hershey-font-type\x03\0\
+\x12\x02\x03\x02\x01\x0d\x04\0\x12interpolation-type\x03\0\x14\x02\x03\x02\x01\x0e\
+\x04\0\x14color-coversion-type\x03\0\x16\x02\x03\x02\x01\x0f\x04\0\x0bmorph-shap\
+e\x03\0\x18\x02\x03\x02\x01\x10\x04\0\x03mat\x03\0\x1a\x02\x03\x02\x01\x11\x04\0\
+\x07mattype\x03\0\x1c\x01h\x1b\x01j\0\x01\x01\x01@\x05\x03img\x1e\x06point1\x07\x06\
+point2\x07\x01c\x11\x09thickness}\0\x1f\x04\0\x0carrowed-line\x01\x20\x01@\x04\x03\
+img\x1e\x01r\x0f\x01c\x11\x09thickness}\0\x1f\x04\0\x09rectangle\x01!\x01@\x05\x03\
+img\x1e\x06center\x07\x06radiusy\x01c\x11\x09thickness}\0\x1f\x04\0\x06circle\x01\
+\"\x04\0\x04line\x01\x20\x01@\x07\x03img\x1e\x04texts\x03org\x07\x09font-face\x13\
+\x0afont-scaleu\x01c\x11\x09thicknessz\0\x1f\x04\0\x08put-text\x01#\x01i\x1b\x01\
+j\x01$\x01\x01\x01@\x06\x03src$\x09max-valuev\x0dadaptive-type\x09\x0ethreshold-\
+type\x0b\x0ablock-sizey\x01cv\0%\x04\0\x12adaptive-threshold\x01&\x01@\x02\x03sr\
+c$\x06k-size\x05\0%\x04\0\x04blur\x01'\x01@\x03\x03src$\x05depthy\x06k-size\x05\0\
+%\x04\0\x0abox-filter\x01(\x01@\x03\x03src$\x0athreshold1v\x0athreshold2v\0%\x04\
+\0\x05canny\x01)\x01@\x02\x03src$\x04code\x17\0%\x04\0\x09cvt-color\x01*\x01@\x02\
+\x03src$\x06kernel$\0%\x04\0\x06dilate\x01+\x04\0\x05erode\x01+\x01@\x01\x03src$\
+\0%\x04\0\x0dequalize-hist\x01,\x01@\x05\x03src$\x04size\x05\x07sigma-xv\x07sigm\
+a-yv\x06border\x03\0%\x04\0\x0dgaussian-blur\x01-\x01@\x02\x05shape\x19\x04size\x05\
+\0%\x04\0\x17get-structuring-element\x01.\x01@\x04\x03src$\x03rhou\x05thetau\x09\
+thresholdz\0%\x04\0\x0bhough-lines\x01/\x04\0\x0dhough-lines-p\x01/\x04\0\x0bmed\
+ian-blur\x01'\x01@\x05\x03src$\x04size\x05\x02fxv\x02fyv\x06interp\x15\0%\x04\0\x06\
+resize\x010\x01@\x04\x03src$\x06threshv\x09max-valuev\x0ethreshold-type\x0b\0%\x04\
+\0\x09threshold\x011\x01pz\x01@\x02\x03src$\x05order2\0%\x04\0\x0ctranspose-ND\x01\
+3\x01@\x02\x03frm$\x02to$\0%\x04\0\x11estimate-affine2d\x014\x01@\x03\x03src$\x01\
+m$\x04size\x05\0%\x04\0\x0bwarp-affine\x015\x01@\x03\x06center\x07\x05angleu\x05\
+scaleu\0%\x04\0\x15get-rotation-matrix2d\x016\x01@\x02\x04src1$\x04src2$\0%\x04\0\
+\x03add\x017\x01@\x05\x04src1$\x05alphau\x04src2$\x04betau\x05gammau\0%\x04\0\x0c\
+add-weighted\x018\x04\0\x03exp\x01,\x04\0\x07hconcat\x017\x04\0\x07vconcat\x017\x01\
+@\x02\x03src$\x05wblut$\0%\x04\0\x03lut\x019\x01@\x04\x03src$\x03dimy\x0breduce-\
+typey\x0adepth-typey\0%\x04\0\x06reduce\x01:\x01@\x03\x03src$\x04axisy\x0alast-i\
+ndex\x7f\0%\x04\0\x0ereduce-arg-max\x01;\x01@\x04\x03src$\x05alphav\x04betav\x09\
+norm-typey\0%\x04\0\x09normalize\x01<\x01j\x01v\x01\x01\x01@\x02\x03src$\x09norm\
+-typey\0=\x04\0\x04norm\x01>\x03\0\x0awasm:cv/cv\x05\x12\x02\x03\0\0\x0bblob-par\
+ams\x02\x03\0\0\x10data-layout-type\x02\x03\0\0\x11padding-mode-type\x01BK\x02\x03\
+\x02\x01\x10\x04\0\x03mat\x03\0\0\x02\x03\x02\x01\x01\x04\0\x0cerror-result\x03\0\
+\x02\x02\x03\x02\x01\x06\x04\0\x04size\x03\0\x04\x02\x03\x02\x01\x0a\x04\0\x06sc\
+alar\x03\0\x06\x02\x03\x02\x01\x03\x04\0\x04rect\x03\0\x08\x02\x03\x02\x01\x13\x04\
+\0\x0bblob-params\x03\0\x0a\x02\x03\x02\x01\x14\x04\0\x10data-layout-type\x03\0\x0c\
+\x02\x03\x02\x01\x15\x04\0\x11padding-mode-type\x03\0\x0e\x01m\x06\x13net-backen\
+d-default\x12net-backend-halide\x14net-backend-openvino\x12net-backend-opencv\x11\
+net-backend-vkcom\x10net-backend-cuda\x04\0\x10net-backend-type\x03\0\x10\x01m\x08\
+\x0enet-target-cpu\x0fnet-target-fp32\x0fnet-target-fp16\x0enet-target-vpu\x11ne\
+t-target-vulkan\x0fnet-target-fpga\x0fnet-target-cuda\x14net-target-cuda-fp16\x04\
+\0\x0fnet-target-type\x03\0\x12\x04\0\x05layer\x03\x01\x04\0\x03net\x03\x01\x01i\
+\x14\x01@\0\0\x16\x04\0\x12[constructor]layer\x01\x17\x01h\x14\x01@\x01\x04self\x18\
+\x01\0\x04\0\x13[method]layer.close\x01\x19\x01j\x01s\x01\x03\x01@\x01\x04self\x18\
+\0\x1a\x04\0\x16[method]layer.get-name\x01\x1b\x01i\x15\x01j\x01\x1c\x01\x03\x01\
+@\x02\x05models\x06configs\0\x1d\x04\0\x10[static]net.read\x01\x1e\x01@\x01\x05m\
+odels\0\x1d\x04\0\x1a[static]net.read-from-ONNX\x01\x1f\x01h\x15\x01@\x01\x04sel\
+f\x20\x01\0\x04\0\x11[method]net.close\x01!\x01@\x01\x04self\x20\0\x7f\x04\0\x11\
+[method]net.empty\x01\"\x01i\x01\x01j\0\x01\x03\x01@\x03\x04self\x20\x05input#\x04\
+names\0$\x04\0\x15[method]net.set-input\x01%\x01j\x01#\x01\x03\x01@\x02\x04self\x20\
+\x0boutput-names\0&\x04\0\x13[method]net.forward\x01'\x01ps\x01p#\x01j\x01)\x01\x03\
+\x01@\x02\x04self\x20\x0coutput-names(\0*\x04\0\x1a[method]net.forward-layers\x01\
++\x01py\x01j\x01,\x01\x03\x01@\x01\x04self\x20\0-\x04\0&[method]net.get-unconnec\
+ted-out-layers\x01.\x01j\x01(\x01\x03\x01@\x01\x04self\x20\0/\x04\0\x1b[method]n\
+et.get-layer-names\x010\x01j\x01\x16\x01\x03\x01@\x02\x04self\x20\x02idy\01\x04\0\
+\x15[method]net.get-layer\x012\x01@\x06\x05image#\x0cscale-factorv\x04size\x05\x04\
+mean\x07\x07swap-rb\x7f\x04crop\x7f\0&\x04\0\x0fblob-from-image\x013\x01@\x02\x05\
+image#\x06params\x0b\0&\x04\0\x1bblob-from-image-with-params\x014\x01p\x09\x01j\x01\
+5\x01\x03\x01@\x03\x06params\x0b\x0ablob-rects5\x0aimage-size\x05\06\x04\0\x19bl\
+ob-rects-to-image-rects\x017\x01pv\x01@\x04\x06bboxes5\x06scores8\x0fscore-thres\
+holdv\x0dnms-thresholdv\0-\x04\0\x09NMS-boxes\x019\x03\0\x0bwasm:cv/dnn\x05\x16\x01\
+BQ\x02\x03\x02\x01\x10\x04\0\x03mat\x03\0\0\x02\x03\x02\x01\x01\x04\0\x0cerror-r\
+esult\x03\0\x02\x02\x03\x02\x01\x06\x04\0\x04size\x03\0\x04\x02\x03\x02\x01\x03\x04\
+\0\x04rect\x03\0\x06\x04\0\x12cascade-classifier\x03\x01\x04\0\x0eHOG-descriptor\
+\x03\x01\x04\0\x10face-detector-YN\x03\x01\x01m\x02\x19face-distance-type-cosine\
+\x15face-distance-norm-l2\x04\0\x12face-distance-type\x03\0\x0b\x04\0\x12face-re\
+cognizer-SF\x03\x01\x01i\x08\x01@\x01\x04names\0\x0e\x04\0\x1f[constructor]casca\
+de-classifier\x01\x0f\x01h\x08\x01@\x01\x04self\x10\x01\0\x04\0\x20[method]casca\
+de-classifier.close\x01\x11\x01@\x02\x04self\x10\x04files\0\x7f\x04\0\x1f[method\
+]cascade-classifier.load\x01\x12\x01i\x01\x01p\x07\x01j\x01\x14\x01\x03\x01@\x02\
+\x04self\x10\x05image\x13\0\x15\x04\0-[method]cascade-classifier.detect-multi-sc\
+ale\x01\x16\x01@\x07\x04self\x10\x05image\x13\x05scaleu\x0dmin-neighborsy\x05fla\
+gsy\x08min-size\x05\x08max-size\x05\0\x15\x04\09[method]cascade-classifier.detec\
+t-multi-scale-with-params\x01\x17\x01i\x09\x01@\x01\x04names\0\x18\x04\0\x1b[con\
+structor]HOG-descriptor\x01\x19\x01h\x09\x01@\x01\x04self\x1a\x01\0\x04\0\x1c[me\
+thod]HOG-descriptor.close\x01\x1b\x01@\x02\x04self\x1a\x05image\x13\0\x15\x04\0)\
+[method]HOG-descriptor.detect-multi-scale\x01\x1c\x01@\x08\x04self\x1a\x05image\x13\
+\x0dhit-thresholdu\x0awin-stride\x05\x07padding\x05\x05scaleu\x0ffinal-threshold\
+u\x16use-meanshift-grouping\x7f\0\x15\x04\05[method]HOG-descriptor.detect-multi-\
+scale-with-params\x01\x1d\x01i\x0a\x01@\x03\x05models\x06configs\x0ainput-size\x05\
+\0\x1e\x04\0\x1d[constructor]face-detector-YN\x01\x1f\x01@\x08\x05models\x06conf\
+igs\x0ainput-size\x05\x0fscore-thresholdv\x0dnms-thresholdv\x05top-ky\x0abackend\
+-idy\x09target-idy\0\x1e\x04\0([static]face-detector-YN.new-with-params\x01\x20\x01\
+h\x0a\x01@\x01\x04self!\x01\0\x04\0\x1e[method]face-detector-YN.close\x01\"\x01j\
+\x01\x13\x01\x03\x01@\x02\x04self!\x05input\x13\0#\x04\0\x1f[method]face-detecto\
+r-YN.detect\x01$\x01@\x01\x04self!\0\x05\x04\0'[method]face-detector-YN.get-inpu\
+t-size\x01%\x01@\x01\x04self!\0v\x04\0*[method]face-detector-YN.get-nms-threshol\
+d\x01&\x04\0,[method]face-detector-YN.get-score-threshold\x01&\x01@\x01\x04self!\
+\0y\x04\0![method]face-detector-YN.get-topk\x01'\x01@\x02\x04self!\x04size\x05\x01\
+\0\x04\0'[method]face-detector-YN.set-input-size\x01(\x01@\x02\x04self!\x09thres\
+holdv\x01\0\x04\0*[method]face-detector-YN.set-nms-threshold\x01)\x04\0,[method]\
+face-detector-YN.set-score-threshold\x01)\x01@\x02\x04self!\x04topky\x01\0\x04\0\
+![method]face-detector-YN.set-topk\x01*\x01i\x0d\x01@\x02\x05models\x06configs\0\
++\x04\0\x1f[constructor]face-recognizer-SF\x01,\x01@\x04\x05models\x06configs\x0a\
+backend-idy\x09target-idy\0+\x04\0*[static]face-recognizer-SF.new-with-params\x01\
+-\x01h\x0d\x01@\x01\x04self.\x01\0\x04\0\x20[method]face-recognizer-SF.close\x01\
+/\x01@\x03\x04self.\x03src\x13\x08face-box\x13\0#\x04\0%[method]face-recognizer-\
+SF.align-crop\x010\x01@\x02\x04self.\x07aligned\x13\0#\x04\0\"[method]face-recog\
+nizer-SF.feature\x011\x01j\x01v\x01\x03\x01@\x03\x04self.\x05face1\x13\x05face2\x13\
+\02\x04\0\x20[method]face-recognizer-SF.match\x013\x01@\x04\x04self.\x05face1\x13\
+\x05face2\x13\x08distance\x0c\02\x04\0,[method]face-recognizer-SF.match-with-par\
+ams\x014\x03\0\x11wasm:cv/objdetect\x05\x17\x02\x03\0\0\x09key-point\x02\x03\0\0\
+\x07d-match\x01Bo\x02\x03\x02\x01\x10\x04\0\x03mat\x03\0\0\x02\x03\x02\x01\x01\x04\
+\0\x0cerror-result\x03\0\x02\x02\x03\x02\x01\x18\x04\0\x09key-point\x03\0\x04\x02\
+\x03\x02\x01\x19\x04\0\x07d-match\x03\0\x06\x01p\x05\x01i\x01\x01r\x02\x03kps\x08\
+\x04desc\x09\x04\0\x0fdetector-result\x03\0\x0a\x04\0\x0eAKAZE-detector\x03\x01\x04\
+\0\x0eBRISK-detector\x03\x01\x04\0\x0dKAZE-detector\x03\x01\x01m\x02\x0aORB-HARR\
+IS\x08ORB-FAST\x04\0\x0eORB-score-type\x03\0\x0f\x04\0\x0cORB-detector\x03\x01\x04\
+\0\x0dSIFT-detector\x03\x01\x01m\x09\x09NORM-NONE\x08NONE-INF\x07NORM-L1\x0aNORM\
+-NONE2\x07NORM-L2\x0aNORM-L2SQR\x0cNORM-HAMMING\x0dNORM-HAMMING2\x0dNORM-RELATIV\
+E\x04\0\x09norm-type\x03\0\x13\x04\0\x0aBF-matcher\x03\x01\x04\0\x13flann-based-\
+matcher\x03\x01\x01i\x0c\x01@\x01\x04names\0\x17\x04\0\x1b[constructor]AKAZE-det\
+ector\x01\x18\x01h\x0c\x01@\x01\x04self\x19\x01\0\x04\0\x1c[method]AKAZE-detecto\
+r.close\x01\x1a\x01j\x01\x08\x01\x03\x01@\x02\x04self\x19\x03src\x09\0\x1b\x04\0\
+\x1d[method]AKAZE-detector.detect\x01\x1c\x01j\x01\x0b\x01\x03\x01@\x04\x04self\x19\
+\x03src\x09\x04mask\x09\x03kps\x08\0\x1d\x04\0\x1e[method]AKAZE-detector.compute\
+\x01\x1e\x01@\x03\x04self\x19\x03src\x09\x04mask\x09\0\x1d\x04\0)[method]AKAZE-d\
+etector.detect-and-compute\x01\x1f\x01i\x0d\x01@\x01\x04names\0\x20\x04\0\x1b[co\
+nstructor]BRISK-detector\x01!\x01h\x0d\x01@\x01\x04self\"\x01\0\x04\0\x1c[method\
+]BRISK-detector.close\x01#\x01@\x02\x04self\"\x03src\x09\0\x1b\x04\0\x1d[method]\
+BRISK-detector.detect\x01$\x01@\x04\x04self\"\x03src\x09\x04mask\x09\x03kps\x08\0\
+\x1d\x04\0\x1e[method]BRISK-detector.compute\x01%\x01@\x03\x04self\"\x03src\x09\x04\
+mask\x09\0\x1d\x04\0)[method]BRISK-detector.detect-and-compute\x01&\x01i\x0e\x01\
+@\x01\x04names\0'\x04\0\x1a[constructor]KAZE-detector\x01(\x01h\x0e\x01@\x01\x04\
+self)\x01\0\x04\0\x1b[method]KAZE-detector.close\x01*\x01@\x02\x04self)\x03src\x09\
+\0\x1b\x04\0\x1c[method]KAZE-detector.detect\x01+\x01@\x04\x04self)\x03src\x09\x04\
+mask\x09\x03kps\x08\0\x1d\x04\0\x1d[method]KAZE-detector.compute\x01,\x01@\x03\x04\
+self)\x03src\x09\x04mask\x09\0\x1d\x04\0([method]KAZE-detector.detect-and-comput\
+e\x01-\x01i\x11\x01@\x01\x04names\0.\x04\0\x19[constructor]ORB-detector\x01/\x01\
+@\x09\x08featuresy\x05scalev\x06levelsy\x0eedge-thresholdy\x05firsty\x04WTAKy\x0a\
+score-type\x10\x0apatch-sizey\x0efast-thresholdy\0.\x04\0$[static]ORB-detector.n\
+ew-with-params\x010\x01h\x11\x01@\x01\x04self1\x01\0\x04\0\x1a[method]ORB-detect\
+or.close\x012\x01@\x02\x04self1\x03src\x09\0\x1b\x04\0\x1b[method]ORB-detector.d\
+etect\x013\x01@\x04\x04self1\x03src\x09\x04mask\x09\x03kps\x08\0\x1d\x04\0\x1c[m\
+ethod]ORB-detector.compute\x014\x01@\x03\x04self1\x03src\x09\x04mask\x09\0\x1d\x04\
+\0'[method]ORB-detector.detect-and-compute\x015\x01i\x12\x01@\x01\x04names\06\x04\
+\0\x1a[constructor]SIFT-detector\x017\x01h\x12\x01@\x01\x04self8\x01\0\x04\0\x1b\
+[method]SIFT-detector.close\x019\x01@\x02\x04self8\x03src\x09\0\x1b\x04\0\x1c[me\
+thod]SIFT-detector.detect\x01:\x01@\x04\x04self8\x03src\x09\x04mask\x09\x03kps\x08\
+\0\x1d\x04\0\x1d[method]SIFT-detector.compute\x01;\x01@\x03\x04self8\x03src\x09\x04\
+mask\x09\0\x1d\x04\0([method]SIFT-detector.detect-and-compute\x01<\x01i\x15\x01@\
+\x01\x04names\0=\x04\0\x17[constructor]BF-matcher\x01>\x01@\x02\x04norm\x14\x0bc\
+ross-check\x7f\0=\x04\0\"[static]BF-matcher.new-with-params\x01?\x01h\x15\x01@\x01\
+\x04self\xc0\0\x01\0\x04\0\x18[method]BF-matcher.close\x01A\x01p\x07\x01j\x01\xc2\
+\0\x01\x03\x01@\x03\x04self\xc0\0\x05query\x09\x05train\x09\0\xc3\0\x04\0\x18[me\
+thod]BF-matcher.match\x01D\x01p\xc2\0\x01j\x01\xc5\0\x01\x03\x01@\x04\x04self\xc0\
+\0\x05query\x09\x05train\x09\x01ky\0\xc6\0\x04\0\x1c[method]BF-matcher.KNN-match\
+\x01G\x01i\x16\x01@\x01\x04names\0\xc8\0\x04\0\x20[constructor]flann-based-match\
+er\x01I\x01h\x16\x01@\x01\x04self\xca\0\x01\0\x04\0![method]flann-based-matcher.\
+close\x01K\x01@\x04\x04self\xca\0\x05query\x09\x05train\x09\x01ky\0\xc6\0\x04\0%\
+[method]flann-based-matcher.KNN-match\x01L\x03\0\x12wasm:cv/features2d\x05\x1a\x01\
+B\x05\x02\x03\x02\x01\x10\x04\0\x03mat\x03\0\0\x01i\x01\x01@\x01\x05image\x02\0\x02\
+\x04\0\x07process\x01\x03\x04\0\x0fwasm:cv/request\x05\x1b\x04\0\x0fwasm:cv/impo\
+rts\x04\0\x0b\x0d\x01\0\x07imports\x03\0\0\0G\x09producers\x01\x0cprocessed-by\x02\
+\x0dwit-component\x070.227.1\x10wit-bindgen-rust\x060.41.0";
 
 #[inline(never)]
 #[doc(hidden)]
