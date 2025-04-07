@@ -41,7 +41,16 @@ interface mat {
 		copy-to: func(dst: borrow<mat>);
 
 		/// ConvertTo converts Mat into destination Mat.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#adf88c60c5b4980e05bb556080916978b
 		convert-to: func(mattype: mattype) -> result<mat, error-result>;
+
+		/// ConvertToWithParams converts Mat into destination Mat using additional params.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#adf88c60c5b4980e05bb556080916978b
+		convert-to-with-params: func(mattype: mattype, alpha: f32, beta: f32) -> result<mat, error-result>;
 
 		/// MatType returns the type of the Mat.
 		mattype: func() -> mattype;
@@ -102,6 +111,30 @@ interface mat {
 
 		/// GetVeciAt returns a vector of s32. Its size corresponds to the number of channels of the Mat.
 		get-veci-at: func(row: u32, col: u32) -> list<s32>;
+
+		/// AddUChar adds a u8 value to each element in the Mat. Performs addition in place.
+		add-uchar: func(val: u8);
+
+		/// SubtractUChar subtracts a u8 value from each element in the Mat. Performs subtraction in place.
+		subtract-uchar: func(val: u8);
+
+		/// MultiplyUChar multiplies each element in the Mat by a u8 value. Performs multiplication in place.
+		multiply-uchar: func(val: u8);
+
+		/// DivideUChar divides each element in the Mat by a u8 value. Performs division in place.
+		divide-uchar: func(val: u8);
+
+		/// AddFloat adds a float value to each element in the Mat. Performs addition in place.
+		add-float: func(val: f32);
+
+		/// SubtractFloat subtracts a float value from each element in the Mat. Performs subtraction in place.
+		subtract-float: func(val: f32);
+
+		/// MultiplyFloat multiplies each element in the Mat by a float value. Performs multiplication in place.
+		multiply-float: func(val: f32);
+
+		/// DivideFloat divides each element in the Mat by a float value. Performs division in place.
+		divide-float: func(val: f32);
 
 		/// Reshape changes the shape and/or the number of channels of a 2D matrix without copying the data.
 		///
