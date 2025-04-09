@@ -143,6 +143,9 @@ extern void __wasm_import_wasm_cv_mat_static_mat_merge(uint8_t *, size_t, uint8_
 __attribute__((__import_module__("wasm:cv/mat"), __import_name__("[static]mat.zeros")))
 extern void __wasm_import_wasm_cv_mat_static_mat_zeros(int32_t, int32_t, int32_t, uint8_t *);
 
+__attribute__((__import_module__("wasm:cv/mat"), __import_name__("[static]mat.ones")))
+extern void __wasm_import_wasm_cv_mat_static_mat_ones(int32_t, int32_t, int32_t, uint8_t *);
+
 // Imported Functions from `wasm:cv/cv`
 
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("arrowed-line")))
@@ -223,6 +226,9 @@ extern void __wasm_import_wasm_cv_cv_add(int32_t, int32_t, uint8_t *);
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("add-weighted")))
 extern void __wasm_import_wasm_cv_cv_add_weighted(int32_t, double, int32_t, double, double, uint8_t *);
 
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("divide")))
+extern void __wasm_import_wasm_cv_cv_divide(int32_t, int32_t, uint8_t *);
+
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("exp")))
 extern void __wasm_import_wasm_cv_cv_exp(int32_t, uint8_t *);
 
@@ -235,11 +241,17 @@ extern void __wasm_import_wasm_cv_cv_vconcat(int32_t, int32_t, uint8_t *);
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("lut")))
 extern void __wasm_import_wasm_cv_cv_lut(int32_t, int32_t, uint8_t *);
 
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("multiply")))
+extern void __wasm_import_wasm_cv_cv_multiply(int32_t, int32_t, uint8_t *);
+
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("reduce")))
 extern void __wasm_import_wasm_cv_cv_reduce(int32_t, int32_t, int32_t, int32_t, uint8_t *);
 
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("reduce-arg-max")))
 extern void __wasm_import_wasm_cv_cv_reduce_arg_max(int32_t, int32_t, int32_t, uint8_t *);
+
+__attribute__((__import_module__("wasm:cv/cv"), __import_name__("subtract")))
+extern void __wasm_import_wasm_cv_cv_subtract(int32_t, int32_t, uint8_t *);
 
 __attribute__((__import_module__("wasm:cv/cv"), __import_name__("normalize")))
 extern void __wasm_import_wasm_cv_cv_normalize(int32_t, float, float, int32_t, uint8_t *);
@@ -1445,6 +1457,33 @@ bool wasm_cv_mat_static_mat_zeros(uint32_t cols, uint32_t rows, wasm_cv_mat_matt
   }
 }
 
+bool wasm_cv_mat_static_mat_ones(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t mattype, wasm_cv_mat_own_mat_t *ret, wasm_cv_mat_error_result_t *err) {
+  __attribute__((__aligned__(sizeof(void*))))
+  uint8_t ret_area[(3*sizeof(void*))];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_mat_static_mat_ones((int32_t) (cols), (int32_t) (rows), (int32_t) mattype, ptr);
+  wasm_cv_mat_result_own_mat_error_result_t result;
+  switch ((int32_t) *((uint8_t*) (ptr + 0))) {
+    case 0: {
+      result.is_err = false;
+      result.val.ok = (wasm_cv_mat_own_mat_t) { *((int32_t*) (ptr + sizeof(void*))) };
+      break;
+    }
+    case 1: {
+      result.is_err = true;
+      result.val.err = (imports_string_t) { (uint8_t*)(*((uint8_t **) (ptr + sizeof(void*)))), (*((size_t*) (ptr + (2*sizeof(void*))))) };
+      break;
+    }
+  }
+  if (!result.is_err) {
+    *ret = result.val.ok;
+    return 1;
+  } else {
+    *err = result.val.err;
+    return 0;
+  }
+}
+
 bool wasm_cv_cv_arrowed_line(wasm_cv_cv_borrow_mat_t img, wasm_cv_cv_point_t *point1, wasm_cv_cv_point_t *point2, wasm_cv_cv_rgba_t *c, uint8_t thickness, wasm_cv_cv_error_result_t *err) {
   __attribute__((__aligned__(sizeof(void*))))
   uint8_t ret_area[(3*sizeof(void*))];
@@ -2137,6 +2176,33 @@ bool wasm_cv_cv_add_weighted(wasm_cv_cv_own_mat_t src1, double alpha, wasm_cv_cv
   }
 }
 
+bool wasm_cv_cv_divide(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t src2, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err) {
+  __attribute__((__aligned__(sizeof(void*))))
+  uint8_t ret_area[(3*sizeof(void*))];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_cv_divide((src1).__handle, (src2).__handle, ptr);
+  wasm_cv_cv_result_own_mat_error_result_t result;
+  switch ((int32_t) *((uint8_t*) (ptr + 0))) {
+    case 0: {
+      result.is_err = false;
+      result.val.ok = (wasm_cv_cv_own_mat_t) { *((int32_t*) (ptr + sizeof(void*))) };
+      break;
+    }
+    case 1: {
+      result.is_err = true;
+      result.val.err = (imports_string_t) { (uint8_t*)(*((uint8_t **) (ptr + sizeof(void*)))), (*((size_t*) (ptr + (2*sizeof(void*))))) };
+      break;
+    }
+  }
+  if (!result.is_err) {
+    *ret = result.val.ok;
+    return 1;
+  } else {
+    *err = result.val.err;
+    return 0;
+  }
+}
+
 bool wasm_cv_cv_exp(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err) {
   __attribute__((__aligned__(sizeof(void*))))
   uint8_t ret_area[(3*sizeof(void*))];
@@ -2245,6 +2311,33 @@ bool wasm_cv_cv_lut(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t wblut, wasm_c
   }
 }
 
+bool wasm_cv_cv_multiply(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t src2, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err) {
+  __attribute__((__aligned__(sizeof(void*))))
+  uint8_t ret_area[(3*sizeof(void*))];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_cv_multiply((src1).__handle, (src2).__handle, ptr);
+  wasm_cv_cv_result_own_mat_error_result_t result;
+  switch ((int32_t) *((uint8_t*) (ptr + 0))) {
+    case 0: {
+      result.is_err = false;
+      result.val.ok = (wasm_cv_cv_own_mat_t) { *((int32_t*) (ptr + sizeof(void*))) };
+      break;
+    }
+    case 1: {
+      result.is_err = true;
+      result.val.err = (imports_string_t) { (uint8_t*)(*((uint8_t **) (ptr + sizeof(void*)))), (*((size_t*) (ptr + (2*sizeof(void*))))) };
+      break;
+    }
+  }
+  if (!result.is_err) {
+    *ret = result.val.ok;
+    return 1;
+  } else {
+    *err = result.val.err;
+    return 0;
+  }
+}
+
 bool wasm_cv_cv_reduce(wasm_cv_cv_own_mat_t src, uint32_t dim, uint32_t reduce_type, uint32_t depth_type, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err) {
   __attribute__((__aligned__(sizeof(void*))))
   uint8_t ret_area[(3*sizeof(void*))];
@@ -2277,6 +2370,33 @@ bool wasm_cv_cv_reduce_arg_max(wasm_cv_cv_own_mat_t src, uint32_t axis, bool las
   uint8_t ret_area[(3*sizeof(void*))];
   uint8_t *ptr = (uint8_t *) &ret_area;
   __wasm_import_wasm_cv_cv_reduce_arg_max((src).__handle, (int32_t) (axis), last_index, ptr);
+  wasm_cv_cv_result_own_mat_error_result_t result;
+  switch ((int32_t) *((uint8_t*) (ptr + 0))) {
+    case 0: {
+      result.is_err = false;
+      result.val.ok = (wasm_cv_cv_own_mat_t) { *((int32_t*) (ptr + sizeof(void*))) };
+      break;
+    }
+    case 1: {
+      result.is_err = true;
+      result.val.err = (imports_string_t) { (uint8_t*)(*((uint8_t **) (ptr + sizeof(void*)))), (*((size_t*) (ptr + (2*sizeof(void*))))) };
+      break;
+    }
+  }
+  if (!result.is_err) {
+    *ret = result.val.ok;
+    return 1;
+  } else {
+    *err = result.val.err;
+    return 0;
+  }
+}
+
+bool wasm_cv_cv_subtract(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t src2, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err) {
+  __attribute__((__aligned__(sizeof(void*))))
+  uint8_t ret_area[(3*sizeof(void*))];
+  uint8_t *ptr = (uint8_t *) &ret_area;
+  __wasm_import_wasm_cv_cv_subtract((src1).__handle, (src2).__handle, ptr);
   wasm_cv_cv_result_own_mat_error_result_t result;
   switch ((int32_t) *((uint8_t*) (ptr + 0))) {
     case 0: {
