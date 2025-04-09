@@ -176,5 +176,11 @@ interface mat {
 
 		/// zeros returns a zero array of the specified size and type.
 		zeros: static func(cols: u32, rows: u32, mattype: mattype) -> result<mat, error-result>;
+
+		/// ones returns an array of the specified size and type populated with 1.
+		///
+		/// For further details, please see:
+		/// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a5e10227b777425407986727e2d26fcdc
+		ones: static func(cols: u32, rows: u32, mattype: mattype) -> result<mat, error-result>;
 	}
 }
