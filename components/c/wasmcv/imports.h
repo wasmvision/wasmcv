@@ -771,6 +771,11 @@ extern bool wasm_cv_mat_method_mat_row(wasm_cv_mat_borrow_mat_t self, uint32_t r
 extern bool wasm_cv_mat_static_mat_merge(wasm_cv_mat_list_own_mat_t *mv, wasm_cv_mat_own_mat_t *ret, wasm_cv_mat_error_result_t *err);
 // zeros returns a zero array of the specified size and type.
 extern bool wasm_cv_mat_static_mat_zeros(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t mattype, wasm_cv_mat_own_mat_t *ret, wasm_cv_mat_error_result_t *err);
+// ones returns an array of the specified size and type populated with 1.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a5e10227b777425407986727e2d26fcdc
+extern bool wasm_cv_mat_static_mat_ones(uint32_t cols, uint32_t rows, wasm_cv_mat_mattype_t mattype, wasm_cv_mat_own_mat_t *ret, wasm_cv_mat_error_result_t *err);
 
 // Imported Functions from `wasm:cv/cv`
 // drawing functions
@@ -924,6 +929,11 @@ extern bool wasm_cv_cv_add(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t src2,
 // For further details, please see:
 // https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gafafb2513349db3bcff51f54ee5592a19
 extern bool wasm_cv_cv_add_weighted(wasm_cv_cv_own_mat_t src1, double alpha, wasm_cv_cv_own_mat_t src2, double beta, double gamma, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err);
+// divide performs per-element division of two arrays.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga6db555d30115642fedae0cda05604874
+extern bool wasm_cv_cv_divide(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t src2, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err);
 // exp calculates the exponent of every array element.
 // 
 // For further details, please see:
@@ -947,6 +957,11 @@ extern bool wasm_cv_cv_vconcat(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t s
 // For further details, please see:
 // https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab55b8d062b7f5587720ede032d34156f
 extern bool wasm_cv_cv_lut(wasm_cv_cv_own_mat_t src, wasm_cv_cv_own_mat_t wblut, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err);
+// multiply performs per-element multiplication of two arrays.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga979d898a58d7f61c53003e162e7ad89f
+extern bool wasm_cv_cv_multiply(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t src2, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err);
 // reduce reduces the matrix to a vector.
 // 
 // For further details, please see:
@@ -957,6 +972,11 @@ extern bool wasm_cv_cv_reduce(wasm_cv_cv_own_mat_t src, uint32_t dim, uint32_t r
 // For further details, please see:
 // https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf9695048355163da0
 extern bool wasm_cv_cv_reduce_arg_max(wasm_cv_cv_own_mat_t src, uint32_t axis, bool last_index, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err);
+// subtract calculates the per-element sum of two arrays.
+// 
+// For further details, please see:
+// https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa0f00d98b4b5edeaeb7b8333b2de353b
+extern bool wasm_cv_cv_subtract(wasm_cv_cv_own_mat_t src1, wasm_cv_cv_own_mat_t src2, wasm_cv_cv_own_mat_t *ret, wasm_cv_cv_error_result_t *err);
 // normalize normalizes the norm or value range of an array.
 // 
 // For further details, please see:
