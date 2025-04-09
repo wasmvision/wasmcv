@@ -842,6 +842,23 @@ zeros returns a zero array of the specified size and type.
 
 - <a id="static_mat_zeros.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
+#### <a id="static_mat_ones"></a>`[static]mat.ones: func`
+
+ones returns an array of the specified size and type populated with 1.
+
+For further details, please see:
+https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a5e10227b777425407986727e2d26fcdc
+
+##### Params
+
+- <a id="static_mat_ones.cols"></a>`cols`: `u32`
+- <a id="static_mat_ones.rows"></a>`rows`: `u32`
+- <a id="static_mat_ones.mattype"></a>`mattype`: [`mattype`](#mattype)
+
+##### Return values
+
+- <a id="static_mat_ones.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
+
 ## <a id="wasm_cv_cv"></a>Import interface wasm:cv/cv
 
 
@@ -1373,6 +1390,22 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gafafb2513349db3bcff5
 
 - <a id="add_weighted.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
+#### <a id="divide"></a>`divide: func`
+
+divide performs per-element division of two arrays.
+
+For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga6db555d30115642fedae0cda05604874
+
+##### Params
+
+- <a id="divide.src1"></a>`src1`: own<[`mat`](#mat)>
+- <a id="divide.src2"></a>`src2`: own<[`mat`](#mat)>
+
+##### Return values
+
+- <a id="divide.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
+
 #### <a id="exp"></a>`exp: func`
 
 exp calculates the exponent of every array element.
@@ -1439,6 +1472,22 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab55b8d062b7f5587720
 
 - <a id="lut.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
+#### <a id="multiply"></a>`multiply: func`
+
+multiply performs per-element multiplication of two arrays.
+
+For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga979d898a58d7f61c53003e162e7ad89f
+
+##### Params
+
+- <a id="multiply.src1"></a>`src1`: own<[`mat`](#mat)>
+- <a id="multiply.src2"></a>`src2`: own<[`mat`](#mat)>
+
+##### Return values
+
+- <a id="multiply.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
+
 #### <a id="reduce"></a>`reduce: func`
 
 reduce reduces the matrix to a vector.
@@ -1473,6 +1522,22 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf969
 ##### Return values
 
 - <a id="reduce_arg_max.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
+
+#### <a id="subtract"></a>`subtract: func`
+
+subtract calculates the per-element sum of two arrays.
+
+For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa0f00d98b4b5edeaeb7b8333b2de353b
+
+##### Params
+
+- <a id="subtract.src1"></a>`src1`: own<[`mat`](#mat)>
+- <a id="subtract.src2"></a>`src2`: own<[`mat`](#mat)>
+
+##### Return values
+
+- <a id="subtract.0"></a> result<own<[`mat`](#mat)>, [`error-result`](#error_result)>
 
 #### <a id="normalize"></a>`normalize: func`
 

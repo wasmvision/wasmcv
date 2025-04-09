@@ -717,6 +717,20 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga7d7b4d6c6ee504b30a2
 <ul>
 <li><a id="static_mat_zeros.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
+<h4><a id="static_mat_ones"></a><code>[static]mat.ones: func</code></h4>
+<p>ones returns an array of the specified size and type populated with 1.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html#a5e10227b777425407986727e2d26fcdc</p>
+<h5>Params</h5>
+<ul>
+<li><a id="static_mat_ones.cols"></a><code>cols</code>: <code>u32</code></li>
+<li><a id="static_mat_ones.rows"></a><code>rows</code>: <code>u32</code></li>
+<li><a id="static_mat_ones.mattype"></a><a href="#mattype"><code>mattype</code></a>: <a href="#mattype"><a href="#mattype"><code>mattype</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="static_mat_ones.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
+</ul>
 <h2><a id="wasm_cv_cv"></a>Import interface wasm:cv/cv</h2>
 <hr />
 <h3>Types</h3>
@@ -1164,6 +1178,19 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gafafb2513349db3bcff5
 <ul>
 <li><a id="add_weighted.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
+<h4><a id="divide"></a><code>divide: func</code></h4>
+<p>divide performs per-element division of two arrays.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga6db555d30115642fedae0cda05604874</p>
+<h5>Params</h5>
+<ul>
+<li><a id="divide.src1"></a><code>src1</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="divide.src2"></a><code>src2</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="divide.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
+</ul>
 <h4><a id="exp"></a><code>exp: func</code></h4>
 <p>exp calculates the exponent of every array element.</p>
 <p>For further details, please see:
@@ -1217,6 +1244,19 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gab55b8d062b7f5587720
 <ul>
 <li><a id="lut.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
+<h4><a id="multiply"></a><code>multiply: func</code></h4>
+<p>multiply performs per-element multiplication of two arrays.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#ga979d898a58d7f61c53003e162e7ad89f</p>
+<h5>Params</h5>
+<ul>
+<li><a id="multiply.src1"></a><code>src1</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="multiply.src2"></a><code>src2</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="multiply.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
+</ul>
 <h4><a id="reduce"></a><code>reduce: func</code></h4>
 <p>reduce reduces the matrix to a vector.</p>
 <p>For further details, please see:
@@ -1245,6 +1285,19 @@ https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa87ea34d99bcc5bf969
 <h5>Return values</h5>
 <ul>
 <li><a id="reduce_arg_max.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
+</ul>
+<h4><a id="subtract"></a><code>subtract: func</code></h4>
+<p>subtract calculates the per-element sum of two arrays.</p>
+<p>For further details, please see:
+https://docs.opencv.org/4.x/d2/de8/group__core__array.html#gaa0f00d98b4b5edeaeb7b8333b2de353b</p>
+<h5>Params</h5>
+<ul>
+<li><a id="subtract.src1"></a><code>src1</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+<li><a id="subtract.src2"></a><code>src2</code>: own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="subtract.0"></a> result&lt;own&lt;<a href="#mat"><a href="#mat"><code>mat</code></a></a>&gt;, <a href="#error_result"><a href="#error_result"><code>error-result</code></a></a>&gt;</li>
 </ul>
 <h4><a id="normalize"></a><code>normalize: func</code></h4>
 <p>normalize normalizes the norm or value range of an array.</p>
