@@ -11,7 +11,7 @@ repository = "https://github.com/wasmvision/wasmcv"
 readme = "README.md"
 
 [dependencies]
-wit-bindgen = "0.41.0"
+wit-bindgen = "0.43.0"
 
 [lib]
 path = "src/imports.rs"
